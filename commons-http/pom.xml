@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>commons-http</artifactId>
+    <properties>
+        <httpclient-version>4.5.11</httpclient-version>
+        <okhttp3-version>4.0.1</okhttp3-version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -19,14 +23,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.11</version>
+            <version>${httpclient-version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp3-version}</version>
             <optional>true</optional>
         </dependency>
     </dependencies>

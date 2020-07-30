@@ -38,7 +38,7 @@ import java.util.Map;
  * @since V1.0
  */
 public class HttpClientImpl extends AbstractHttp {
-    private CloseableHttpClient httpClient;
+    private final CloseableHttpClient httpClient;
 
     public HttpClientImpl() {
         this(HttpClients.createDefault(), new HttpConfig());
