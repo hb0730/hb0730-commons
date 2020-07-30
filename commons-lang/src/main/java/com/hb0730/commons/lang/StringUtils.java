@@ -71,4 +71,54 @@ public class StringUtils {
         }
         return str;
     }
+
+    /**
+     * 如果给定字符串{@code str}中不包含{@code appendStr}，则在{@code str}后追加{@code appendStr}；
+     * 如果已包含{@code appendStr}，则在{@code str}后追加{@code otherwise}
+     *
+     * @param str       给定的字符串
+     * @param appendStr 需要追加的内容
+     * @param otherwise 当{@code appendStr}不满足时追加到{@code str}后的内容
+     * @return 追加后的字符串
+     */
+    public static String appendIfNotContain(final String str, final String appendStr, final String otherwise) {
+        if (isEmpty(str) || isEmpty(appendStr)) {
+            return str;
+        }
+        if (str.contains(appendStr)) {
+            return str.concat(otherwise);
+        }
+        return str.concat(appendStr);
+    }
+
+    /**
+     * 是否以特定字符结尾,如果是则以{@code appendStr}追加结尾，如果不是则以suffix结尾
+     *
+     * @param str       原字符串
+     * @param suffix    结尾字符串
+     * @param appendStr 追加字符串
+     * @return 追加后字符串
+     */
+    public static String appendIfNotEndsWith(final String str, final String suffix, final String appendStr) {
+        if (endsWith(str, suffix)) {
+            return str.concat(appendStr);
+        }
+        return str;
+    }
+
+    /**
+     * 是否以特定字符结尾
+     *
+     * @param str    原字符
+     * @param suffix 结尾字符串
+     * @return 是否以特定字符串结尾
+     */
+    public static boolean endsWith(final String str, final String suffix) {
+        if (isEmpty(str) || isEmpty(suffix)) {
+            return false;
+        }
+        return str.endsWith(suffix);
+    }
+
+
 }

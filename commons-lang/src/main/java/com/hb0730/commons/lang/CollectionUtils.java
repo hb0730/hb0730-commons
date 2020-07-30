@@ -1,6 +1,7 @@
 package com.hb0730.commons.lang;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * 集合
@@ -18,5 +19,15 @@ public class CollectionUtils {
      */
     public static boolean isEmpty(Collection<?> collection) {
         return collection == null || collection.isEmpty();
+    }
+
+    /**
+     * map 是否为空
+     *
+     * @param maps map
+     * @return true: map 为null或者size为0
+     */
+    public static boolean isEmpty(Map<?, ?> maps) {
+        return maps == null || maps.isEmpty();
     }
 }
