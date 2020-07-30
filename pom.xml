@@ -9,6 +9,7 @@
         <module>commons-cache</module>
         <module>commons-lang</module>
         <module>commons-http</module>
+        <module>commons-spring</module>
     </modules>
 
     <groupId>com.hb0730</groupId>

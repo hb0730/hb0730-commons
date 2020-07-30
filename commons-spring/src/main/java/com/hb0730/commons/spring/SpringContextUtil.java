@@ -1,4 +1,4 @@
-package com.hb0730.commons.lang.spring;
+package com.hb0730.commons.spring;
 
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;
