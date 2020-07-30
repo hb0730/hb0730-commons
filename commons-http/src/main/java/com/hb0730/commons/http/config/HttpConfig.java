@@ -17,6 +17,7 @@ import java.net.Proxy;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class HttpConfig {
     /**
      * 代理配置

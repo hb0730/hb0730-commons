@@ -1,6 +1,8 @@
 package com.hb0730.commons.http;
 
 import com.hb0730.commons.http.config.HttpConfig;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * http 抽象
@@ -10,6 +12,8 @@ import com.hb0730.commons.http.config.HttpConfig;
  * @since V1.0
  */
 public abstract class AbstractHttp implements Http {
+    @Setter
+    @Getter
     protected HttpConfig httpConfig;
 
     public AbstractHttp(HttpConfig httpConfig) {
