@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: http-test
+server:
+  port: ${random.int(100,10000)}

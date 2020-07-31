@@ -4,9 +4,9 @@ import com.hb0730.commons.http.AbstractHttp;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
-import com.hb0730.commons.lang.collection.CollectionUtils;
 import com.hb0730.commons.lang.MapUtils;
 import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.collection.CollectionUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -164,7 +164,7 @@ public class HttpClientImpl extends AbstractHttp {
         String result = "";
         request.setConfig(builder.build());
         try (CloseableHttpResponse response = this.httpClient.execute(request)) {
-            if (isSuccess(response)) {
+            if (!isSuccess(response)) {
                 return null;
             }
             HttpEntity entity = response.getEntity();

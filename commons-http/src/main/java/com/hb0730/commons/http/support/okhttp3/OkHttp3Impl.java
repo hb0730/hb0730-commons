@@ -25,6 +25,14 @@ public class OkHttp3Impl extends AbstractHttp {
 
     private static final MediaType JSON = MediaType.parse(Constants.CONTENT_TYPE_JSON);
 
+    public OkHttp3Impl() {
+        this(new HttpConfig());
+    }
+
+    public OkHttp3Impl(HttpConfig config) {
+        this(new OkHttpClient().newBuilder(), config);
+    }
+
     public OkHttp3Impl(okhttp3.OkHttpClient.Builder clientBuilder, HttpConfig config) {
         super(config);
         this.clientBuilder = clientBuilder;

@@ -17,12 +17,12 @@ import java.util.Map;
  * @since V1.0
  */
 public class HttpUtils {
-    private AbstractHttp proxy;
+    private static AbstractHttp proxy;
 
-    private void selectHttpProxy() {
+    private static void selectHttpProxy() {
         AbstractHttp defaultProxy = null;
         ClassLoader classLoader = HttpUtils.class.getClassLoader();
-        if (ClassUtils.isPresent("java.net.http.HttpClient", classLoader)) {
+        if (ClassUtils.isPresent("org.apache.http.impl.client.HttpClients", classLoader)) {
             defaultProxy = getHttpProxy(HttpClientImpl.class);
         }
         if (ClassUtils.isPresent("okhttp3.OkHttpClient", classLoader)) {
@@ -42,17 +42,18 @@ public class HttpUtils {
         }
     }
 
-    private void checkHttpNotNull(Http proxy) {
+    private static void checkHttpNotNull(Http proxy) {
         if (null == proxy) {
             selectHttpProxy();
         }
     }
 
-    public HttpUtils(AbstractHttp http) {
-        this.proxy = http;
+    public static void setHttp(AbstractHttp http) {
+        proxy = http;
     }
 
-    public void setHttpConfig(HttpConfig config) {
+
+    public static void setHttpConfig(HttpConfig config) {
         checkHttpNotNull(proxy);
         if (null == config) {
             config = HttpConfig.builder().timeout(Constants.DEFAULT_TIMEOUT).build();
@@ -66,7 +67,7 @@ public class HttpUtils {
      * @param url URL
      * @return 结果
      */
-    public String get(String url) {
+    public static String get(String url) {
         checkHttpNotNull(proxy);
         return proxy.get(url);
     }
@@ -78,7 +79,7 @@ public class HttpUtils {
      * @param params 参数
      * @return 结果
      */
-    public String get(String url, Map<String, String> params) {
+    public static String get(String url, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.get(url, params);
     }
@@ -91,7 +92,7 @@ public class HttpUtils {
      * @param params 参数
      * @return 结果
      */
-    public String get(String url, HttpHeader header, Map<String, String> params) {
+    public static String get(String url, HttpHeader header, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.get(url, header, params);
     }
@@ -102,7 +103,7 @@ public class HttpUtils {
      * @param url URL
      * @return 结果
      */
-    public String post(String url) {
+    public static String post(String url) {
         checkHttpNotNull(proxy);
         return proxy.post(url);
     }
@@ -114,7 +115,7 @@ public class HttpUtils {
      * @param data JSON 参数
      * @return 结果
      */
-    public String post(String url, String data) {
+    public static String post(String url, String data) {
         checkHttpNotNull(proxy);
         return proxy.post(url, data);
     }
@@ -127,7 +128,7 @@ public class HttpUtils {
      * @param header 请求头
      * @return 结果
      */
-    public String post(String url, String data, HttpHeader header) {
+    public static String post(String url, String data, HttpHeader header) {
         checkHttpNotNull(proxy);
         return proxy.post(url, data, header);
     }
@@ -139,7 +140,7 @@ public class HttpUtils {
      * @param params form 参数
      * @return 结果
      */
-    public String post(String url, Map<String, String> params) {
+    public static String post(String url, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.post(url, params);
     }
@@ -152,7 +153,7 @@ public class HttpUtils {
      * @param params form 参数
      * @return 结果
      */
-    public String post(String url, HttpHeader header, Map<String, String> params) {
+    public static String post(String url, HttpHeader header, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.post(url, header, params);
     }
