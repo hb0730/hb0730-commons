@@ -62,7 +62,7 @@ public class ServletUtils {
 
 
     /**
-     * 获取session
+     * 获取当前session
      *
      * @return {@link HttpSession}
      */
@@ -71,7 +71,7 @@ public class ServletUtils {
     }
 
     /**
-     * 获取Request
+     * 获取当前Request
      *
      * @return {@link HttpServletRequest}
      */
