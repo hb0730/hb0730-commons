@@ -51,7 +51,7 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             }
             return Optional.empty();
         } catch (Exception e) {
-            LOGGER.error("get error key [{}]", key);
+            LOGGER.error("get error key [{}], message:[{}]", key, e.getMessage());
         } finally {
             closeConnection(connection);
         }

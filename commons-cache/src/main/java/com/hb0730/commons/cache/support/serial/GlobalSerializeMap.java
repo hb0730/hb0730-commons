@@ -1,7 +1,7 @@
 package com.hb0730.commons.cache.support.serial;
 
 import com.hb0730.commons.cache.exception.CacheException;
-import com.hb0730.commons.cache.support.serial.impl.Jackson2JsonStringSerializer;
+import com.hb0730.commons.cache.support.serial.impl.Jackson2JsonCacheWrapperSerializer;
 import com.hb0730.commons.cache.support.serial.impl.JdkCacheSerializer;
 import org.springframework.util.Assert;
 
@@ -58,7 +58,7 @@ public class GlobalSerializeMap {
     public static void register() {
         if (!isInit) {
             put(JdkCacheSerializer.IDENTITY_NUMBER, JdkCacheSerializer.INSTANCE);
-            put(Jackson2JsonStringSerializer.IDENTITY_NUMBER, Jackson2JsonStringSerializer.JSON_STRING_SERIALIZER);
+            put(Jackson2JsonCacheWrapperSerializer.IDENTITY_NUMBER, Jackson2JsonCacheWrapperSerializer.JSON_STRING_SERIALIZER);
             isInit = true;
         }
     }

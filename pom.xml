@@ -39,6 +39,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -129,7 +130,7 @@
                                 <format>html</format>
                                 <format>xml</format>
                             </formats>
-                            <check />
+                            <check/>
                         </configuration>
                     </plugin>
                     <!-- Gpg Signature -->
