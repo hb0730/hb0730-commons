@@ -1,4 +1,4 @@
-package com.hb0730.commons.lang;
+package com.hb0730.commons.lang.collection;
 
 import java.util.Collection;
 import java.util.Map;

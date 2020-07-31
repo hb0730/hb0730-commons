@@ -1,6 +1,6 @@
 package com.hb0730.commons.http;
 
-import com.hb0730.commons.lang.CollectionUtils;
+import com.hb0730.commons.lang.collection.CollectionUtils;
 import com.hb0730.commons.lang.StringUtils;
 
 import java.util.HashMap;

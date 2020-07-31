@@ -1,6 +1,6 @@
 package com.hb0730.commons.cache;
 
-import com.hb0730.commons.lang.ThreadUtils;
+import com.hb0730.commons.lang.thread.ThreadUtils;
 
 import javax.annotation.PreDestroy;
 import java.util.List;

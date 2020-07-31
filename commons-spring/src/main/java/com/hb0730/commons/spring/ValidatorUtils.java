@@ -1,6 +1,6 @@
 package com.hb0730.commons.spring;
 
-import com.hb0730.commons.lang.CollectionUtils;
+import com.hb0730.commons.lang.collection.CollectionUtils;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;

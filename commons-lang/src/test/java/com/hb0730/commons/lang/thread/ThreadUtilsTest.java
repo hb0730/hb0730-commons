@@ -1,11 +1,11 @@
-package com.hb0730.commons.lang;
+package com.hb0730.commons.lang.thread;
 
 import org.junit.Test;
 
 public class ThreadUtilsTest {
 
     @Test
-    public void testSleep() {
+    public void testSleepTest() {
         try {
             System.out.println("hhhhhh--------");
             ThreadUtils.sleep(500000);
@@ -16,10 +16,10 @@ public class ThreadUtilsTest {
     }
 
     @Test
-    public void testShutdownAndAwaitTermination() {
+    public void testShutdownAndAwaitTerminationTest() {
     }
 
     @Test
-    public void testPrintException() {
+    public void testPrintExceptionTest() {
     }
 }

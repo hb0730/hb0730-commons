@@ -1,27 +1,123 @@
 package com.hb0730.commons.lang;
 
 /**
+ * 字符串 util
+ *
  * @author bing_huang
  * @date 2020/07/30 13:24
  * @since V1.0
  */
 public class StringUtils {
     /**
-     * 去空格
+     * 去除头尾空格
+     *
+     * @param str 需要去掉空格的字符串
+     * @return 已去掉空格的字符串
      */
     public static String trim(String str) {
         return (str == null ? "" : str.trim());
     }
 
     /**
-     * 判断是否为null或者为 {@code “”}
+     * 去除头部空格
+     *
+     * @param value 需要处理的字符串
+     * @return 已去除头部的字符串
+     */
+    public static String trimStart(CharSequence value) {
+        return trim(value, -1);
+    }
+
+    /**
+     * 去除尾部空格
+     *
+     * @param value 需要处理的字符串
+     * @return 已去除尾部空格的字符串
+     */
+    public static String trimEnd(CharSequence value) {
+        return trim(value, 1);
+    }
+
+    /**
+     * 去除全部空格
+     *
+     * @param value 需要处理的字符串
+     * @return 已去除空格的字符串
+     */
+    public static String trimAll(CharSequence value) {
+        return trim(value, 0);
+    }
+
+    /**
+     * 除去空格
+     *
+     * @param value 需要处理的字符串
+     * @param mode  处理模式:<code>-1</code>表示处理头部,<code>0</code>表示处理全部,<code>1</code> 表示处理尾部
+     * @return 除去指定字符后的的字符串
+     * @see String#trim()
+     */
+    public static String trim(CharSequence value, int mode) {
+        if (value == null) {
+            return "";
+        }
+        int len = value.length();
+        int start = 0;
+        int end = len;
+        if (mode <= 0) {
+            while ((start < end) && (CharUtils.isEmpty(value.charAt(start)))) {
+                start++;
+            }
+        }
+        if (mode >= 0) {
+            while ((start < end) && (CharUtils.isEmpty(value.charAt(end - 1)))) {
+                end--;
+            }
+        }
+        if ((start) > 0 || (end < len)) {
+            return value.toString().substring(start, end);
+        }
+        return value.toString();
+
+    }
+
+    /**
+     * 判断是否为null或者为 <code>""</code>
      *
      * @param str 入参
-     * @return true: 为null或者为 {@code ""}
+     * @return true: 为null或者为 <code>""</code>
      */
     public static boolean isEmpty(Object str) {
         return (str == null || "".equals(str));
     }
+
+    /**
+     * 是否包含特定的字符
+     *
+     * @param str 字符串
+     * @param v   被查找的字符
+     * @return true:包含
+     */
+    public static boolean contains(String str, char v) {
+        if (isEmpty(str)) {
+            return false;
+        }
+        return str.indexOf(v) > -1;
+    }
+
+    /**
+     * 是否包含特定字符串
+     *
+     * @param str       字符串
+     * @param searchStr 被查找的字符串
+     * @return true:包含
+     */
+    public static boolean contains(String str, String searchStr) {
+        if (isEmpty(str)) {
+            return false;
+        }
+        return str.contains(searchStr);
+    }
+
 
     /**
      * 是否包含字符串
@@ -39,6 +135,48 @@ public class StringUtils {
             }
         }
         return false;
+    }
+
+
+    /**
+     * 是否以特定字符串结尾，忽略大小写
+     *
+     * @param str    原字符串
+     * @param suffix 结尾字符串
+     * @return 是否以特定字符串结尾
+     */
+    public static boolean endWithIgnoreCase(final CharSequence str, CharSequence suffix) {
+        return endWith(str, suffix, false);
+    }
+
+    /**
+     * 字符串是否以给定字符结尾
+     *
+     * @param str 字符串
+     * @param c   字符
+     * @return 是否结尾
+     */
+    public static boolean endWith(CharSequence str, char c) {
+        return c == str.charAt(str.length() - 1);
+    }
+
+    /**
+     * 是否以特定字符串结尾
+     *
+     * @param str          原字符串
+     * @param suffix       结尾字符串
+     * @param isIgnoreCase 是否忽略大小写
+     * @return 是否以特定字符串结尾
+     */
+    public static boolean endWith(final CharSequence str, CharSequence suffix, boolean isIgnoreCase) {
+        if (null == str || null == suffix) {
+            return false;
+        }
+        if (isIgnoreCase) {
+            return str.toString().toLowerCase().endsWith(suffix.toString().toLowerCase());
+        } else {
+            return str.toString().endsWith(suffix.toString());
+        }
     }
 
     /**
@@ -100,25 +238,10 @@ public class StringUtils {
      * @return 追加后字符串
      */
     public static String appendIfNotEndsWith(final String str, final String suffix, final String appendStr) {
-        if (endsWith(str, suffix)) {
+        if (endWithIgnoreCase(str, suffix)) {
             return str.concat(appendStr);
         }
         return str;
     }
-
-    /**
-     * 是否以特定字符结尾
-     *
-     * @param str    原字符
-     * @param suffix 结尾字符串
-     * @return 是否以特定字符串结尾
-     */
-    public static boolean endsWith(final String str, final String suffix) {
-        if (isEmpty(str) || isEmpty(suffix)) {
-            return false;
-        }
-        return str.endsWith(suffix);
-    }
-
 
 }
