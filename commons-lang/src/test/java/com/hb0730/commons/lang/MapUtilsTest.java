@@ -1,5 +1,6 @@
 package com.hb0730.commons.lang;
 
+import com.hb0730.commons.lang.collection.MapUtils;
 import org.junit.Test;
 
 import java.util.HashMap;

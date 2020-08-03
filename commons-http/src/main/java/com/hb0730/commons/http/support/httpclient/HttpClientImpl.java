@@ -4,7 +4,7 @@ import com.hb0730.commons.http.AbstractHttp;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
-import com.hb0730.commons.lang.MapUtils;
+import com.hb0730.commons.lang.collection.MapUtils;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.collection.CollectionUtils;
 import org.apache.http.Header;
