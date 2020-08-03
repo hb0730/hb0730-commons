@@ -170,4 +170,46 @@ public class DateUtils {
     private static void validateDateNotNull(Date date) {
         Validate.isTrue(date != null, "The date must not be null");
     }
+
+    /**
+     * 两个日期相差的时长，取绝对值
+     *
+     * @param startDate 开始时间，不为空
+     * @param endDate   结束时间，不为空
+     * @param msUnit    相差的时间单位
+     * @return 相差的时长
+     * @see DateMsUnit
+     * @see #between(Date, Date, DateMsUnit)
+     * @see Validate#notNull(Object, String, Object...)
+     */
+    public static long between(Date startDate, Date endDate, DateMsUnit msUnit) {
+        return between(startDate, endDate, msUnit, true);
+    }
+
+    /**
+     * 两个日期相差的时长
+     *
+     * @param startDate 开始时间
+     * @param endDate   结束时间
+     * @param msUnit    相差的时间单位
+     * @param isAbs     是否取绝对值
+     * @return 相差的时长
+     * @see DateMsUnit
+     * @see #between(Date, Date, DateMsUnit)
+     * @see Validate#notNull(Object, String, Object...)
+     */
+    public static long between(Date startDate, Date endDate, DateMsUnit msUnit, boolean isAbs) {
+        Validate.notNull(startDate, "start date must not null");
+        Validate.notNull(endDate, "end date must not null");
+        Validate.notNull(msUnit, "time unit must not null");
+        Date begin = startDate;
+        Date end = endDate;
+        if (isAbs && begin.after(end)) {
+            // 间隔只为正数的情况下，如果开始日期晚于结束日期，置换之
+            begin = end;
+            end = startDate;
+        }
+        long diff = end.getTime() - begin.getTime();
+        return diff / msUnit.getMillis();
+    }
 }

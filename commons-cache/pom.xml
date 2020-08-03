@@ -10,12 +10,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.hb0730</groupId>
     <artifactId>commons-cache</artifactId>
     <name>${project.artifactId}</name>
+    <version>${project.parent.version}</version>
+    <description>commons 对多种缓存的支持</description>
+    <url>https://github.com/hb0730/hb0730-commons</url>
 
     <properties>
         <spring-data-redis.version>2.2.5.RELEASE</spring-data-redis.version>
-        <hutool.version>5.3.9</hutool.version>
         <guava.version>29.0-jre</guava.version>
         <jackson.version>2.10.2</jackson.version>
     </properties>
@@ -31,11 +34,6 @@
             <artifactId>spring-data-redis</artifactId>
             <version>${spring-data-redis.version}</version>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
-            <version>${hutool.version}</version>
         </dependency>
 
         <dependency>

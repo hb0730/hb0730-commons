@@ -9,9 +9,11 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <groupId>com.hb0730</groupId>
     <artifactId>commons-lang</artifactId>
+    <version>${project.parent.version}</version>
 
+    <description>常用工具类库</description>
     <properties>
         <commons-lang3.version>3.9</commons-lang3.version>
     </properties>

@@ -10,8 +10,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.hb0730</groupId>
     <artifactId>commons-dependencies</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+    <version>${project.parent.version}</version>
 
     <description>hb0730-commons主要是个人常用类库</description>
     <url>https://github.com/hb0730/hb0730-commons</url>
@@ -65,6 +67,5 @@
                 <version>${project.parent.version}</version>
             </dependency>
         </dependencies>
-
     </dependencyManagement>
 </project>

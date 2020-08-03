@@ -23,7 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 public class CacheTest {
     RedisConnectionFactory factory = null;
     @Autowired
-    private WebApplicationContext ctx;
+    private WebApplicationContext  ctx;
 
     @Before
     public void init() {

@@ -1,9 +1,8 @@
 package com.hb0730.commons.cache.impl;
 
-import cn.hutool.core.date.DateUnit;
-import cn.hutool.core.date.DateUtil;
 import com.hb0730.commons.cache.Cache;
 import com.hb0730.commons.cache.CacheWrapper;
+import com.hb0730.commons.lang.date.DateMsUnit;
 import com.hb0730.commons.lang.date.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,6 +115,6 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
     }
 
     protected long expireTime(Date createAt, Date expireAt) {
-        return DateUtil.between(createAt, expireAt, DateUnit.MS);
+        return DateUtils.between(createAt, expireAt, DateMsUnit.MS);
     }
 }
