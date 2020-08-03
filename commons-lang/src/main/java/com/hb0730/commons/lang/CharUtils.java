@@ -16,8 +16,8 @@ public class CharUtils {
      * @see Character#isWhitespace(char)
      * @see Character#isSpaceChar(char)
      */
-    public static boolean isEmpty(char value) {
-        return isEmpty((int) value);
+    public static boolean isBlank(char value) {
+        return isBlank((int) value);
     }
 
     /**
@@ -28,7 +28,7 @@ public class CharUtils {
      * @see Character#isWhitespace(char)
      * @see Character#isSpaceChar(char)
      */
-    public static boolean isEmpty(int value) {
+    public static boolean isBlank(int value) {
         return Character.isWhitespace(value)
                 || Character.isSpaceChar(value)
                 || value == '\ufeff'

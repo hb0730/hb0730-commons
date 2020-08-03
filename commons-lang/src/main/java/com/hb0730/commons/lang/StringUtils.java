@@ -9,6 +9,28 @@ package com.hb0730.commons.lang;
  */
 public class StringUtils {
     /**
+     * 校验参数是否为<code>""</code><br>
+     * 1、为null <br>
+     * 2、为不可见字符（如空格）<br>
+     * 3、""<br>
+     *
+     * @param str 要检测的字符
+     * @return 是否为空
+     */
+    public static boolean isBlank(CharSequence str) {
+        int len;
+        if (null == str || (len = str.length()) == 0) {
+            return true;
+        }
+        for (int i = 0; i < len; i++) {
+            if (!CharUtils.isBlank(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * 去除头尾空格
      *
      * @param str 需要去掉空格的字符串
@@ -64,12 +86,12 @@ public class StringUtils {
         int start = 0;
         int end = len;
         if (mode <= 0) {
-            while ((start < end) && (CharUtils.isEmpty(value.charAt(start)))) {
+            while ((start < end) && (CharUtils.isBlank(value.charAt(start)))) {
                 start++;
             }
         }
         if (mode >= 0) {
-            while ((start < end) && (CharUtils.isEmpty(value.charAt(end - 1)))) {
+            while ((start < end) && (CharUtils.isBlank(value.charAt(end - 1)))) {
                 end--;
             }
         }
@@ -86,8 +108,8 @@ public class StringUtils {
      * @param str 入参
      * @return true: 为null或者为 <code>""</code>
      */
-    public static boolean isEmpty(Object str) {
-        return (str == null || "".equals(str));
+    public static boolean isEmpty(CharSequence str) {
+        return (str == null || 0 == str.length());
     }
 
     /**
