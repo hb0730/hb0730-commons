@@ -38,23 +38,10 @@
             </dependency>
             <dependency>
                 <groupId>com.hb0730</groupId>
-                <artifactId>commons-cache</artifactId>
-                <version>${commons.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hb0730</groupId>
-                <artifactId>commons-http</artifactId>
-                <version>${commons.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hb0730</groupId>
-                <artifactId>commons-spring</artifactId>
-                <version>${commons.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hb0730</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${commons.version}</version>
+                <artifactId>commons-dependencies</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>

@@ -10,14 +10,16 @@
         <module>commons-lang</module>
         <module>commons-http</module>
         <module>commons-spring</module>
+        <module>commons-dependencies</module>
     </modules>
 
     <groupId>com.hb0730</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
 
     <name>hb0730</name>
     <description>hb0730-commons主要是个人常用类库</description>
+    <url>https://github.com/hb0730/hb0730-commons</url>
 
     <properties>
         <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
@@ -66,8 +68,13 @@
     <scm>
         <connection>scm:git@github.com:hb0730/hb0730-commons.git</connection>
         <developerConnection>scm:git@github.com:hb0730/hb0730-commons.git</developerConnection>
-        <url>git@github.com:hb0730/hb0730-commons.git</url>
+        <url>https://github.com/hb0730/hb0730-commons</url>
     </scm>
+
+    <issueManagement>
+        <system>Github Issue</system>
+        <url>https://github.com/hb0730/hb0730-commons/issues</url>
+    </issueManagement>
 
     <build>
         <plugins>
