@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.hb0730</groupId>
+        <artifactId>commons-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <module>../commons-cache-test</module>
+        <module>../commons-http-test</module>
+        <module>../commons-spring-test</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <artifactId>commons-test-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>hb0730-test</name>
+    <description>hb0730-commons 测试</description>
+
+    <properties>
+        <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
+
+        <compile.version>8</compile.version>
+        <junit.version>4.13</junit.version>
+        <lombok.version>1.18.12</lombok.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.hb0730</groupId>
+            <artifactId>commons-cache</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hb0730</groupId>
+            <artifactId>commons-http</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hb0730</groupId>
+            <artifactId>commons-spring</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
