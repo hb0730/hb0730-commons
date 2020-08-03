@@ -15,7 +15,7 @@
 
     <groupId>com.hb0730</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <name>hb0730</name>
     <description>hb0730-commons主要是个人常用类库</description>
