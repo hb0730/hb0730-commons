@@ -43,11 +43,11 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
     /**
      * 正在执行的定时任务
      */
-    private final ScheduledFuture<?> pruneJobFuture;
+//    private final ScheduledFuture<?> pruneJobFuture;
 
 
     public InMemoryCacheStore() {
-        this.pruneJobFuture = GlobalPruneTimer.INSTANCE.schedule(new CacheExpiryCleaner(), PERIOD);
+//        this.pruneJobFuture = GlobalPruneTimer.INSTANCE.schedule(new CacheExpiryCleaner(), PERIOD);
     }
 
     @Nonnull
@@ -100,9 +100,9 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
 
     @PreDestroy
     public void preDestroy() {
-        if (null != pruneJobFuture) {
-            pruneJobFuture.cancel(true);
-        }
+//        if (null != pruneJobFuture) {
+//            pruneJobFuture.cancel(true);
+//        }
         clear();
     }
 

@@ -27,8 +27,6 @@ public class JedisPoolCacheTest {
     @Before
     public void init() {
         JedisProperties properties = new JedisProperties();
-        properties.setHost("r-bp12zjmtqgp11s9nrspd.redis.rds.aliyuncs.com");
-        properties.setPassword("HBhuangbing0730");
         JedisCacheConfig<String, String> cacheConfig = new JedisCacheConfig<>();
         cacheConfig.setProperties(properties);
         cache = new JedisPoolCache<>(cacheConfig);
