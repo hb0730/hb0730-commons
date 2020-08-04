@@ -4,8 +4,12 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.lang.NonNull;
+import org.springframework.util.Assert;
 
 /**
+ * spring context工具类
+ *
  * @author bing_huang
  * @date 2020/07/30 11:57
  * @since V1.0
@@ -19,6 +23,7 @@ public class SpringContextUtil {
      * @return spring context
      */
     public static ApplicationContext getApplicationContext() {
+        Assert.notNull(applicationContext, "Please set it first ApplicationContext");
         return applicationContext;
     }
 
@@ -27,7 +32,7 @@ public class SpringContextUtil {
      *
      * @param applicationContext spring context
      */
-    public static void setApplicationContext(ApplicationContext applicationContext) {
+    public static void setApplicationContext(@NonNull ApplicationContext applicationContext) {
         SpringContextUtil.applicationContext = applicationContext;
     }
 
@@ -41,7 +46,7 @@ public class SpringContextUtil {
      */
     @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) throws BeansException {
-        return (T) applicationContext.getBean(name);
+        return (T) getApplicationContext().getBean(name);
     }
 
     /**
@@ -54,7 +59,7 @@ public class SpringContextUtil {
      */
 
     public static <T> T getBean(Class<T> clz) throws BeansException {
-        return applicationContext.getBean(clz);
+        return getApplicationContext().getBean(clz);
     }
 
     /**
@@ -64,7 +69,7 @@ public class SpringContextUtil {
      * @return true 存在,false 不存在
      */
     public static boolean containsBean(String name) {
-        return applicationContext.containsBean(name);
+        return getApplicationContext().containsBean(name);
     }
 
     /**
@@ -75,7 +80,7 @@ public class SpringContextUtil {
      * @throws NoSuchBeanDefinitionException NoSuchBeanDefinitionException
      */
     public static boolean isSingleton(String name) throws NoSuchBeanDefinitionException {
-        return applicationContext.isSingleton(name);
+        return getApplicationContext().isSingleton(name);
     }
 
     /**
@@ -86,7 +91,7 @@ public class SpringContextUtil {
      * @throws NoSuchBeanDefinitionException NoSuchBeanDefinitionException
      */
     public static Class<?> getType(String name) throws NoSuchBeanDefinitionException {
-        return applicationContext.getType(name);
+        return getApplicationContext().getType(name);
     }
 
     /**
@@ -97,7 +102,7 @@ public class SpringContextUtil {
      * @throws NoSuchBeanDefinitionException NoSuchBeanDefinitionException
      */
     public static String[] getAliases(String name) throws NoSuchBeanDefinitionException {
-        return applicationContext.getAliases(name);
+        return getApplicationContext().getAliases(name);
     }
 
     /**

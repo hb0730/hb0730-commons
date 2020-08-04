@@ -7,8 +7,10 @@
   + ObjectUtils
   + Exceptions
   + DateUtils#between等方法
-  + BeanUtils#getGetterMethods,BeanUtils#getSetterMethods等方法
+  + ReflectUtils
+  + RandomUtils
   + JedisPool Cache
+  + classUtils#getDefaultValue
  ## 删减
   + commons-cache 移除对hutool的依赖
 ## 1.0.0

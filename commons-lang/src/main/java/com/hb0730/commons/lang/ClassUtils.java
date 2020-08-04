@@ -23,4 +23,43 @@ public class ClassUtils {
             return false;
         }
     }
+
+    /**
+     * 获取指定类型的默认值
+     *
+     * @param clazz class类
+     * @return 默认值
+     */
+    public static Object getDefaultValue(Class<?> clazz) {
+        if (null == clazz) {
+            return null;
+        }
+        if (clazz.isPrimitive()) {
+            if (byte.class == clazz) {
+                return (byte) 0;
+            }
+            if (short.class == clazz) {
+                return (short) 0;
+            }
+            if (int.class == clazz) {
+                return 0;
+            }
+            if (long.class == clazz) {
+                return 0L;
+            }
+            if (double.class == clazz) {
+                return 0D;
+            }
+            if (float.class == clazz) {
+                return 0f;
+            }
+            if (boolean.class == clazz) {
+                return false;
+            }
+            if (char.class == clazz) {
+                return (char) 0;
+            }
+        }
+        return null;
+    }
 }

@@ -28,15 +28,6 @@ import java.util.stream.Collectors;
 public class BeanUtils {
 
     /**
-     * 匹配getter方法的正则表达式
-     */
-    public static final Pattern GET_PATTERN = Pattern.compile("get(\\p{javaUpperCase}\\w*)");
-    /**
-     * 匹配setter方法的正则表达式
-     */
-    public static final Pattern SET_PATTERN = Pattern.compile("set(\\p{javaUpperCase}\\w*)");
-
-    /**
      * 从源对象转换。（仅复制相同属性）
      *
      * @param source      源对象
@@ -208,56 +199,4 @@ public class BeanUtils {
 
         return resultMap;
     }
-
-    /**
-     * 获取对象所有的getter方法
-     *
-     * @param obj 需要被获取的对象
-     * @return 对象所有的getter方法, 当对象为<code>null</code>时，返回size=0
-     */
-    public static List<Method> getGetterMethods(Object obj) {
-        List<Method> getterMethods = new ArrayList<>();
-        if (ObjectUtils.isNull(obj)) {
-            return getterMethods;
-        }
-        Method[] methods = obj.getClass().getMethods();
-        for (Method method : methods) {
-            Matcher m = GET_PATTERN.matcher(method.getName());
-            if (m.matches() && (method.getParameterTypes().length == 0)) {
-                getterMethods.add(method);
-            }
-        }
-        return getterMethods;
-    }
-
-    /**
-     * 获取对象的setter方法。
-     *
-     * @param obj 对象
-     * @return 对象的setter方法列表，当对象为<code>null</code>，返回size=0
-     */
-    public static List<Method> getSetterMethods(Object obj) {
-
-        // setter方法列表
-        List<Method> setterMethods = new ArrayList<Method>();
-
-        if (ObjectUtils.isNull(obj)) {
-            return setterMethods;
-        }
-
-        // 获取所有方法
-        Method[] methods = obj.getClass().getMethods();
-
-        // 查找setter方法
-
-        for (Method method : methods) {
-            Matcher m = SET_PATTERN.matcher(method.getName());
-            if (m.matches() && (method.getParameterTypes().length == 1)) {
-                setterMethods.add(method);
-            }
-        }
-        // 返回setter方法列表
-        return setterMethods;
-    }
-
 }
