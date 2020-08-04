@@ -1,5 +1,6 @@
 package com.hb0730.commons.spring;
 
+import com.hb0730.commons.lang.ObjectUtils;
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.lang.NonNull;
@@ -13,6 +14,8 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -23,6 +26,16 @@ import java.util.stream.Collectors;
  * @since V1.0
  */
 public class BeanUtils {
+
+    /**
+     * 匹配getter方法的正则表达式
+     */
+    public static final Pattern GET_PATTERN = Pattern.compile("get(\\p{javaUpperCase}\\w*)");
+    /**
+     * 匹配setter方法的正则表达式
+     */
+    public static final Pattern SET_PATTERN = Pattern.compile("set(\\p{javaUpperCase}\\w*)");
+
     /**
      * 从源对象转换。（仅复制相同属性）
      *
@@ -194,6 +207,57 @@ public class BeanUtils {
         list.forEach(data -> resultMap.putIfAbsent(keyFunction.apply(data), valueFunction.apply(data)));
 
         return resultMap;
+    }
+
+    /**
+     * 获取对象所有的getter方法
+     *
+     * @param obj 需要被获取的对象
+     * @return 对象所有的getter方法, 当对象为<code>null</code>时，返回size=0
+     */
+    public static List<Method> getGetterMethods(Object obj) {
+        List<Method> getterMethods = new ArrayList<>();
+        if (ObjectUtils.isNull(obj)) {
+            return getterMethods;
+        }
+        Method[] methods = obj.getClass().getMethods();
+        for (Method method : methods) {
+            Matcher m = GET_PATTERN.matcher(method.getName());
+            if (m.matches() && (method.getParameterTypes().length == 0)) {
+                getterMethods.add(method);
+            }
+        }
+        return getterMethods;
+    }
+
+    /**
+     * 获取对象的setter方法。
+     *
+     * @param obj 对象
+     * @return 对象的setter方法列表，当对象为<code>null</code>，返回size=0
+     */
+    public static List<Method> getSetterMethods(Object obj) {
+
+        // setter方法列表
+        List<Method> setterMethods = new ArrayList<Method>();
+
+        if (ObjectUtils.isNull(obj)) {
+            return setterMethods;
+        }
+
+        // 获取所有方法
+        Method[] methods = obj.getClass().getMethods();
+
+        // 查找setter方法
+
+        for (Method method : methods) {
+            Matcher m = SET_PATTERN.matcher(method.getName());
+            if (m.matches() && (method.getParameterTypes().length == 1)) {
+                setterMethods.add(method);
+            }
+        }
+        // 返回setter方法列表
+        return setterMethods;
     }
 
 }

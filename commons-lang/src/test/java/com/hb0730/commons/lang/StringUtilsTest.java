@@ -49,6 +49,8 @@ public class StringUtilsTest {
     public void isEmptyTest() {
         String str = "";
         System.out.println("\"\"=" + StringUtils.isEmpty(str));
+        str=" ";
+        System.out.println("\" \"=" + StringUtils.isEmpty(str));
         str = "ss";
         System.out.println("str=" + StringUtils.isEmpty(str));
         str = null;

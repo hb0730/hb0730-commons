@@ -1,7 +1,14 @@
 # Changelog
 ## 1.0.1
- + commons-cache 移除对hutool的依赖
- + commons-lang新增DateUtils#between等方法
+ ## 修复
+ + UrlUtils 参数判断
+ ## 新增
+  + ObjectUtils
+  + Exceptions
+  + DateUtils#between等方法
+  + BeanUtils#getGetterMethods,BeanUtils#getSetterMethods等方法
+ ## 删减
+  + commons-cache 移除对hutool的依赖
 ## 1.0.0
  + init project
  + add tools....
