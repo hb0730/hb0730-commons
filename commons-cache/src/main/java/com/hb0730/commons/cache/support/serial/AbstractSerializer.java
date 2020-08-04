@@ -40,26 +40,21 @@ public abstract class AbstractSerializer implements Serializer {
         if (obj == null) {
             return EMPTY_ARRAY;
         }
+        WeakReference<ByteArrayOutputStream> ref = threadLocal.get();
+        ByteArrayOutputStream bos = ref.get();
+        if (bos == null) {
+            bos = new ByteArrayOutputStream(INIT_BUF_SIZE);
+            threadLocal.set(new WeakReference<>(bos));
+        }
         try {
-            WeakReference<ByteArrayOutputStream> ref = threadLocal.get();
-            ByteArrayOutputStream bos = ref.get();
-            if (bos == null) {
-                bos = new ByteArrayOutputStream(INIT_BUF_SIZE);
-                threadLocal.set(new WeakReference<>(bos));
+            if (useIdentityNumber) {
+                byte[] headerBuffer = new byte[4];
+                writeHeader(headerBuffer, identityNumber);
+                bos.write(headerBuffer);
             }
-            try {
-
-                if (useIdentityNumber) {
-                    byte[] headerBuffer = new byte[4];
-                    writeHeader(headerBuffer, identityNumber);
-                    bos.write(headerBuffer);
-                }
-                return doSerialize(bos, obj);
-            } finally {
-                bos.close();
-            }
-        } catch (Exception e) {
-            throw new CacheException("serialize error", e);
+            return doSerialize(bos, obj);
+        } finally {
+            bos.reset();
         }
     }
 

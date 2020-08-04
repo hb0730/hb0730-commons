@@ -18,6 +18,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CacheWrapper<V> implements Serializable {
+
+    private static final long serialVersionUID = -3937692041778157956L;
     /**
      * Cache data
      */

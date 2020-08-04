@@ -74,4 +74,16 @@ public class RedisSpringDataCacheTest {
         AbstractCache<String, String> cache = new RedisSpringDataCache<String, String>(config);
         cache.putIfAbsent("test", "test2", 200L, TimeUnit.SECONDS);
     }
+
+    @Test
+    public void putIfAbsentTimeOut() throws InterruptedException {
+        config.setConnectionFactory(connectionFactory);
+        AbstractCache<String, String> cache = new RedisSpringDataCache<String, String>(config);
+        cache.put("test", "test", 10, TimeUnit.SECONDS);
+        cache.putIfAbsent("test", "test2", 10, TimeUnit.SECONDS);
+        System.out.println(cache.get("test").orElseGet(() -> "为空"));
+        Thread.sleep(20 * 1000);
+        cache.putIfAbsent("test", "test2", 1, TimeUnit.HOURS);
+        System.out.println(cache.get("test").orElseGet(() -> "为空"));
+    }
 }

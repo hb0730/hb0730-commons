@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 /**
  * spring redis impl
@@ -69,7 +68,7 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             byte[] keyByte = buildKey(key);
             byte[] valueBytes = serializer.serialize(cacheWrapper);
             assert valueBytes != null;
-            long expireAt = expireTime(cacheWrapper.getCreateAt(), cacheWrapper.getExpireAt());
+            long expireAt = expireTimeMs(cacheWrapper.getCreateAt(), cacheWrapper.getExpireAt());
             connection.pSetEx(keyByte, expireAt, valueBytes);
             LOGGER.debug("put success then key [{}]", key);
         } catch (Exception e) {
@@ -89,9 +88,9 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             byte[] newkey = buildKey(key);
             byte[] valueBytes = serializer.serialize(cacheWrapper);
             assert valueBytes != null;
-            long expireAt = expireTime(cacheWrapper.getCreateAt(), cacheWrapper.getExpireAt());
+            long expireAt = expireTimeMs(cacheWrapper.getCreateAt(), cacheWrapper.getExpireAt());
             Boolean result = connection.set(newkey, valueBytes,
-                    Expiration.from(expireAt, TimeUnit.MILLISECONDS),
+                    Expiration.milliseconds(expireAt),
                     RedisStringCommands.SetOption.ifAbsent());
             LOGGER.debug("put_is_absent success,then key [{}] result:[{}]", key, result);
             return result;

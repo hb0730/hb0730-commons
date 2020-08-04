@@ -21,6 +21,7 @@
         <spring-data-redis.version>2.2.5.RELEASE</spring-data-redis.version>
         <guava.version>29.0-jre</guava.version>
         <jackson.version>2.10.2</jackson.version>
+        <jedis.version>3.1.0</jedis.version>
     </properties>
     <dependencies>
         <dependency>
@@ -33,6 +34,12 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
             <version>${spring-data-redis.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
             <optional>true</optional>
         </dependency>
 

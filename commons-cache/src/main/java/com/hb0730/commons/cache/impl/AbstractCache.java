@@ -42,7 +42,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
     protected abstract void putInternal(@Nonnull K key, @Nonnull CacheWrapper<V> cacheWrapper);
 
     /**
-     * 设置缓存 ,key 如果不存在设置缓存,
+     * 设置缓存 , key不存在则设置时效缓存，否则不操作
      *
      * @param key          缓存key,不为null
      * @param cacheWrapper cache wrapper,不为null
@@ -114,7 +114,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
         return cacheWrapper;
     }
 
-    protected long expireTime(Date createAt, Date expireAt) {
+    protected long expireTimeMs(Date createAt, Date expireAt) {
         return DateUtils.between(createAt, expireAt, DateMsUnit.MS);
     }
 }

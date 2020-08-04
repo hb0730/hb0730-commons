@@ -2,6 +2,7 @@ package com.hb0730.commons.lang.date;
 
 import com.hb0730.commons.lang.Validate;
 
+import java.lang.management.ManagementFactory;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -211,5 +212,16 @@ public class DateUtils {
         }
         long diff = end.getTime() - begin.getTime();
         return diff / msUnit.getMillis();
+    }
+
+    /**
+     * 获取jvm启动时间
+     *
+     * @return 时间
+     * @see ManagementFactory#getRuntimeMXBean()#getServerStartDate()
+     */
+    public static Date getServerStartDate() {
+        long startTime = ManagementFactory.getRuntimeMXBean().getStartTime();
+        return new Date(startTime);
     }
 }
