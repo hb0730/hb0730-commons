@@ -4,7 +4,6 @@ import com.hb0730.commons.lang.Charsets;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
@@ -16,6 +15,8 @@ import java.nio.charset.Charset;
  * @since V1.0
  */
 public class IOUtils {
+    public static final int EOF = -1;
+
     /**
      * 写入
      *
@@ -96,35 +97,6 @@ public class IOUtils {
     public static void write(final String data, final OutputStream out, final Charset charset) throws IOException {
         if (null != data) {
             out.write(data.getBytes(Charsets.toCharset(charset)));
-        }
-    }
-
-
-    /**
-     * 读取byte内容
-     *
-     * @param in     inputstream
-     * @param length 读取长度
-     * @return 内容
-     * @throws IOException io异常
-     */
-    public static byte[] readBytes(InputStream in, int length) throws IOException {
-        if (null == in) {
-            return null;
-        }
-        if (length <= 0) {
-            return new byte[0];
-        }
-
-        byte[] b = new byte[length];
-        int readLength;
-        readLength = in.read(b);
-        if (readLength > 0 && readLength < length) {
-            byte[] b2 = new byte[readLength];
-            System.arraycopy(b, 0, b2, 0, readLength);
-            return b2;
-        } else {
-            return b;
         }
     }
 
