@@ -7,6 +7,8 @@ import lombok.ToString;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 /**
+ * spring data redis cache configuration
+ *
  * @author bing_huang
  * @date 2020/07/20 7:40
  * @since V1.0

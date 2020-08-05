@@ -1,7 +1,6 @@
 package com.hb0730.commons.cache.impl.local;
 
 import com.hb0730.commons.cache.CacheWrapper;
-import com.hb0730.commons.cache.GlobalPruneTimer;
 import com.hb0730.commons.cache.impl.AbstractCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +12,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * in-memory cache store
+ * in-memory cache store(内存存储)
  *
  * @author bing_huang
  * @date 2020/07/18 21:20
@@ -44,8 +42,6 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
      * 正在执行的定时任务
      */
 //    private final ScheduledFuture<?> pruneJobFuture;
-
-
     public InMemoryCacheStore() {
 //        this.pruneJobFuture = GlobalPruneTimer.INSTANCE.schedule(new CacheExpiryCleaner(), PERIOD);
     }
