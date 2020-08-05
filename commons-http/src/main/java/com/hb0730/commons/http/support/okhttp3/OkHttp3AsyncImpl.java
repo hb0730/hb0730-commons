@@ -1,12 +1,13 @@
 package com.hb0730.commons.http.support.okhttp3;
 
-import com.hb0730.commons.http.AbstractHttp;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
+import com.hb0730.commons.http.inter.AbstractAsyncHttp;
+import com.hb0730.commons.http.support.callback.CommonsNetCall;
 import com.hb0730.commons.lang.collection.MapUtils;
-import com.hb0730.commons.lang.StringUtils;
 import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -14,46 +15,43 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * okhttp3 impl
+ * okhttp3 异步
  *
  * @author bing_huang
- * @date 2020/07/30 16:45
+ * @date 2020/08/05 13:28
  * @since V1.0
  */
-public class OkHttp3Impl extends AbstractHttp {
+public class OkHttp3AsyncImpl extends AbstractAsyncHttp {
     private final okhttp3.OkHttpClient.Builder clientBuilder;
 
     private static final MediaType JSON = MediaType.parse(Constants.CONTENT_TYPE_JSON);
 
-    public OkHttp3Impl() {
+    public OkHttp3AsyncImpl() {
         this(new HttpConfig());
     }
 
-    public OkHttp3Impl(HttpConfig config) {
+    public OkHttp3AsyncImpl(HttpConfig config) {
         this(new OkHttpClient().newBuilder(), config);
     }
 
-    public OkHttp3Impl(okhttp3.OkHttpClient.Builder clientBuilder, HttpConfig config) {
+    public OkHttp3AsyncImpl(okhttp3.OkHttpClient.Builder clientBuilder, HttpConfig config) {
         super(config);
         this.clientBuilder = clientBuilder;
-
     }
 
     @Override
-    public String get(String url) {
-        return this.get(url, null, null);
+    public void get(String url, CommonsNetCall commonsNetCall) {
+        this.get(url, commonsNetCall, null);
     }
 
     @Override
-    public String get(String url, Map<String, String> params) {
-        return this.get(url, null, params);
+    public void get(String url, CommonsNetCall commonsNetCall, Map<String, String> params) {
+        this.get(url, null, commonsNetCall, params);
     }
 
     @Override
-    public String get(String url, HttpHeader header, Map<String, String> params) {
-        if (StringUtils.isEmpty(url)) {
-            return "";
-        }
+    public void get(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> params) {
+
         HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(url)).newBuilder();
         if (this.httpConfig.isEncode()) {
             MapUtils.forEach(params, urlBuilder::addEncodedQueryParameter);
@@ -66,40 +64,37 @@ public class OkHttp3Impl extends AbstractHttp {
             MapUtils.forEach(header.getHeaders(), requestBuilder::addHeader);
         }
         Request.Builder builder = requestBuilder.get();
-        return exec(builder);
+        exec(builder, commonsNetCall);
     }
 
     @Override
-    public String post(String url) {
-        return this.post(url, "", null);
+    public void post(String url, CommonsNetCall commonsNetCall) {
+        this.post(url, "", null, commonsNetCall);
     }
 
     @Override
-    public String post(String url, String data) {
-        return this.post(url, data, null);
+    public void post(String url, String data, CommonsNetCall commonsNetCall) {
+        this.post(url, data, null, commonsNetCall);
     }
 
     @Override
-    public String post(String url, String data, HttpHeader header) {
-        if (StringUtils.isEmpty(url)) {
-            return "";
-        }
+    public void post(String url, String data, HttpHeader header, CommonsNetCall commonsNetCall) {
         Request.Builder requestBuilder = new Request.Builder().url(url);
         if (null != header) {
             MapUtils.forEach(header.getHeaders(), requestBuilder::addHeader);
         }
         RequestBody body = RequestBody.create(data, JSON);
         requestBuilder.post(body);
-        return exec(requestBuilder);
+        exec(requestBuilder, commonsNetCall);
     }
 
     @Override
-    public String post(String url, Map<String, String> formdata) {
-        return this.post(url, null, formdata);
+    public void post(String url, CommonsNetCall commonsNetCall, Map<String, String> formdata) {
+        this.post(url, null, commonsNetCall, formdata);
     }
 
     @Override
-    public String post(String url, HttpHeader header, Map<String, String> formdata) {
+    public void post(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> formdata) {
         FormBody.Builder builder = new FormBody.Builder();
         if (this.httpConfig.isEncode()) {
             MapUtils.forEach(formdata, builder::addEncoded);
@@ -111,18 +106,16 @@ public class OkHttp3Impl extends AbstractHttp {
         if (null != header) {
             MapUtils.forEach(header.getHeaders(), requestBuilder::addHeader);
         }
-        return exec(requestBuilder);
+        exec(requestBuilder, commonsNetCall);
     }
 
-    public String exec(Request.Builder requestBuilder) {
-        String result = "";
-        if (null == requestBuilder) {
-            return "";
-        }
+    private void addHeader(Request.Builder builder) {
+        builder.header(Constants.USER_AGENT, Constants.USER_AGENT_DATA);
+    }
+
+    private void exec(Request.Builder requestBuilder, CommonsNetCall commonsNetCall) {
         this.addHeader(requestBuilder);
-
         Request request = requestBuilder.build();
-
         OkHttpClient client = null;
         OkHttpClient.Builder builder = clientBuilder.connectTimeout(Duration.ofMillis(httpConfig.getTimeout()))
                 .readTimeout(Duration.ofMillis(httpConfig.getTimeout()))
@@ -133,18 +126,16 @@ public class OkHttp3Impl extends AbstractHttp {
         } else {
             client = builder.build();
         }
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
-                result = Objects.requireNonNull(response.body()).string();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                commonsNetCall.file(e);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
 
-    }
-
-    private void addHeader(Request.Builder builder) {
-        builder.header(Constants.USER_AGENT, Constants.USER_AGENT_DATA);
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                commonsNetCall.success(response, call);
+            }
+        });
     }
 }

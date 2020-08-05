@@ -1,32 +1,35 @@
-package com.hb0730.commons.http;
+package com.hb0730.commons.http.utils;
 
+import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
 import com.hb0730.commons.http.exception.CommonHttpException;
-import com.hb0730.commons.http.support.httpclient.HttpClientImpl;
-import com.hb0730.commons.http.support.okhttp3.OkHttp3Impl;
+import com.hb0730.commons.http.inter.AbstractSyncHttp;
+import com.hb0730.commons.http.inter.SyncHttp;
+import com.hb0730.commons.http.support.httpclient.HttpClientSyncImpl;
+import com.hb0730.commons.http.support.okhttp3.OkHttp3SyncImpl;
 import com.hb0730.commons.lang.ClassUtils;
 
 import java.util.Map;
 
 /**
- * 请求工具类
+ * 同步请求 工具类
  *
  * @author bing_huang
  * @date 2020/07/30 17:22
  * @since V1.0
  */
-public class HttpUtils {
-    private static AbstractHttp proxy;
+public class HttpSyncUtils implements HttpUtils {
+    private static AbstractSyncHttp proxy;
 
-    private static void selectHttpProxy() {
-        AbstractHttp defaultProxy = null;
-        ClassLoader classLoader = HttpUtils.class.getClassLoader();
+    private void selectHttpProxy() {
+        AbstractSyncHttp defaultProxy = null;
+        ClassLoader classLoader = HttpSyncUtils.class.getClassLoader();
         if (ClassUtils.isPresent("org.apache.http.impl.client.HttpClients", classLoader)) {
-            defaultProxy = getHttpProxy(HttpClientImpl.class);
+            defaultProxy = getHttpProxy(HttpClientSyncImpl.class);
         }
         if (ClassUtils.isPresent("okhttp3.OkHttpClient", classLoader)) {
-            defaultProxy = getHttpProxy(OkHttp3Impl.class);
+            defaultProxy = getHttpProxy(OkHttp3SyncImpl.class);
         }
         if (defaultProxy == null) {
             throw new CommonHttpException("Has no HttpImpl defined in environment!");
@@ -34,7 +37,7 @@ public class HttpUtils {
         proxy = defaultProxy;
     }
 
-    private static <T extends AbstractHttp> AbstractHttp getHttpProxy(Class<T> clazz) {
+    private <T extends AbstractSyncHttp> AbstractSyncHttp getHttpProxy(Class<T> clazz) {
         try {
             return clazz.newInstance();
         } catch (Throwable e) {
@@ -42,23 +45,25 @@ public class HttpUtils {
         }
     }
 
-    private static void checkHttpNotNull(Http proxy) {
+    private void checkHttpNotNull(SyncHttp proxy) {
         if (null == proxy) {
             selectHttpProxy();
         }
     }
 
-    public static void setHttp(AbstractHttp http) {
+    public HttpSyncUtils setHttp(AbstractSyncHttp http) {
         proxy = http;
+        return this;
     }
 
 
-    public static void setHttpConfig(HttpConfig config) {
+    public HttpSyncUtils setHttpConfig(HttpConfig config) {
         checkHttpNotNull(proxy);
         if (null == config) {
             config = HttpConfig.builder().timeout(Constants.DEFAULT_TIMEOUT).build();
         }
         proxy.setHttpConfig(config);
+        return this;
     }
 
     /**
@@ -67,7 +72,7 @@ public class HttpUtils {
      * @param url URL
      * @return 结果
      */
-    public static String get(String url) {
+    public String get(String url) {
         checkHttpNotNull(proxy);
         return proxy.get(url);
     }
@@ -79,7 +84,7 @@ public class HttpUtils {
      * @param params 参数
      * @return 结果
      */
-    public static String get(String url, Map<String, String> params) {
+    public String get(String url, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.get(url, params);
     }
@@ -92,7 +97,7 @@ public class HttpUtils {
      * @param params 参数
      * @return 结果
      */
-    public static String get(String url, HttpHeader header, Map<String, String> params) {
+    public String get(String url, HttpHeader header, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.get(url, header, params);
     }
@@ -103,7 +108,7 @@ public class HttpUtils {
      * @param url URL
      * @return 结果
      */
-    public static String post(String url) {
+    public String post(String url) {
         checkHttpNotNull(proxy);
         return proxy.post(url);
     }
@@ -115,7 +120,7 @@ public class HttpUtils {
      * @param data JSON 参数
      * @return 结果
      */
-    public static String post(String url, String data) {
+    public String post(String url, String data) {
         checkHttpNotNull(proxy);
         return proxy.post(url, data);
     }
@@ -128,7 +133,7 @@ public class HttpUtils {
      * @param header 请求头
      * @return 结果
      */
-    public static String post(String url, String data, HttpHeader header) {
+    public String post(String url, String data, HttpHeader header) {
         checkHttpNotNull(proxy);
         return proxy.post(url, data, header);
     }
@@ -140,7 +145,7 @@ public class HttpUtils {
      * @param params form 参数
      * @return 结果
      */
-    public static String post(String url, Map<String, String> params) {
+    public String post(String url, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.post(url, params);
     }
@@ -153,7 +158,7 @@ public class HttpUtils {
      * @param params form 参数
      * @return 结果
      */
-    public static String post(String url, HttpHeader header, Map<String, String> params) {
+    public String post(String url, HttpHeader header, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.post(url, header, params);
     }

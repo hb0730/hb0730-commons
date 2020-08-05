@@ -18,6 +18,7 @@
     <description>对http的封装，支持HTTPClient，Okhttp3等</description>
     <properties>
         <httpclient.version>4.5.11</httpclient.version>
+        <httpclient5.version>5.0</httpclient5.version>
         <okhttp3.version>4.0.1</okhttp3.version>
     </properties>
 
@@ -35,10 +36,21 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>${httpclient5.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>${okhttp3.version}</version>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.2</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,12 +1,12 @@
 package com.hb0730.commons.http.support.httpclient;
 
-import com.hb0730.commons.http.AbstractHttp;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
-import com.hb0730.commons.lang.collection.MapUtils;
+import com.hb0730.commons.http.inter.AbstractSyncHttp;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.collection.CollectionUtils;
+import com.hb0730.commons.lang.collection.MapUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -37,18 +37,18 @@ import java.util.Map;
  * @date 2020/07/30 15:26
  * @since V1.0
  */
-public class HttpClientImpl extends AbstractHttp {
+public class HttpClientSyncImpl extends AbstractSyncHttp {
     private final CloseableHttpClient httpClient;
 
-    public HttpClientImpl() {
+    public HttpClientSyncImpl() {
         this(HttpClients.createDefault(), new HttpConfig());
     }
 
-    public HttpClientImpl(CloseableHttpClient httpClient) {
+    public HttpClientSyncImpl(CloseableHttpClient httpClient) {
         this(httpClient, new HttpConfig());
     }
 
-    public HttpClientImpl(CloseableHttpClient httpClient, HttpConfig config) {
+    public HttpClientSyncImpl(CloseableHttpClient httpClient, HttpConfig config) {
         super(config);
         this.httpClient = httpClient;
     }
