@@ -11,6 +11,7 @@
         <module>commons-http</module>
         <module>commons-spring</module>
         <module>commons-dependencies</module>
+        <module>commons-all</module>
     </modules>
 
     <groupId>com.hb0730</groupId>
