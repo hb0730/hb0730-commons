@@ -8,6 +8,7 @@ import com.hb0730.commons.http.support.callback.CommonsNetCall;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.collection.CollectionUtils;
 import com.hb0730.commons.lang.collection.MapUtils;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
@@ -27,14 +28,12 @@ import org.apache.hc.core5.http.nio.entity.StringAsyncEntityConsumer;
 import org.apache.hc.core5.http.nio.entity.StringAsyncEntityProducer;
 import org.apache.hc.core5.http.nio.support.BasicRequestProducer;
 import org.apache.hc.core5.http.nio.support.BasicResponseConsumer;
-import org.apache.hc.core5.io.CloseMode;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -45,6 +44,7 @@ import java.util.concurrent.TimeUnit;
  * @since V1.0
  */
 public class HttpClientAsyncImpl extends AbstractAsyncHttp {
+    @Getter
     private final CloseableHttpAsyncClient httpClient;
 
     public HttpClientAsyncImpl() {
@@ -157,7 +157,7 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
         AsyncEntityConsumer<String> entityConsumer = new StringAsyncEntityConsumer(charCodingConfig);
         BasicResponseConsumer<String> consumer = new BasicResponseConsumer<>(entityConsumer);
         this.httpClient.start();
-        Future<Message<HttpResponse, String>> future = this.httpClient.execute(producer, consumer, new FutureCallback<Message<HttpResponse, String>>() {
+        this.httpClient.execute(producer, consumer, new FutureCallback<Message<HttpResponse, String>>() {
             @SneakyThrows
             @Override
             public void completed(Message<HttpResponse, String> result) {
@@ -177,13 +177,14 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
 
             }
         });
-        try {
-            future.get(httpConfig.getTimeout(), TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            this.httpClient.close(CloseMode.GRACEFUL);
-        }
+        //注意关闭Client(自行关闭)
+//        try {
+//            future.get(httpConfig.getTimeout(), TimeUnit.MILLISECONDS);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            this.httpClient.close(CloseMode.GRACEFUL);
+//        }
 
     }
 }

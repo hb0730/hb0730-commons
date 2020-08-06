@@ -39,6 +39,7 @@ public class CommHttpUtilsTest {
 
     }
 
+    // 未关闭client
     @Test
     public void httpClientTest() throws InterruptedException, JsonProcessingException {
 //        HttpSyncUtils syncUtils = CommonHttps.sync().setHttp(new HttpClientSyncImpl());
