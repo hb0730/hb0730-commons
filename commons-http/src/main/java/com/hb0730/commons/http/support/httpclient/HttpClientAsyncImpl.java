@@ -34,6 +34,7 @@ import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -156,18 +157,13 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
         AsyncEntityConsumer<String> entityConsumer = new StringAsyncEntityConsumer(charCodingConfig);
         BasicResponseConsumer<String> consumer = new BasicResponseConsumer<>(entityConsumer);
         this.httpClient.start();
-        this.httpClient.execute(producer, consumer, new FutureCallback<Message<HttpResponse, String>>() {
+        Future<Message<HttpResponse, String>> future = this.httpClient.execute(producer, consumer, new FutureCallback<Message<HttpResponse, String>>() {
             @SneakyThrows
             @Override
             public void completed(Message<HttpResponse, String> result) {
-                try {
-                    HttpResponse head = result.getHead();
-                    if (head.getCode() >= 200 && head.getCode() < 300) {
-                        commonsNetCall.success(result.getBody());
-                    }
-
-                } finally {
-                    httpClient.close(CloseMode.GRACEFUL);
+                HttpResponse head = result.getHead();
+                if (head.getCode() >= 200 && head.getCode() < 300) {
+                    commonsNetCall.success(result.getBody());
                 }
             }
 
@@ -181,6 +177,13 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
 
             }
         });
+        try {
+            future.get(httpConfig.getTimeout(), TimeUnit.MILLISECONDS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.httpClient.close(CloseMode.GRACEFUL);
+        }
 
     }
 }
