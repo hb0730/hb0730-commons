@@ -9,8 +9,6 @@ import com.hb0730.commons.http.support.httpclient.HttpClientAsyncImpl;
 import com.hb0730.commons.http.support.okhttp3.OkHttp3AsyncImpl;
 import com.hb0730.commons.http.utils.HttpAsyncUtils;
 import com.hb0730.commons.http.utils.HttpSyncUtils;
-import okhttp3.Response;
-import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -116,10 +114,13 @@ public class CommHttpUtilsTest {
         public static void getAsyncTest(HttpAsyncUtils utils) {
             utils.get("http://localhost:10000/", new CommonsNetCall() {
                 @Override
-                public <T> void success(T response, Object... obj) {
-                    if (response instanceof SimpleHttpResponse) {
-                        System.out.println(((SimpleHttpResponse) response).getBodyText());
-                    }
+                public void success(String result) {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
                 }
 
                 @Override
@@ -135,10 +136,13 @@ public class CommHttpUtilsTest {
             utils.setHttpConfig(HttpConfig.builder().encode(true).build());
             utils.get("http://localhost:10000/params", new CommonsNetCall() {
                 @Override
-                public <T> void success(T response, Object... obj) {
-                    for (Object o : obj) {
-                        System.out.println(o);
-                    }
+                public void success(String result) {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
                 }
 
                 @Override
@@ -167,10 +171,13 @@ public class CommHttpUtilsTest {
         public static void postAsyncTest(HttpAsyncUtils utils) {
             utils.post("http://localhost:10000/post", new CommonsNetCall() {
                 @Override
-                public <T> void success(T response, Object... obj) throws IOException {
-                    for (Object o : obj) {
-                        System.out.println(o);
-                    }
+                public void success(String result) throws IOException {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
                 }
 
                 @Override
@@ -185,10 +192,13 @@ public class CommHttpUtilsTest {
             params.put("name", "哈哈哈");
             utils.post("http://localhost:10000/post/params", new CommonsNetCall() {
                 @Override
-                public <T> void success(T response, Object... obj) throws IOException {
-                    for (Object o : obj) {
-                        System.out.println(o);
-                    }
+                public void success(String result) throws IOException {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
                 }
 
                 @Override
@@ -222,22 +232,25 @@ public class CommHttpUtilsTest {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> params = new HashMap<>();
 
-//            params.put("id", "1");
-//            params.put("name", "车擦擦擦");
-//            String json = mapper.writeValueAsString(params);
-//            utils.post("http://localhost:10000/post/params/json", json, new CommonsNetCall() {
-//                @Override
-//                public <T> void success(T response, Object... obj) throws IOException {
-//                    for (Object o : obj) {
-//                        System.out.println(o);
-//                    }
-//                }
-//
-//                @Override
-//                public void file(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            });
+            params.put("id", "1");
+            params.put("name", "车擦擦擦");
+            String json = mapper.writeValueAsString(params);
+            utils.post("http://localhost:10000/post/params/json", json, new CommonsNetCall() {
+                @Override
+                public void success(String result) throws IOException {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
+                }
+
+                @Override
+                public void file(Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
 //            params.put("site_id", "2");
 //            String json = mapper.writeValueAsString(params);
@@ -314,10 +327,13 @@ public class CommHttpUtilsTest {
         public static void getAsyncTest(HttpAsyncUtils utils) {
             utils.get("http://localhost:10000/", new CommonsNetCall() {
                 @Override
-                public <T> void success(T response, Object... obj) throws IOException {
-                    if (response instanceof Response) {
-                        System.out.println(((Response) response).body().string());
-                    }
+                public void success(String result) throws IOException {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
                 }
 
                 @Override
@@ -334,10 +350,13 @@ public class CommHttpUtilsTest {
             utils.setHttpConfig(HttpConfig.builder().encode(true).build());
             utils.get("http://localhost:10000/params", new CommonsNetCall() {
                 @Override
-                public <T> void success(T response, Object... obj) throws IOException {
-                    if (response instanceof Response) {
-                        System.out.println(((Response) response).body().string());
-                    }
+                public void success(String result) throws IOException {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
                 }
 
                 @Override
@@ -367,10 +386,13 @@ public class CommHttpUtilsTest {
         public static void postAsyncTest(HttpAsyncUtils utils) {
             utils.post("http://localhost:10000/post", new CommonsNetCall() {
                 @Override
-                public <T> void success(T response, Object... obj) throws IOException {
-                    if (response instanceof Response) {
-                        System.out.println(((Response) response).body().string());
-                    }
+                public void success(String result) throws IOException {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
                 }
 
                 @Override
@@ -386,10 +408,13 @@ public class CommHttpUtilsTest {
             params.put("name", "哈哈哈");
             utils.post("http://localhost:10000/post/params", new CommonsNetCall() {
                 @Override
-                public <T> void success(T response, Object... obj) throws IOException {
-                    if (response instanceof Response) {
-                        System.out.println(((Response) response).body().string());
-                    }
+                public void success(String result) throws IOException {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
                 }
 
                 @Override
@@ -426,10 +451,13 @@ public class CommHttpUtilsTest {
             String json = mapper.writeValueAsString(params);
             utils.post("http://localhost:10000/post/params/json", json, new CommonsNetCall() {
                 @Override
-                public <T> void success(T response, Object... obj) throws IOException {
-                    if (response instanceof Response) {
-                        System.out.println(((Response) response).body().string());
-                    }
+                public void success(String result) throws IOException {
+                    System.out.println(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
                 }
 
                 @Override

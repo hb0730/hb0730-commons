@@ -27,6 +27,7 @@ import org.apache.hc.core5.http.nio.entity.StringAsyncEntityConsumer;
 import org.apache.hc.core5.http.nio.entity.StringAsyncEntityProducer;
 import org.apache.hc.core5.http.nio.support.BasicRequestProducer;
 import org.apache.hc.core5.http.nio.support.BasicResponseConsumer;
+import org.apache.hc.core5.io.CloseMode;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
@@ -159,7 +160,14 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
             @SneakyThrows
             @Override
             public void completed(Message<HttpResponse, String> result) {
-                commonsNetCall.success(result.getHead(), entityConsumer.getContent());
+                HttpResponse head = result.getHead();
+                if (head.getCode() >= 200 && head.getCode() < 300) {
+                    try {
+                        commonsNetCall.success(result.getBody());
+                    } finally {
+                        httpClient.close(CloseMode.GRACEFUL);
+                    }
+                }
             }
 
             @Override
