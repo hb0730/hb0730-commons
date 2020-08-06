@@ -134,12 +134,11 @@ public class OkHttp3AsyncImpl extends AbstractAsyncHttp {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    try (ResponseBody responseBody = response.body()) {
+                try (ResponseBody responseBody = response.body()) {
+                    if (response.isSuccessful()) {
                         commonsNetCall.success(responseBody.string());
                     }
                 }
-
             }
         });
     }

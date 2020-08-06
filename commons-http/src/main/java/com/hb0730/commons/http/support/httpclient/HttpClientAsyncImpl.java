@@ -160,13 +160,14 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
             @SneakyThrows
             @Override
             public void completed(Message<HttpResponse, String> result) {
-                HttpResponse head = result.getHead();
-                if (head.getCode() >= 200 && head.getCode() < 300) {
-                    try {
+                try {
+                    HttpResponse head = result.getHead();
+                    if (head.getCode() >= 200 && head.getCode() < 300) {
                         commonsNetCall.success(result.getBody());
-                    } finally {
-                        httpClient.close(CloseMode.GRACEFUL);
                     }
+
+                } finally {
+                    httpClient.close(CloseMode.GRACEFUL);
                 }
             }
 
