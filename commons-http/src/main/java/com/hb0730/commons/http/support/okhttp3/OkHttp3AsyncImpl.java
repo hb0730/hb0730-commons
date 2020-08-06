@@ -3,11 +3,12 @@ package com.hb0730.commons.http.support.okhttp3;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
+import com.hb0730.commons.http.exception.CommonHttpException;
 import com.hb0730.commons.http.inter.AbstractAsyncHttp;
 import com.hb0730.commons.http.support.callback.CommonsNetCall;
+import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.collection.MapUtils;
 import okhttp3.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * okhttp3 异步
+ * okhttp3 async impl
  *
  * @author bing_huang
  * @date 2020/08/05 13:28
@@ -51,7 +52,9 @@ public class OkHttp3AsyncImpl extends AbstractAsyncHttp {
 
     @Override
     public void get(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> params) {
-
+        if (StringUtils.isBlank(url)) {
+            throw new CommonHttpException("request url must be not null");
+        }
         HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(url)).newBuilder();
         if (this.httpConfig.isEncode()) {
             MapUtils.forEach(params, urlBuilder::addEncodedQueryParameter);
@@ -73,17 +76,20 @@ public class OkHttp3AsyncImpl extends AbstractAsyncHttp {
     }
 
     @Override
-    public void post(String url, String data, CommonsNetCall commonsNetCall) {
-        this.post(url, data, null, commonsNetCall);
+    public void post(String url, String dataJson, CommonsNetCall commonsNetCall) {
+        this.post(url, dataJson, null, commonsNetCall);
     }
 
     @Override
-    public void post(String url, String data, HttpHeader header, CommonsNetCall commonsNetCall) {
+    public void post(String url, String dataJson, HttpHeader header, CommonsNetCall commonsNetCall) {
+        if (StringUtils.isBlank(url)) {
+            throw new CommonHttpException("request url must be not null");
+        }
         Request.Builder requestBuilder = new Request.Builder().url(url);
         if (null != header) {
             MapUtils.forEach(header.getHeaders(), requestBuilder::addHeader);
         }
-        RequestBody body = RequestBody.create(data, JSON);
+        RequestBody body = RequestBody.create(dataJson, JSON);
         requestBuilder.post(body);
         exec(requestBuilder, commonsNetCall);
     }
@@ -95,6 +101,9 @@ public class OkHttp3AsyncImpl extends AbstractAsyncHttp {
 
     @Override
     public void post(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> formdata) {
+        if (StringUtils.isBlank(url)) {
+            throw new CommonHttpException("request url must be not null");
+        }
         FormBody.Builder builder = new FormBody.Builder();
         if (this.httpConfig.isEncode()) {
             MapUtils.forEach(formdata, builder::addEncoded);
@@ -116,7 +125,7 @@ public class OkHttp3AsyncImpl extends AbstractAsyncHttp {
     private void exec(Request.Builder requestBuilder, CommonsNetCall commonsNetCall) {
         this.addHeader(requestBuilder);
         Request request = requestBuilder.build();
-        OkHttpClient client = null;
+        OkHttpClient client;
         OkHttpClient.Builder builder = clientBuilder.connectTimeout(Duration.ofMillis(httpConfig.getTimeout()))
                 .readTimeout(Duration.ofMillis(httpConfig.getTimeout()))
                 .writeTimeout(Duration.ofMillis(httpConfig.getTimeout()));
@@ -128,12 +137,18 @@ public class OkHttp3AsyncImpl extends AbstractAsyncHttp {
         }
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+            public void onFailure(Call call, IOException e) {
+                if (null == commonsNetCall) {
+                    return;
+                }
                 commonsNetCall.file(e);
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
+                if (null == commonsNetCall) {
+                    return;
+                }
                 try (ResponseBody responseBody = response.body()) {
                     if (response.isSuccessful()) {
                         commonsNetCall.success(responseBody.string());

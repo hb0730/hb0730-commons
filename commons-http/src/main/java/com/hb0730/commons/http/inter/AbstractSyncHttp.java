@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * http 抽象
+ * sync http 抽象
  *
  * @author bing_huang
  * @date 2020/07/30 15:23

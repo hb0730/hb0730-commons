@@ -3,6 +3,7 @@ package com.hb0730.commons.http.support.httpclient;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
+import com.hb0730.commons.http.exception.CommonHttpException;
 import com.hb0730.commons.http.inter.AbstractAsyncHttp;
 import com.hb0730.commons.http.support.callback.CommonsNetCall;
 import com.hb0730.commons.lang.StringUtils;
@@ -72,6 +73,9 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
 
     @Override
     public void get(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> params) {
+        if (StringUtils.isBlank(url)) {
+            throw new CommonHttpException("request url must be not null");
+        }
         String baseUrl = StringUtils.appendIfNotContain(url, "?", "&");
         url = baseUrl + MapUtils.parseMapToUrlString(params, httpConfig.isEncode());
         HttpGet httpGet = new HttpGet(url);
@@ -86,21 +90,24 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
     }
 
     @Override
-    public void post(String url, String data, CommonsNetCall commonsNetCall) {
-        post(url, data, null, commonsNetCall);
+    public void post(String url, String dataJson, CommonsNetCall commonsNetCall) {
+        post(url, dataJson, null, commonsNetCall);
     }
 
     @Override
-    public void post(String url, String data, HttpHeader header, CommonsNetCall commonsNetCall) {
+    public void post(String url, String dataJson, HttpHeader header, CommonsNetCall commonsNetCall) {
+        if (StringUtils.isBlank(url)) {
+            throw new CommonHttpException("request url must be not null");
+        }
         HttpPost httpPost = new HttpPost(url);
         if (null != header) {
             MapUtils.forEach(header.getHeaders(), httpPost::addHeader);
         }
         AsyncEntityProducer entityProducer;
-        if (StringUtils.isEmpty(data)) {
+        if (StringUtils.isEmpty(dataJson)) {
             entityProducer = AsyncEntityProducers.create(Constants.EMPTY);
         } else {
-            entityProducer = AsyncEntityProducers.create(data, ContentType.APPLICATION_JSON);
+            entityProducer = AsyncEntityProducers.create(dataJson, ContentType.APPLICATION_JSON);
         }
         BasicRequestProducer producer = new BasicRequestProducer(httpPost, entityProducer);
         this.exec(httpPost, producer, commonsNetCall);
@@ -113,6 +120,9 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
 
     @Override
     public void post(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> formdata) {
+        if (StringUtils.isBlank(url)) {
+            throw new CommonHttpException("request url must be not null");
+        }
         HttpPost httpPost = new HttpPost(url);
         if (null != header) {
             MapUtils.forEach(header.getHeaders(), httpPost::addHeader);
@@ -161,6 +171,9 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
             @SneakyThrows
             @Override
             public void completed(Message<HttpResponse, String> result) {
+                if (null == commonsNetCall) {
+                    return;
+                }
                 HttpResponse head = result.getHead();
                 if (head.getCode() >= 200 && head.getCode() < 300) {
                     commonsNetCall.success(result.getBody());
@@ -169,6 +182,9 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
 
             @Override
             public void failed(Exception ex) {
+                if (null == commonsNetCall) {
+                    return;
+                }
                 commonsNetCall.file(ex);
             }
 

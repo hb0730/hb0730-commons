@@ -3,6 +3,7 @@ package com.hb0730.commons.http.support.httpclient;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
+import com.hb0730.commons.http.exception.CommonHttpException;
 import com.hb0730.commons.http.inter.AbstractSyncHttp;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.collection.CollectionUtils;
@@ -31,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * http client 实现
+ * http sync client 实现
  *
  * @author bing_huang
  * @date 2020/07/30 15:26
@@ -66,7 +67,7 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
     @Override
     public String get(String url, HttpHeader header, Map<String, String> params) {
         if (StringUtils.isEmpty(url)) {
-            return "";
+            return Constants.EMPTY;
         }
         String baseUrl = StringUtils.appendIfNotContain(url, "?", "&");
         url = baseUrl + MapUtils.parseMapToUrlString(params, httpConfig.isEncode());
@@ -79,22 +80,22 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
 
     @Override
     public String post(String url) {
-        return post(url, "");
+        return post(url, Constants.EMPTY);
     }
 
     @Override
-    public String post(String url, String data) {
-        return post(url, data, null);
+    public String post(String url, String dataJson) {
+        return post(url, dataJson, null);
     }
 
     @Override
-    public String post(String url, String data, HttpHeader header) {
+    public String post(String url, String dataJson, HttpHeader header) {
         if (StringUtils.isEmpty(url)) {
-            return "";
+            return Constants.EMPTY;
         }
         HttpPost httpPost = new HttpPost(url);
-        if (!StringUtils.isEmpty(data)) {
-            StringEntity entity = new StringEntity(data, Constants.DEFAULT_ENCODING);
+        if (!StringUtils.isEmpty(dataJson)) {
+            StringEntity entity = new StringEntity(dataJson, Constants.DEFAULT_ENCODING);
             entity.setContentEncoding(Constants.DEFAULT_ENCODING.displayName());
             entity.setContentType(Constants.CONTENT_TYPE_JSON);
             httpPost.setEntity(entity);
@@ -113,7 +114,7 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
     @Override
     public String post(String url, HttpHeader header, Map<String, String> formdata) {
         if (StringUtils.isEmpty(url)) {
-            return "";
+            return Constants.EMPTY;
         }
         HttpPost httpPost = new HttpPost(url);
         if (!CollectionUtils.isEmpty(formdata)) {
@@ -128,6 +129,16 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
         return this.exec(httpPost);
     }
 
+    private boolean isSuccess(CloseableHttpResponse response) {
+        if (response == null) {
+            return false;
+        }
+        if (response.getStatusLine() == null) {
+            return false;
+        }
+        return response.getStatusLine().getStatusCode() >= 200 && response.getStatusLine().getStatusCode() < 300;
+    }
+
     private void addHeader(HttpRequestBase request) {
         if (null == request) {
             return;
@@ -137,16 +148,6 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
         if (null == headers || headers.length == 0) {
             request.setHeader(ua, Constants.USER_AGENT_DATA);
         }
-    }
-
-    private boolean isSuccess(CloseableHttpResponse response) {
-        if (response == null) {
-            return false;
-        }
-        if (response.getStatusLine() == null) {
-            return false;
-        }
-        return response.getStatusLine().getStatusCode() >= 200 && response.getStatusLine().getStatusCode() < 300;
     }
 
     private String exec(HttpRequestBase request) {
@@ -161,7 +162,7 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
             HttpHost host = new HttpHost(address.getHostName(), address.getPort(), proxy.type().name().toLowerCase());
             builder.setProxy(host);
         }
-        String result = "";
+        String result = Constants.EMPTY;
         request.setConfig(builder.build());
         try (CloseableHttpResponse response = this.httpClient.execute(request)) {
             if (!isSuccess(response)) {
@@ -173,6 +174,7 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new CommonHttpException("request result error:" + e.getMessage());
         }
         return result;
     }

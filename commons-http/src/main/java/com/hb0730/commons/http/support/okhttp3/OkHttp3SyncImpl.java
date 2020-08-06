@@ -1,11 +1,12 @@
 package com.hb0730.commons.http.support.okhttp3;
 
-import com.hb0730.commons.http.inter.AbstractSyncHttp;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
-import com.hb0730.commons.lang.collection.MapUtils;
+import com.hb0730.commons.http.exception.CommonHttpException;
+import com.hb0730.commons.http.inter.AbstractSyncHttp;
 import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.collection.MapUtils;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * okhttp3 impl
+ * okhttp3 sync impl
  *
  * @author bing_huang
  * @date 2020/07/30 16:45
@@ -52,7 +53,7 @@ public class OkHttp3SyncImpl extends AbstractSyncHttp {
     @Override
     public String get(String url, HttpHeader header, Map<String, String> params) {
         if (StringUtils.isEmpty(url)) {
-            return "";
+            return Constants.EMPTY;
         }
         HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(url)).newBuilder();
         if (this.httpConfig.isEncode()) {
@@ -82,7 +83,7 @@ public class OkHttp3SyncImpl extends AbstractSyncHttp {
     @Override
     public String post(String url, String data, HttpHeader header) {
         if (StringUtils.isEmpty(url)) {
-            return "";
+            return Constants.EMPTY;
         }
         Request.Builder requestBuilder = new Request.Builder().url(url);
         if (null != header) {
@@ -115,15 +116,15 @@ public class OkHttp3SyncImpl extends AbstractSyncHttp {
     }
 
     public String exec(Request.Builder requestBuilder) {
-        String result = "";
+        String result = Constants.EMPTY;
         if (null == requestBuilder) {
-            return "";
+            return result;
         }
         this.addHeader(requestBuilder);
 
         Request request = requestBuilder.build();
 
-        OkHttpClient client = null;
+        OkHttpClient client;
         OkHttpClient.Builder builder = clientBuilder.connectTimeout(Duration.ofMillis(httpConfig.getTimeout()))
                 .readTimeout(Duration.ofMillis(httpConfig.getTimeout()))
                 .writeTimeout(Duration.ofMillis(httpConfig.getTimeout()));
@@ -139,6 +140,7 @@ public class OkHttp3SyncImpl extends AbstractSyncHttp {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new CommonHttpException("http execute error:" + e.getMessage(), e);
         }
         return result;
 

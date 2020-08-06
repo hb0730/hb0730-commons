@@ -12,7 +12,7 @@
   + JedisPool Cache
   + classUtils#getDefaultValue
   + 完善io
-  + 新增httputil 异步
+  + 新增http util 异步
  ## 删减
   + commons-cache 移除对hutool的依赖
 ## 1.0.0

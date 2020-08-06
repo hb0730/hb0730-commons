@@ -51,27 +51,27 @@ public interface SyncHttp extends Http {
     /**
      * post请求
      *
-     * @param url  请求地址
-     * @param data 请求参数
+     * @param url      请求地址
+     * @param dataJson 请求参数，json格式
      * @return 响应结果
      */
-    String post(String url, String data);
+    String post(String url, String dataJson);
 
     /**
      * post 请求
      *
-     * @param url     请求地址
-     * @param data    请求参数
-     * @param header 请求头
+     * @param url      请求地址
+     * @param dataJson 请求参数,json格式
+     * @param header   请求头
      * @return 响应结果
      */
-    String post(String url, String data, HttpHeader header);
+    String post(String url, String dataJson, HttpHeader header);
 
     /**
      * post请求
      *
      * @param url      请求地址
-     * @param formdata form表单
+     * @param formdata form 参数
      * @return 响应结果
      */
     String post(String url, Map<String, String> formdata);
@@ -81,7 +81,7 @@ public interface SyncHttp extends Http {
      *
      * @param url      请求地址
      * @param header   请求头
-     * @param formdata form表单
+     * @param formdata form参数
      * @return 详情结果
      */
     String post(String url, HttpHeader header, Map<String, String> formdata);
