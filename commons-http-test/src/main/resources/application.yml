@@ -2,4 +2,7 @@ spring:
   application:
     name: http-test
 server:
-  port: ${random.int(100,10000)}
+  port: 10000
+logging:
+  level:
+    org.apache.hc: debug
