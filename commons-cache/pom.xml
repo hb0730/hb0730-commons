@@ -10,10 +10,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hb0730</groupId>
     <artifactId>commons-cache</artifactId>
+    <packaging>jar</packaging>
+
     <name>${project.artifactId}</name>
-    <version>${project.parent.version}</version>
     <description>commons 对多种缓存的支持</description>
     <url>https://github.com/hb0730/hb0730-commons</url>
 

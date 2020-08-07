@@ -15,7 +15,7 @@ import java.io.IOException;
 public interface CommonsNetCall {
 
     /**
-     * 响应成功 200<=http code<300
+     * 响应成功 200 &gt;= http code &lt; 300
      *
      * @param result 响应结果
      * @throws IOException 异常
@@ -25,7 +25,7 @@ public interface CommonsNetCall {
     void success(String result) throws IOException;
 
     /**
-     * 响应成功, 200<=http code<300
+     * 响应成功, 200 &gt;= http code &lt; 300
      *
      * @param result 响应结果
      * @throws IOException 异常

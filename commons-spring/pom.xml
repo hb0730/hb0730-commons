@@ -10,9 +10,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hb0730</groupId>
     <artifactId>commons-spring</artifactId>
-    <version>${project.parent.version}</version>
+
+    <name>${project.artifactId}</name>
     <description>常用的spring操作</description>
 
     <properties>
