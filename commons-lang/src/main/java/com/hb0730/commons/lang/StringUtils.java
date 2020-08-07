@@ -30,6 +30,42 @@ public class StringUtils {
     }
 
     /**
+     * 比较两个字符串是否相等，默认不忽略大小写
+     *
+     * @param s1 字符串1
+     * @param s2 字符串2
+     * @return 如果两个字符串相同，或者都是<code>null</code>，则返回<code>true</code>
+     * @see #equals(CharSequence, CharSequence, boolean)
+     * @since 1.0.1
+     */
+    public static boolean equals(CharSequence s1, CharSequence s2) {
+        return equals(s1, s2, false);
+    }
+
+    /**
+     * 比较两个字符串是否相等
+     *
+     * @param s1         字符串1
+     * @param s2         字符串2
+     * @param ignoreCase 是否忽略大小写
+     * @return 如果两个字符串相同，或者都是<code>null</code>，则返回<code>true</code>
+     * @since 1.0.1
+     */
+    public static boolean equals(CharSequence s1, CharSequence s2, boolean ignoreCase) {
+        if (null == s1) {
+            return null == s2;
+        }
+        if (null == s2) {
+            return false;
+        }
+        if (ignoreCase) {
+            return s1.toString().equalsIgnoreCase(s2.toString());
+        } else {
+            return s1.toString().contentEquals(s2);
+        }
+    }
+
+    /**
      * 去除头尾空格
      *
      * @param str 需要去掉空格的字符串

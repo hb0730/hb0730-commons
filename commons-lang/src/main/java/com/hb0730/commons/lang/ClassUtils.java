@@ -62,4 +62,25 @@ public class ClassUtils {
         }
         return null;
     }
+
+    /**
+     * 判断该类型是不是包装类型,包含String
+     *
+     * @param clazz 类
+     * @return 是否为包装类型
+     * @since 1.0.1
+     */
+    public static boolean isBasicClass(Class<?> clazz) {
+        boolean isPrimitive = false;
+        try {
+            if (clazz.isPrimitive() || clazz.isAssignableFrom(String.class)) {
+                return true;
+            } else {
+                isPrimitive = ((Class<?>) clazz.getField("TYPE").get(null)).isPrimitive();
+            }
+        } catch (Exception e) {
+            isPrimitive = false;
+        }
+        return isPrimitive;
+    }
 }
