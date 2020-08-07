@@ -106,20 +106,20 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <profiles>
         <profile>
             <id>release</id>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-                </snapshotRepository>
-                <repository>
-                    <id>oss</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
             <build>
                 <plugins>
                     <!-- Source -->
@@ -129,7 +129,6 @@
                         <version>3.2.1</version>
                         <executions>
                             <execution>
-                                <id>oss</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>jar-no-fork</goal>
@@ -156,7 +155,6 @@
                         <version>1.6</version>
                         <executions>
                             <execution>
-                                <id>oss</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
@@ -170,7 +168,7 @@
                         <version>1.6.8</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>oss</serverId>
+                            <serverId>sonatype-nexus-snapshots</serverId>
                             <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>

@@ -24,6 +24,10 @@ jobs:
         skip_cleanup: true
         on:
           tags: true
+
+after_deploy:
+  - util/deploy.sh
+
 stages:
   - test
   - name: release
