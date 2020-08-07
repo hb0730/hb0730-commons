@@ -14,8 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 全局缓存清理定时器池，用于在需要过期支持的缓存对象中超时任务池
  *
  * @author bing_huang
- * @date 2020/07/19 12:48
- * @since V2.0
+ * @since 1.0.0
  */
 public enum GlobalPruneTimer {
     /**

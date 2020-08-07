@@ -17,8 +17,7 @@ import java.util.Date;
  * 远程存储抽象
  *
  * @author bing_huang
- * @date 2020/07/27 8:59
- * @since V1.0
+ * @since 1.0.0
  */
 public abstract class AbstractRemoteCache<K, V> extends AbstractCache<K, V> {
     protected CacheConfig<K, V> config;

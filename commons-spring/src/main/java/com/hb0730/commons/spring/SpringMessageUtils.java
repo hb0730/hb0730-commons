@@ -7,8 +7,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
  * spring message i18n
  *
  * @author bing_huang
- * @date 2020/07/30 11:56
- * @since V1.0
+ * @since 1.0.0
  */
 public class SpringMessageUtils {
     /**

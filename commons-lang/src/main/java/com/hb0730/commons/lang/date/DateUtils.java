@@ -3,6 +3,7 @@ package com.hb0730.commons.lang.date;
 import com.hb0730.commons.lang.Validate;
 
 import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -11,8 +12,7 @@ import java.util.concurrent.TimeUnit;
  * Date utils
  *
  * @author bing_huang
- * @date 2020/07/30 14:29
- * @since V1.0
+ * @since 1.0.0
  */
 public class DateUtils {
     /**
@@ -182,6 +182,7 @@ public class DateUtils {
      * @see DateMsUnit
      * @see #between(Date, Date, DateMsUnit)
      * @see Validate#notNull(Object, String, Object...)
+     * @since 1.0.1
      */
     public static long between(Date startDate, Date endDate, DateMsUnit msUnit) {
         return between(startDate, endDate, msUnit, true);
@@ -198,6 +199,7 @@ public class DateUtils {
      * @see DateMsUnit
      * @see #between(Date, Date, DateMsUnit)
      * @see Validate#notNull(Object, String, Object...)
+     * @since 1.0.1
      */
     public static long between(Date startDate, Date endDate, DateMsUnit msUnit, boolean isAbs) {
         Validate.notNull(startDate, "start date must not null");
@@ -218,7 +220,9 @@ public class DateUtils {
      * 获取jvm启动时间
      *
      * @return 时间
-     * @see ManagementFactory#getRuntimeMXBean()#getServerStartDate()
+     * @see ManagementFactory#getRuntimeMXBean()
+     * @see RuntimeMXBean#getStartTime()
+     * @since 1.0.1
      */
     public static Date getServerStartDate() {
         long startTime = ManagementFactory.getRuntimeMXBean().getStartTime();

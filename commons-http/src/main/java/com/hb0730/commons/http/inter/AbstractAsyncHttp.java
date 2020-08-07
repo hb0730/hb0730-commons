@@ -8,8 +8,7 @@ import lombok.Setter;
  * 异步 请求 抽象
  *
  * @author bing_huang
- * @date 2020/08/05 13:55
- * @since V1.0
+ * @since 1.0.1
  */
 public abstract class AbstractAsyncHttp implements AsyncHttp {
     @Setter

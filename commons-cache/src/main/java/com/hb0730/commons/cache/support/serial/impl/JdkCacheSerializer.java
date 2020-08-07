@@ -11,8 +11,7 @@ import java.io.*;
  * jdk 序列化与反序列化
  *
  * @author bing_huang
- * @date 2020/07/25 15:10
- * @since V1.0
+ * @since 1.0.0
  */
 public class JdkCacheSerializer extends AbstractSerializer {
     public static final JdkCacheSerializer INSTANCE = new JdkCacheSerializer(true);

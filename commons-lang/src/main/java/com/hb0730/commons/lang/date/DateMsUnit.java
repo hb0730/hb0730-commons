@@ -4,8 +4,7 @@ package com.hb0730.commons.lang.date;
  * 时间毫秒数
  *
  * @author bing_huang
- * @date 2020/08/03 11:52
- * @since V1.0
+ * @since 1.0.1
  */
 public enum DateMsUnit {
     /**

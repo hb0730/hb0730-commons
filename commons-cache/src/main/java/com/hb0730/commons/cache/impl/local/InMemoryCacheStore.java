@@ -19,8 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * in-memory cache store(内存存储)
  *
  * @author bing_huang
- * @date 2020/07/18 21:20
- * @since V1.0
+ * @since 1.0.0
  */
 public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
     public static final Logger LOGGER = LoggerFactory.getLogger(InMemoryCacheStore.class);

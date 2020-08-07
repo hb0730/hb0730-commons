@@ -7,8 +7,7 @@ import java.util.Map;
  * 检验
  *
  * @author bing_huang
- * @date 2020/07/31 7:25
- * @since V1.0
+ * @since 1.0.0
  */
 public class Validate {
     private static final String DEFAULT_IS_TRUE_EX_MESSAGE = "The validated expression is false";

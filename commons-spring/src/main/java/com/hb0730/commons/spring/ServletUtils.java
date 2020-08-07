@@ -14,8 +14,7 @@ import java.io.IOException;
  * Servlet工具类
  *
  * @author bing_huang
- * @date 2020/07/30 12:47
- * @since V1.0
+ * @since 1.0.0
  */
 public class ServletUtils {
     /**

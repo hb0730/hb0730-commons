@@ -6,8 +6,7 @@ import java.util.concurrent.*;
  * 线程相关工具类
  *
  * @author bing_huang
- * @date 2020/07/30 11:38
- * @since V1.0
+ * @since 1.0.0
  */
 public class ThreadUtils {
     /**

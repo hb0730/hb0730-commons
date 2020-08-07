@@ -11,8 +11,7 @@ import org.springframework.util.Assert;
  * spring context工具类
  *
  * @author bing_huang
- * @date 2020/07/30 11:57
- * @since V1.0
+ * @since 1.0.0
  */
 public class SpringContextUtil {
     private static ApplicationContext applicationContext;

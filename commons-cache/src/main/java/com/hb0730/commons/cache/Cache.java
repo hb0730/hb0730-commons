@@ -11,8 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @param <K> key类型
  * @param <V> value类型
  * @author bing_huang
- * @date 2020/07/18 13:03
- * @since V2.0
+ * @since 1.0.0
  */
 public interface Cache<K, V> {
     /**

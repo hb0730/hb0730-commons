@@ -22,8 +22,7 @@ import java.util.Optional;
  * jedis pool cache
  *
  * @author bing_huang
- * @date 2020/08/04 9:08
- * @since V1.0
+ * @since 1.0.1
  */
 public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
     private static final Logger LOGGER = LoggerFactory.getLogger(JedisPoolCache.class);

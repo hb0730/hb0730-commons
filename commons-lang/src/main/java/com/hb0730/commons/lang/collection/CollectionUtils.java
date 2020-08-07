@@ -7,8 +7,7 @@ import java.util.Map;
  * 集合
  *
  * @author bing_huang
- * @date 2020/07/30 13:46
- * @since V1.0
+ * @since 1.0.0
  */
 public class CollectionUtils {
     /**

@@ -4,8 +4,7 @@ package com.hb0730.commons.lang.exceptions;
  * commons lang 异常
  *
  * @author bing_huang
- * @date 2020/08/04 7:28
- * @since V1.0
+ * @since 1.0.1
  */
 public class CommonsLangException extends RuntimeException {
     public CommonsLangException() {

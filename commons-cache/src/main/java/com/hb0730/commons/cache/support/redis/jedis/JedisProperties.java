@@ -6,8 +6,7 @@ import lombok.Data;
  * redis properties
  *
  * @author bing_huang
- * @date 2020/08/04 9:04
- * @since V1.0
+ * @since 1.0.1
  */
 @Data
 public class JedisProperties {

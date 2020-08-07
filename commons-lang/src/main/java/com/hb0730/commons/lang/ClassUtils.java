@@ -4,8 +4,7 @@ package com.hb0730.commons.lang;
  * 类工具类
  *
  * @author bing_huang
- * @date 2020/07/30 17:26
- * @since V1.0
+ * @since 1.0.0
  */
 public class ClassUtils {
     /**
@@ -29,6 +28,7 @@ public class ClassUtils {
      *
      * @param clazz class类
      * @return 默认值
+     * @since 1.0.1
      */
     public static Object getDefaultValue(Class<?> clazz) {
         if (null == clazz) {

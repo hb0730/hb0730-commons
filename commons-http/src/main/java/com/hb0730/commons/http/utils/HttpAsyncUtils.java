@@ -17,8 +17,7 @@ import java.util.Map;
  * 异步utils
  *
  * @author bing_huang
- * @date 2020/08/05 15:07
- * @since V1.0
+ * @since 1.0.1
  */
 public class HttpAsyncUtils implements HttpUtils {
     private AbstractAsyncHttp proxy;

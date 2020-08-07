@@ -13,8 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 全局的序列化和反序列化器映射<br>
  *
  * @author bing_huang
- * @date 2020/07/23 14:47
- * @since V1.0
+ * @since 1.0.0
  */
 public class GlobalSerializeMap {
     private static Map<Integer, Serializer> serializerMap;

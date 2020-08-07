@@ -9,8 +9,7 @@ import java.nio.charset.Charset;
  * file 工具类
  *
  * @author bing_huang
- * @date 2020/08/04 13:56
- * @since V1.0
+ * @since 1.0.1
  */
 public class FileUtils {
 
@@ -33,6 +32,7 @@ public class FileUtils {
      * @param file     file文件
      * @param content  内容
      * @param encoding 编码
+     * @param append   是否追加
      * @throws IOException io异常
      */
     public static void write(final File file, final CharSequence content, final String encoding, final boolean append)
@@ -130,6 +130,7 @@ public class FileUtils {
      *
      * @param file    file文件
      * @param content 内容
+     * @param append  是否追加
      * @throws IOException io异常
      */
     public static void writeByteArray(final File file, final byte[] content, final boolean append)

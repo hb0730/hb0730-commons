@@ -1,7 +1,7 @@
 package com.hb0730.commons.http;
 
-import com.hb0730.commons.lang.collection.CollectionUtils;
 import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.collection.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +10,7 @@ import java.util.Map;
  * http 请求头
  *
  * @author bing_huang
- * @date 2020/07/30 15:02
- * @since V1.0
+ * @since 1.0.0
  */
 public class HttpHeader {
     private final Map<String, String> header;

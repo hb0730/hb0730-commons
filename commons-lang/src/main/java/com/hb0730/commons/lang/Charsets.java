@@ -6,8 +6,7 @@ import java.nio.charset.Charset;
  * 编码
  *
  * @author bing_huang
- * @date 2020/08/05 7:50
- * @since V1.0
+ * @since 1.0.1
  */
 public class Charsets {
 
@@ -23,6 +22,7 @@ public class Charsets {
 
     /**
      * 获取编码
+     *
      * @param charset 编码
      * @return 编码
      */

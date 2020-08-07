@@ -6,9 +6,8 @@ import javax.annotation.Nullable;
  * 序列化 接口
  *
  * @author bing_huang
- * @date 2020/07/23 11:54
  * @see org.springframework.data.redis.serializer
- * @since V1.0
+ * @since 1.0.0
  */
 public interface Serializer {
     byte[] EMPTY_ARRAY = new byte[0];

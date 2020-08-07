@@ -6,8 +6,7 @@ import java.io.Writer;
 
 /**
  * @author bing_huang
- * @date 2020/08/05 8:40
- * @since V1.0
+ * @since 1.0.1
  */
 public class StringBuilderWriter extends Writer implements Serializable {
     private final StringBuilder builder;

@@ -11,8 +11,7 @@ import java.nio.charset.Charset;
  * io 工具
  *
  * @author bing_huang
- * @date 2020/08/05 7:48
- * @since V1.0
+ * @since 1.0.1
  */
 public class IOUtils {
     public static final int EOF = -1;

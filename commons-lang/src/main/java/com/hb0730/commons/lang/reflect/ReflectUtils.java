@@ -14,8 +14,7 @@ import java.util.regex.Pattern;
  * 反射
  *
  * @author bing_huang
- * @date 2020/08/04 14:18
- * @since V1.0
+ * @since 1.0.1
  */
 public class ReflectUtils {
 
@@ -135,6 +134,7 @@ public class ReflectUtils {
     /**
      * 获取对象所有的getter方法
      *
+     * @param <T>                目标对象类型
      * @param clazz              需要被获取的对象
      * @param containSupperClass 是否包含父项getter
      * @return 对象所有的getter方法, 当对象为<code>null</code>时，返回<code>null</code>

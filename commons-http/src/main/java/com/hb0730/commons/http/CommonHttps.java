@@ -7,8 +7,7 @@ import com.hb0730.commons.http.utils.HttpSyncUtils;
  * commons utils list
  *
  * @author bing_huang
- * @date 2020/08/05 15:06
- * @since V1.0
+ * @since 1.0.0
  */
 public class CommonHttps {
 

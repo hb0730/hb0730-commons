@@ -4,8 +4,7 @@ package com.hb0730.commons.lang;
  * 字符串 util
  *
  * @author bing_huang
- * @date 2020/07/30 13:24
- * @since V1.0
+ * @since 1.0.0
  */
 public class StringUtils {
     /**

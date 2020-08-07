@@ -1,7 +1,6 @@
 package com.hb0730.commons.lang.collection;
 
 import com.hb0730.commons.lang.UrlUtils;
-import com.hb0730.commons.lang.collection.CollectionUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -11,8 +10,7 @@ import java.util.function.BiConsumer;
  * map util
  *
  * @author bing_huang
- * @date 2020/07/30 15:49
- * @since V1.0
+ * @since 1.0.1
  */
 public class MapUtils {
     /**

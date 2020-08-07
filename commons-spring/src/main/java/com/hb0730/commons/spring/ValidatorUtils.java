@@ -14,8 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 校验
  *
  * @author bing_huang
- * @date 2020/07/30 13:45
- * @since V1.0
+ * @since 1.0.0
  */
 public class ValidatorUtils {
     private static volatile Validator VALIDATOR;

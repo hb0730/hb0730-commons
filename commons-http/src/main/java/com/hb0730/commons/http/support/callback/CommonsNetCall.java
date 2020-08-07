@@ -10,8 +10,7 @@ import java.io.IOException;
  * 异步请求回调
  *
  * @author bing_huang
- * @date 2020/08/05 10:12
- * @since V1.0
+ * @since 1.0.1
  */
 public interface CommonsNetCall {
 

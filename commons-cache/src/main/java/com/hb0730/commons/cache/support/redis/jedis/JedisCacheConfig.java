@@ -10,8 +10,7 @@ import redis.clients.jedis.JedisPool;
  * jedis config
  *
  * @author bing_huang
- * @date 2020/08/04 9:07
- * @since V1.0
+ * @since 1.0.1
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

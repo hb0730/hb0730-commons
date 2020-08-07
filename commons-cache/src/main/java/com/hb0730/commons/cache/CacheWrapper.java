@@ -9,8 +9,7 @@ import java.util.Date;
  * cache entity
  *
  * @author bing_huang
- * @date 2020/07/18 13:28
- * @since V1.0
+ * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode

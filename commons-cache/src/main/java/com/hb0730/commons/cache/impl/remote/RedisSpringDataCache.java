@@ -18,8 +18,7 @@ import java.util.Optional;
  * spring redis impl
  *
  * @author bing_huang
- * @date 2020/07/20 7:41
- * @since V1.0
+ * @since 1.0.0
  */
 public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisSpringDataCache.class);

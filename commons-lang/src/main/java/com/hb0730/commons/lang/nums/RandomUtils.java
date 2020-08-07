@@ -7,8 +7,7 @@ import java.util.UUID;
  * 随机数
  *
  * @author bing_huang
- * @date 2020/08/04 14:14
- * @since V1.0
+ * @since 1.0.1
  */
 public class RandomUtils {
     public static final char[] N = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};

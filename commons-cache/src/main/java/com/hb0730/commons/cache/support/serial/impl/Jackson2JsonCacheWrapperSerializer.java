@@ -14,8 +14,7 @@ import java.io.ByteArrayOutputStream;
  * jackson 序列化与反序列化
  *
  * @author bing_huang
- * @date 2020/07/25 18:04
- * @since V1.0
+ * @since 1.0.0
  */
 public class Jackson2JsonCacheWrapperSerializer extends AbstractSerializer {
     public static final Jackson2JsonCacheWrapperSerializer JSON_STRING_SERIALIZER = new Jackson2JsonCacheWrapperSerializer(true);

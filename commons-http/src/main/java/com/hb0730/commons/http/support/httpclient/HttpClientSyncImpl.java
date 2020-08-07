@@ -35,8 +35,7 @@ import java.util.Map;
  * http sync client 实现
  *
  * @author bing_huang
- * @date 2020/07/30 15:26
- * @since V1.0
+ * @since 1.0.0
  */
 public class HttpClientSyncImpl extends AbstractSyncHttp {
     private final CloseableHttpClient httpClient;

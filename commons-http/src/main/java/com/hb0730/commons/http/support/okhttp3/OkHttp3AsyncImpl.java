@@ -19,8 +19,7 @@ import java.util.Objects;
  * okhttp3 async impl
  *
  * @author bing_huang
- * @date 2020/08/05 13:28
- * @since V1.0
+ * @since 1.0.1
  */
 public class OkHttp3AsyncImpl extends AbstractAsyncHttp {
     private final okhttp3.OkHttpClient.Builder clientBuilder;

@@ -18,8 +18,7 @@ import java.util.Objects;
  * okhttp3 sync impl
  *
  * @author bing_huang
- * @date 2020/07/30 16:45
- * @since V1.0
+ * @since 1.0.0
  */
 public class OkHttp3SyncImpl extends AbstractSyncHttp {
     private final okhttp3.OkHttpClient.Builder clientBuilder;

@@ -18,8 +18,7 @@ import java.util.concurrent.TimeUnit;
  * 缓存抽象
  *
  * @author bing_huang
- * @date 2020/07/18 13:23
- * @since V1.0
+ * @since 1.0.0
  */
 public abstract class AbstractCache<K, V> implements Cache<K, V> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCache.class);

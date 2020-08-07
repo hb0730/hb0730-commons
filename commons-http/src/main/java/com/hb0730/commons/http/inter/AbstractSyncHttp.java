@@ -8,8 +8,7 @@ import lombok.Setter;
  * sync http 抽象
  *
  * @author bing_huang
- * @date 2020/07/30 15:23
- * @since V1.0
+ * @since 1.0.0
  */
 public abstract class AbstractSyncHttp implements SyncHttp {
     @Setter

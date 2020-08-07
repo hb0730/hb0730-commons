@@ -7,8 +7,7 @@ import java.util.*;
  * 对象操作类
  *
  * @author bing_huang
- * @date 2020/08/04 7:37
- * @since V1.0
+ * @since 1.0.1
  */
 public class ObjectUtils {
 
@@ -70,8 +69,8 @@ public class ObjectUtils {
     /**
      * 比较两个对象是否相等:
      * <pre>
-     * 1. o1==null&&o2==null
-     * 2. o1!=null&&o2.equals(o2)
+     * 1. o1==null &amp;&amp; o2==null
+     * 2. o1!=null &amp;&amp; o2.equals(o2)
      * </pre>
      *
      * @param o1 对象1

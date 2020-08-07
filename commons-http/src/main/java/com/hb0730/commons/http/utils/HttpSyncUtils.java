@@ -16,8 +16,7 @@ import java.util.Map;
  * 同步请求 工具类
  *
  * @author bing_huang
- * @date 2020/07/30 17:22
- * @since V1.0
+ * @since 1.0.0
  */
 public class HttpSyncUtils implements HttpUtils {
     private static AbstractSyncHttp proxy;

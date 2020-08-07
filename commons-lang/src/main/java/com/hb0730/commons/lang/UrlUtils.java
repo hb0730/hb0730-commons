@@ -9,8 +9,7 @@ import java.nio.charset.StandardCharsets;
  * url util
  *
  * @author bing_huang
- * @date 2020/07/30 15:55
- * @since V1.0
+ * @since 1.0.0
  */
 public class UrlUtils {
 

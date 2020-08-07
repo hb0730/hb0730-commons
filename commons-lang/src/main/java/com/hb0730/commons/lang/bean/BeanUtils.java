@@ -6,14 +6,17 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 /**
+ * bean util
+ *
  * @author bing_huang
- * @date 2020/08/05 9:07
- * @since V1.0
+ * @since 1.0.1
  */
 public class BeanUtils {
     /**
      * 深度克隆对象
      *
+     * @param objSource 需要被clone的对象
+     * @return 完成clone后的对象
      * @throws IllegalAccessException 异常
      * @throws InstantiationException 异常
      */

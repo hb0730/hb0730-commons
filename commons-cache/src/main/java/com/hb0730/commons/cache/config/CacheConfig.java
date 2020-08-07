@@ -10,8 +10,7 @@ import java.util.function.Function;
  * cache configuration
  *
  * @author bing_huang
- * @date 2020/07/24 8:39
- * @since V1.0
+ * @since 1.0.0
  */
 @Data
 public class CacheConfig<K, V> {

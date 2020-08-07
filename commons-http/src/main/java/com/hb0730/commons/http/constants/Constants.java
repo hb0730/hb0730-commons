@@ -7,8 +7,7 @@ import java.nio.charset.StandardCharsets;
  * 常量
  *
  * @author bing_huang
- * @date 2020/07/30 15:22
- * @since V1.0
+ * @since 1.0.0
  */
 public interface Constants {
     /**

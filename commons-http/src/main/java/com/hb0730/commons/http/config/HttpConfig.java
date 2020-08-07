@@ -9,8 +9,7 @@ import java.net.Proxy;
  * Http 配置类
  *
  * @author bing_huang
- * @date 2020/07/30 15:20
- * @since V1.0
+ * @since 1.0.0
  */
 @Data
 @EqualsAndHashCode

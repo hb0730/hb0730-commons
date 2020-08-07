@@ -13,8 +13,7 @@ import java.util.Objects;
  * 序列化抽象
  *
  * @author bing_huang
- * @date 2020/07/25 15:35
- * @since V1.0
+ * @since 1.0.0
  */
 public abstract class AbstractSerializer implements Serializer {
     @Getter

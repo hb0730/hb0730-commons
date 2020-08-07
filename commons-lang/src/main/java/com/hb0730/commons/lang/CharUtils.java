@@ -1,9 +1,10 @@
 package com.hb0730.commons.lang;
 
 /**
+ * chart util
+ *
  * @author bing_huang
- * @date 2020/07/31 8:35
- * @since V1.0
+ * @since 1.0.0
  */
 public class CharUtils {
     public static final char SPACE = ' ';
