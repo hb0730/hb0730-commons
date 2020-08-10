@@ -1,9 +1,12 @@
 package com.hb0730.commons.json.fastjson;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.hb0730.commons.lang.Validate;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,7 +18,7 @@ import java.util.Map;
 public class FastJsonUtils {
 
     /**
-     * json 字符串转换
+     * json 字符串转对象
      *
      * @param json json字符串，不为空
      * @param type 需要转换的类型，不为空
@@ -23,8 +26,53 @@ public class FastJsonUtils {
      * @return 对象指定类型
      */
     public static <T> T jsonToObject(String json, Class<T> type) {
-        return JSON.parseObject(json, type);
+        return jsonToObject(json, type, ParserConfig.getGlobalInstance());
     }
+
+    /**
+     * json 字符串转对象
+     *
+     * @param json   json字符串，不为空
+     * @param type   需要转换的类型，不为空
+     * @param config {@link ParserConfig}，不为空
+     * @param <T>    对象转换类型
+     * @return 对象指定类型
+     */
+    public static <T> T jsonToObject(String json, Class<T> type, ParserConfig config) {
+        Validate.notBlank(json, "json content must be not null");
+        Validate.notNull(type, "target class type must be not null");
+        Validate.notNull(config, "parser config must be not null");
+        return JSON.parseObject(json, type, config);
+    }
+
+    /**
+     * json字符串转list
+     *
+     * @param json json字符串不为空
+     * @param type 转换的类型,不为空
+     * @param <T>  对象转换类型
+     * @return 对象指定类型
+     */
+    public static <T> List<T> jsonToList(String json, Class<T> type) {
+        return jsonToList(json, type, ParserConfig.getGlobalInstance());
+    }
+
+    /**
+     * json 字符串转list对象
+     *
+     * @param json   json字符串，不为空
+     * @param type   需要转换的类型，不为空
+     * @param config {@link ParserConfig}，不为空
+     * @param <T>    对象转换类型
+     * @return 对象指定类型
+     */
+    public static <T> List<T> jsonToList(String json, Class<T> type, ParserConfig config) {
+        Validate.notBlank(json, "json content must be not null");
+        Validate.notNull(type, "target class type must be not null");
+        Validate.notNull(config, "parser config must be not null");
+        return JSONArray.parseArray(json, type, config);
+    }
+
 
     /**
      * 将对象转换成string json
@@ -97,4 +145,5 @@ public class FastJsonUtils {
         String json = objectToJson(source, config);
         return jsonToObject(json, Map.class);
     }
+
 }

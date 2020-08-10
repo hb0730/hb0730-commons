@@ -1,10 +1,11 @@
 package com.hb0730.commons.json.gson;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.hb0730.commons.lang.Validate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +49,68 @@ public class GsonUtils {
         Validate.notNull(type, "target type must be not null");
         Validate.notNull(gson, "gson must be not null");
         return gson.fromJson(json, type);
+    }
+
+    /**
+     * json字符串转list对象
+     *
+     * @param json json字符串，不为空
+     * @param type 需要转换的类型，不为空
+     * @param <T>  对象转换类型
+     * @return 对象指定类型
+     */
+    public static <T> List<T> jsonToList(String json, Class<T> type) {
+        return jsonToList(json, type, DEFAULT_GSON);
+    }
+
+    /**
+     * json字符串转list对象
+     *
+     * @param json json字符串，不为空
+     * @param type 需要转换的类型，不为空
+     * @param gson gson实例,不为空
+     * @param <T>  对象转换类型
+     * @return 对象指定类型
+     */
+    public static <T> List<T> jsonToList(String json, Class<T> type, Gson gson) {
+        Validate.notBlank(json, "json content must be not null");
+        Validate.notNull(type, "target type must be not null");
+        Validate.notNull(gson, "gson must be not null");
+        JsonArray arrayJson = JsonParser.parseString(json).getAsJsonArray();
+        List<T> results = new ArrayList<>();
+        for (final JsonElement element : arrayJson) {
+            results.add(gson.fromJson(element, type));
+        }
+        return results;
+    }
+
+    /**
+     * json字符串转list对象
+     *
+     * @param json json字符串，不为空
+     * @param type 需要转换的类型，不为空
+     * @param <T>  对象转换类型
+     * @return 对象指定类型
+     */
+    public static <T> List<T> jsonToList2(String json, Class<T> type) {
+        return jsonToList2(json, type, DEFAULT_GSON);
+    }
+
+    /**
+     * json字符串转list对象
+     *
+     * @param json json字符串，不为空
+     * @param type 需要转换的类型，不为空
+     * @param gson gson实例,不为空
+     * @param <T>  对象转换类型
+     * @return 对象指定类型
+     */
+    public static <T> List<T> jsonToList2(String json, Class<T> type, Gson gson) {
+        Validate.notBlank(json, "json content must be not null");
+        Validate.notNull(type, "target type must be not null");
+        Validate.notNull(gson, "gson must be not null");
+        return gson.fromJson(json, new TypeToken<List<T>>() {
+        }.getType());
     }
 
     /**
@@ -120,15 +183,5 @@ public class GsonUtils {
     public static Map<?, ?> objectToMap(Object source, Gson gson) {
         String json = objectToJson(source, gson);
         return jsonToObject(json, Map.class, gson);
-    }
-
-    /**
-     * 判断是否为json
-     *
-     * @param json json
-     * @return 是否为json
-     */
-    public static boolean isJson(String json) {
-        return JsonParser.parseString(json).isJsonObject();
     }
 }
