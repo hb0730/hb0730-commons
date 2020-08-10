@@ -17,6 +17,8 @@
   + add systemUtils
  ## delete
   + remove commons-cache 移除对hutool的依赖
+ ## 
+  + add json modules
 ## 1.0.0
  + init project
  + add tools....
