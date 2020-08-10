@@ -228,4 +228,17 @@ public class DateUtils {
         long startTime = ManagementFactory.getRuntimeMXBean().getStartTime();
         return new Date(startTime);
     }
+
+    /**
+     * 将date 转换成 {@link Calendar}实例
+     *
+     * @param date date
+     * @return {@link Calendar}实例
+     * @since 1.0.1
+     */
+    public static Calendar convertTo(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
 }
