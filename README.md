@@ -25,7 +25,7 @@ hb0730-commons是个人平时用到的java类库(封装http,cache或者工具uti
 <dependency>
     <groupId>com.hb0730</groupId>
     <artifactId>commons-dependencies</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1-RELEASE</version>
     <type>pom</type>
     <scope>import</scope>
 </dependency>
@@ -35,6 +35,6 @@ hb0730-commons是个人平时用到的java类库(封装http,cache或者工具uti
 <dependency>
     <groupId>com.hb0730</groupId>
     <artifactId>commons-all</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1-RELEASE</version>
 </dependency>
 ```
