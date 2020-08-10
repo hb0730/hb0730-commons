@@ -3,6 +3,8 @@ jdk:
   - openjdk8
 before_install:
   - export TZ=Asia/Shanghai
+  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 cache:
   directories:
     - $HOME/.m2/repository
@@ -14,7 +16,7 @@ jobs:
   include:
     - stage: test
       name: "maven build"
-      script: mvn clean install  -DskipTests=true -Dmaven.javadoc.skip=true -Dpgp-skip=true
+      script: mvn clean install  -DskipTests=true -Dmaven.javadoc.skip=true -Dpgp-skip=true -B -V
     - stage: release
       name: "maven install release"
       script: echo "Deploying to GitHub releases ..." && pwd
