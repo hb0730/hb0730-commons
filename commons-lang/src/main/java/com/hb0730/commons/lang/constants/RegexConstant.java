@@ -6,68 +6,72 @@ package com.hb0730.commons.lang.constants;
  * @author bing_huang
  * @since 1.0.1
  */
-public interface RegexConstant {
+public final class RegexConstant {
+    /**
+     * 特殊字符
+     */
+    public static final String[] SPECIAL_CHARS = {"\\", "$", "(", ")", "*", "+", ".", "[", "]", "?", "^", "{", "}", "|"};
 
     /**
      * email
      */
-    String EMAIL = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
+    public static final String EMAIL = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
 
     /**
      * 中国居民身份证,居民身份证号码15位或18位，最后一位可能是数字或字母
      */
-    String CHINA_ID_CARD = "[1-9]\\d{13,16}[a-zA-Z0-9]{1}";
+    public static final String CHINESE_ID_CARD = "[1-9]\\d{13,16}[a-zA-Z0-9]{1}";
 
     /**
-     * 验证手机号码（支持国际格式，+86135xxxx...（中国内地），+00852137xxxx...（中国香港））
+     * 中国手机号码，不支持国际化,国际化请看 <a href="https://github.com/google/libphonenumber">libphonenumber</a>
      */
-    String MOBILE = "(\\+\\d+)?1[3458]\\d{9}$";
+    public static final String CHINA_MOBILE = "^(1)\\d{10}$";
 
     /**
      * 验证固定电话号码
      */
-    String PHONE = "(\\+\\d+)?(\\d{3,4}\\-?)?\\d{7,8}$";
+    public static final String PHONE = "(\\+\\d+)?(\\d{3,4}\\-?)?\\d{7,8}$";
 
     /**
      * 验证整数（正整数和负整数）
      */
-    String DIGIT = "\\-?[1-9]\\d+";
+    public static final String DIGIT = "\\-?[1-9]\\d+";
 
     /**
      * 验证整数和浮点数（正负整数和正负浮点数）
      */
-    String DECIMALS = "\\-?[1-9]\\d+(\\.\\d+)?";
+    public static final String DECIMALS = "\\-?[1-9]\\d+(\\.\\d+)?";
 
     /**
      * 验证空白字符
      */
-    String BLANK_SPACE = "\\s+";
+    public static final String BLANK_SPACE = "\\s+";
 
     /**
      * 是否为中文
      */
-    String ZH = "^[\u4E00-\u9FA5]+$";
+    public static final String ZH = "^[\u4E00-\u9FA5]+$";
 
     /**
      * 验证日期（年月日）<br>
-     * 格式：19989-09-03，或1989.09.03
+     * 格式：y-M-d | y.M.d | y/M/d
      */
-    String BIRTHDAY = "[1-9]{4}([-./])\\d{1,2}\\1\\d{1,2}";
+    public static final String BIRTHDAY = "^\\d{4}(-|/|.)\\d{1,2}\\1\\d{1,2}$";
 
     /**
      * 验证URL地址合法性
      */
-    String URL = "(https?://(w{3}\\.)?)?\\w+\\.\\w+(\\.[a-zA-Z]+)*(:\\d{1,5})?(/\\w*)*(\\??(.+=.*)?(&.+=.*)?)?";
+    public static final String URL = "(https?://(w{3}\\.)?)?\\w+\\.\\w+(\\.[a-zA-Z]+)*(:\\d{1,5})?(/\\w*)*(\\??(.+=.*)?(&.+=.*)?)?";
 
     /**
      * 匹配中国邮政编码
      */
-    String CHINA_POST_CODE = "[1-9]\\d{5}";
+    public static final String CHINA_POST_CODE = "[1-9]\\d{5}";
 
     /**
      * 匹配IP地址(简单匹配，格式，如：192.168.1.1，127.0.0.1，没有匹配IP段的大小)
      * ipv4
      */
-    String IP_ADDRESS = "[1-9](\\d{1,2})?\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))";
+    public static final String IP_ADDRESS = "[1-9](\\d{1,2})?\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))";
 
 }
