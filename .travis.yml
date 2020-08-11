@@ -3,8 +3,6 @@ jdk:
   - openjdk8
 before_install:
   - export TZ=Asia/Shanghai
-  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 cache:
   directories:
     - $HOME/.m2/repository
@@ -26,9 +24,6 @@ jobs:
         skip_cleanup: true
         on:
           tags: true
-
-after_deploy:
-  - util/deploy.sh
 
 stages:
   - test
