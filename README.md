@@ -20,6 +20,11 @@
 <a href="https://apidoc.gitee.com/hb0820/hb0730-commons">
 <img alt="api" src="https://img.shields.io/badge/api-doc-blue?style=flat-square">
 </a>
+
+<a href="https://codecov.io/gh/hb0730/hb0730-commons">
+  <img alt="codecov" src="https://codecov.io/gh/hb0730/hb0730-commons/branch/master/graph/badge.svg" />
+</a>
+
 </p>
 
 -----------------------
