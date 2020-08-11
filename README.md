@@ -1,4 +1,4 @@
-<h1 align="center"><a href="https://github.com/halo-dev" target="_blank">hb0730-commons</a></h1>
+<h1 align="center"><a href="https://github.com/halo-dev" target="_blank">commons</a></h1>
 
 <p align="center">
 <a href="https://search.maven.org/search?q=com.hb0730">
@@ -17,14 +17,14 @@
 <img alt="jdk" src="https://img.shields.io/badge/jdk-8%2B-green?style=flat-square">
 </a>
 
-<a href=" https://apidoc.gitee.com/hb0820/hb0730-commons">
+<a href="https://apidoc.gitee.com/hb0820/hb0730-commons">
 <img alt="api" src="https://img.shields.io/badge/api-doc-blue?style=flat-square">
 </a>
 </p>
 
 -----------------------
 ## 简介
-hb0730-commons是个人平时用到的java类库(封装http,cache或者工具utils)仅此而已
+hb0730-commons是个人平时用到的java类库(封装http,cache等工具)
 ## 包含组件
 |模块|介绍|
 |----|----|
