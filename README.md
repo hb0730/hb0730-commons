@@ -14,11 +14,11 @@
 </a>
 
 <a href="https://www.oracle.com/java/technologies/javase-downloads.html">
-<img alt="jdk" src="https://img.shields.io/badge/jdk-8%2B-green">
+<img alt="jdk" src="https://img.shields.io/badge/jdk-8%2B-green?style=flat-square">
 </a>
 
 <a href=" https://apidoc.gitee.com/hb0820/hb0730-commons">
-<img alt="api" src="https://img.shields.io/badge/api-doc-blue">
+<img alt="api" src="https://img.shields.io/badge/api-doc-blue?style=flat-square">
 </a>
 </p>
 
