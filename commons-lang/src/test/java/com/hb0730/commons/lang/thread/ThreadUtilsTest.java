@@ -8,7 +8,7 @@ public class ThreadUtilsTest {
     public void testSleepTest() {
         try {
             System.out.println("hhhhhh--------");
-            ThreadUtils.sleep(500000);
+            ThreadUtils.sleep(2 * 1000);
             System.out.println("test---------------");
         } catch (InterruptedException e) {
             e.printStackTrace();
