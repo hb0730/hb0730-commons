@@ -26,7 +26,7 @@
 </a>
 
 <a href="https://codecov.io/gh/hb0730/hb0730-commons">
-  <img alt="codecov" src="https://codecov.io/gh/hb0730/hb0730-commons/branch/master/graph/badge.svg" />
+  <img alt="codecov" src="https://codecov.io/gh/hb0730/hb0730-commons/branch/de/graph/badge.svg" />
 </a>
 
 </p>
