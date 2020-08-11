@@ -21,6 +21,10 @@
 <img alt="api" src="https://img.shields.io/badge/api-doc-blue?style=flat-square">
 </a>
 
+<a href="https://www.codacy.com/manual/hb0730/hb0730-commons?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hb0730/hb0730-commons&amp;utm_campaign=Badge_Grade">
+<img alt="codacy" src="https://app.codacy.com/project/badge/Grade/32651203ac1043cb8c85fddf42a68c9a"/>
+</a>
+
 <a href="https://codecov.io/gh/hb0730/hb0730-commons">
   <img alt="codecov" src="https://codecov.io/gh/hb0730/hb0730-commons/branch/master/graph/badge.svg" />
 </a>
