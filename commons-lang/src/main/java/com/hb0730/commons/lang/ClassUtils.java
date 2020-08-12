@@ -7,8 +7,6 @@ package com.hb0730.commons.lang;
  * @since 1.0.0
  */
 public class ClassUtils {
-    private ClassUtils() {
-    }
 
     /**
      * 确定class是否可以被加载

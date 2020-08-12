@@ -10,9 +10,6 @@ import java.util.*;
  * @since 1.0.1
  */
 public class ObjectUtils {
-    public ObjectUtils() {
-        super();
-    }
 
     /**
      * 校验对象是否为<code>null</code>

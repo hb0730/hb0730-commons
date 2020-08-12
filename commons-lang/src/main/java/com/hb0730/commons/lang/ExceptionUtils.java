@@ -10,8 +10,6 @@ import java.io.StringWriter;
  * @since 1.0.0
  */
 public class ExceptionUtils {
-    private ExceptionUtils() {
-    }
 
     /**
      * 获取异常信息
