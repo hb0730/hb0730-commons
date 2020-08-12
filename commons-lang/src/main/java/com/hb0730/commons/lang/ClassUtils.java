@@ -1,5 +1,8 @@
 package com.hb0730.commons.lang;
 
+import com.hb0730.commons.lang.collection.ArrayUtils;
+import com.hb0730.commons.lang.convert.BasicTypeEnum;
+
 /**
  * 类工具类
  *
@@ -83,5 +86,55 @@ public class ClassUtils {
             isPrimitive = false;
         }
         return isPrimitive;
+    }
+
+    /**
+     * 判断该类型是否为基本类型（包括包装类和原始类）
+     *
+     * @param clazz 类
+     * @return 是否为基本类型
+     * @since 1.0.2
+     */
+    public static boolean isBasicType(Class<?> clazz) {
+        if (null == clazz) {
+            return false;
+        }
+        return clazz.isPrimitive() || isBasicClass(clazz);
+    }
+
+    /**
+     * 比较判断types1和types2两组类，如果types1中所有的类都与types2对应位置的类相同，或者是其父类或接口，则返回<code>true</code>
+     *
+     * @param types1 类组1
+     * @param types2 类组2
+     * @return 是否相同、父类或接口
+     * @since 1.0.2
+     */
+    public static boolean isAllAssignableFrom(Class<?>[] types1, Class<?>[] types2) {
+        if (ArrayUtils.isEmpty(types1) && ArrayUtils.isEmpty(types2)) {
+            return true;
+        }
+        if (null == types1 || null == types2) {
+            return false;
+        }
+        if (types1.length != types2.length) {
+            return false;
+        }
+        Class<?> type1;
+        Class<?> type2;
+        for (int i = 0; i < types1.length; i++) {
+            type1 = types1[i];
+            type2 = types2[i];
+            if (isBasicType(type1) && isBasicType(type2)) {
+                // 原始类型和包装类型存在不一致情况
+                if (BasicTypeEnum.unWrap(type1) != BasicTypeEnum.unWrap(type2)) {
+                    return false;
+                }
+            } else if (!type1.isAssignableFrom(type2)) {
+                return false;
+            }
+        }
+        return true;
+
     }
 }

@@ -15,7 +15,6 @@ public class ThreadUtils {
      * @param runnable {@link Runnable}
      * @param name     线程名
      * @return {@link Thread}
-     * @since 3.1.2
      */
     public static Thread newThread(Runnable runnable, String name) {
         final Thread t = newThread(runnable, name, false);
@@ -32,7 +31,6 @@ public class ThreadUtils {
      * @param name     线程名
      * @param isDaemon 是否守护线程
      * @return {@link Thread}
-     * @since 4.1.2
      */
     public static Thread newThread(Runnable runnable, String name, boolean isDaemon) {
         final Thread t = new Thread(null, runnable, name);

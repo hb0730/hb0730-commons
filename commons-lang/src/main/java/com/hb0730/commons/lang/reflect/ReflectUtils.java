@@ -1,5 +1,9 @@
 package com.hb0730.commons.lang.reflect;
 
+import com.hb0730.commons.lang.ClassUtils;
+import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.collection.CollectionUtils;
+
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -132,6 +136,54 @@ public class ReflectUtils {
     }
 
     /**
+     * 查找指定方法 如果找不到对应的方法则返回<code>null</code>
+     *
+     * <p>
+     * 此方法为精准获取方法名，即方法名和参数数量和类型必须一致，否则返回<code>null</code>。
+     * </p>
+     *
+     * @param clazz      类，如果为{@code null}返回{@code null}
+     * @param methodName 方法名，如果为空字符串返回{@code null}
+     * @param paramTypes 参数类型，指定参数类型如果是方法的子类也算
+     * @return 方法
+     * @throws SecurityException 无权访问抛出异常
+     * @since 1.0.2
+     */
+    public static Method getMethod(Class<?> clazz, String methodName, Class<?>... paramTypes) throws SecurityException {
+        return getMethod(clazz, false, methodName, paramTypes);
+    }
+
+
+    /**
+     * 查找指定方法 如果找不到对应的方法则返回<code>null</code>
+     * <p></p>
+     * 此方法为精准获取方法名，即方法名和参数数量和类型必须一致，否则返回<code>null</code>。
+     *
+     * @param clazz      类，如果为{@code null}返回{@code null}
+     * @param ignoreCase 是否忽略大小写
+     * @param methodName 方法名，如果为空字符串返回{@code null}
+     * @param paramsType 参数类型，指定参数类型如果是方法的子类也算
+     * @return 方法
+     * @since 1.0.2
+     */
+    public static Method getMethod(Class<?> clazz, boolean ignoreCase, String methodName, Class<?>... paramsType) {
+        if (null == clazz || StringUtils.isBlank(methodName)) {
+            return null;
+        }
+        List<Method> methods = getMethods(clazz, true);
+        if (!CollectionUtils.isEmpty(methods)) {
+            for (Method method : methods) {
+                if (StringUtils.equals(methodName, method.getName(), ignoreCase)) {
+                    if (ClassUtils.isAllAssignableFrom(method.getParameterTypes(), paramsType)) {
+                        return method;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * 获取对象所有的getter方法
      *
      * @param <T>                目标对象类型
@@ -259,7 +311,7 @@ public class ReflectUtils {
         Class<?>[] clazz = new Class<?>[args.length];
         int index = 0;
         for (Object arg : args) {
-            clazz[index] = (Class<?>) arg;
+            clazz[index] = arg.getClass();
             index++;
         }
         return clazz;
