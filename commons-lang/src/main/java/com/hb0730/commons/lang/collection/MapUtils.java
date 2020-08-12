@@ -51,7 +51,7 @@ public class MapUtils {
      * @return HashMap对象
      */
     public static <K, V> HashMap<K, V> newHashMap() {
-        return new HashMap<>();
+        return new HashMap<>(16);
     }
 
     /**

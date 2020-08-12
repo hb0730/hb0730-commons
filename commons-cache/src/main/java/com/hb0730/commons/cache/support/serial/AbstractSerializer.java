@@ -30,6 +30,14 @@ public abstract class AbstractSerializer implements Serializer {
         this.identityNumber = identityNumber;
     }
 
+    /**
+     * 执行序列化
+     *
+     * @param outStream outputStream
+     * @param value     需要序列化对象
+     * @return 已完成序列化后的对象
+     * @throws Exception 序列化异常
+     */
     @Nullable
     protected abstract byte[] doSerialize(@Nonnull ByteArrayOutputStream outStream, @Nullable Object value) throws Exception;
 
@@ -57,6 +65,13 @@ public abstract class AbstractSerializer implements Serializer {
         }
     }
 
+    /**
+     * 反序列化
+     *
+     * @param buffer 已被序列化对象
+     * @return 完成反序列的对象
+     * @throws Exception 反序列化异常
+     */
     protected abstract Object doDeserialize(@Nullable byte[] buffer) throws Exception;
 
 

@@ -164,7 +164,7 @@ public class BeanUtils {
         if (CollectionUtils.isEmpty(list)) {
             return Collections.emptyMap();
         }
-        Map<ID, D> maps = new HashMap<>();
+        Map<ID, D> maps = new HashMap<>(16);
         list.forEach(data -> maps.putIfAbsent(mappingFunction.apply(data), data));
         return maps;
     }
@@ -189,7 +189,7 @@ public class BeanUtils {
             return Collections.emptyMap();
         }
 
-        Map<ID, V> resultMap = new HashMap<>();
+        Map<ID, V> resultMap = new HashMap<>(16);
 
         list.forEach(data -> resultMap.putIfAbsent(keyFunction.apply(data), valueFunction.apply(data)));
 

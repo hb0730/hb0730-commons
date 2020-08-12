@@ -32,7 +32,7 @@ public class GlobalSerializeMap {
     synchronized private static void putInternal(@Nonnull Integer identityNumber, Serializer serializer) {
         Assert.notNull(identityNumber, "identity number must not be null");
         if (null == serializerMap) {
-            serializerMap = new ConcurrentHashMap<>();
+            serializerMap = new ConcurrentHashMap<>(16);
         } else if (null != serializerMap.get(identityNumber)) {
             throw new CacheException("identityNumber Already exists");
         }

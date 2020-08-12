@@ -17,6 +17,7 @@ public interface Serializer {
      *
      * @param obj 序列化对象
      * @return 二进制
+     * @throws Exception 序列号异常
      */
     @Nullable
     byte[] serialize(@Nullable Object obj) throws Exception;
@@ -27,6 +28,7 @@ public interface Serializer {
      *
      * @param bytes 字节数组
      * @return 序列化对象
+     * @throws Exception 反序列化异常
      */
     @Nullable
     Object deserialize(@Nullable byte[] bytes) throws Exception;

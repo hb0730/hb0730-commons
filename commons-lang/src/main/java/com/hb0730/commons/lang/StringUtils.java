@@ -96,7 +96,7 @@ public class StringUtils {
     }
 
     /**
-     * 去除全部空格
+     * 去除首尾全部空格
      *
      * @param value 需要处理的字符串
      * @return 已去除空格的字符串
@@ -109,7 +109,7 @@ public class StringUtils {
      * 除去空格
      *
      * @param value 需要处理的字符串
-     * @param mode  处理模式:<code>-1</code>表示处理头部,<code>0</code>表示处理全部,<code>1</code> 表示处理尾部
+     * @param mode  处理模式:<code>-1</code>表示处理头部,<code>0</code>表示处理首尾,<code>1</code> 表示处理尾部
      * @return 除去指定字符后的的字符串
      * @see String#trim()
      */
@@ -138,10 +138,10 @@ public class StringUtils {
     }
 
     /**
-     * 判断是否为null或者为 <code>""</code>
+     * 判断是否为null或者为 <code>&quot;&quot;</code>
      *
      * @param str 入参
-     * @return true: 为null或者为 <code>""</code>
+     * @return true: 为null或者为 <code>&quot;&quot;</code>
      */
     public static boolean isEmpty(CharSequence str) {
         return (str == null || 0 == str.length());
@@ -177,7 +177,7 @@ public class StringUtils {
 
 
     /**
-     * 是否包含字符串
+     * 是否包含字符串,不考虑大小写
      *
      * @param str  验证字符串
      * @param strs 字符串组
@@ -196,7 +196,7 @@ public class StringUtils {
 
 
     /**
-     * 是否以特定字符串结尾，忽略大小写
+     * 是否以特定字符串结尾
      *
      * @param str    原字符串
      * @param suffix 结尾字符串
