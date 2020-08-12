@@ -9,6 +9,12 @@ import java.util.List;
 
 @Slf4j
 public class SystemUtilsTest {
+    @Test
+    public void systemUtilsTest() {
+        SystemUtilsTest systemUtilsTest = new SystemUtilsTest();
+        Assert.assertNotNull(systemUtilsTest);
+
+    }
 
     @Test
     public void getPropertyTest() {

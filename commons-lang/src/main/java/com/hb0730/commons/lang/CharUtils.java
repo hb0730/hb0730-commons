@@ -9,6 +9,9 @@ package com.hb0730.commons.lang;
 public class CharUtils {
     public static final char SPACE = ' ';
 
+    private CharUtils() {
+    }
+
     /**
      * 是否为空白符<br>
      *

@@ -9,6 +9,8 @@ import java.nio.charset.Charset;
  * @since 1.0.1
  */
 public class Charsets {
+    private Charsets() {
+    }
 
     /**
      * 获取编码，参数为空时返回默认编码
@@ -27,6 +29,6 @@ public class Charsets {
      * @return 编码
      */
     public static Charset toCharset(final String charset) {
-        return charset == null ? Charset.defaultCharset() : Charset.forName(charset);
+        return StringUtils.isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset);
     }
 }

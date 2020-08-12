@@ -13,6 +13,9 @@ import java.util.List;
  * @since 1.0.1
  */
 public class SystemUtils {
+    public SystemUtils() {
+        super();
+    }
 
     /**
      * 获取属性信息

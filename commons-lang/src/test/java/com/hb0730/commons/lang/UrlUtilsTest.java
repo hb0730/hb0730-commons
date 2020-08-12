@@ -11,10 +11,17 @@ import java.nio.charset.StandardCharsets;
 public class UrlUtilsTest {
 
     @Test
+    public void urlTest() {
+        UrlUtils urlUtils = new UrlUtils();
+        Assert.assertNotNull(urlUtils);
+    }
+
+    @Test
     public void urlEncodeTest() throws UnsupportedEncodingException {
         String params = "name=1&&id=冲冲冲";
         params = UrlUtils.urlEncode(params);
         log.info(params);
+        Assert.assertNotNull(params);
     }
 
     @Test
@@ -22,6 +29,7 @@ public class UrlUtilsTest {
         String params = "name=1&&id=冲冲冲";
         params = UrlUtils.urlEncode(params, StandardCharsets.UTF_8.displayName());
         log.info(params);
+        Assert.assertNotNull(params);
     }
 
     @Test
@@ -29,6 +37,8 @@ public class UrlUtilsTest {
         String params = "name=1&&id=冲冲冲";
         params = UrlUtils.urlEncode(params, StandardCharsets.UTF_8);
         log.info(params);
+        Assert.assertNotNull(params);
+
     }
 
     @Test

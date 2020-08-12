@@ -16,5 +16,6 @@ public class CharUtilsTest {
     @Test
     public void testIsBlankTest() {
         Assert.assertTrue("不为空格符", CharUtils.isBlank(32));
+        Assert.assertTrue("不为空格符", CharUtils.isBlank((int) '\ufeff'));
     }
 }

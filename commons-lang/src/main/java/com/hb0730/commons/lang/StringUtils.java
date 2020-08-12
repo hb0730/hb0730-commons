@@ -7,6 +7,10 @@ package com.hb0730.commons.lang;
  * @since 1.0.0
  */
 public class StringUtils {
+    public StringUtils() {
+        super();
+    }
+
     /**
      * 校验参数是否为<code>""</code><br>
      * 1、为null <br>

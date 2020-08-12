@@ -12,13 +12,21 @@ public class CharsetsTest {
 
     @Test
     public void toCharsetTest() {
-        Charset charset = Charsets.toCharset("UTF-8");
+        String chart = "UTF-8";
+        Charset charset = Charsets.toCharset(chart);
+        Assert.assertNotNull("字符集编码存在", charset);
+        chart = null;
+        charset = Charsets.toCharset(chart);
         Assert.assertNotNull("字符集编码存在", charset);
     }
 
     @Test
     public void testToCharsetTest() {
-        Charset charset = Charsets.toCharset(StandardCharsets.UTF_8);
+        Charset chart = StandardCharsets.UTF_8;
+        Charset charset = Charsets.toCharset(chart);
+        Assert.assertNotNull("字符集编码存在", charset);
+        chart = null;
+        charset = Charsets.toCharset(chart);
         Assert.assertNotNull("字符集编码存在", charset);
     }
 }

@@ -17,6 +17,11 @@ public class Validate {
     private static final String DEFAULT_NOT_EMPTY_MAP_EX_MESSAGE = "The validated map is empty";
     private static final String DEFAULT_NOT_EMPTY_CHAR_SEQUENCE_EX_MESSAGE = "The validated character sequence is empty";
     private static final String DEFAULT_NOT_BLANK_EX_MESSAGE = "The validated character sequence is blank";
+
+    public Validate() {
+        super();
+    }
+
     /***************Boolean**********/
     /**
      * 校验参数是否为true

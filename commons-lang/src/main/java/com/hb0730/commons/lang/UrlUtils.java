@@ -13,6 +13,9 @@ import java.nio.charset.StandardCharsets;
  * @since 1.0.0
  */
 public class UrlUtils {
+    public UrlUtils() {
+        super();
+    }
 
     /**
      * url 编码, 默认utf-8

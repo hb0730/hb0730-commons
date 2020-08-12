@@ -5,10 +5,16 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Optional;
 
 @Slf4j
 public class ObjectUtilsTest {
+    @Test
+    public void objectUtilsTest() {
+        ObjectUtils objectUtils = new ObjectUtils();
+        Assert.assertNotNull(objectUtils);
+    }
 
     @Test
     public void isNullTest() {
@@ -24,8 +30,21 @@ public class ObjectUtilsTest {
 
     @Test
     public void isEmptyTest() {
-        List array = new ArrayList<>();
-        Assert.assertTrue("集合不为空", ObjectUtils.isEmpty(array));
+
+        Object obj = null;
+        Assert.assertTrue("对象不为空", ObjectUtils.isEmpty(obj));
+        obj = " ";
+        Assert.assertTrue("对象不为空", ObjectUtils.isEmpty(obj));
+        obj = new ArrayList<>();
+        Assert.assertTrue("集合不为空", ObjectUtils.isEmpty(obj));
+        obj = new HashMap<>();
+        Assert.assertTrue("map不为空", ObjectUtils.isEmpty(obj));
+        obj = new Object[]{"s"};
+        Assert.assertTrue("数组不为空", ObjectUtils.isEmpty(obj));
+        obj = Optional.of("cc");
+        Assert.assertTrue("Optional不为空", ObjectUtils.isEmpty(obj));
+        obj = Integer.valueOf("测试");
+        Assert.assertTrue("OInteger不为空", ObjectUtils.isEmpty(obj));
     }
 
     @Test
@@ -44,8 +63,17 @@ public class ObjectUtilsTest {
 
     @Test
     public void lengthTest() {
-        String str = " ";
-        log.info("对象length {}", ObjectUtils.length(str));
+        Object obj = null;
+        log.info("对象length {}", ObjectUtils.length(obj));
+        obj = " ";
+        log.info("对象length {}", ObjectUtils.length(obj));
+        obj = new ArrayList<String>(1);
+        log.info("对象length {}", ObjectUtils.length(obj));
+        obj = new HashMap<>(1);
+        log.info("对象length {}", ObjectUtils.length(obj));
+        obj = new Object[]{"1"};
+        log.info("对象length {}", ObjectUtils.length(obj));
+        Assert.assertNotNull(obj);
     }
 
     @Test
@@ -61,6 +89,15 @@ public class ObjectUtilsTest {
         String str = "";
         String str2 = "";
         int compare = ObjectUtils.compare(str, str2, true);
+        Assert.assertEquals("对象不相等", compare, 0);
+
+        str = null;
+        compare = ObjectUtils.compare(str, str2, true);
+        Assert.assertEquals("对象不相等", compare, 0);
+
+        str = "";
+        str2 = null;
+        compare = ObjectUtils.compare(str, str2, true);
         Assert.assertEquals("对象不相等", compare, 0);
     }
 }

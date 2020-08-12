@@ -6,6 +6,11 @@ import org.junit.Test;
 
 @Slf4j
 public class StringUtilsTest {
+    @Test
+    public void stringUtilsTest() {
+        StringUtils stringUtils = new StringUtils();
+        Assert.assertNotNull(stringUtils);
+    }
 
     @Test
     public void trimTest() {
@@ -81,12 +86,22 @@ public class StringUtilsTest {
         Assert.assertTrue(contains);
         log.info("是否包含特殊字符:{}包含'a'? {}", str, contains);
 
+        str = null;
+        contains = StringUtils.contains(str, 'a');
+        Assert.assertTrue(contains);
+        log.info("是否包含特殊字符:{}包含'a'? {}", str, contains);
+
     }
 
     @Test
     public void testContainsTest() {
         String str = "asasad";
         boolean contains = StringUtils.contains(str, "sa");
+        log.info("是否包含特殊字符串: {} 包含 sa ? {}", str, contains);
+        Assert.assertTrue(contains);
+
+        str = null;
+        contains = StringUtils.contains(str, "sa");
         log.info("是否包含特殊字符串: {} 包含 sa ? {}", str, contains);
         Assert.assertTrue(contains);
     }
@@ -113,6 +128,17 @@ public class StringUtilsTest {
         newStr = StringUtils.ensureSuffix(str, "@qq.com");
         log.info("确保字符串包含后缀, 原 {},新 {}", str, newStr);
         Assert.assertEquals("原字符串不以@qq.com结尾", str, newStr);
+
+        str = "asad";
+        newStr = StringUtils.ensureSuffix(str, null);
+        log.info("确保字符串包含后缀, 原 {},新 {}", str, newStr);
+        Assert.assertEquals("原字符串不以@qq.com结尾", str, newStr);
+
+
+        str = null;
+        newStr = StringUtils.ensureSuffix(str, null);
+        log.info("确保字符串包含后缀, 原 {},新 {}", str, newStr);
+        Assert.assertEquals("原字符串不以@qq.com结尾", str, newStr);
     }
 
     @Test
@@ -125,6 +151,15 @@ public class StringUtilsTest {
         newStr = StringUtils.removeEnd(str, "da");
         log.info("删除末尾给定的字符串2.存在特定结尾: 原 {}, 新 {}", str, newStr);
         Assert.assertEquals(str, newStr);
+
+        newStr = StringUtils.removeEnd(str, null);
+        log.info("删除末尾给定的字符串2.存在特定结尾: 原 {}, 新 {}", str, newStr);
+        Assert.assertEquals(str, newStr);
+
+        str = null;
+        newStr = StringUtils.removeEnd(str, null);
+        log.info("删除末尾给定的字符串2.存在特定结尾: 原 {}, 新 {}", str, newStr);
+        Assert.assertEquals(str, newStr);
     }
 
     @Test
@@ -132,8 +167,17 @@ public class StringUtilsTest {
         String str = "http://caca.com";
         String newStr = StringUtils.appendIfNotContain(str, "?", "&");
         log.info("1.追加是否包含特定是否，否则追加其他字符，原 {},现 {}", str, newStr);
+
         str = "http://cacc.com?asd=as";
         newStr = StringUtils.appendIfNotContain(str, "?", "&");
+        log.info("1.追加是否包含特定是否，否则追加其他字符，原 {},现 {}", str, newStr);
+
+        str = "http://cacc.com?asd=as";
+        newStr = StringUtils.appendIfNotContain(str, null, "&");
+        log.info("1.追加是否包含特定是否，否则追加其他字符，原 {},现 {}", str, newStr);
+
+        str = null;
+        newStr = StringUtils.appendIfNotContain(str, null, "&");
         log.info("1.追加是否包含特定是否，否则追加其他字符，原 {},现 {}", str, newStr);
     }
 
@@ -160,6 +204,24 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void endWith2Test() {
+        log.info("字符串以特定字符结尾");
+        String str = "asdda";
+        boolean endWith = StringUtils.endWith(str, "dda", true);
+        Assert.assertTrue(endWith);
+
+        endWith = StringUtils.endWith(str, "dda", false);
+        Assert.assertTrue("字符串非特定字符结尾", endWith);
+
+        endWith = StringUtils.endWith(str, null, false);
+        Assert.assertTrue("字符串非特定字符结尾", endWith);
+
+        str = null;
+        endWith = StringUtils.endWith(str, null, false);
+        Assert.assertTrue("字符串非特定字符结尾", endWith);
+    }
+
+    @Test
     public void isBlankTest() {
         String str = "asd";
         boolean blank = StringUtils.isBlank(str);
@@ -176,6 +238,7 @@ public class StringUtilsTest {
         str = null;
         blank = StringUtils.isBlank(str);
         log.info("字符串{}为空? {}", str, blank);
+        Assert.assertTrue(blank);
     }
 
     @Test
@@ -188,6 +251,14 @@ public class StringUtilsTest {
     public void testEquals1Test() {
         String str1 = "asd";
         String str2 = "ASD";
+        Assert.assertTrue(StringUtils.equals(str1, str2, true));
+
+        str1 = null;
+        str2 = null;
+        Assert.assertTrue(StringUtils.equals(str1, str2, true));
+
+        str1 = "asd";
+        str2 = null;
         Assert.assertTrue(StringUtils.equals(str1, str2, true));
     }
 
@@ -203,6 +274,12 @@ public class StringUtilsTest {
 
         newStr = StringUtils.trim(str, 1);
         log.info("去除尾部空格, 原:{},现:{}", str, newStr);
+
+        str = null;
+        newStr = StringUtils.trim(str, 1);
+        log.info("去除尾部空格, 原:{},现:{}", str, newStr);
+
+        Assert.assertNotNull(newStr);
     }
 
     @Test
@@ -215,4 +292,5 @@ public class StringUtilsTest {
         contains = StringUtils.endWithIgnoreCase(str, "dd");
         Assert.assertTrue(contains);
     }
+
 }
