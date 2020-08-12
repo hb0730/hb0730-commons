@@ -1,6 +1,8 @@
 package com.hb0730.commons.lang.reflect;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -85,7 +87,7 @@ public class ReflectUtilsTest {
 
     @Test
     public void invokeTest() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Person person = new Person();
+        Person person = Person.builder().build();
         Assert.assertNotNull(person);
         Object test = ReflectUtils.invoke(person, "test");
         log.info(test.toString());
@@ -96,7 +98,7 @@ public class ReflectUtilsTest {
 
     @Test
     public void testInvokeTest() throws InvocationTargetException, IllegalAccessException {
-        Person person = new Person();
+        Person person = Person.builder().build();
         Method method = ReflectUtils.getMethod(Person.class, "test");
         Object invoke = method.invoke(person);
         Assert.assertNotNull(invoke);
@@ -138,8 +140,6 @@ public class ReflectUtilsTest {
 
     @Data
     @EqualsAndHashCode
-    @AllArgsConstructor
-    @NoArgsConstructor
     @Builder
     static class Person {
         private String id;

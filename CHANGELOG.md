@@ -1,4 +1,8 @@
 # Changelog
+## 1.0.2
+ + add BasicTypeEnum 基本类型与包装类型 枚举
+ + add ClassUtils#isAllAssignableFrom,ClassUtils#isBasicType等方法
+ + add ReflectUtils#getMethod等方法
 ## 1.0.1
  ## fix
  + fix UrlUtils 参数判断

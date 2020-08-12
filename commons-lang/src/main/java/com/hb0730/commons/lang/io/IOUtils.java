@@ -19,13 +19,13 @@ public class IOUtils {
     /**
      * 写入
      *
-     * @param data   内容
-     * @param output out流
+     * @param data   内容,不为<code>null</code>
+     * @param output out流,不为<code>null</code>
      * @throws IOException io异常
      */
     public static void write(final byte[] data, final OutputStream output)
             throws IOException {
-        if (data != null) {
+        if (null != data && null != output) {
             output.write(data);
         }
     }
@@ -33,8 +33,8 @@ public class IOUtils {
     /**
      * 写入
      *
-     * @param data     内容
-     * @param output   out流
+     * @param data     内容,不为<code>null</code>
+     * @param output   out流,不为<code>null</code>
      * @param encoding 编码
      * @throws IOException io异常
      */
@@ -46,13 +46,13 @@ public class IOUtils {
     /**
      * 写入
      *
-     * @param data     内容
-     * @param output   out流
+     * @param data     内容,不为<code>null</code>
+     * @param output   out流,不为<code>null</code>
      * @param encoding 编码
      * @throws IOException io异常
      */
     public static void write(final char[] data, final OutputStream output, final Charset encoding) throws IOException {
-        if (data != null) {
+        if (null != data && null != output) {
             output.write(new String(data).getBytes(Charsets.toCharset(encoding)));
         }
     }
@@ -80,7 +80,7 @@ public class IOUtils {
      */
     public static void write(final CharSequence data, final OutputStream output, final Charset encoding)
             throws IOException {
-        if (data != null) {
+        if (null != data && null != output) {
             write(data.toString(), output, encoding);
         }
     }
@@ -88,13 +88,13 @@ public class IOUtils {
     /**
      * output流写
      *
-     * @param data    内存
-     * @param out     outputStream
+     * @param data    内存，
+     * @param out     outputStream,
      * @param charset 编码
      * @throws IOException io异常
      */
     public static void write(final String data, final OutputStream out, final Charset charset) throws IOException {
-        if (null != data) {
+        if (null != data && null != out) {
             out.write(data.getBytes(Charsets.toCharset(charset)));
         }
     }

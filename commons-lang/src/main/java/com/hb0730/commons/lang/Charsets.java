@@ -21,7 +21,7 @@ public class Charsets {
     }
 
     /**
-     * 获取编码
+     * 获取编码,当charset 为<code>null</code>，获取系统编码规则
      *
      * @param charset 编码
      * @return 编码

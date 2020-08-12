@@ -1,6 +1,7 @@
 package com.hb0730.commons.lang.io;
 
 import com.hb0730.commons.lang.Charsets;
+import com.hb0730.commons.lang.Validate;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -17,8 +18,8 @@ public class FileUtils {
     /**
      * 写字符类型内存
      *
-     * @param file     file文件
-     * @param content  内容
+     * @param file     file文件,不允许为<code>null</code>
+     * @param content  内容,
      * @param encoding 编码
      * @throws IOException io异常
      */
@@ -216,6 +217,7 @@ public class FileUtils {
      * @throws IOException io异常
      */
     public static FileOutputStream openOutputStream(final File file, final boolean append) throws IOException {
+        Validate.notNull(file, "file must be not null");
         if (file.exists()) {
             if (file.isDirectory()) {
                 throw new IOException("File '" + file + "' exists but is a directory");

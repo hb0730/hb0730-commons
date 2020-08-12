@@ -173,10 +173,9 @@ public class ReflectUtils {
         List<Method> methods = getMethods(clazz, true);
         if (!CollectionUtils.isEmpty(methods)) {
             for (Method method : methods) {
-                if (StringUtils.equals(methodName, method.getName(), ignoreCase)) {
-                    if (ClassUtils.isAllAssignableFrom(method.getParameterTypes(), paramsType)) {
-                        return method;
-                    }
+                if (StringUtils.equals(methodName, method.getName(), ignoreCase) &&
+                        ClassUtils.isAllAssignableFrom(method.getParameterTypes(), paramsType)) {
+                    return method;
                 }
             }
         }
