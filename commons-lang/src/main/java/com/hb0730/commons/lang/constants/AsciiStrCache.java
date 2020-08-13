@@ -6,7 +6,7 @@ package com.hb0730.commons.lang.constants;
  * @author bing_huang
  * @since 1.0.2
  */
-public class ASCIIStrCache {
+public class AsciiStrCache {
     private static final int ASCII_LENGTH = 128;
     private static final String[] CACHE = new String[ASCII_LENGTH];
 

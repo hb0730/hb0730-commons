@@ -15,13 +15,13 @@ public class BooleanUtils {
     /**
      * 字符串转boolean
      *
-     * @param str 字符串
+     * @param value 字符串
      * @return boolean值
      */
-    public static boolean toBoolean(String str) {
-        if (StringUtils.isNotBlank(str)) {
-            str = str.trim().toLowerCase();
-            return ArrayUtils.contains(TRUE_ARRAY, str);
+    public static boolean toBoolean(String value) {
+        if (StringUtils.isNotBlank(value)) {
+            value = value.trim().toLowerCase();
+            return ArrayUtils.contains(TRUE_ARRAY, value);
         }
         return false;
     }

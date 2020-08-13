@@ -43,12 +43,12 @@ public class BooleanUtilsTest {
 
     @Test
     public void toIntegerTest() {
-        Boolean b = Boolean.valueOf("true");
+        Boolean b = Boolean.TRUE;
         Integer i = BooleanUtils.toInteger(b);
         Assert.assertNotNull(i);
         log.info("true to int {}", i);
-        b = Boolean.valueOf("false");
-        ;
+        b = Boolean.FALSE;
+
         i = BooleanUtils.toInt(b);
         Assert.assertNotNull(i);
 
@@ -69,11 +69,11 @@ public class BooleanUtilsTest {
 
     @Test
     public void toCharacterTest() {
-        Boolean b = Boolean.valueOf("true");
+        Boolean b = Boolean.TRUE;
         Character c = BooleanUtils.toCharacter(b);
         Assert.assertNotNull(c);
         log.info("true to char {}", c);
-        b = Boolean.valueOf("false");
+        b = Boolean.FALSE;
         c = BooleanUtils.toChar(b);
         Assert.assertNotNull(c);
         log.info("false to char {}", c);
@@ -93,11 +93,11 @@ public class BooleanUtilsTest {
 
     @Test
     public void toByteObjTest() {
-        Boolean b = Boolean.valueOf("true");
+        Boolean b = Boolean.TRUE;
         Byte result = BooleanUtils.toByteObj(b);
         Assert.assertNotNull(result);
         log.info("true to byte {}", result);
-        b = Boolean.valueOf("false");
+        b = Boolean.FALSE;
         result = BooleanUtils.toByteObj(b);
         Assert.assertNotNull(result);
         log.info("false to byte {}", result);
@@ -107,6 +107,7 @@ public class BooleanUtilsTest {
     public void toLongTest() {
         boolean b = true;
         long result = BooleanUtils.toLong(b);
+        Assert.assertNotNull(result);
         log.info("true to long {}", result);
 
         b = false;
@@ -116,11 +117,11 @@ public class BooleanUtilsTest {
 
     @Test
     public void toLongObjTest() {
-        Boolean b = Boolean.valueOf("true");
+        Boolean b = Boolean.TRUE;
         Long result = BooleanUtils.toLongObj(b);
         Assert.assertNotNull(result);
         log.info("true to long {}", result);
-        b = Boolean.valueOf("false");
+        b = Boolean.FALSE;
         result = BooleanUtils.toLongObj(b);
         Assert.assertNotNull(result);
         log.info("false to long {}", result);
@@ -130,6 +131,7 @@ public class BooleanUtilsTest {
     public void toShortTest() {
         boolean b = true;
         short result = BooleanUtils.toShort(b);
+        Assert.assertNotNull(result);
         log.info("true to short {}", result);
 
         b = false;
@@ -139,11 +141,11 @@ public class BooleanUtilsTest {
 
     @Test
     public void toShortObjTest() {
-        Boolean b = Boolean.valueOf("true");
+        Boolean b = Boolean.TRUE;
         Short result = BooleanUtils.toShort(b);
         Assert.assertNotNull(result);
         log.info("true to short {}", result);
-        b = Boolean.valueOf("false");
+        b = Boolean.FALSE;
         result = BooleanUtils.toShort(b);
         Assert.assertNotNull(result);
         log.info("false to short {}", result);
@@ -153,6 +155,7 @@ public class BooleanUtilsTest {
     public void toFloatTest() {
         boolean b = true;
         float result = BooleanUtils.toFloat(b);
+        Assert.assertNotNull(result);
         log.info("true to float {}", result);
 
         b = false;
@@ -162,11 +165,11 @@ public class BooleanUtilsTest {
 
     @Test
     public void toFloatObjTest() {
-        Boolean b = Boolean.valueOf("true");
+        Boolean b = Boolean.TRUE;
         Float result = BooleanUtils.toFloatObj(b);
         Assert.assertNotNull(result);
         log.info("true to float {}", result);
-        b = Boolean.valueOf("false");
+        b = Boolean.FALSE;
         result = BooleanUtils.toFloatObj(b);
         Assert.assertNotNull(result);
         log.info("false to float {}", result);
@@ -176,6 +179,7 @@ public class BooleanUtilsTest {
     public void toDoubleTest() {
         boolean b = true;
         double result = BooleanUtils.toDouble(b);
+        Assert.assertNotNull(result);
         log.info("true to double {}", result);
 
         b = false;
@@ -185,11 +189,11 @@ public class BooleanUtilsTest {
 
     @Test
     public void toDoubleObjTest() {
-        Boolean b = Boolean.valueOf("true");
+        Boolean b = Boolean.TRUE;
         Double result = BooleanUtils.toDoubleObj(b);
         Assert.assertNotNull(result);
         log.info("true to double {}", result);
-        b = Boolean.valueOf("false");
+        b = Boolean.FALSE;
         result = BooleanUtils.toDoubleObj(b);
         Assert.assertNotNull(result);
         log.info("false to double {}", result);

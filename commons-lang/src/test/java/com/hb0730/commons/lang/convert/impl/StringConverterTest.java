@@ -7,7 +7,7 @@ import org.junit.Test;
 
 @Slf4j
 public class StringConverterTest {
-    StringConverter converter;
+    private StringConverter converter;
 
     @Before
     public void init() {

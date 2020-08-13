@@ -1,6 +1,6 @@
 package com.hb0730.commons.lang;
 
-import com.hb0730.commons.lang.constants.ASCIIStrCache;
+import com.hb0730.commons.lang.constants.AsciiStrCache;
 
 /**
  * chart util
@@ -62,7 +62,7 @@ public class CharUtils {
      * @since 1.0.2
      */
     public static String toString(char c) {
-        return ASCIIStrCache.toString(c);
+        return AsciiStrCache.toString(c);
     }
 
 }
