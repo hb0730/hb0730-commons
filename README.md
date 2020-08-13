@@ -17,7 +17,7 @@
 <img alt="jdk" src="https://img.shields.io/badge/jdk-8%2B-green?style=flat-square">
 </a>
 
-<a href="https://apidoc.gitee.com/hb0820/hb0730-commons">
+<a href="https://apidoc.gitee.com/hb0730/hb0730-commons">
 <img alt="api" src="https://img.shields.io/badge/api-doc-blue?style=flat-square">
 </a>
 
