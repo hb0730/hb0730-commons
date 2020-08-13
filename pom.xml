@@ -13,6 +13,7 @@
         <module>commons-dependencies</module>
         <module>commons-all</module>
         <module>commons-json</module>
+        <module>commons-encrypt</module>
     </modules>
 
     <groupId>com.hb0730</groupId>

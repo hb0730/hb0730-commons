@@ -8,15 +8,15 @@ import java.util.Date;
 
 /**
  * 数字转换器<br>
- * <url>
- * <li><code>java.lang.Byte</code></li>
- * <li><code>java.lang.Short</code></li>
- * <li><code>java.lang.Integer</code></li>
- * <li><code>java.lang.Long</code></li>
- * <li><code>java.lang.Float</code></li>
- * <li><code>java.lang.Double</code></li>
- *
- * </url>
+ * 支持:
+ * <pre>
+ * 1.java.lang.Byte
+ * 2.java.lang.Short
+ * 3.java.lang.Integer
+ * 4.java.lang.Long
+ * 5.java.lang.Float
+ * 6.java.lang.Double
+ * </pre>
  *
  * @author bing_huang
  * @since 1.0.2

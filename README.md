@@ -40,6 +40,7 @@ hb0730-commons是个人平时用到的java类库(封装http,cache等工具)
 |commons-cache|封装的缓存工具,支持本地内存缓存以及spring data redis缓存|
 |commons-http|简单抽象http，支持httpClient,okHttp等工具|
 |commons-json|集合各大(fastjson,gson,jackson...)json工具类|
+|comons-encrypt|加密解密工具|
 |commons-lang|平时用到的单一工具如String,Date等utils|
 |commons-spring|spring相关工具|
 ## 测试 
