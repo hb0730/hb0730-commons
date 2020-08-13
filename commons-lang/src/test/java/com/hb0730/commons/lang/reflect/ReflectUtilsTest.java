@@ -1,12 +1,11 @@
 package com.hb0730.commons.lang.reflect;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -138,19 +137,65 @@ public class ReflectUtilsTest {
         Assert.assertNotNull(method);
     }
 
+    @Test
+    public void getConstructorTest() {
+        Constructor<Person>[] constructors = ReflectUtils.getConstructors(Person.class);
+        Assert.assertNotNull(constructors);
+
+        constructors = ReflectUtils.getConstructors(null);
+        Assert.assertNotNull(constructors);
+    }
+
+    @Test
+    public void getConstructorsTest() throws IllegalAccessException, InvocationTargetException, InstantiationException {
+        Constructor<Person> constructor = ReflectUtils.getConstructor(Person.class);
+        Assert.assertNotNull(constructor);
+        Person person = constructor.newInstance();
+        person.test();
+
+        constructor = ReflectUtils.getConstructor(Person.class, String.class, String.class);
+        Assert.assertNotNull(constructor);
+        person = constructor.newInstance("1", "2");
+        person.test("测试");
+    }
+
+    @Test
+    public void getConstructorsDirectlyTest() {
+        Constructor<?>[] directly = ReflectUtils.getConstructorsDirectly(Person.class);
+        Assert.assertNotNull(directly);
+    }
+
+    @Test
+    public void newInstanceTest() {
+        Person person = ReflectUtils.newInstance(Person.class);
+        Assert.assertNotNull(person);
+        person.test("ces");
+    }
+
+    @Test
+    public void testNewInstanceTest() {
+        Person person = ReflectUtils.newInstance(Person.class, "1", "测试");
+        Assert.assertNotNull(person);
+        person.test("测试");
+    }
+
+
     @Data
     @EqualsAndHashCode
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Builder
     static class Person {
         private String id;
         private String name;
 
         public String test(String params) {
-
+            log.info("测试" + params);
             return params;
         }
 
         public String test() {
+            log.info("test");
             return "测试";
         }
     }

@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 public class ClassUtilsTest {
 
@@ -102,10 +105,56 @@ public class ClassUtilsTest {
         Assert.assertTrue("类型不一致", assignable);
     }
 
+    @Test
+    public void isEnumTest() {
+        boolean b = ClassUtils.isEnum(TestEnum.class);
+        Assert.assertTrue("TestEnum.class不是枚举类型", b);
+        b = ClassUtils.isEnum(Person.class);
+        Assert.assertTrue("Person.class不是枚举类型 ", b);
+
+    }
+
+    @Test
+    public void getTypeArgumentTest() {
+        ClassTest test = new ClassTest();
+        Class<?> aClass = ClassUtils.getTypeArgument(test.getClass());
+        Assert.assertNotNull(aClass);
+
+        List<String> list = new ArrayList<>();
+        aClass = ClassUtils.getTypeArgument(list.getClass());
+        Assert.assertNotNull("list 泛型为null", aClass);
+
+    }
+
+    @Test
+    public void testGetTypeArgumentTest() {
+        Class<?> aClass = ClassUtils.getTypeArgument(ClassTest.class, 0);
+        Assert.assertNotNull("泛型为null", aClass);
+
+        aClass = ClassUtils.getTypeArgument(ClassTest.class, 1);
+        Assert.assertNotNull("泛型为null", aClass);
+
+        aClass = ClassUtils.getTypeArgument(ClassTest.class, 2);
+        Assert.assertNotNull("泛型为null", aClass);
+    }
+
     @Data
     @EqualsAndHashCode
     @Builder
     static class Person {
+
+    }
+
+    enum TestEnum {
+        Test;
+    }
+
+
+    static class ClassTest implements Input<String, Integer> {
+
+    }
+
+    interface Input<DOMAIN, VO> {
 
     }
 }

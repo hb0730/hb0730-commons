@@ -1,26 +1,37 @@
 package com.hb0730.commons.lang.convert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ConvertUtilsTest {
 
     @Test
     public void toIntTest() {
-        System.out.println("convert String \"1\" to :" + ConvertUtils.toInt("1"));
-        System.out.println("convert Number 1 to :" + ConvertUtils.toInt(1));
-        System.out.println("convert Non Number to :" + ConvertUtils.toInt("oo"));
+        Integer convertResult = ConvertUtils.toInt("1");
+        Assert.assertEquals("转换不相等", Integer.valueOf(1), convertResult);
+        convertResult = ConvertUtils.toInt(1);
+        Assert.assertEquals("转换不相等", Integer.valueOf(1), convertResult);
+        convertResult = ConvertUtils.toInt("oo");
+        Assert.assertEquals("转换不相等oo", "oo", convertResult);
     }
 
     @Test
     public void testToIntTest() {
-        System.out.println("convert String \"1\" to:" + ConvertUtils.toInt("1", 0));
-        System.out.println("convert Number 1 to :" + ConvertUtils.toInt(1, 0));
-        System.out.println("convert Non Number to :" + ConvertUtils.toInt("oo", 0));
+        Integer convertResult = ConvertUtils.toInt("1", 0);
+        Assert.assertEquals("转换不相等", Integer.valueOf(1), convertResult);
+        convertResult = ConvertUtils.toInt(1, 0);
+        Assert.assertEquals("转换不相等", Integer.valueOf(1), convertResult);
+        convertResult = ConvertUtils.toInt("o", 0);
+        Assert.assertEquals("转换不相等", Integer.valueOf(0), convertResult);
     }
 
     @Test
     public void toStrTest() {
-        System.out.println(ConvertUtils.toStr("sss", "hh"));
-        System.out.println(ConvertUtils.toStr(null, "hh"));
+        String result = ConvertUtils.toStr("sss", "hhh");
+        Assert.assertEquals("转换不相等", "sss", result);
+        result = ConvertUtils.toStr(0, "hh");
+        Assert.assertEquals("转换不相等", "0", result);
+        result = ConvertUtils.toStr(null, "hh");
+        Assert.assertEquals("转换不相等", "hh", result);
     }
 }

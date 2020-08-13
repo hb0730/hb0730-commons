@@ -2,12 +2,12 @@ package com.hb0730.commons.lang.reflect;
 
 import com.hb0730.commons.lang.ClassUtils;
 import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.Validate;
+import com.hb0730.commons.lang.collection.ArrayUtils;
 import com.hb0730.commons.lang.collection.CollectionUtils;
+import com.hb0730.commons.lang.exceptions.CommonsLangException;
 
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +31,63 @@ public class ReflectUtils {
      * 匹配setter方法的正则表达式
      */
     public static final Pattern SET_PATTERN = Pattern.compile("set(\\p{javaUpperCase}\\w*)");
+
+    /**
+     * 查找类中的指定参数的构造方法，如果找到构造方法，会自动设置可访问为true
+     *
+     * @param <T>            对象类型
+     * @param clazz          类
+     * @param parameterTypes 参数类型，只要任何一个参数是指定参数的父类或接口或相等即可，此参数可以不传
+     * @return 构造方法，如果未找到返回null
+     * @since 1.0.2
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> Constructor<T> getConstructor(Class<T> clazz, Class<?>... parameterTypes) {
+        if (null == clazz) {
+            return null;
+        }
+
+        final Constructor<?>[] constructors = getConstructors(clazz);
+        Class<?>[] pts;
+        for (Constructor<?> constructor : constructors) {
+            pts = constructor.getParameterTypes();
+            if (ClassUtils.isAllAssignableFrom(pts, parameterTypes)) {
+                // 构造可访问
+                setAccessible(constructor);
+                return (Constructor<T>) constructor;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获得一个类中所有构造列表
+     *
+     * @param <T>       构造的对象类型
+     * @param beanClass 类
+     * @return 字段列表
+     * @throws SecurityException 安全检查异常
+     * @since 1.0.2
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> Constructor<T>[] getConstructors(Class<T> beanClass) throws SecurityException {
+        Validate.notNull(beanClass, "class must be not null");
+        return (Constructor<T>[]) getConstructorsDirectly(beanClass);
+    }
+
+    /**
+     * 获取类中全部构造方法
+     *
+     * @param beanClass 类
+     * @return 所有构造方法
+     * @throws SecurityException 安全检查异常
+     * @since 1.0.2
+     */
+    public static Constructor<?>[] getConstructorsDirectly(Class<?> beanClass) throws SecurityException {
+        Validate.notNull(beanClass, "class must be not null");
+        return beanClass.getDeclaredConstructors();
+    }
+
 
     /**
      * 根据成员变量名称获取其值
@@ -244,7 +301,6 @@ public class ReflectUtils {
      * @param <T>              AccessibleObject的子类，比如Class、Method、Field等
      * @param accessibleObject 可设置访问权限的对象，比如Class、Method、Field等
      * @return 被设置可访问的对象
-     * @since 4.6.8
      */
     public static <T extends AccessibleObject> T setAccessible(T accessibleObject) {
         if (null != accessibleObject && !accessibleObject.isAccessible()) {
@@ -253,6 +309,55 @@ public class ReflectUtils {
         return accessibleObject;
     }
 
+    /**
+     * 实例化对象
+     *
+     * @param <T>   对象类型
+     * @param clazz 类名
+     * @return 对象
+     * @throws CommonsLangException 异常
+     * @since 1.0.2
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T newInstance(String clazz) throws CommonsLangException {
+        try {
+            return (T) Class.forName(clazz).newInstance();
+        } catch (Exception e) {
+            throw new CommonsLangException("Instance class" + clazz + "error!", e);
+        }
+    }
+
+    /**
+     * 实例化对象
+     *
+     * @param <T>    对象类型
+     * @param clazz  类
+     * @param params 构造函数参数
+     * @return 对象
+     * @throws CommonsLangException 异常
+     * @since 1.0.2
+     */
+    public static <T> T newInstance(Class<T> clazz, Object... params) throws CommonsLangException {
+        if (ArrayUtils.isEmpty(params)) {
+            final Constructor<T> constructor = getConstructor(clazz);
+            try {
+                return constructor.newInstance();
+            } catch (Exception e) {
+                throw new CommonsLangException("Instance class" + clazz + "error!", e);
+            }
+        }
+
+        final Class<?>[] paramTypes = ReflectUtils.getMethodArgsType(params);
+        final Constructor<T> constructor = getConstructor(clazz, paramTypes);
+        if (null == constructor) {
+            throw new CommonsLangException("No Constructor matched for parameter types:" + Arrays.toString(new Object[]{paramTypes}));
+        }
+        try {
+            return constructor.newInstance(params);
+        } catch (Exception e) {
+            throw new CommonsLangException("Instance class" + clazz + "error!", e);
+        }
+    }
 
     /**
      * 通过类的实例，调用指定的方法
