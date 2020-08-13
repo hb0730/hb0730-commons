@@ -18,4 +18,25 @@ public class CharUtilsTest {
         Assert.assertTrue("不为空格符", CharUtils.isBlank(32));
         Assert.assertTrue("不为空格符", CharUtils.isBlank((int) '\ufeff'));
     }
+
+    @Test
+    public void testToStringTest() {
+        char c = 'c';
+        String s = CharUtils.toString(c);
+        Assert.assertNotNull(s);
+        log.info(s);
+    }
+
+    @Test
+    public void isCharTest() {
+        char c = 'c';
+        boolean b = CharUtils.isChar(c);
+        Assert.assertTrue("参数不合法", b);
+        Character character = 'c';
+        b = CharUtils.isChar(character);
+        Assert.assertTrue("参数不合法", b);
+        character = null;
+        b = CharUtils.isChar(character);
+        Assert.assertTrue("参数不合法", b);
+    }
 }

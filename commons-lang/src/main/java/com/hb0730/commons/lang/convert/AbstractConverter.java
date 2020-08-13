@@ -1,8 +1,11 @@
 package com.hb0730.commons.lang.convert;
 
+import com.hb0730.commons.lang.CharUtils;
 import com.hb0730.commons.lang.ClassUtils;
+import com.hb0730.commons.lang.collection.ArrayUtils;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 抽象转换器，提供通用的转换逻辑，同时通过convertInternal实现对应类型的专属逻辑<br>
@@ -45,7 +48,17 @@ public abstract class AbstractConverter<T> implements Converter<T> {
                 return targetType.cast(value);
             }
             T result = convertInternal(value);
-            return null == result ? defaultValue : result;
+            if (null == result) {
+                return defaultValue;
+            } else if (result instanceof Optional) {
+                if (!((Optional) result).isPresent()) {
+                    return defaultValue;
+                } else {
+                    return result;
+                }
+            } else {
+                return result;
+            }
         } else {
             throw new IllegalArgumentException(
                     String.format("Default value [%s](%s) is not the instance of [%s]", defaultValue, defaultValue.getClass(), targetType));
@@ -66,6 +79,32 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      * @return 转换后的类型
      */
     protected abstract T convertInternal(Object value);
+
+
+    /**
+     * 转字符串
+     * <pre>
+     * 1、字符串类型将被强转
+     * 2、数组将被转换为逗号分隔的字符串
+     * 3、其它类型将调用默认的toString()方法
+     * </pre>
+     *
+     * @param value 值
+     * @return 字符串
+     */
+    protected String toStr(Object value) {
+        if (null == value) {
+            return null;
+        }
+        if (value instanceof CharSequence) {
+            return value.toString();
+        } else if (ArrayUtils.isArray(value)) {
+            return ArrayUtils.toString(value);
+        } else if (CharUtils.isChar(value)) {
+            return CharUtils.toString((char) value);
+        }
+        return value.toString();
+    }
 
     /**
      * 获得此类实现类的泛型类型

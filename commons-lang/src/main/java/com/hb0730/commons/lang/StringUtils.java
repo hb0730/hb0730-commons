@@ -31,6 +31,20 @@ public class StringUtils {
     }
 
     /**
+     * 校验参数不为<code>""</code><br>
+     * 1、为null <br>
+     * 2、为不可见字符（如空格）<br>
+     * 3、""<br>
+     *
+     * @param str 要检测的字符
+     * @return 是否非空
+     * @since 1.0.2
+     */
+    public static boolean isNotBlank(CharSequence str) {
+        return !isBlank(str);
+    }
+
+    /**
      * 比较两个字符串是否相等，默认不忽略大小写
      *
      * @param s1 字符串1

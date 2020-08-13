@@ -4,6 +4,7 @@ import com.hb0730.commons.lang.ObjectUtils;
 import com.hb0730.commons.lang.StringUtils;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -471,6 +472,40 @@ public class ArrayUtils {
     @SuppressWarnings("unchecked")
     public static <T> T[] newArray(Class<?> componentType, int newSize) {
         return (T[]) Array.newInstance(componentType, newSize);
+    }
+
+
+    /**
+     * 转string
+     *
+     * @param value 数组或者集合
+     * @return 字符串
+     * @since 1.0.2
+     */
+    public static String toString(Object value) {
+        if (null == value) {
+            return null;
+        }
+        if (value instanceof byte[]) {
+            return Arrays.toString((byte[]) value);
+        } else if (value instanceof short[]) {
+            return Arrays.toString((short[]) value);
+        } else if (value instanceof int[]) {
+            return Arrays.toString((int[]) value);
+        } else if (value instanceof char[]) {
+            return Arrays.toString((char[]) value);
+        } else if (value instanceof long[]) {
+            return Arrays.toString((long[]) value);
+        } else if (value instanceof boolean[]) {
+            return Arrays.toString((boolean[]) value);
+        } else if (value instanceof float[]) {
+            return Arrays.toString((float[]) value);
+        } else if (value instanceof double[]) {
+            return Arrays.toString((double[]) value);
+        } else if (ArrayUtils.isArray(value)) {
+            return Arrays.deepToString((Object[]) value);
+        }
+        return value.toString();
     }
 
 }

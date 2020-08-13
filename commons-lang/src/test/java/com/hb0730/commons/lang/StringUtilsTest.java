@@ -293,4 +293,13 @@ public class StringUtilsTest {
         Assert.assertTrue(contains);
     }
 
+    @Test
+    public void isNotBlankTest() {
+        String str = "asd";
+        boolean b = StringUtils.isNotBlank(str);
+        Assert.assertTrue("参数为空", b);
+        str = "";
+        b = StringUtils.isNotBlank(str);
+        Assert.assertTrue("参数为空", b);
+    }
 }
