@@ -1,7 +1,6 @@
 package com.hb0730.commons.cache.test;
 
-import com.hb0730.commons.lang.StringUtils;
-import com.hb0730.commons.spring.SpringContextUtil;
+import com.hb0730.commons.spring.SpringContextUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +26,8 @@ public class CacheTest {
 
     @Before
     public void init() {
-        SpringContextUtil.setApplicationContext(ctx);
-        factory = SpringContextUtil.getBean(RedisConnectionFactory.class);
+        SpringContextUtils.setApplicationContext(ctx);
+        factory = SpringContextUtils.getBean(RedisConnectionFactory.class);
     }
 
     @Test

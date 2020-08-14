@@ -1,7 +1,9 @@
 package com.hb0730.commons.spring.test;
 
+import com.hb0730.commons.spring.SpringContextUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * @author bing_huang
@@ -11,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringTestApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SpringTestApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(SpringTestApplication.class, args);
+        SpringContextUtils.setApplicationContext(context);
     }
 }

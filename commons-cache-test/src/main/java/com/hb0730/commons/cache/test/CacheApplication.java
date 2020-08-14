@@ -1,6 +1,6 @@
 package com.hb0730.commons.cache.test;
 
-import com.hb0730.commons.spring.SpringContextUtil;
+import com.hb0730.commons.spring.SpringContextUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,6 +14,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class CacheApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(CacheApplication.class, args);
-        SpringContextUtil.setApplicationContext(context);
+        SpringContextUtils.setApplicationContext(context);
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
  * @author bing_huang
  * @since 1.0.0
  */
-public class SpringContextUtil {
+public class SpringContextUtils {
     private static ApplicationContext applicationContext;
 
     /**
@@ -32,7 +32,7 @@ public class SpringContextUtil {
      * @param applicationContext spring context
      */
     public static void setApplicationContext(@NonNull ApplicationContext applicationContext) {
-        SpringContextUtil.applicationContext = applicationContext;
+        SpringContextUtils.applicationContext = applicationContext;
     }
 
     /**
