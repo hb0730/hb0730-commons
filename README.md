@@ -32,6 +32,9 @@
 </p>
 
 -----------------------
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/96a7c678d3704849b0447c403376c4d4)](https://app.codacy.com/manual/hb0730/hb0730-commons?utm_source=github.com&utm_medium=referral&utm_content=hb0730/hb0730-commons&utm_campaign=Badge_Grade_Dashboard)
+
 ## 简介
 hb0730-commons是个人平时用到的java类库(封装http,cache等工具)
 ## 包含组件
