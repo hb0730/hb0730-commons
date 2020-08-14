@@ -1,31 +1,46 @@
 # Changelog
-## 1.0.2
- + add BasicTypeEnum 基本类型与包装类型 枚举
- + add ClassUtils#isAllAssignableFrom,ClassUtils#isBasicType等方法
- + add ReflectUtils#getMethod等方法
- + add Converter 类型转换(bate)
- + add classUtils#getTypeArgument,classUtils#isEnum等方法
- + add TypeUtils类 和 ReflectUtils#getConstructor等方法
-## 1.0.1
- ## fix
- + fix UrlUtils 参数判断
- + fix cache 序列化与反序列化失败问题
- ## add
-  + add ObjectUtils
-  + add Exceptions
-  + add DateUtils#between ...
-  + add ReflectUtils
-  + add RandomUtils
-  + add JedisPool Cache
-  + add classUtils#getDefaultValue
-  + add 完善io
-  + add 新增http util 异步
-  + add constants
-  + add systemUtils
- ## delete
-  + remove commons-cache 移除对hutool的依赖
- ## 
-  + add json modules
-## 1.0.0
- + init project
- + add tools....
+
+# 1.0.2
+## Feature
+- commons-lang
+    + 新增BasicTypeEnum 基本类型与包装类型 枚举
+    + 新增ClassUtils#isAllAssignableFrom,ClassUtils#isBasicType等方法
+    + 新增ReflectUtils#getMethod等方法
+    + 新增Converter 类型转换
+    + 新增classUtils#getTypeArgument,classUtils#isEnum等方法
+    + 新增TypeUtils类 和 ReflectUtils#getConstructor等方法
+- commons-encrypt
+    + 新增加密解密模块，对常规加密解密的支持MD5,SHA等
+## Fixed
+
+## Change
+
+# 1.0.1
+## Feature
+- commons-lang
+    - 新增ObjectUtils类
+    - 新增Exceptions类
+    - 新增DateUtils#between等方法
+    - 新增ReflectUtils类
+    - 新增RandomUtils类
+    - 新增classUtils#getDefaultValue等方法
+    - 新增IOUtils类
+    - 新增constants类
+    - 新增SystemUtils类
+- commons-cache
+    - 新增Cache模块下对JedisPool Cache支持
+- commons-http
+    - 新增对http模块Async支持
+- commons-json
+    - 新增json模块支持fastjson,gson,jackson的支持
+## Fixed
+- commons-lang
+    + fix UrlUtils 参数判断
+- commons-cache
+    + fix cache 序列化与反序列化失败问题
+## Change
+- commons-cache移除第三方工具类
+
+# 1.0.0
+- init project
+- add tools...
