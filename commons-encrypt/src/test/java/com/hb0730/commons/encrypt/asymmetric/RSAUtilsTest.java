@@ -4,12 +4,12 @@ import com.hb0730.commons.encrypt.constant.Mode;
 import com.hb0730.commons.encrypt.constant.Padding;
 import com.hb0730.commons.encrypt.constant.RSASignType;
 import com.hb0730.commons.encrypt.pojo.RSAKeyPair;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.time.Clock;
 
-import static org.junit.Assert.*;
-
+@Slf4j
 public class RSAUtilsTest {
     private String content = "hello world";
 
@@ -22,70 +22,88 @@ public class RSAUtilsTest {
     @Test
     public void generateKey() {
         RSAKeyPair rsaKeyPair = RSAUtils.generateKey();
-        System.out.println(rsaKeyPair.getModules());
-        System.out.println(rsaKeyPair.getPublicKey());
-        System.out.println(rsaKeyPair.getPrivateKey());
+        log.info(rsaKeyPair.getModules().toString());
+        log.info(rsaKeyPair.getPublicKey());
+        log.info(rsaKeyPair.getPrivateKey());
     }
 
     @Test
     public void testTime() {
-        System.out.println(Clock.systemUTC().millis());
+        log.info("" + Clock.systemUTC().millis());
         test1();
-        System.out.println(Clock.systemUTC().millis());
+        log.info("" + Clock.systemUTC().millis());
         test2();
-        System.out.println(Clock.systemUTC().millis());
+        log.info("" + Clock.systemUTC().millis());
     }
 
     @Test
     public void testSign() {
         String sign = RSAUtils.sign(RSASignType.SHA256withRSA, content, privateKey);
-        System.out.println(sign);
-        System.out.println(RSAUtils.verifySign(RSASignType.SHA256withRSA, content, publicKey, sign));
+        log.info(sign);
+        log.info(RSAUtils.verifySign(RSASignType.SHA256withRSA, content, publicKey, sign) + "");
     }
 
     @Test
     public void test1() {
         //私钥加密，公钥解密
         String encrypt = RSAUtils.encryptByPrivateKey(content, privateKey);
-        System.out.println(encrypt);
-        System.out.println(RSAUtils.decryptByPublicKey(encrypt, publicKey));
+        log.info(encrypt);
+        encrypt = RSAUtils.decryptByPublicKey(encrypt, publicKey);
+        log.info(encrypt);
     }
 
     @Test
     public void test2() {
         //公钥加密，私钥解密
         String encrypt1 = RSAUtils.encryptByPublicKey(content, publicKey);
-        System.out.println(encrypt1);
-        System.out.println(RSAUtils.decryptByPrivateKey(encrypt1, privateKey));
+        log.info(encrypt1);
+        encrypt1 = RSAUtils.decryptByPrivateKey(encrypt1, privateKey);
+        log.info(encrypt1);
     }
 
     @Test
     public void test21() {
         //公钥加密，私钥解密
-        System.out.println(RSAUtils.encryptByPublicKey(content, publicKey));
-        System.out.println(RSAUtils.decryptByPrivateKey(RSAUtils.encryptByPublicKey(content, publicKey), privateKey));
+        String encrypt = RSAUtils.encryptByPublicKey(content, publicKey);
+        log.info(encrypt);
+        encrypt = RSAUtils.decryptByPrivateKey(RSAUtils.encryptByPublicKey(content, publicKey), privateKey);
+        log.info(encrypt);
 
-        System.out.println(RSAUtils.encryptByPublicKey(content, publicKey, Mode.NONE, Padding.PKCS1Padding));
-        System.out.println(RSAUtils.decryptByPrivateKey(RSAUtils.encryptByPublicKey(content, publicKey, Mode.NONE, Padding.PKCS1Padding), privateKey));
+        encrypt = RSAUtils.encryptByPublicKey(content, publicKey, Mode.NONE, Padding.PKCS1Padding);
+        log.info(encrypt);
+        encrypt = RSAUtils.decryptByPrivateKey(RSAUtils.encryptByPublicKey(content, publicKey, Mode.NONE, Padding.PKCS1Padding), privateKey);
+        log.info(encrypt);
 
-        System.out.println(RSAUtils.encryptByPublicKey(content, publicKey, Mode.ECB, Padding.NoPadding));
-        System.out.println(RSAUtils.decryptByPrivateKey(RSAUtils.encryptByPublicKey(content, publicKey, Mode.ECB, Padding.PKCS1Padding), privateKey));
+        encrypt = RSAUtils.encryptByPublicKey(content, publicKey, Mode.ECB, Padding.NoPadding);
+        log.info(encrypt);
+        encrypt = RSAUtils.decryptByPrivateKey(RSAUtils.encryptByPublicKey(content, publicKey, Mode.ECB, Padding.PKCS1Padding), privateKey);
+        log.info(encrypt);
 
-        System.out.println(RSAUtils.encryptByPublicKey(content, publicKey, Mode.ECB, Padding.PKCS1Padding));
-        System.out.println(RSAUtils.decryptByPrivateKey(RSAUtils.encryptByPublicKey(content, publicKey, Mode.ECB, Padding.PKCS1Padding), privateKey));
+        encrypt = RSAUtils.encryptByPublicKey(content, publicKey, Mode.ECB, Padding.PKCS1Padding);
+        log.info(encrypt);
+        encrypt = RSAUtils.decryptByPrivateKey(RSAUtils.encryptByPublicKey(content, publicKey, Mode.ECB, Padding.PKCS1Padding), privateKey);
+        log.info(encrypt);
 
         //私钥加密，公钥解密
-        System.out.println(RSAUtils.encryptByPrivateKey(content, privateKey));
-        System.out.println(RSAUtils.decryptByPublicKey(RSAUtils.encryptByPrivateKey(content, privateKey), publicKey));
+        encrypt = RSAUtils.encryptByPrivateKey(content, privateKey);
+        log.info(encrypt);
+        encrypt = RSAUtils.decryptByPublicKey(RSAUtils.encryptByPrivateKey(content, privateKey), publicKey);
+        log.info(encrypt);
 
-        System.out.println(RSAUtils.encryptByPrivateKey(content, privateKey, Mode.NONE, Padding.PKCS1Padding));
-        System.out.println(RSAUtils.decryptByPublicKey(RSAUtils.encryptByPrivateKey(content, privateKey, Mode.NONE, Padding.PKCS1Padding), publicKey));
+        encrypt = RSAUtils.encryptByPrivateKey(content, privateKey, Mode.NONE, Padding.PKCS1Padding);
+        log.info(encrypt);
+        encrypt = RSAUtils.decryptByPublicKey(RSAUtils.encryptByPrivateKey(content, privateKey, Mode.NONE, Padding.PKCS1Padding), publicKey);
+        log.info(encrypt);
 
-        System.out.println(RSAUtils.encryptByPrivateKey(content, privateKey, Mode.ECB, Padding.NoPadding));
-        System.out.println(RSAUtils.decryptByPublicKey(RSAUtils.encryptByPrivateKey(content, privateKey, Mode.ECB, Padding.PKCS1Padding), publicKey));
+        encrypt = RSAUtils.encryptByPrivateKey(content, privateKey, Mode.ECB, Padding.NoPadding);
+        log.info(encrypt);
+        encrypt = RSAUtils.decryptByPublicKey(RSAUtils.encryptByPrivateKey(content, privateKey, Mode.ECB, Padding.PKCS1Padding), publicKey);
+        log.info(encrypt);
 
-        System.out.println(RSAUtils.encryptByPrivateKey(content, privateKey, Mode.ECB, Padding.PKCS1Padding));
-        System.out.println(RSAUtils.decryptByPublicKey(RSAUtils.encryptByPrivateKey(content, privateKey, Mode.ECB, Padding.PKCS1Padding), publicKey));
+        encrypt = RSAUtils.encryptByPrivateKey(content, privateKey, Mode.ECB, Padding.PKCS1Padding);
+        log.info(encrypt);
+        encrypt = RSAUtils.decryptByPublicKey(RSAUtils.encryptByPrivateKey(content, privateKey, Mode.ECB, Padding.PKCS1Padding), publicKey);
+        log.info(encrypt);
     }
 
     @Test
@@ -98,17 +116,17 @@ public class RSAUtilsTest {
         for (int i = 0; i < 10000; i++) {
             RSAUtils.encryptByPublicKey(content, rsaKeyPair.getPublicKey());
         }
-        System.out.println("加密" + count + "次，耗时" + (System.currentTimeMillis() - startTime) + "毫秒");
+        log.info("加密" + count + "次，耗时" + (System.currentTimeMillis() - startTime) + "毫秒");
 
         //加密
         String encryptedData = RSAUtils.encryptByPublicKey(content, rsaKeyPair.getPublicKey());
-        System.out.println(encryptedData);
+        log.info(encryptedData);
 
         //解密
         startTime = System.currentTimeMillis();
         for (int i = 0; i < 10000; i++) {
             RSAUtils.decryptByPrivateKey(encryptedData, rsaKeyPair.getPrivateKey());
         }
-        System.out.println("解密" + count + "次，耗时" + (System.currentTimeMillis() - startTime) + "毫秒");
+        log.info("解密" + count + "次，耗时" + (System.currentTimeMillis() - startTime) + "毫秒");
     }
 }
