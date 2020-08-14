@@ -1,11 +1,15 @@
 package com.hb0730.commons.lang.date;
 
+import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.Validate;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,6 +19,10 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0.0
  */
 public class DateUtils {
+    public static final String FORMAT_DEFAULT_DATE = "yyyy-MM-dd";
+    public static final String FORMAT_DEFAULT_DATETIME = "yyyy-MM-dd HH:mm:ss";
+    public static final String TIME_ZONE = "GMT+8";
+
     /**
      * 获取当前时间
      *
@@ -22,6 +30,117 @@ public class DateUtils {
      */
     public static Date now() {
         return new Date();
+    }
+
+    /**
+     * 根据{@link #FORMAT_DEFAULT_DATE}格式化日期
+     *
+     * @param date 被格式化的日期
+     * @return 格式化后的日期
+     * @see #formatDate(Date, String)
+     * @since 1.0.2
+     */
+    public static String formatDate(Date date) {
+        return formatDate(date, FORMAT_DEFAULT_DATE);
+    }
+
+    /**
+     * 根据{@link #FORMAT_DEFAULT_DATETIME}格式化日期
+     *
+     * @param date 被格式化的日期
+     * @return 格式化后的日期
+     * @see #formatDate(Date, String)
+     * @since 1.0.2
+     */
+    public static String formatDateTime(Date date) {
+        return formatDate(date, FORMAT_DEFAULT_DATETIME);
+    }
+
+    /**
+     * 时间格式化，默认时区{@link #TIME_ZONE}
+     *
+     * @param date   日期
+     * @param format 格式化
+     * @return 字符串类型的时间
+     * @since 1.0.2
+     */
+    public static String formatDate(Date date, String format) {
+        return formatDate(date, format, TimeZone.getTimeZone(TIME_ZONE));
+    }
+
+    /**
+     * 时间格式化
+     *
+     * @param date     日期
+     * @param format   格式化
+     * @param timeZone 时区 {@link TimeZone}
+     * @return 字符串类型的时间
+     * @since 1.0.2
+     */
+    public static String formatDate(Date date, String format, TimeZone timeZone) {
+        if (null == date) {
+            return null;
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        dateFormat.setTimeZone(timeZone);
+        return dateFormat.format(date);
+    }
+
+    /**
+     * 字符串转日期，默认时区{@link TimeZone},默认格式为{@link #FORMAT_DEFAULT_DATE}
+     *
+     * @param date 被转的日期字符串类型
+     * @return 日期
+     * @throws ParseException 转换失败
+     * @since 1.0.2
+     */
+    public static Date toDate(String date) throws ParseException {
+        return toDate(date, FORMAT_DEFAULT_DATE);
+    }
+
+    /**
+     * 字符串转日期，默认时区{@link TimeZone},默认格式为{@link #FORMAT_DEFAULT_DATETIME}
+     *
+     * @param date 被转的日期字符串类型
+     * @return 日期
+     * @throws ParseException 转换失败
+     * @since 1.0.2
+     */
+    public static Date toDateTime(String date) throws ParseException {
+        return toDate(date, FORMAT_DEFAULT_DATETIME);
+    }
+
+
+    /**
+     * 字符串转日期，默认时区{@link TimeZone}
+     *
+     * @param date   被转的日期字符串类型
+     * @param format 格式化
+     * @return 日期
+     * @throws ParseException 转换失败
+     * @since 1.0.2
+     */
+    public static Date toDate(String date, String format) throws ParseException {
+        return toDate(date, format, TimeZone.getTimeZone(TIME_ZONE));
+    }
+
+    /**
+     * 字符串转日期
+     *
+     * @param date     被转的日期字符串类型
+     * @param format   格式化
+     * @param timeZone 时区 {@link TimeZone}
+     * @return 日期
+     * @throws ParseException 转换失败
+     * @since 1.0.2
+     */
+    public static Date toDate(String date, String format, TimeZone timeZone) throws ParseException {
+        if (StringUtils.isBlank(date)) {
+            return null;
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        dateFormat.setTimeZone(timeZone);
+        return dateFormat.parse(date);
     }
 
     /**
@@ -240,5 +359,61 @@ public class DateUtils {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar;
+    }
+
+    /**
+     * date1是否在date2之后<br>
+     * 如果date1或者date2为null,永远返回false
+     *
+     * @param date1 date1
+     * @param date2 date2
+     * @return 是否在date2之后
+     * @see Date#after(Date)
+     * @since 1.0.2
+     */
+    public static boolean isAfter(Date date1, Date date2) {
+        if (null == date1 || null == date2) {
+            return false;
+        }
+        return date1.after(date2);
+    }
+
+    /**
+     * 传入的时间是否在当前时间之后
+     *
+     * @param date date
+     * @return 是否在当前时间之后
+     * @since 1.0.2
+     */
+    public static boolean isAfter(Date date) {
+        return isAfter(date, now());
+    }
+
+    /**
+     * <code>date1</code>是否在<code>date2</code>之前<br>
+     * 如果<code>date1</code>或者<code>date2</code>为null,永远返回<code>false</code>
+     *
+     * @param date1 date1
+     * @param date2 date2
+     * @return 是否在date2之前
+     * @see Date#before(Date)
+     * @since 1.0.2
+     */
+    public static boolean isBefore(Date date1, Date date2) {
+        if (null == date1 || null == date2) {
+            return false;
+        }
+        return date1.before(date2);
+    }
+
+    /**
+     * 传入的时间是否在当前时间之前
+     *
+     * @param date date
+     * @return 是否在当前时间之前
+     * @since 1.0.2
+     */
+    public static boolean isBefore(Date date) {
+        return isBefore(date, new Date());
     }
 }

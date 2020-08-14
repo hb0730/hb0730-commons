@@ -67,6 +67,19 @@ public class ObjectUtils {
     }
 
     /**
+     * 判断如果给定的对象为<code>null</code>则返回默认值
+     *
+     * @param value        被检测的对象，可以为<code>null</code>
+     * @param defaultValue 默认值,可能为<code>null</code>
+     * @param <T>          被检测的对象类型
+     * @return 如果被检测对象为<code>null</code>,返回默认值，否则返回原值
+     * @since 1.0.2
+     */
+    public static <T> T defaultIfNull(T value, T defaultValue) {
+        return (null == value) ? defaultValue : value;
+    }
+
+    /**
      * 比较两个对象是否相等:
      * <pre>
      * 1. o1==null &amp;&amp; o2==null

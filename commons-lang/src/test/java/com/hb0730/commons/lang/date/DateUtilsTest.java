@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -101,5 +102,97 @@ public class DateUtilsTest {
     public void convertToTest() {
         Calendar calendar = DateUtils.convertTo(DateUtils.now());
         Assert.assertNotNull(calendar);
+    }
+
+    @Test
+    public void formatDateTest() {
+        Date now = DateUtils.now();
+        String date = DateUtils.formatDate(now);
+        Assert.assertNotNull(date);
+        log.info("date:" + date);
+        date = DateUtils.formatDate(now, DateUtils.FORMAT_DEFAULT_DATE);
+        Assert.assertNotNull(date);
+        log.info("date:" + date);
+        date = DateUtils.formatDate(null);
+        Assert.assertNotNull(date);
+        log.info("date:" + date);
+    }
+
+    @Test
+    public void formatDateTimeTest() {
+        Date now = DateUtils.now();
+        String date = DateUtils.formatDateTime(now);
+        Assert.assertNotNull(date);
+        log.info("date:" + date);
+        date = DateUtils.formatDate(now, DateUtils.FORMAT_DEFAULT_DATETIME);
+        Assert.assertNotNull(date);
+        log.info("date:" + date);
+        date = DateUtils.formatDateTime(null);
+        Assert.assertNotNull(date);
+        log.info("date:" + date);
+    }
+
+    @Test
+    public void toDateTest() throws ParseException {
+        String date = "2020-08-14";
+        Date now = DateUtils.toDate(date);
+        Assert.assertNotNull(now);
+        log.info("date:" + now);
+        now = DateUtils.toDate(date, DateUtils.FORMAT_DEFAULT_DATE);
+        Assert.assertNotNull(now);
+        log.info("date:" + now);
+        now = DateUtils.toDate(null);
+        Assert.assertNotNull(now);
+        log.info("date:" + now);
+    }
+
+    @Test
+    public void toDateTimeTest() throws ParseException {
+        String date = "2020-08-14 14:01:59";
+        Date now = DateUtils.toDateTime(date);
+        Assert.assertNotNull(now);
+        log.info("date:" + now);
+        now = DateUtils.toDate(date, DateUtils.FORMAT_DEFAULT_DATETIME);
+        Assert.assertNotNull(now);
+        log.info("date:" + now);
+        now = DateUtils.toDate(null);
+        Assert.assertNotNull(now);
+        log.info("date:" + now);
+    }
+
+    @Test
+    public void isExpireTest() throws ParseException {
+        String date = "2020-08-15";
+        Date now = DateUtils.toDate(date);
+        //之后
+        boolean expire = DateUtils.isAfter(now);
+        Assert.assertTrue("传入的时间不在当前之后", expire);
+        // 当前
+        expire = DateUtils.isAfter(new Date());
+        Assert.assertTrue("传入的时间不在当前之后", expire);
+        // 之前
+        date = "2020-08-14 14:01:59";
+        now = DateUtils.toDate(date);
+        expire = DateUtils.isAfter(now);
+        Assert.assertTrue("传入的时间不在当前之后", expire);
+    }
+
+    @Test
+    public void isBeforeTest() throws ParseException {
+
+        // 之前
+        String date = "2020-08-14 14:01:59";
+        Date now = DateUtils.toDate(date);
+        boolean expire = DateUtils.isBefore(now);
+        Assert.assertTrue("传入的时间不在当前之前", expire);
+
+        // 当前
+        expire = DateUtils.isBefore(new Date());
+        Assert.assertTrue("传入的时间不在当前之前", expire);
+        //之后
+        date = "2020-08-15";
+        now = DateUtils.toDate(date);
+        expire = DateUtils.isBefore(now);
+        Assert.assertTrue("传入的时间不在当前之前", expire);
     }
 }

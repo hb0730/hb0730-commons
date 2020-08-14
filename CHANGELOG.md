@@ -9,6 +9,8 @@
     + 新增Converter 类型转换
     + 新增classUtils#getTypeArgument,classUtils#isEnum等方法
     + 新增TypeUtils类 和 ReflectUtils#getConstructor等方法
+    + 新增DateUtils#format等方法
+    + 新增关于Date的相关操作和类以及ObjectUtils方法
 - commons-encrypt
     + 新增加密解密模块，对常规加密解密的支持MD5,SHA等
 ## Fixed
