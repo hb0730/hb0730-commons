@@ -3,9 +3,6 @@ jdk:
   - openjdk8
 script:
   - export TZ=Asia/Shanghai
-  - mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - mvn cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.javadoc.skip.true -Dorg.slf4j.simpleLogger.defaultLogLevel=error
-
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 cache:
@@ -14,3 +11,29 @@ cache:
 
 notifications:
   email: false
+
+jobs:
+  include:
+    - stage: build
+      script:
+        - mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+        - mvn cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.javadoc.skip.true -Dorg.slf4j.simpleLogger.defaultLogLevel=error
+    - stage: GitHub Release
+      script: echo "Deploying to GitHub releases ..." && pwd
+      deploy:
+        provider: releases
+        api_key: $GITHUB_OAUTH_TOKEN
+        file_glob: true
+        skip_cleanup: true
+        on:
+          tags: true
+
+stages:
+  - build
+  - name: GitHub Release
+    if tag= ~ /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+branches:
+  only:
+    - master
+    - dev
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
