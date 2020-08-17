@@ -1,7 +1,7 @@
 package com.hb0730.commons.http.test;
 
 import com.hb0730.commons.http.support.callback.CommonsNetCall;
-import com.hb0730.commons.http.utils.HttpAsyncUtils;
+import com.hb0730.commons.http.utils.HttpAsync;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ public class CommonsOkhttpPoolUtilsTest {
 
     @Test
     public void asyncTest() throws InterruptedException {
-        HttpAsyncUtils async = CommonsOkhttpPoolUtils.async();
+        HttpAsync async = CommonsOkhttpPoolUtils.async();
         async.get("http://localhost:10000/", new CommonsNetCall() {
             @Override
             public void success(String result) throws IOException {

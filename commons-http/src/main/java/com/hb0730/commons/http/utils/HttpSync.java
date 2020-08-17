@@ -18,12 +18,12 @@ import java.util.Map;
  * @author bing_huang
  * @since 1.0.0
  */
-public class HttpSyncUtils implements HttpUtils {
+public class HttpSync implements SyncHttp {
     private static AbstractSyncHttp proxy;
 
     private void selectHttpProxy() {
         AbstractSyncHttp defaultProxy = null;
-        ClassLoader classLoader = HttpSyncUtils.class.getClassLoader();
+        ClassLoader classLoader = HttpSync.class.getClassLoader();
         if (ClassUtils.isPresent("org.apache.http.impl.client.HttpClients", classLoader)) {
             defaultProxy = getHttpProxy(HttpClientSyncImpl.class);
         }
@@ -50,13 +50,13 @@ public class HttpSyncUtils implements HttpUtils {
         }
     }
 
-    public HttpSyncUtils setHttp(AbstractSyncHttp http) {
+    public HttpSync setHttp(AbstractSyncHttp http) {
         proxy = http;
         return this;
     }
 
 
-    public HttpSyncUtils setHttpConfig(HttpConfig config) {
+    public HttpSync setHttpConfig(HttpConfig config) {
         checkHttpNotNull(proxy);
         if (null == config) {
             config = HttpConfig.builder().timeout(Constants.DEFAULT_TIMEOUT).build();
@@ -71,6 +71,7 @@ public class HttpSyncUtils implements HttpUtils {
      * @param url URL
      * @return 结果
      */
+    @Override
     public String get(String url) {
         checkHttpNotNull(proxy);
         return proxy.get(url);
@@ -83,6 +84,7 @@ public class HttpSyncUtils implements HttpUtils {
      * @param params 参数
      * @return 结果
      */
+    @Override
     public String get(String url, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.get(url, params);
@@ -96,6 +98,7 @@ public class HttpSyncUtils implements HttpUtils {
      * @param params 参数
      * @return 结果
      */
+    @Override
     public String get(String url, HttpHeader header, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.get(url, header, params);
@@ -107,6 +110,7 @@ public class HttpSyncUtils implements HttpUtils {
      * @param url URL
      * @return 结果
      */
+    @Override
     public String post(String url) {
         checkHttpNotNull(proxy);
         return proxy.post(url);
@@ -119,6 +123,7 @@ public class HttpSyncUtils implements HttpUtils {
      * @param data JSON 参数
      * @return 结果
      */
+    @Override
     public String post(String url, String data) {
         checkHttpNotNull(proxy);
         return proxy.post(url, data);
@@ -132,6 +137,7 @@ public class HttpSyncUtils implements HttpUtils {
      * @param header 请求头
      * @return 结果
      */
+    @Override
     public String post(String url, String data, HttpHeader header) {
         checkHttpNotNull(proxy);
         return proxy.post(url, data, header);
@@ -144,6 +150,7 @@ public class HttpSyncUtils implements HttpUtils {
      * @param params form 参数
      * @return 结果
      */
+    @Override
     public String post(String url, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.post(url, params);
@@ -157,6 +164,7 @@ public class HttpSyncUtils implements HttpUtils {
      * @param params form 参数
      * @return 结果
      */
+    @Override
     public String post(String url, HttpHeader header, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.post(url, header, params);

@@ -17,7 +17,9 @@
 ## Fixed
 
 ## Change
-
+- commons-http
+    + 对commonHttps的优化，
+    + 对HttpsAsyncUtils和HttpSyncUtils的重命名，以及继承关系的修改
 # 1.0.1
 ## Feature
 - commons-lang

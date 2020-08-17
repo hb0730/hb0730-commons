@@ -12,7 +12,7 @@ public class CommonHttpsTest {
 
     @Test
     public void testSync() {
-        HttpSyncUtils sync = CommonHttps.sync();
+        HttpSync sync = CommonHttps.sync();
         String s = sync.get("https://baidu.com");
         System.out.println(s);
         s = CommonHttps.sync().setHttp(new OkHttp3SyncImpl())

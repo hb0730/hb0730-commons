@@ -19,12 +19,12 @@ import java.util.Map;
  * @author bing_huang
  * @since 1.0.1
  */
-public class HttpAsyncUtils implements HttpUtils {
+public class HttpAsync implements AsyncHttp {
     private AbstractAsyncHttp proxy;
 
     private void selectHttpProxy() {
         AbstractAsyncHttp defaultProxy = null;
-        ClassLoader classLoader = HttpSyncUtils.class.getClassLoader();
+        ClassLoader classLoader = HttpSync.class.getClassLoader();
         if (ClassUtils.isPresent("org.apache.hc.client5.http.impl.async.HttpAsyncClients", classLoader)) {
             defaultProxy = getHttpProxy(HttpClientAsyncImpl.class);
         }
@@ -51,12 +51,12 @@ public class HttpAsyncUtils implements HttpUtils {
         }
     }
 
-    public HttpAsyncUtils setHttp(AbstractAsyncHttp http) {
+    public HttpAsync setHttp(AbstractAsyncHttp http) {
         proxy = http;
         return this;
     }
 
-    public HttpAsyncUtils setHttpConfig(HttpConfig config) {
+    public HttpAsync setHttpConfig(HttpConfig config) {
         checkHttpNotNull(proxy);
         if (null == config) {
             config = HttpConfig.builder().timeout(Constants.DEFAULT_TIMEOUT).build();
@@ -71,6 +71,7 @@ public class HttpAsyncUtils implements HttpUtils {
      * @param url            URL
      * @param commonsNetCall 回调
      */
+    @Override
     public void get(String url, CommonsNetCall commonsNetCall) {
         checkHttpNotNull(proxy);
         proxy.get(url, commonsNetCall);
@@ -83,6 +84,7 @@ public class HttpAsyncUtils implements HttpUtils {
      * @param commonsNetCall 回调
      * @param params         参数
      */
+    @Override
     public void get(String url, CommonsNetCall commonsNetCall, Map<String, String> params) {
         checkHttpNotNull(proxy);
         proxy.get(url, commonsNetCall, params);
@@ -96,6 +98,7 @@ public class HttpAsyncUtils implements HttpUtils {
      * @param commonsNetCall 回调
      * @param params         参数
      */
+    @Override
     public void get(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> params) {
         checkHttpNotNull(proxy);
         proxy.get(url, header, commonsNetCall, params);
@@ -107,6 +110,7 @@ public class HttpAsyncUtils implements HttpUtils {
      * @param url            URL
      * @param commonsNetCall 回调
      */
+    @Override
     public void post(String url, CommonsNetCall commonsNetCall) {
         checkHttpNotNull(proxy);
         proxy.post(url, commonsNetCall);
@@ -119,6 +123,7 @@ public class HttpAsyncUtils implements HttpUtils {
      * @param data           JSON 参数
      * @param commonsNetCall 回调
      */
+    @Override
     public void post(String url, String data, CommonsNetCall commonsNetCall) {
         checkHttpNotNull(proxy);
         proxy.post(url, data, commonsNetCall);
@@ -132,6 +137,7 @@ public class HttpAsyncUtils implements HttpUtils {
      * @param header         请求头
      * @param commonsNetCall 回调
      */
+    @Override
     public void post(String url, String data, HttpHeader header, CommonsNetCall commonsNetCall) {
         checkHttpNotNull(proxy);
         proxy.post(url, data, header, commonsNetCall);
@@ -144,6 +150,7 @@ public class HttpAsyncUtils implements HttpUtils {
      * @param commonsNetCall 回调
      * @param params         form 参数
      */
+    @Override
     public void post(String url, CommonsNetCall commonsNetCall, Map<String, String> params) {
         checkHttpNotNull(proxy);
         proxy.post(url, commonsNetCall, params);
@@ -157,6 +164,7 @@ public class HttpAsyncUtils implements HttpUtils {
      * @param commonsNetCall 回调
      * @param params         form 参数
      */
+    @Override
     public void post(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> params) {
         checkHttpNotNull(proxy);
         proxy.post(url, header, commonsNetCall, params);

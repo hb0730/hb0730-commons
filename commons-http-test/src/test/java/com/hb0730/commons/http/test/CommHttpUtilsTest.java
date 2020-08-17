@@ -3,12 +3,15 @@ package com.hb0730.commons.http.test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hb0730.commons.http.CommonHttps;
+import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
+import com.hb0730.commons.http.constants.Constants;
 import com.hb0730.commons.http.support.callback.CommonsNetCall;
 import com.hb0730.commons.http.support.httpclient.HttpClientAsyncImpl;
 import com.hb0730.commons.http.support.okhttp3.OkHttp3AsyncImpl;
-import com.hb0730.commons.http.utils.HttpAsyncUtils;
-import com.hb0730.commons.http.utils.HttpSyncUtils;
+import com.hb0730.commons.http.utils.HttpAsync;
+import com.hb0730.commons.http.utils.HttpSync;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = HttpTestApplication.class)
 @ActiveProfiles
+@Slf4j
 public class CommHttpUtilsTest {
     @Test
     public void httpSyncTest() {
@@ -48,7 +52,7 @@ public class CommHttpUtilsTest {
 //        HttpClientTest.postSyncTest(syncUtils);
 //        HttpClientTest.postSyncParamsTest(syncUtils);
 //        HttpClientTest.postSyncParamsJsonTest(syncUtils);
-        HttpAsyncUtils asyncUtils = CommonHttps.async().setHttp(new HttpClientAsyncImpl());
+        HttpAsync asyncUtils = CommonHttps.async().setHttp(new HttpClientAsyncImpl());
 //        HttpClientTest.getAsyncTest(asyncUtils);
 //        HttpClientTest.getAsyncParamsTest(asyncUtils);
 //        HttpClientTest.postAsyncTest(asyncUtils);
@@ -67,7 +71,7 @@ public class CommHttpUtilsTest {
 //        OkhttpTest.postSyncTest(syncUtils);
 //        OkhttpTest.postSyncParamsTest(syncUtils);
 //        OkhttpTest.postSyncParamsJsonTest(syncUtils);
-        HttpAsyncUtils asyncUtils = CommonHttps.async().setHttp(new OkHttp3AsyncImpl());
+        HttpAsync asyncUtils = CommonHttps.async().setHttp(new OkHttp3AsyncImpl());
 //        OkhttpTest.getAsyncTest(asyncUtils);
 //        OkhttpTest.getAsyncParamsTest(asyncUtils);
 //        OkhttpTest.postAsyncTest(asyncUtils);
@@ -79,44 +83,46 @@ public class CommHttpUtilsTest {
     }
 
     public static class HttpClientTest {
-        public static void getSyncTest(HttpSyncUtils utils) {
+        public static void getSyncTest(HttpSync utils) {
             System.out.println(utils.get("http://localhost:10000/"));
         }
 
-        public static void getSyncParamsTest(HttpSyncUtils utils) {
+        public static void getSyncParamsTest(HttpSync utils) {
             Map<String, String> params = new HashMap<>();
             params.put("name", "哈哈哈");
-            System.out.println(utils.get("http://localhost:10000/params", params));
+            log.info(utils.get("http://localhost:10000/params", params));
         }
 
-        public static void postSyncTest(HttpSyncUtils utils) {
-            System.out.println(utils.post("http://localhost:10000/post"));
+        public static void postSyncTest(HttpSync utils) {
+            log.info(utils.post("http://localhost:10000/post"));
         }
 
-        public static void postSyncParamsTest(HttpSyncUtils utils) {
+        public static void postSyncParamsTest(HttpSync utils) {
             Map<String, String> params = new HashMap<>();
             params.put("name", "哈哈哈");
-            System.out.println(utils.post("http://localhost:10000/post/params", params));
+            log.info(utils.post("http://localhost:10000/post/params", params));
         }
 
-        public static void postSyncParamsJsonTest(HttpSyncUtils utils) throws JsonProcessingException {
+        public static void postSyncParamsJsonTest(HttpSync utils) throws JsonProcessingException {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> params = new HashMap<>();
             params.put("id", "1");
             params.put("name", "测试");
             String json = mapper.writeValueAsString(params);
-            System.out.println(utils.post("http://localhost:10000/post/params/json", json));
-//            params.put("clientPhone", "13762716063");
-//            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
-//            String json = mapper.writeValueAsString(params);
-//            System.out.println(utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", json));
+            log.info(utils.post("http://localhost:10000/post/params/json", json));
+
+            params.clear();
+            params.put("clientPhone", "13762716063");
+            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
+            json = mapper.writeValueAsString(params);
+            log.info(utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", json));
         }
 
-        public static void getAsyncTest(HttpAsyncUtils utils) {
+        public static void getAsyncTest(HttpAsync utils) {
             utils.get("http://localhost:10000/", new CommonsNetCall() {
                 @Override
                 public void success(String result) {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -131,14 +137,14 @@ public class CommHttpUtilsTest {
             });
         }
 
-        public static void getAsyncParamsTest(HttpAsyncUtils utils) {
+        public static void getAsyncParamsTest(HttpAsync utils) {
             Map<String, String> params = new HashMap<>();
             params.put("name", "哈as哈哈");
             utils.setHttpConfig(HttpConfig.builder().encode(true).build());
             utils.get("http://localhost:10000/params", new CommonsNetCall() {
                 @Override
                 public void success(String result) {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -151,29 +157,34 @@ public class CommHttpUtilsTest {
                     e.printStackTrace();
                 }
             }, params);
-//            params.put("name", "手机");
-//            utils.setHttpConfig(HttpConfig.builder().encode(true).build());
-//            utils.get("http://localhost:8088/wx/renewal/category", new CommonsNetCall() {
-//                @Override
-//                public <T> void success(T response, Object... obj) throws IOException {
-//                    for (Object o : obj) {
-//                        System.out.println(o);
-//                    }
-//                }
-//
-//                @Override
-//                public void file(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }, params);
+
+            params.clear();
+            params.put("name", "手机");
+            utils.setHttpConfig(HttpConfig.builder().encode(true).build());
+            utils.get("http://localhost:8088/wx/renewal/category", new CommonsNetCall() {
+                @Override
+                public void success(String result) {
+                    log.info(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
+                }
+
+                @Override
+                public void file(Exception e) {
+                    e.printStackTrace();
+                }
+            }, params);
 
         }
 
-        public static void postAsyncTest(HttpAsyncUtils utils) {
+        public static void postAsyncTest(HttpAsync utils) {
             utils.post("http://localhost:10000/post", new CommonsNetCall() {
                 @Override
                 public void success(String result) throws IOException {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -188,13 +199,13 @@ public class CommHttpUtilsTest {
             });
         }
 
-        public static void postAsyncParamsTest(HttpAsyncUtils utils) throws JsonProcessingException {
+        public static void postAsyncParamsTest(HttpAsync utils) throws JsonProcessingException {
             Map<String, String> params = new HashMap<>();
             params.put("name", "哈哈哈");
             utils.post("http://localhost:10000/post/params", new CommonsNetCall() {
                 @Override
                 public void success(String result) throws IOException {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -208,28 +219,32 @@ public class CommHttpUtilsTest {
                 }
             }, params);
 
-//            Map<String, String> params = new HashMap<>();
-//            params.put("clientPhone", "13762716063");
-//            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
-//            HttpHeader httpHeader = new HttpHeader();
-//            httpHeader.add(Constants.CONTENT_TYPE, Constants.CONTENT_TYPE_JSON);
-//            utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", httpHeader, new CommonsNetCall() {
-//                @Override
-//                public <T> void success(T response, Object... obj) throws IOException {
-//                    for (Object o : obj) {
-//                        System.out.println(o);
-//                    }
-//                }
-//
-//                @Override
-//                public void file(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }, params);
+            params.clear();
+            params = new HashMap<>();
+            params.put("clientPhone", "13762716063");
+            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
+            HttpHeader httpHeader = new HttpHeader();
+            httpHeader.add(Constants.CONTENT_TYPE, Constants.CONTENT_TYPE_JSON);
+            utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", httpHeader, new CommonsNetCall() {
+                @Override
+                public void success(String result) {
+                    log.info(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
+                }
+
+                @Override
+                public void file(Exception e) {
+                    e.printStackTrace();
+                }
+            }, params);
 
         }
 
-        public static void postAsyncParamsJsonTest(HttpAsyncUtils utils) throws JsonProcessingException {
+        public static void postAsyncParamsJsonTest(HttpAsync utils) throws JsonProcessingException {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> params = new HashMap<>();
 
@@ -239,7 +254,7 @@ public class CommHttpUtilsTest {
             utils.post("http://localhost:10000/post/params/json", json, new CommonsNetCall() {
                 @Override
                 public void success(String result) throws IOException {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -253,83 +268,92 @@ public class CommHttpUtilsTest {
                 }
             });
 
-//            params.put("site_id", "2");
-//            String json = mapper.writeValueAsString(params);
-//            utils.post("http://api.bejson.com/Bejson/Api/LanguageGroup/getGroupList", json, new CommonsNetCall() {
-//                @Override
-//                public <T> void success(T response, Object... obj) throws IOException {
-//                    for (Object o : obj) {
-//                        System.out.println(o);
-//                    }
-//                }
-//
-//                @Override
-//                public void file(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            });
+            params.clear();
+            params.put("site_id", "2");
+            json = mapper.writeValueAsString(params);
+            utils.post("http://api.bejson.com/Bejson/Api/LanguageGroup/getGroupList", json, new CommonsNetCall() {
+                @Override
+                public void success(String result) throws IOException {
+                    log.info(result);
+                }
 
-//            params.put("clientPhone", "13762716063");
-//            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
-//            String json = mapper.writeValueAsString(params);
-//            utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", json, new CommonsNetCall() {
-//                @Override
-//                public <T> void success(T response, Object... obj) throws IOException {
-//                    for (Object o : obj) {
-//                        System.out.println(o);
-//                    }
-//                }
-//
-//                @Override
-//                public void file(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            });
+                @Override
+                public void success(byte[] result) throws IOException {
+
+                }
+
+                @Override
+                public void file(Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+            params.clear();
+            params.put("clientPhone", "13762716063");
+            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
+            json = mapper.writeValueAsString(params);
+            utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", json, new CommonsNetCall() {
+                @Override
+                public void success(String result) throws IOException {
+                    log.info(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
+                }
+
+                @Override
+                public void file(Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
         }
     }
 
     public static class OkhttpTest {
-        public static void getSyncTest(HttpSyncUtils utils) {
+        public static void getSyncTest(HttpSync utils) {
             System.out.println(utils.get("http://localhost:10000/"));
         }
 
-        public static void getSyncParamsTest(HttpSyncUtils utils) {
+        public static void getSyncParamsTest(HttpSync utils) {
             Map<String, String> params = new HashMap<>();
             params.put("name", "哈哈哈");
-            System.out.println(utils.get("http://localhost:10000/params", params));
+            log.info(utils.get("http://localhost:10000/params", params));
         }
 
-        public static void postSyncTest(HttpSyncUtils utils) {
-            System.out.println(utils.post("http://localhost:10000/post"));
+        public static void postSyncTest(HttpSync utils) {
+            log.info(utils.post("http://localhost:10000/post"));
         }
 
-        public static void postSyncParamsTest(HttpSyncUtils utils) {
+        public static void postSyncParamsTest(HttpSync utils) {
             Map<String, String> params = new HashMap<>();
             params.put("name", "哈哈哈");
-            System.out.println(utils.post("http://localhost:10000/post/params", params));
+            log.info(utils.post("http://localhost:10000/post/params", params));
         }
 
-        public static void postSyncParamsJsonTest(HttpSyncUtils utils) throws JsonProcessingException {
+        public static void postSyncParamsJsonTest(HttpSync utils) throws JsonProcessingException {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> params = new HashMap<>();
 
             params.put("id", "1");
             params.put("name", "测试");
             String json = mapper.writeValueAsString(params);
-            System.out.println(utils.post("http://localhost:10000/post/params/json", json));
+            log.info(utils.post("http://localhost:10000/post/params/json", json));
 
-//            params.put("clientPhone", "13762716063");
-//            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
-//            String json = mapper.writeValueAsString(params);
-//            System.out.println(utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", json));
+            params.clear();
+            params.put("clientPhone", "13762716063");
+            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
+            json = mapper.writeValueAsString(params);
+            log.info(utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", json));
         }
 
-        public static void getAsyncTest(HttpAsyncUtils utils) {
+        public static void getAsyncTest(HttpAsync utils) {
             utils.get("http://localhost:10000/", new CommonsNetCall() {
                 @Override
                 public void success(String result) throws IOException {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -344,7 +368,7 @@ public class CommHttpUtilsTest {
             });
         }
 
-        public static void getAsyncParamsTest(HttpAsyncUtils utils) {
+        public static void getAsyncParamsTest(HttpAsync utils) {
             Map<String, String> params = new HashMap<>();
 
             params.put("name", "哈as哈哈");
@@ -352,7 +376,7 @@ public class CommHttpUtilsTest {
             utils.get("http://localhost:10000/params", new CommonsNetCall() {
                 @Override
                 public void success(String result) throws IOException {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -366,29 +390,33 @@ public class CommHttpUtilsTest {
                 }
             }, params);
 
-//            params.put("name", "手机");
-//            utils.setHttpConfig(HttpConfig.builder().encode(true).build());
-//            utils.get("http://localhost:8088/wx/renewal/category", new CommonsNetCall() {
-//                @Override
-//                public <T> void success(T response, Object... obj) throws IOException {
-//                    if (response instanceof Response) {
-//                        System.out.println(((Response) response).body().string());
-//                    }
-//                }
-//
-//                @Override
-//                public void file(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }, params);
+            params.clear();
+            params.put("name", "手机");
+            utils.setHttpConfig(HttpConfig.builder().encode(true).build());
+            utils.get("http://localhost:8088/wx/renewal/category", new CommonsNetCall() {
+                @Override
+                public void success(String result) {
+                    log.info(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
+                }
+
+                @Override
+                public void file(Exception e) {
+                    e.printStackTrace();
+                }
+            }, params);
 
         }
 
-        public static void postAsyncTest(HttpAsyncUtils utils) {
+        public static void postAsyncTest(HttpAsync utils) {
             utils.post("http://localhost:10000/post", new CommonsNetCall() {
                 @Override
                 public void success(String result) throws IOException {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -403,14 +431,14 @@ public class CommHttpUtilsTest {
             });
         }
 
-        public static void postAsyncParamsTest(HttpAsyncUtils utils) {
+        public static void postAsyncParamsTest(HttpAsync utils) {
             Map<String, String> params = new HashMap<>();
 
             params.put("name", "哈哈哈");
             utils.post("http://localhost:10000/post/params", new CommonsNetCall() {
                 @Override
                 public void success(String result) throws IOException {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -424,26 +452,30 @@ public class CommHttpUtilsTest {
                 }
             }, params);
 
-//            params.put("clientPhone", "13762716063");
-//            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
-//            HttpHeader httpHeader = new HttpHeader();
-//            httpHeader.add(Constants.CONTENT_TYPE, Constants.CONTENT_TYPE_JSON);
-//            utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", httpHeader, new CommonsNetCall() {
-//                @Override
-//                public <T> void success(T response, Object... obj) throws IOException {
-//                    if (response instanceof Response) {
-//                        System.out.println(((Response) response).body().string());
-//                    }
-//                }
-//
-//                @Override
-//                public void file(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }, params);
+            params.clear();
+            params.put("clientPhone", "13762716063");
+            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
+            HttpHeader httpHeader = new HttpHeader();
+            httpHeader.add(Constants.CONTENT_TYPE, Constants.CONTENT_TYPE_JSON);
+            utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", httpHeader, new CommonsNetCall() {
+                @Override
+                public void success(String result) {
+                    log.info(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
+                }
+
+                @Override
+                public void file(Exception e) {
+                    e.printStackTrace();
+                }
+            }, params);
         }
 
-        public static void postAsyncParamsJsonTest(HttpAsyncUtils utils) throws JsonProcessingException {
+        public static void postAsyncParamsJsonTest(HttpAsync utils) throws JsonProcessingException {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> params = new HashMap<>();
 
@@ -453,7 +485,7 @@ public class CommHttpUtilsTest {
             utils.post("http://localhost:10000/post/params/json", json, new CommonsNetCall() {
                 @Override
                 public void success(String result) throws IOException {
-                    System.out.println(result);
+                    log.info(result);
                 }
 
                 @Override
@@ -467,38 +499,46 @@ public class CommHttpUtilsTest {
                 }
             });
 
-//            params.put("site_id", "2");
-//            String json = mapper.writeValueAsString(params);
-//            utils.post("http://api.bejson.com/Bejson/Api/LanguageGroup/getGroupList", json, new CommonsNetCall() {
-//                @Override
-//                public <T> void success(T response, Object... obj) throws IOException {
-//                    if (response instanceof Response) {
-//                        System.out.println(((Response) response).body().string());
-//                    }
-//                }
-//
-//                @Override
-//                public void file(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            });
+            params.clear();
+            params.put("site_id", "2");
+            json = mapper.writeValueAsString(params);
+            utils.post("http://api.bejson.com/Bejson/Api/LanguageGroup/getGroupList", json, new CommonsNetCall() {
+                @Override
+                public void success(String result) {
+                    log.info(result);
+                }
 
-//            params.put("clientPhone", "13762716063");
-//            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
-//            String json = mapper.writeValueAsString(params);
-//            utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", json, new CommonsNetCall() {
-//                @Override
-//                public <T> void success(T response, Object... obj) throws IOException {
-//                    if (response instanceof Response) {
-//                        System.out.println(((Response) response).body().string());
-//                    }
-//                }
-//
-//                @Override
-//                public void file(Exception e) {
-//                    e.printStackTrace();
-//                }
-//            });
+                @Override
+                public void success(byte[] result) throws IOException {
+
+                }
+
+                @Override
+                public void file(Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+            params.clear();
+            params.put("clientPhone", "13762716063");
+            params.put("openId", "oD5gh5Q59CWc8w7jRQ9hNa9_kJZ0");
+            json = mapper.writeValueAsString(params);
+            utils.post("http://localhost:8088/wx/renewal/order/selectRenewalOrder", json, new CommonsNetCall() {
+                @Override
+                public void success(String result) {
+                    log.info(result);
+                }
+
+                @Override
+                public void success(byte[] result) throws IOException {
+
+                }
+
+                @Override
+                public void file(Exception e) {
+                    e.printStackTrace();
+                }
+            });
 
         }
     }
