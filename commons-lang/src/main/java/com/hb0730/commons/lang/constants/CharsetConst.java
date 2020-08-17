@@ -1,5 +1,8 @@
 package com.hb0730.commons.lang.constants;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 /**
  * 编码常量
  *
@@ -7,12 +10,15 @@ package com.hb0730.commons.lang.constants;
  * @since 1.0.1
  */
 public final class CharsetConst {
-    private CharsetConst(){}
+    private CharsetConst() {
+    }
 
     /**
      * utf-8
      */
-    public static final String UTF8 = "UTF-8";
+    public static final String UTF_8_STRING = "UTF-8";
+
+    public static final Charset UTF_8 = StandardCharsets.UTF_8;
 
     /**
      * utf-16
