@@ -7,6 +7,9 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -81,9 +84,22 @@ public class DateUtils {
         if (null == date) {
             return null;
         }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         dateFormat.setTimeZone(timeZone);
         return dateFormat.format(date);
+    }
+
+    /**
+     * 构建LocalDateTime对象
+     *
+     * @param date   时间字符串（带格式）
+     * @param format 格式
+     * @return LocalDateTime对象
+     * @see LocalDateTimeUtils#parse(CharSequence, String)
+     * @since 1.0.2
+     */
+    public static LocalDateTime parseLocalDateTime(CharSequence date, String format) {
+        return LocalDateTimeUtils.parse(date, format);
     }
 
     /**
@@ -141,6 +157,53 @@ public class DateUtils {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         dateFormat.setTimeZone(timeZone);
         return dateFormat.parse(date);
+    }
+
+    /**
+     * Date对象转换为{@link Instant}对象
+     *
+     * @param date Date对象
+     * @return {@link Instant}对象
+     * @since 1.0.2
+     */
+    public static Instant toInstant(Date date) {
+        return null == date ? null : date.toInstant();
+    }
+
+    /**
+     * Date对象转换为{@link Instant}对象
+     *
+     * @param temporalAccessor Date对象
+     * @return {@link Instant}对象
+     * @since 1.0.2
+     */
+    public static Instant toInstant(TemporalAccessor temporalAccessor) {
+        return TemporalAccessorUtils.toInstant(temporalAccessor);
+    }
+
+    /**
+     * {@link Instant} 转换为 {@link LocalDateTime}，使用系统默认时区
+     *
+     * @param instant {@link Instant}
+     * @return {@link LocalDateTime}
+     * @see LocalDateTimeUtils#of(Instant)
+     * @since 1.0.2
+     */
+    public static LocalDateTime toLocalDateTime(Instant instant) {
+        return LocalDateTimeUtils.of(instant);
+    }
+
+
+    /**
+     * {@link Date} 转换为 {@link LocalDateTime}，使用系统默认时区
+     *
+     * @param date {@link Date}
+     * @return {@link LocalDateTime}
+     * @see LocalDateTimeUtils#of(Date)
+     * @since 1.0.2
+     */
+    public static LocalDateTime toLocalDateTime(Date date) {
+        return LocalDateTimeUtils.of(date);
     }
 
     /**

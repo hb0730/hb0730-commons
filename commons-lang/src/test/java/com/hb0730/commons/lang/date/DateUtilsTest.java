@@ -5,6 +5,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -194,5 +198,42 @@ public class DateUtilsTest {
         now = DateUtils.toDate(date);
         expire = DateUtils.isBefore(now);
         Assert.assertTrue("传入的时间不在当前之前", expire);
+    }
+
+    @Test
+    public void parseLocalDateTimeTest() {
+        // 之前
+        String date = "2020-08-14 14:01:59";
+        String format = "yyyy-MM-dd HH:mm:ss";
+        LocalDateTime localDateTime = DateUtils.parseLocalDateTime(date, format);
+        Assert.assertNotNull(localDateTime);
+        localDateTime = DateUtils.parseLocalDateTime(date, null);
+        Assert.assertNotNull(localDateTime);
+        localDateTime = DateUtils.parseLocalDateTime(null, null);
+        Assert.assertNotNull(localDateTime);
+    }
+
+    @Test
+    public void toInstantTest() {
+        Instant instant = DateUtils.toInstant(DateUtils.now());
+        Assert.assertNotNull(instant);
+        instant = DateUtils.toInstant(instant.atZone(ZoneId.systemDefault()));
+        Assert.assertNotNull(instant);
+        instant = DateUtils.toInstant((TemporalAccessor) null);
+        Assert.assertNotNull(instant);
+        instant = DateUtils.toInstant((Date) null);
+        Assert.assertNotNull(instant);
+    }
+
+    @Test
+    public void toLocalDateTimeTest() {
+        LocalDateTime localDateTime = DateUtils.toLocalDateTime(DateUtils.now());
+        Assert.assertNotNull(localDateTime);
+        localDateTime = DateUtils.toLocalDateTime(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        Assert.assertNotNull(localDateTime);
+        localDateTime = DateUtils.toLocalDateTime((Date) null);
+        Assert.assertNotNull(localDateTime);
+        localDateTime = DateUtils.toLocalDateTime((Instant) null);
+        Assert.assertNotNull(localDateTime);
     }
 }
