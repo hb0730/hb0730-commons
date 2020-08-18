@@ -12,6 +12,9 @@
     + 新增DateUtils#format等方法
     + 新增关于Date的相关操作和类以及ObjectUtils方法
     + 新增Base64工具类
+    + 新增ListUtils工具类
+    + 新增CollectionUtils#emptyIfNull等方法
+    + 新增MapUtils#sort等方法
 - commons-encrypt
     + 新增加密解密模块，对常规加密解密的支持MD5,SHA等
 ## Fixed

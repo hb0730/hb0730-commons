@@ -55,6 +55,33 @@ public class MapUtils {
     }
 
     /**
+     * 实例化一个{@link HashMap}
+     *
+     * @param size    初始化大小,由于默认负载因子0.75，传入的size会实际初始大小为size / 0.75 + 1
+     * @param isOrder 是否有序，有序则返回{@link LinkedHashMap}
+     * @param <K>     key类型
+     * @param <V>     value类型
+     * @return {@link HashMap}
+     * @since 1.0.2
+     */
+    public static <K, V> HashMap<K, V> newHashMap(int size, boolean isOrder) {
+        return isOrder ? new LinkedHashMap<>(size) : new HashMap<>(size);
+    }
+
+    /**
+     * 实例化一个{@link HashMap}
+     *
+     * @param size 初始化大小,由于默认负载因子0.75，传入的size会实际初始大小为size / 0.75 + 1
+     * @param <K>  key类型
+     * @param <V>  value类型
+     * @return {@link HashMap}
+     * @since 1.0.2
+     */
+    public static <K, V> HashMap<K, V> newHashMap(int size) {
+        return newHashMap(size, false);
+    }
+
+    /**
      * 新建TreeMap<br>
      * TreeMap key有序
      *
