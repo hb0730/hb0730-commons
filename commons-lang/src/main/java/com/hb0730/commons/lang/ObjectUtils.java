@@ -108,6 +108,16 @@ public class ObjectUtils {
     }
 
     /**
+     * 多个对象的<code>hashCode</code>串联，组成一个新的hashCode
+     *
+     * @param objects 对象
+     * @return 新的HashCode
+     */
+    public static int hashCode(Object... objects) {
+        return Arrays.hashCode(objects);
+    }
+
+    /**
      * 获取对象长度,如果对象为<code>null</code>,返回0，如果对象锁不支持的类型返回-1<br>
      * 支持类型如下:
      * <ul>

@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -99,5 +100,15 @@ public class ObjectUtilsTest {
         str2 = null;
         compare = ObjectUtils.compare(str, str2, true);
         Assert.assertEquals("对象不相等", compare, 0);
+    }
+
+    @Test
+    public void testHashCodeTest() {
+        Object o1 = "1sad";
+        Object o2 = new Object();
+        Object o3 = Arrays.asList("1", "2");
+        int i = ObjectUtils.hashCode(o1, o2, o3);
+        Assert.assertNotNull(i);
+        log.info(i + "");
     }
 }
