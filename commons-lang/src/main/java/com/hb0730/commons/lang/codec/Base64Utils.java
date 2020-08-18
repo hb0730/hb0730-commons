@@ -1,6 +1,6 @@
 package com.hb0730.commons.lang.codec;
 
-import com.hb0730.commons.lang.constants.CharsetConst;
+import com.hb0730.commons.lang.constants.Charsets;
 
 import java.nio.charset.Charset;
 import java.util.Base64;
@@ -97,7 +97,7 @@ public class Base64Utils {
      * @return 编码后的字符串
      */
     public static String encodeToString(byte[] src) {
-        return encodeToString(src, CharsetConst.UTF_8);
+        return encodeToString(src, Charsets.UTF_8);
     }
 
     /**
@@ -126,13 +126,13 @@ public class Base64Utils {
     }
 
     /**
-     * {@link Base64}解码，{@link CharsetConst#UTF_8}
+     * {@link Base64}解码，{@link Charsets#UTF_8}
      *
      * @param src 原字符串
      * @return 解码后的字节组
      */
     public static byte[] decodeFromString(String src) {
-        return decodeFromString(src, CharsetConst.UTF_8);
+        return decodeFromString(src, Charsets.UTF_8);
     }
 
     /**
@@ -159,13 +159,13 @@ public class Base64Utils {
     }
 
     /**
-     * {@link Base64}，URL编码，默认{@link CharsetConst#UTF_8}
+     * {@link Base64}，URL编码，默认{@link Charsets#UTF_8}
      *
      * @param src 原字节组
      * @return 编码后的字符串
      */
     public static String encodeToUrlSafeString(byte[] src) {
-        return encodeToUrlSafeString(src, CharsetConst.UTF_8);
+        return encodeToUrlSafeString(src, Charsets.UTF_8);
     }
 
     /**
@@ -191,13 +191,13 @@ public class Base64Utils {
     }
 
     /**
-     * {@link Base64}，URL，{@link CharsetConst#UTF_8}解码
+     * {@link Base64}，URL，{@link Charsets#UTF_8}解码
      *
      * @param src 原字符串
      * @return 解码后的字节组
      */
     public static byte[] decodeFromUrlSafeString(String src) {
-        return decodeFromUrlSafeString(src, CharsetConst.UTF_8);
+        return decodeFromUrlSafeString(src, Charsets.UTF_8);
     }
 
 }

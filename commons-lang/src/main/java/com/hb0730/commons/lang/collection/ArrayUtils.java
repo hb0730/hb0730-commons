@@ -4,10 +4,7 @@ import com.hb0730.commons.lang.ObjectUtils;
 import com.hb0730.commons.lang.StringUtils;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * array Util
@@ -170,7 +167,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 数组是否包含指定元素
+     * 数组是否包含指定元素，忽略大小写
      *
      * @param array 数组
      * @param value 被检测的元素
@@ -336,13 +333,13 @@ public class ArrayUtils {
             startIndex = array.length - 1;
         }
         if (value == null) {
-            for (int i = startIndex; i >= 0; i--) {
+            for (int i = array.length - 1; i >= startIndex; i--) {
                 if (array[i] == null) {
                     return i;
                 }
             }
         } else {
-            for (int i = startIndex; i >= 0; i--) {
+            for (int i = array.length - 1; i >= startIndex; i--) {
                 if (ObjectUtils.equal(array[i], value)) {
                     return i;
                 }
@@ -367,8 +364,8 @@ public class ArrayUtils {
         }
         if (index < 0) {
             index = 0;
-        } else if (index > array.length) {
-            index = array.length;
+        } else if (index >= array.length) {
+            index = array.length - 1;
         }
         return (T) Array.get(array, index);
     }
@@ -387,8 +384,8 @@ public class ArrayUtils {
             return null;
         }
         final T[] result = (T[]) Array.newInstance(array.getClass().getComponentType(), indexes.length);
-        for (int index : indexes) {
-            result[index] = get(array, index);
+        for (int i = 0; i < indexes.length; i++) {
+            result[i] = get(array, indexes[i]);
         }
         return result;
     }
@@ -416,8 +413,8 @@ public class ArrayUtils {
      */
     @SuppressWarnings("SuspiciousSystemArraycopy")
     public static Object remove(Object array, int index) {
-        if (null == array) {
-            return null;
+        if (!isArray(array)) {
+            return array;
         }
         int len = Array.getLength(array);
         if (index < 0 || index >= len) {
@@ -472,6 +469,34 @@ public class ArrayUtils {
     @SuppressWarnings("unchecked")
     public static <T> T[] newArray(Class<?> componentType, int newSize) {
         return (T[]) Array.newInstance(componentType, newSize);
+    }
+
+    /**
+     * 新建一个数组
+     *
+     * @param col           集合
+     * @param componentType 数组类型
+     * @param <T>           元素类型
+     * @return 数组
+     * @since 1.0.2
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] newArray(Collection<? extends T> col, Class<T> componentType) {
+        return col.toArray((T[]) Array.newInstance(componentType, 0));
+    }
+
+    /**
+     * 两下标位置互换
+     *
+     * @param array 数组
+     * @param i     index1
+     * @param j     index2
+     * @since 1.0.2
+     */
+    public static void swap(Object[] array, int i, int j) {
+        Object temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 
 

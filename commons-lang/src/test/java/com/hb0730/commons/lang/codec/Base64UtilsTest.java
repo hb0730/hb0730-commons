@@ -1,6 +1,6 @@
 package com.hb0730.commons.lang.codec;
 
-import com.hb0730.commons.lang.constants.CharsetConst;
+import com.hb0730.commons.lang.constants.Charsets;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,7 +53,7 @@ public class Base64UtilsTest {
         Assert.assertNotNull(encode);
         String encode1 = Base64Utils.encodeToString(test.getBytes(), "utf-8");
         Assert.assertEquals(encode, encode1);
-        String encode2 = Base64Utils.encodeToString(test.getBytes(), CharsetConst.UTF_8);
+        String encode2 = Base64Utils.encodeToString(test.getBytes(), Charsets.UTF_8);
         Assert.assertEquals(encode, encode2);
         log.info(encode2);
         String encode3 = Base64Utils.encodeToString(null);
@@ -68,7 +68,7 @@ public class Base64UtilsTest {
         Assert.assertNotNull(decode);
         byte[] decode1 = Base64Utils.decodeFromString(encode, "utf-8");
         Assert.assertEquals(decode, decode1);
-        byte[] decode2 = Base64Utils.decodeFromString(encode, CharsetConst.UTF_8);
+        byte[] decode2 = Base64Utils.decodeFromString(encode, Charsets.UTF_8);
         Assert.assertEquals(decode, decode2);
         byte[] decode3 = Base64Utils.decodeFromString(null);
         Assert.assertEquals("编码失败" + decode3, decode, decode3);
@@ -81,9 +81,9 @@ public class Base64UtilsTest {
         Assert.assertNotNull(encode);
         String encode1 = Base64Utils.encodeToUrlSafeString(url.getBytes(), "utf-8");
         Assert.assertEquals(encode, encode1);
-        String encode2 = Base64Utils.encodeToUrlSafeString(url.getBytes(), CharsetConst.UTF_8);
+        String encode2 = Base64Utils.encodeToUrlSafeString(url.getBytes(), Charsets.UTF_8);
         Assert.assertEquals(encode, encode2);
-        String encode4 = Base64Utils.encodeToUrlSafeString("".getBytes(), CharsetConst.UTF_8);
+        String encode4 = Base64Utils.encodeToUrlSafeString("".getBytes(), Charsets.UTF_8);
         Assert.assertEquals("解码失败" + encode4, encode, encode4);
         String encode3 = Base64Utils.encodeToUrlSafeString(null);
         Assert.assertEquals("解码失败" + encode3, encode, encode3);
@@ -97,7 +97,7 @@ public class Base64UtilsTest {
         Assert.assertNotNull(decode);
         byte[] decode1 = Base64Utils.decodeFromUrlSafeString(encode, "utf-8");
         Assert.assertNotNull(decode1);
-        byte[] decode2 = Base64Utils.decodeFromUrlSafeString(encode, CharsetConst.UTF_8);
+        byte[] decode2 = Base64Utils.decodeFromUrlSafeString(encode, Charsets.UTF_8);
         Assert.assertNotNull(decode2);
         byte[] decode3 = Base64Utils.decodeFromUrlSafeString("");
         Assert.assertNotNull(decode3);
