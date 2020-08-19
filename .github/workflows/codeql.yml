@@ -42,7 +42,7 @@ jobs:
           languages: ${{ github.event.inputs.languages }}
 
       - name: mvn package
-        run: mvn clean package
+        run: mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 
       - name: codeql-analysis
