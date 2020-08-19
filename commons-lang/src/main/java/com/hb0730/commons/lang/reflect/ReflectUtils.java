@@ -159,7 +159,7 @@ public class ReflectUtils {
             return null;
         }
         Field[] fields = clazz.getDeclaredFields();
-        List<Field> list = new ArrayList<Field>(Arrays.asList(fields));
+        List<Field> list = new ArrayList<>(Arrays.asList(fields));
 
         if (containSupperClass) {
             if (clazz.getSuperclass() != null && !clazz.getSuperclass().getSimpleName().equals(Object.class.getSimpleName())) {
@@ -167,6 +167,32 @@ public class ReflectUtils {
             }
         }
         return list;
+    }
+
+    /**
+     * 获取指定字段
+     *
+     * @param clazz              目标类
+     * @param fieldName          字段名称
+     * @param containSupperClass 是否包含父项
+     * @param <T>                字段类型
+     * @return 目标字段
+     * @since 1.0.2
+     */
+    public static <T> Field getField(Class<T> clazz, String fieldName, boolean containSupperClass) {
+        if (null == clazz || StringUtils.isBlank(fieldName)) {
+            return null;
+        }
+        List<Field> fields = getFields(clazz, containSupperClass);
+        if (CollectionUtils.isEmpty(fields)) {
+            return null;
+        }
+        for (Field field : fields) {
+            if (field.getName().equalsIgnoreCase(fieldName)) {
+                return field;
+            }
+        }
+        return null;
     }
 
     /**
@@ -183,7 +209,7 @@ public class ReflectUtils {
         }
 
         Method[] methods = clazz.getDeclaredMethods();
-        List<Method> list = new ArrayList<Method>(Arrays.asList(methods));
+        List<Method> list = new ArrayList<>(Arrays.asList(methods));
         if (containSupperClass) {
             if (clazz.getSuperclass() != null && !clazz.getSuperclass().getSimpleName().equals(Object.class.getSimpleName())) {
                 list.addAll(getMethods(clazz.getSuperclass(), containSupperClass));
@@ -373,7 +399,7 @@ public class ReflectUtils {
      */
     public static <T> T invoke(Object bean, String methodName, Object... args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class<?>[] type = getMethodArgsType(args);
-        Method method = null;
+        Method method;
         if (null == type) {
             method = bean.getClass().getMethod(methodName);
             return invoke(bean, method);

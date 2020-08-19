@@ -4,6 +4,7 @@ import com.hb0730.commons.lang.collection.ArrayUtils;
 import com.hb0730.commons.lang.convert.BasicTypeEnum;
 import com.hb0730.commons.lang.reflect.TypeUtils;
 
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 
 /**
@@ -40,6 +41,43 @@ public class ClassUtils {
      */
     public static boolean isEnum(Class<?> clazz) {
         return null != clazz && clazz.isEnum();
+    }
+
+    /**
+     * 是否为标准类<br>
+     * <pre>
+     * 1. 非接口
+     * 2. 非枚举
+     * 3. 非数组
+     * 4. 非注解
+     * 5. 非原始了下(int,log)
+     * 6. 非抽象
+     * </pre>
+     *
+     * @param clazz 类
+     * @return 是否为标准类
+     * @since 1.0.2
+     */
+    public static boolean isNormalClass(Class<?> clazz) {
+        return null != clazz
+                && !clazz.isInterface()
+                && !clazz.isEnum()
+                && !clazz.isArray()
+                && !clazz.isAnnotation()
+                && !clazz.isSynthetic()
+                && !clazz.isPrimitive()
+                && !isAbstract(clazz);
+    }
+
+    /**
+     * 是否为抽象类
+     *
+     * @param clazz 类
+     * @return 是否为抽象类
+     * @since 1.0.2
+     */
+    public static boolean isAbstract(Class<?> clazz) {
+        return Modifier.isAbstract(clazz.getModifiers());
     }
 
     /**

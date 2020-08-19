@@ -15,6 +15,10 @@
     + 新增ListUtils工具类
     + 新增CollectionUtils#emptyIfNull等方法
     + 新增MapUtils#sort等方法
+    + 新增ModifierUtils工具类
+    + 新增ClassUtils中isNormalClass和isAbstract方法
+    + 新增ReflectUtils中getField方法
+    + 新增BeanInfoCache类
 - commons-encrypt
     + 新增加密解密模块，对常规加密解密的支持MD5,SHA等
 ## Fixed

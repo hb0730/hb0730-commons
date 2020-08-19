@@ -138,6 +138,20 @@ public class ClassUtilsTest {
         Assert.assertNotNull("泛型为null", aClass);
     }
 
+    @Test
+    public void isNormalClassTest() {
+        boolean normalClass = ClassUtils.isNormalClass(Person1.class);
+        Assert.assertTrue("非标准类", normalClass);
+        ClassUtils.isNormalClass(Person.class);
+        ClassUtils.isNormalClass(TestEnum.class);
+        ClassUtils.isNormalClass(Input.class);
+        ClassUtils.isNormalClass(int.class);
+    }
+
+    class Person1 {
+
+    }
+
     @Data
     @EqualsAndHashCode
     @Builder
