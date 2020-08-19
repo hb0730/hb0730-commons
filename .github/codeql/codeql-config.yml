@@ -1,0 +1,11 @@
+name: "CodeQL config"
+
+queries:
+  - uses: security-and-quality
+
+path-ignore:
+  - 'commons-spring-test/**'
+  - 'commons-http-test/**'
+  - 'commons-cache-test/**'
+
+

@@ -39,7 +39,8 @@ jobs:
       - name: codeql-init
         uses: github/codeql-action/init@v1
         with:
-          languages: ${{ github.event.inputs.languages }}
+          languages: java
+          config-file: ./.github/codeql/codeql-config.yml
 
       - name: mvn package
         run: mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
