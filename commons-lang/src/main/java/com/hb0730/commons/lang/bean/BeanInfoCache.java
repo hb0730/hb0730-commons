@@ -1,8 +1,8 @@
 package com.hb0730.commons.lang.bean;
 
 import java.beans.PropertyDescriptor;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Bean属性缓存<br>
@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public enum BeanInfoCache {
     INSTANCE;
-    private final Map<Class<?>, Map<String, PropertyDescriptor>> pdCache = new HashMap<>(64);
-    private final Map<Class<?>, Map<String, PropertyDescriptor>> ignoreCasePdCache = new HashMap<>(64);
+    private final Map<Class<?>, Map<String, PropertyDescriptor>> pdCache = new ConcurrentHashMap<>(64);
+    private final Map<Class<?>, Map<String, PropertyDescriptor>> ignoreCasePdCache = new ConcurrentHashMap<>(64);
 
     /**
      * 获取属性名和{@link PropertyDescriptor}的映射
