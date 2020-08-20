@@ -1,5 +1,10 @@
 # Changelog
-
+# 2.0.0
+## Feature
+## Fixed
+## Change
++ **[commons-json]**
+  + 优化json创建以及多json优选
 # 1.0.2
 ## Feature
 - commons-lang

@@ -38,3 +38,6 @@
 ## 依赖
 + apache commons-codec
 + bouncycastle
+
+## link
++ [Java 下常用密码算法的使用](https://www.mingfer.cn/2019/09/29/use-bc-java/)
