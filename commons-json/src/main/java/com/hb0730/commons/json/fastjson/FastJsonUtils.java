@@ -13,7 +13,10 @@ import java.util.Map;
  * alibaba fast json Utils
  *
  * @author bing_huang
+ * @see FastJsonImpl
+ * @see com.hb0730.commons.json.utils.Jsons
  * @since 1.0.1
+ * @deprecated 2.0.0
  */
 public class FastJsonUtils {
 

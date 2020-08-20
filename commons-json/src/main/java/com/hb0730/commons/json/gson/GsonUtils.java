@@ -12,7 +12,10 @@ import java.util.Map;
  * google json utils
  *
  * @author bing_huang
+ * @see GsonImpl
+ * @see com.hb0730.commons.json.utils.Jsons
  * @since 1.0.1
+ * @deprecated 2.0.0
  */
 public class GsonUtils {
     private final static Gson DEFAULT_GSON = new Gson();

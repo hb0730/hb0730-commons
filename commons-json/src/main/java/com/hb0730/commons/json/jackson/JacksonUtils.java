@@ -15,7 +15,10 @@ import java.util.Map;
  * jackson utilities.
  *
  * @author bing_huang
+ * @see JacksonImpl
+ * @see com.hb0730.commons.json.utils.Jsons
  * @since 1.0.1
+ * @deprecated 2.0.0
  */
 public class JacksonUtils {
 
