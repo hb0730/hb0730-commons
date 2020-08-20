@@ -31,7 +31,7 @@ jobs:
 stages:
   - build
   - name: GitHub Release
-      if: tag =~ /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+    if: tag =~ /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 branches:
   only:
     - master
