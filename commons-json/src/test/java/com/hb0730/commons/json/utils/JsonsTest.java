@@ -4,8 +4,8 @@ import com.alibaba.fastjson.parser.ParserConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.hb0730.commons.json.exceptions.JsonException;
-import com.hb0730.commons.json.fastjson.FastJsons;
-import com.hb0730.commons.json.gson.Gsons;
+import com.hb0730.commons.json.fastjson.FastJsonImpl;
+import com.hb0730.commons.json.gson.GsonImpl;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -26,11 +26,11 @@ public class JsonsTest {
         Test1 test1 = jsons.jsonToObject(json, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
-        jsons = jsons.setJson(new FastJsons());
+        jsons = jsons.setJson(new FastJsonImpl());
         test1 = jsons.jsonToObject(json, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
-        jsons = jsons.setJson(Gsons.class);
+        jsons = jsons.setJson(GsonImpl.class);
         test1 = jsons.jsonToObject(json, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -45,12 +45,12 @@ public class JsonsTest {
         Assert.assertNotNull(test1);
         log.info(test1.toString());
 
-        jsons = jsons.setJson(FastJsons.class);
+        jsons = jsons.setJson(FastJsonImpl.class);
         test1 = jsons.jsonToObject(json, Test1.class, new ParserConfig());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
 
-        jsons = jsons.setJson(Gsons.class);
+        jsons = jsons.setJson(GsonImpl.class);
         test1 = jsons.jsonToObject(json, Test1.class, new Gson());
         Assert.assertNotNull(test1);
         log.info(test1.toString());

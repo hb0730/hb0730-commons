@@ -17,7 +17,7 @@ import java.util.Map;
  * @author bing_huang
  * @since 2.0.0
  */
-public class Jacksons extends AbstractJson {
+public class JacksonImpl extends AbstractJson {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Override

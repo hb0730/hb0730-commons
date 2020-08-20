@@ -16,7 +16,7 @@ import java.util.Map;
  * @author bing_huang
  * @since 2.0.0
  */
-public class Gsons extends AbstractJson {
+public class GsonImpl extends AbstractJson {
     private static final Gson GSON = new Gson();
 
     @Override

@@ -3,9 +3,9 @@ package com.hb0730.commons.json.utils;
 import com.hb0730.commons.json.AbstractJson;
 import com.hb0730.commons.json.IJson;
 import com.hb0730.commons.json.exceptions.JsonException;
-import com.hb0730.commons.json.fastjson.FastJsons;
-import com.hb0730.commons.json.gson.Gsons;
-import com.hb0730.commons.json.jackson.Jacksons;
+import com.hb0730.commons.json.fastjson.FastJsonImpl;
+import com.hb0730.commons.json.gson.GsonImpl;
+import com.hb0730.commons.json.jackson.JacksonImpl;
 import com.hb0730.commons.lang.ClassUtils;
 
 import java.util.List;
@@ -24,13 +24,13 @@ public class Jsons implements IJson {
         AbstractJson defaultProxy = null;
         ClassLoader classLoader = Jsons.class.getClassLoader();
         if (ClassUtils.isPresent("com.alibaba.fastjson.JSON", classLoader)) {
-            defaultProxy = getProxy(FastJsons.class);
+            defaultProxy = getProxy(FastJsonImpl.class);
         }
         if (ClassUtils.isPresent("com.google.gson.Gson", classLoader)) {
-            defaultProxy = getProxy(Gsons.class);
+            defaultProxy = getProxy(GsonImpl.class);
         }
         if (ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", classLoader)) {
-            defaultProxy = getProxy(Jacksons.class);
+            defaultProxy = getProxy(JacksonImpl.class);
         }
         if (defaultProxy == null) {
             throw new JsonException("Has no HttpImpl defined in environment!");

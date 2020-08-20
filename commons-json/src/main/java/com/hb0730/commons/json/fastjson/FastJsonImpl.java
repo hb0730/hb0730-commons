@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author bing_huang
  */
-public class FastJsons extends AbstractJson {
+public class FastJsonImpl extends AbstractJson {
     public static final ParserConfig PARSER_CONFIG = ParserConfig.getGlobalInstance();
     public static final SerializeConfig SERIALIZE_CONFIG = SerializeConfig.getGlobalInstance();
     private ParserConfig parserConfig;

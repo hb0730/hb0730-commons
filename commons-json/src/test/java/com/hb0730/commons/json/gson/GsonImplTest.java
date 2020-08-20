@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class GsonsTest {
+public class GsonImplTest {
 
     @Test
     public void jsonToObjectTest() throws JsonException {
         String json = "{\"id\":\"1\",\"name\":\"测试\"}";
-        Gsons gson = new Gsons();
+        GsonImpl gson = new GsonImpl();
         Test1 test1 = gson.jsonToObject(json, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -37,7 +37,7 @@ public class GsonsTest {
     @Test
     public void testJsonToObjectTest() throws JsonException {
         String json = "{\"id\":\"1\",\"name\":\"测试\"}";
-        Gsons gsons = new Gsons();
+        GsonImpl gsons = new GsonImpl();
         Test1 test1 = gsons.jsonToObject(json, Test1.class, new Gson());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -46,7 +46,7 @@ public class GsonsTest {
     @Test
     public void jsonToListTest() throws JsonException {
         String json = "[{\"id\":\"1\",\"name\":\"测试1\"},{\"id\":\"2\",\"name\":\"测试2\"}]";
-        Gsons gson = new Gsons();
+        GsonImpl gson = new GsonImpl();
         List<Test1> test1 = gson.jsonToList(json, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -63,7 +63,7 @@ public class GsonsTest {
     @Test
     public void testJsonToListTest() throws JsonException {
         String json = "[{\"id\":\"1\",\"name\":\"测试1\"},{\"id\":\"2\",\"name\":\"测试2\"}]";
-        Gsons gson = new Gsons();
+        GsonImpl gson = new GsonImpl();
         List<Test1> test1 = gson.jsonToList(json, Test1.class, new Gson());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -72,7 +72,7 @@ public class GsonsTest {
     @Test
     public void jsonToList2Test() throws JsonException {
         String json = "[{\"id\":\"1\",\"name\":\"测试1\"},{\"id\":\"2\",\"name\":\"测试2\"}]";
-        Gsons gson = new Gsons();
+        GsonImpl gson = new GsonImpl();
         List<Test1> test1 = gson.jsonToList2(json, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -89,7 +89,7 @@ public class GsonsTest {
     @Test
     public void testJsonToList2Test() {
         String json = "[{\"id\":\"1\",\"name\":\"测试1\"},{\"id\":\"2\",\"name\":\"测试2\"}]";
-        Gsons gson = new Gsons();
+        GsonImpl gson = new GsonImpl();
         List<Test1> test1 = gson.jsonToList2(json, Test1.class, new Gson());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -98,7 +98,7 @@ public class GsonsTest {
     @Test
     public void objectToJsonTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        Gsons gsons = new Gsons();
+        GsonImpl gsons = new GsonImpl();
         String s = gsons.objectToJson(test1);
         Assert.assertNotNull(s);
         log.info(s);
@@ -118,7 +118,7 @@ public class GsonsTest {
     @Test
     public void testObjectToJsonTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        Gsons gsons = new Gsons();
+        GsonImpl gsons = new GsonImpl();
         String s = gsons.objectToJson(test1, new Gson());
         Assert.assertNotNull(s);
         log.info(s);
@@ -136,7 +136,7 @@ public class GsonsTest {
         Map<String, String> map = new HashMap<>();
         map.put("id", "1");
         map.put("name", "测试1");
-        Gsons gsons = new Gsons();
+        GsonImpl gsons = new GsonImpl();
         Test1 test1 = gsons.mapToObject(map, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -147,7 +147,7 @@ public class GsonsTest {
         Map<String, String> map = new HashMap<>();
         map.put("id", "1");
         map.put("name", "测试1");
-        Gsons gsons = new Gsons();
+        GsonImpl gsons = new GsonImpl();
         Test1 test1 = gsons.mapToObject(map, Test1.class, new GsonBuilder().create());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -165,7 +165,7 @@ public class GsonsTest {
     @Test
     public void objectToMapTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        Gsons gsons = new Gsons();
+        GsonImpl gsons = new GsonImpl();
         Map<?, ?> map = gsons.objectToMap(test1);
         Assert.assertNotNull(map);
         log.info(map.toString());
@@ -177,7 +177,7 @@ public class GsonsTest {
     @Test
     public void testObjectToMapTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        Gsons gsons = new Gsons();
+        GsonImpl gsons = new GsonImpl();
         Map<?, ?> map = gsons.objectToMap(test1, new GsonBuilder().create());
         Assert.assertNotNull(map);
         log.info(map.toString());

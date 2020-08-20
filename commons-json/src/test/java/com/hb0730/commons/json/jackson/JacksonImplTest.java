@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class JacksonsTest {
+public class JacksonImplTest {
 
-    private Jacksons jacksons;
+    private JacksonImpl jacksons;
 
     @Before
     public void init() {
-        jacksons = new Jacksons();
+        jacksons = new JacksonImpl();
     }
 
     @Test

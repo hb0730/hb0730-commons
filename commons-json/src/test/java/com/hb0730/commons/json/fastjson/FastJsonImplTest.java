@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class FastJsonsTest {
+public class FastJsonImplTest {
 
     @Test
     public void jsonToObjectTest() throws JsonException {
         String json = "{\"id\":\"1\",\"name\":\"测试\"}";
-        FastJsons fastjsons = new FastJsons();
+        FastJsonImpl fastjsons = new FastJsonImpl();
         Test1 test1 = fastjsons.jsonToObject(json, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -41,7 +41,7 @@ public class FastJsonsTest {
     @Test
     public void testJsonToObjectTest() throws JsonException {
         String json = "{\"id\":\"1\",\"name\":\"测试\"}";
-        FastJsons fastjsons = new FastJsons();
+        FastJsonImpl fastjsons = new FastJsonImpl();
         Test1 test1 = fastjsons.jsonToObject(json, Test1.class, new ParserConfig());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -50,7 +50,7 @@ public class FastJsonsTest {
     @Test
     public void jsonToListTest() throws JsonException {
         String json = "[{\"id\":\"1\",\"name\":\"测试1\"},{\"id\":\"2\",\"name\":\"测试2\"}]";
-        FastJsons fastJsons = new FastJsons();
+        FastJsonImpl fastJsons = new FastJsonImpl();
         List<Test1> test1s = fastJsons.jsonToList(json, Test1.class);
         Assert.assertNotNull(test1s);
         log.info(test1s.toString());
@@ -69,7 +69,7 @@ public class FastJsonsTest {
     @Test
     public void testJsonToListTest() throws JsonException {
         String json = "[{\"id\":\"1\",\"name\":\"测试1\"},{\"id\":\"2\",\"name\":\"测试2\"}]";
-        FastJsons fastJsons = new FastJsons();
+        FastJsonImpl fastJsons = new FastJsonImpl();
         List<Test1> test1s = fastJsons.jsonToList(json, Test1.class, new ParserConfig());
         Assert.assertNotNull(test1s);
         log.info(test1s.toString());
@@ -78,7 +78,7 @@ public class FastJsonsTest {
     @Test
     public void objectToJsonTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        FastJsons fastJsons = new FastJsons();
+        FastJsonImpl fastJsons = new FastJsonImpl();
         String s = fastJsons.objectToJson(test1);
         Assert.assertNotNull(s);
         log.info(s);
@@ -94,7 +94,7 @@ public class FastJsonsTest {
     @Test
     public void testObjectToJsonTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        FastJsons fastJsons = new FastJsons();
+        FastJsonImpl fastJsons = new FastJsonImpl();
         String s = fastJsons.objectToJson(test1, SerializeConfig.getGlobalInstance());
         Assert.assertNotNull(s);
         log.info(s);
@@ -111,7 +111,7 @@ public class FastJsonsTest {
         Map<String, String> map = new HashMap<>();
         map.put("name", "测试");
         map.put("id", "1");
-        FastJsons fastJsons = new FastJsons();
+        FastJsonImpl fastJsons = new FastJsonImpl();
         Test1 test1 = fastJsons.mapToObject(map, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -133,7 +133,7 @@ public class FastJsonsTest {
         Map<String, String> map = new HashMap<>();
         map.put("name", "测试");
         map.put("id", "1");
-        FastJsons fastJsons = new FastJsons();
+        FastJsonImpl fastJsons = new FastJsonImpl();
         Test1 test1 = fastJsons.mapToObject(map, Test1.class, SerializeConfig.getGlobalInstance());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -151,7 +151,7 @@ public class FastJsonsTest {
     @Test
     public void objectToMapTest() throws JsonException {
         Test1 test1 = Test1.builder().id("1").name("name").build();
-        FastJsons fastJsons = new FastJsons();
+        FastJsonImpl fastJsons = new FastJsonImpl();
         Map<?, ?> map = fastJsons.objectToMap(test1);
         Assert.assertNotNull(map);
         log.info(map.toString());
@@ -163,7 +163,7 @@ public class FastJsonsTest {
     @Test
     public void testObjectToMapTest() throws JsonException {
         Test1 test1 = Test1.builder().id("1").name("name").build();
-        FastJsons fastJsons = new FastJsons();
+        FastJsonImpl fastJsons = new FastJsonImpl();
         Map<?, ?> map = fastJsons.objectToMap(test1, SerializeConfig.getGlobalInstance());
         Assert.assertNotNull(map);
         log.info(map.toString());
