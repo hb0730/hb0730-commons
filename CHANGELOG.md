@@ -5,6 +5,7 @@
 ## Change
 + **[commons-json]**
   + 优化json创建以及多json优选
+  + 优化使用jdk7提供的安全随机数生成器ThreadLocalRandom
 # 1.0.2
 ## Feature
 - commons-lang
