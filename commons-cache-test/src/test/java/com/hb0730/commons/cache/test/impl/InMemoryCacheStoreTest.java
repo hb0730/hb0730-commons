@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -57,5 +59,78 @@ public class InMemoryCacheStoreTest {
         log.info(cache.get("test").orElseGet(() -> "为空"));
         cache.delete("test");
         log.info(cache.get("test").orElseGet(() -> "为空"));
+    }
+
+    @Test
+    public void test() throws InterruptedException {
+        cache = new InMemoryCacheStore<>(new HashMap<>());
+        // 测试写锁
+        testWrite(cache);
+
+        // 测试读锁
+        testRead(cache);
+    }
+
+    private static void testWrite(Cache<String, String> cache) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cache.putIfAbsent("test1", "value1", 5000, TimeUnit.MILLISECONDS);
+            }
+        }, "Write Thread -1").start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cache.putIfAbsent("test2", "value2", 5000, TimeUnit.MILLISECONDS);
+            }
+        }, "Write Thread -2").start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cache.putIfAbsent("test3", "value3", 5000, TimeUnit.MILLISECONDS);
+            }
+        }, "Write Thread -3").start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cache.putIfAbsent("test3", "value3", 5000, TimeUnit.MILLISECONDS);
+            }
+        }, "Write Thread -3").start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cache.putIfAbsent("test1", "value3", 5000, TimeUnit.MILLISECONDS);
+            }
+        }, "Write Thread -4").start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                cache.putIfAbsent("test2", "value3", 5000, TimeUnit.MILLISECONDS);
+            }
+        }, "Write Thread -5").start();
+    }
+
+    private static void testRead(Cache<String, String> cache) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Optional<String> test1 = cache.get("test1");
+                log.info("cahce [{}]", test1.orElseGet(() -> "为空"));
+            }
+        }, "Read Thread - 1").start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Optional<String> test1 = cache.get("test1");
+                log.info("cahce [{}]", test1.orElseGet(() -> "为空"));
+            }
+        }, "Read Thread - 2").start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Optional<String> test1 = cache.get("test1");
+                log.info("cahce [{}]", test1.orElseGet(() -> "为空"));
+            }
+        }, "Read Thread - 2").start();
     }
 }
