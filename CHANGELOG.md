@@ -6,11 +6,13 @@
     + CharUtils新增isNumber方法
     + CharUtils新增isLetterLower,isLetterUpper, isLetter等方法
 ## Fixed
++ **[commons-lang]**
+  + 优化使用jdk7提供的安全随机数生成器ThreadLocalRandom
 ## Change
 + **[commons-json]**
   + 优化json创建以及多json优选
-+ **[commons-lang]**
-  + 优化使用jdk7提供的安全随机数生成器ThreadLocalRandom
++ **[commons-mail]**
+  + 新增对javaMail的支持
 # 1.0.2
 ## Feature
 - commons-lang
