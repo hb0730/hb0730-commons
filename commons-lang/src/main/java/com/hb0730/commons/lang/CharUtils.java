@@ -28,6 +28,50 @@ public class CharUtils {
     }
 
     /**
+     * 是否为数字
+     *
+     * @param value 被校验的字符
+     * @return 是否为数字，0~9
+     * @since 2.0.0
+     */
+    public static boolean isNumber(char value) {
+        return '0' <= value && value <= '9';
+    }
+
+    /**
+     * 是否为字母,包含大小写(A~Z,a~z)
+     *
+     * @param value 被检测的字符
+     * @return 是否为字母
+     * @since 2.0.0
+     */
+    public static boolean isLetter(char value) {
+        return isLetterLower(value) || isLetterUp(value);
+    }
+
+    /**
+     * 是否为大写字母,A-Z
+     *
+     * @param value 被检测的字符
+     * @return 是否为大写字母
+     * @since 2.0.0
+     */
+    public static boolean isLetterUp(char value) {
+        return 'A' <= value && value <= 'Z';
+    }
+
+    /**
+     * 是否为小写字母,a~z
+     *
+     * @param value 被检测的字符
+     * @return 是否为小写字母
+     * @since 2.0.0
+     */
+    public static boolean isLetterLower(char value) {
+        return 'a' <= value && value <= 'z';
+    }
+
+    /**
      * 是否为空白符<br>
      *
      * @param value 字符

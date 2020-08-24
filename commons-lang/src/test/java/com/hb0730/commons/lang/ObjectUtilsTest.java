@@ -111,4 +111,22 @@ public class ObjectUtilsTest {
         Assert.assertNotNull(i);
         log.info(i + "");
     }
+
+    @Test
+    public void isNotEmptyTest() {
+        Object obj = null;
+        Assert.assertTrue("对象不为空", ObjectUtils.isNotEmpty(obj));
+        obj = " ";
+        Assert.assertTrue("对象不为空", ObjectUtils.isNotEmpty(obj));
+        obj = new ArrayList<>();
+        Assert.assertTrue("集合不为空", ObjectUtils.isNotEmpty(obj));
+        obj = new HashMap<>();
+        Assert.assertTrue("map不为空", ObjectUtils.isNotEmpty(obj));
+        obj = new Object[]{"s"};
+        Assert.assertTrue("数组不为空", ObjectUtils.isNotEmpty(obj));
+        obj = Optional.of("cc");
+        Assert.assertTrue("Optional不为空", ObjectUtils.isNotEmpty(obj));
+        obj = Integer.valueOf("测试");
+        Assert.assertTrue("OInteger不为空", ObjectUtils.isNotEmpty(obj));
+    }
 }

@@ -67,6 +67,25 @@ public class ObjectUtils {
     }
 
     /**
+     * 校验指定对象不为空，支持类型:
+     * <pre>
+     *     1. CharSequence
+     *     2. Collection
+     *     3. Map
+     *     4. Array
+     *     5. Optional
+     *     6. Iterator
+     * </pre>
+     *
+     * @param obj 需要校验的对象
+     * @return true: 对象不为空,false:对象为空
+     * @since 2.0.0
+     */
+    public static boolean isNotEmpty(Object obj) {
+        return !isEmpty(obj);
+    }
+
+    /**
      * 判断如果给定的对象为<code>null</code>则返回默认值
      *
      * @param value        被检测的对象，可以为<code>null</code>
