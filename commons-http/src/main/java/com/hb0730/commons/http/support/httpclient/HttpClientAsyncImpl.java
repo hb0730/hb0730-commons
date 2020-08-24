@@ -78,6 +78,7 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
         String baseUrl = StringUtils.appendIfNotContain(url, "?", "&");
         url = baseUrl + MapUtils.parseMapToUrlString(params, httpConfig.isEncode());
         HttpGet httpGet = new HttpGet(url);
+        addHeader(httpGet, header);
         StringAsyncEntityProducer entityProducer = new StringAsyncEntityProducer(Constants.EMPTY);
         BasicRequestProducer producer = new BasicRequestProducer(httpGet, entityProducer);
         this.exec(httpGet, producer, commonsNetCall);
@@ -99,9 +100,7 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
             throw new CommonHttpException("request url must be not null");
         }
         HttpPost httpPost = new HttpPost(url);
-        if (null != header) {
-            MapUtils.forEach(header.getHeaders(), httpPost::addHeader);
-        }
+        addHeader(httpPost,header);
         AsyncEntityProducer entityProducer;
         if (StringUtils.isEmpty(dataJson)) {
             entityProducer = AsyncEntityProducers.create(Constants.EMPTY);
@@ -123,9 +122,7 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
             throw new CommonHttpException("request url must be not null");
         }
         HttpPost httpPost = new HttpPost(url);
-        if (null != header) {
-            MapUtils.forEach(header.getHeaders(), httpPost::addHeader);
-        }
+        addHeader(httpPost,header);
         AsyncEntityProducer entityProducer;
         if (!CollectionUtils.isEmpty(formdata)) {
             List<NameValuePair> requestData = new ArrayList<>();
@@ -137,6 +134,23 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
 
         BasicRequestProducer producer = new BasicRequestProducer(httpPost, entityProducer);
         this.exec(httpPost, producer, commonsNetCall);
+    }
+    /**
+     * 设置请求头信息
+     *
+     * @param request 请求方式
+     * @param header  请求头参数信息
+     * @since 2.0.0
+     */
+    private void addHeader(BasicHttpRequest request, HttpHeader header) {
+        if (null == request || null == header) {
+            return;
+        }
+        Map<String, String> headers = header.getHeaders();
+        if (CollectionUtils.isEmpty(headers)) {
+            return;
+        }
+        MapUtils.forEach(headers, request::addHeader);
     }
 
     private void addHeader(BasicHttpRequest request) {

@@ -8,6 +8,8 @@
 ## Fixed
 + **[commons-lang]**
   + 优化使用jdk7提供的安全随机数生成器ThreadLocalRandom
++ **[commons-http]**
+  + 修复httpClient设置请求头可能抛出NullPointerException
 ## Change
 + **[commons-json]**
   + 优化json创建以及多json优选

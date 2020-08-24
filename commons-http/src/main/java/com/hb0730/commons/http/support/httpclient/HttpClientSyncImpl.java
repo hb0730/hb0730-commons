@@ -71,9 +71,7 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
         String baseUrl = StringUtils.appendIfNotContain(url, "?", "&");
         url = baseUrl + MapUtils.parseMapToUrlString(params, httpConfig.isEncode());
         HttpGet httpGet = new HttpGet(url);
-        if (!CollectionUtils.isEmpty(params) || null != header) {
-            MapUtils.forEach(header.getHeaders(), httpGet::addHeader);
-        }
+        addHeader(httpGet, header);
         return this.exec(httpGet);
     }
 
@@ -99,9 +97,7 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
             entity.setContentType(Constants.CONTENT_TYPE_JSON);
             httpPost.setEntity(entity);
         }
-        if (null != header) {
-            MapUtils.forEach(header.getHeaders(), httpPost::addHeader);
-        }
+        addHeader(httpPost, header);
         return this.exec(httpPost);
     }
 
@@ -122,9 +118,7 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
                     form.add(new BasicNameValuePair(k, v)));
             httpPost.setEntity(new UrlEncodedFormEntity(form, Constants.DEFAULT_ENCODING));
         }
-        if (null != header) {
-            MapUtils.forEach(header.getHeaders(), httpPost::addHeader);
-        }
+        addHeader(httpPost, header);
         return this.exec(httpPost);
     }
 
@@ -136,6 +130,24 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
             return false;
         }
         return response.getStatusLine().getStatusCode() >= 200 && response.getStatusLine().getStatusCode() < 300;
+    }
+
+    /**
+     * 设置请求头信息
+     *
+     * @param request 请求方式
+     * @param header  请求头参数信息
+     * @since 2.0.0
+     */
+    private void addHeader(HttpRequestBase request, HttpHeader header) {
+        if (null == request || null == header) {
+            return;
+        }
+        Map<String, String> headers = header.getHeaders();
+        if (CollectionUtils.isEmpty(headers)) {
+            return;
+        }
+        MapUtils.forEach(headers, request::addHeader);
     }
 
     private void addHeader(HttpRequestBase request) {
