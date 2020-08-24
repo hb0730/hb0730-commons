@@ -45,7 +45,7 @@ public class HttpAsync implements AsyncHttp {
         }
     }
 
-    private void checkHttpNotNull(AsyncHttp proxy) {
+    private synchronized void checkHttpNotNull(AsyncHttp proxy) {
         if (null == proxy) {
             selectHttpProxy();
         }

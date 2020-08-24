@@ -44,7 +44,7 @@ public class HttpSync implements SyncHttp {
         }
     }
 
-    private void checkHttpNotNull(SyncHttp proxy) {
+    private synchronized void checkHttpNotNull(SyncHttp proxy) {
         if (null == proxy) {
             selectHttpProxy();
         }
