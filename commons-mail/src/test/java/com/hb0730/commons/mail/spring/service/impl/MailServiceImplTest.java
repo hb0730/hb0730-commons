@@ -2,6 +2,7 @@ package com.hb0730.commons.mail.spring.service.impl;
 
 import com.hb0730.commons.mail.spring.properties.MailProperties;
 import com.hb0730.commons.mail.spring.service.AbstractMailService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,11 +25,12 @@ public class MailServiceImplTest {
     @Test
     public void sendTextMailTest() throws InterruptedException {
         service.sendTextMail("xxxx@qq.com", "测试mail", "车擦擦擦错");
-        Thread.sleep(1000);
+        Assert.fail("成功");
     }
 
     @Test
     public void testConnectionTest() {
         service.testConnection();
+        Assert.fail("成功");
     }
 }

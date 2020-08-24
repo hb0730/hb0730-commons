@@ -58,7 +58,10 @@ public class SpringMailProperties {
     private String jndiName;
 
     public SpringMailProperties(boolean needDebug) {
-
+        addProperties("mail.debug", String.valueOf(needDebug));
+        addProperties("mail.smtp.auth", Boolean.TRUE.toString());
+        addProperties("mail.smtp.ssl.enable", Boolean.TRUE.toString());
+        addProperties("mail.smtp.timeout", "10000");
     }
 
     public void addProperties(String key, String value) {

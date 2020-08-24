@@ -1,7 +1,7 @@
 <h1 align="center"><a href="https://github.com/halo-dev" target="_blank">commons</a></h1>
 
 <p align="center">
-<a href="https://search.maven.org/search?q=com.hb0730">
+<a href="https://search.maven.org/artifact/com.hb0730/commons-all">
 <img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.hb0730/commons-parent?style=flat-square">
 </a>
 
