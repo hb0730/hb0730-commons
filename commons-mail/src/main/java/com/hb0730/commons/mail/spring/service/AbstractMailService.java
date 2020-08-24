@@ -12,6 +12,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.util.Assert;
 
 import javax.mail.MessagingException;
@@ -20,7 +21,9 @@ import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * mail 抽象类
@@ -55,7 +58,12 @@ public abstract class AbstractMailService implements MailService {
         if (null == this.executorService) {
             synchronized (this) {
                 if (null == this.executorService) {
-                    this.executorService = Executors.newFixedThreadPool(DEFAULT_POOL_SIZE);
+                    this.executorService = new ThreadPoolExecutor(
+                            DEFAULT_POOL_SIZE,
+                            DEFAULT_POOL_SIZE,
+                            0L,
+                            TimeUnit.MILLISECONDS,
+                            new LinkedBlockingQueue<Runnable>(), new CustomizableThreadFactory("commonsMail-Pool"));
                 }
             }
         }
