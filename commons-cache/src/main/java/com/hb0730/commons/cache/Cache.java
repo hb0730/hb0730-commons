@@ -58,4 +58,13 @@ public interface Cache<K, V> {
      * @param key 缓存key 不为null
      */
     void delete(@Nonnull K key);
+
+    /**
+     * 清除缓存
+     *
+     * @since 2.0.0
+     */
+    default void clearCache() {
+
+    }
 }

@@ -10,6 +10,8 @@
   + 优化使用jdk7提供的安全随机数生成器ThreadLocalRandom
 + **[commons-http]**
   + 修复httpClient设置请求头可能抛出NullPointerException
++ **[commons-cache]**
+  + 优化InMemoryCache 锁的方式以及新增有参构造，运行自定义map类型
 ## Change
 + **[commons-json]**
   + 优化json创建以及多json优选

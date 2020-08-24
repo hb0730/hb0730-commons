@@ -2,6 +2,8 @@ package com.hb0730.commons.cache.test.impl;
 
 import com.hb0730.commons.cache.Cache;
 import com.hb0730.commons.cache.impl.local.InMemoryCacheStore;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/07/31 10:30
  * @since V1.0
  */
+@Slf4j
 public class InMemoryCacheStoreTest {
     Cache<String, String> cache = null;
 
@@ -23,32 +26,36 @@ public class InMemoryCacheStoreTest {
     @Test
     public void put() {
         cache.put("test", "test");
-        System.out.println(cache.get("test").orElseGet(() -> "为空"));
+        Assert.assertNotNull(cache);
+        log.info(cache.get("test").orElseGet(() -> "为空"));
     }
 
     @Test
     public void putTimeout() throws InterruptedException {
+        Assert.assertNotNull(cache);
         cache.put("test", "test", 5000, TimeUnit.MILLISECONDS);
-        System.out.println(cache.get("test").orElseGet(() -> "为空"));
+        log.info(cache.get("test").orElseGet(() -> "为空"));
         Thread.sleep(6000L);
-        System.out.println("sleep:" + cache.get("test").orElseGet(() -> "为空"));
+        log.info("sleep:" + cache.get("test").orElseGet(() -> "为空"));
     }
 
     @Test
     public void putIfAbsentTimeOut() throws InterruptedException {
+        Assert.assertNotNull(cache);
         cache.put("test", "test", 5000, TimeUnit.MILLISECONDS);
         cache.putIfAbsent("test", "test2", 5000, TimeUnit.MILLISECONDS);
-        System.out.println(cache.get("test").orElseGet(() -> "为空"));
+        log.info(cache.get("test").orElseGet(() -> "为空"));
         Thread.sleep(6000L);
         cache.putIfAbsent("test", "test2", 5000, TimeUnit.MILLISECONDS);
-        System.out.println(cache.get("test").orElseGet(() -> "为空"));
+        log.info(cache.get("test").orElseGet(() -> "为空"));
     }
 
     @Test
     public void delete() {
+        Assert.assertNotNull(cache);
         cache.put("test", "test");
-        System.out.println(cache.get("test").orElseGet(() -> "为空"));
+        log.info(cache.get("test").orElseGet(() -> "为空"));
         cache.delete("test");
-        System.out.println(cache.get("test").orElseGet(() -> "为空"));
+        log.info(cache.get("test").orElseGet(() -> "为空"));
     }
 }
