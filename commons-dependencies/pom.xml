@@ -10,7 +10,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hb0730</groupId>
     <artifactId>commons-dependencies</artifactId>
     <packaging>pom</packaging>
     <version>${project.parent.version}</version>
@@ -74,6 +73,11 @@
             <dependency>
                 <groupId>com.hb0730</groupId>
                 <artifactId>commons-encrypt</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hb0730</groupId>
+                <artifactId>commons-mail</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
         </dependencies>

@@ -9,12 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.hb0730</groupId>
     <artifactId>commons-all</artifactId>
     <version>${project.parent.version}</version>
 
     <name>${project.artifactId}</name>
-    <description>集成全部</description>
+    <description>hb0730-commons主要是个人常用类库</description>
+    <url>https://github.com/hb0730/hb0730-commons</url>
+
     <dependencies>
         <dependency>
             <groupId>com.hb0730</groupId>
@@ -44,6 +45,11 @@
         <dependency>
             <groupId>com.hb0730</groupId>
             <artifactId>commons-encrypt</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.hb0730</groupId>
+            <artifactId>commons-mail</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
