@@ -35,7 +35,7 @@ public abstract class AbstractMailService implements MailService {
     private JavaMailSender cachedMailSender;
     private SpringMailProperties cachedMailProperties;
     private final MailProperties properties;
-    private ExecutorService executorService;
+    private volatile ExecutorService executorService;
 
     public AbstractMailService(MailProperties properties) {
         this.properties = properties;

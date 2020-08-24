@@ -26,7 +26,7 @@ public class MailServiceImpl extends AbstractMailService {
 
     @Override
     public void sendTextMail(String to, String subject, String content) {
-        sendMailTemplate(false, messageHelper -> {
+        sendMailTemplate(true, messageHelper -> {
             messageHelper.setSubject(subject);
             messageHelper.setTo(to);
             messageHelper.setText(content);
