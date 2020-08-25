@@ -3,6 +3,7 @@ package com.hb0730.commons.lang.convert.impl;
 import com.hb0730.commons.lang.BooleanUtils;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.convert.AbstractConverter;
+import com.hb0730.commons.lang.convert.exceptions.ConverterException;
 
 import java.util.Date;
 
@@ -38,11 +39,15 @@ public class NumberConverter extends AbstractConverter<Number> {
     }
 
     @Override
-    protected Number convertInternal(Object value) {
-        return convertInternal(value, this.targetType);
+    protected Number convertInternal(Object value) throws ConverterException {
+        try {
+            return convertInternal(value, this.targetType);
+        } catch (Exception e) {
+            throw new ConverterException("convert fail", e);
+        }
     }
 
-    private Number convertInternal(Object value, Class<?> targetType) {
+    private Number convertInternal(Object value, Class<?> targetType) throws NumberFormatException {
         if (Byte.class == targetType) {
             if (value instanceof Number) {
                 return ((Number) value).byteValue();

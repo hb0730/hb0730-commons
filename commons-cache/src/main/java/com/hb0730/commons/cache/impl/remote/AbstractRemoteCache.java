@@ -37,7 +37,7 @@ public abstract class AbstractRemoteCache<K, V> extends AbstractCache<K, V> {
                 newKey = config.getKeyConverter().apply(key);
             }
         }
-        return buildKeyForByte(key);
+        return buildKeyForByte(newKey);
     }
 
     protected byte[] buildKeyForByte(Object key) throws IOException {

@@ -30,6 +30,24 @@ public class ArrayUtils {
     }
 
     /**
+     * 校验数组是否为空<br>
+     * 1.校验当前对象为<code>null</code>,返回true<br>
+     * 2.校验当前对象非数组,返回true<br>
+     * 3.此对象为数组，判断length为0,返回false
+     *
+     * @param obj 校验对象
+     * @return true: 为空
+     */
+    public static boolean isEmpty(Object obj) {
+        if (null != obj) {
+            if (isArray(obj)) {
+                return 0 != Array.getLength(obj);
+            }
+        }
+        return true;
+    }
+
+    /**
      * 判断当前对象是否为数组
      *
      * @param obj 需要判断的对象
@@ -52,24 +70,6 @@ public class ArrayUtils {
      */
     public static <T> T[] defaultIfEmpty(T[] array, T[] defaultArray) {
         return isEmpty(array) ? defaultArray : array;
-    }
-
-    /**
-     * 校验数组是否为空<br>
-     * 1.校验当前对象为<code>null</code>,返回true<br>
-     * 2.校验当前对象非数组,返回true<br>
-     * 3.此对象为数组，判断length为0,返回false
-     *
-     * @param obj 校验对象
-     * @return true: 为空
-     */
-    public static boolean isEmpty(Object obj) {
-        if (null != obj) {
-            if (isArray(obj)) {
-                return 0 != Array.getLength(obj);
-            }
-        }
-        return true;
     }
 
     /**

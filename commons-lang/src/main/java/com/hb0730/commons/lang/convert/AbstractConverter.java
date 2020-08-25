@@ -3,6 +3,7 @@ package com.hb0730.commons.lang.convert;
 import com.hb0730.commons.lang.CharUtils;
 import com.hb0730.commons.lang.ClassUtils;
 import com.hb0730.commons.lang.collection.ArrayUtils;
+import com.hb0730.commons.lang.convert.exceptions.ConverterException;
 
 import java.util.Map;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public abstract class AbstractConverter<T> implements Converter<T> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public T convert(Object value, T defaultValue) throws IllegalArgumentException {
+    public T convert(Object value, T defaultValue) throws ConverterException {
         Class<T> targetType = getTargetType();
         if (null == targetType && null == defaultValue) {
             throw new NullPointerException(String.format("[type] and [defaultValue] are both null for Converter [%s],we can not know what type to convert !", this.getClass().getName()));
@@ -60,7 +61,7 @@ public abstract class AbstractConverter<T> implements Converter<T> {
                 return result;
             }
         } else {
-            throw new IllegalArgumentException(
+            throw new ConverterException(
                     String.format("Default value [%s](%s) is not the instance of [%s]", defaultValue, defaultValue.getClass(), targetType));
         }
 
@@ -77,8 +78,9 @@ public abstract class AbstractConverter<T> implements Converter<T> {
      *
      * @param value 值
      * @return 转换后的类型
+     * @throws ConverterException 转换异常
      */
-    protected abstract T convertInternal(Object value);
+    protected abstract T convertInternal(Object value) throws ConverterException;
 
 
     /**

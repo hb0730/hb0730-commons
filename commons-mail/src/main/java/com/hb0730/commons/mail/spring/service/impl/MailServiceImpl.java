@@ -49,10 +49,15 @@ public class MailServiceImpl extends AbstractMailService {
     @Override
     public void sendAttachMail(String to, String subject, Map<String, Object> content, String templateName, String attachFilePath) {
         sendMailTemplate(true, messageHelper -> {
+            Template template = freeMarker.getConfiguration().getTemplate(templateName);
+            String contentResult = FreeMarkerTemplateUtils.processTemplateIntoString(template, content);
+
             messageHelper.setSubject(subject);
             messageHelper.setTo(to);
             Path attachmentPath = Paths.get(attachFilePath);
             messageHelper.addAttachment(attachmentPath.getFileName().toString(), attachmentPath.toFile());
+
+            messageHelper.setText(contentResult, true);
         });
     }
 }

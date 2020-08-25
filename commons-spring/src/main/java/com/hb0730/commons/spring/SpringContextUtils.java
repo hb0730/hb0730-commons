@@ -107,12 +107,11 @@ public class SpringContextUtils {
     /**
      * 获取aop代理对象
      *
-     * @param <T>     代理类型
-     * @param invoker 当前代理类型
+     * @param <T> 代理类型
      * @return 当前代理
      */
     @SuppressWarnings("unchecked")
-    public static <T> T getAopProxy(T invoker) {
+    public static <T> T getAopProxy() {
         return (T) AopContext.currentProxy();
     }
 }

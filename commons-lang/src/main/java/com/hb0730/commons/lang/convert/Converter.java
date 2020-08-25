@@ -1,5 +1,7 @@
 package com.hb0730.commons.lang.convert;
 
+import com.hb0730.commons.lang.convert.exceptions.ConverterException;
+
 /**
  * 转换器接口，实现类型转换
  *
@@ -15,7 +17,7 @@ public interface Converter<T> {
      * @param value        原始值
      * @param defaultValue 默认值
      * @return 转换后的值
-     * @throws IllegalArgumentException 无法确定目标类型，且默认值为{@code null}，无法确定类型
+     * @throws ConverterException 转换失败
      */
-    T convert(Object value, T defaultValue) throws IllegalArgumentException;
+    T convert(Object value, T defaultValue) throws ConverterException;
 }

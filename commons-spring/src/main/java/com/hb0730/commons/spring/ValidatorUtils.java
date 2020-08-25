@@ -36,7 +36,7 @@ public class ValidatorUtils {
     }
 
     /**
-     * 校验
+     * 单一校验
      *
      * @param obj   需校验的bean
      * @param group 分组
@@ -51,13 +51,13 @@ public class ValidatorUtils {
     }
 
     /**
-     * 校验
+     * 批量校验
      *
      * @param objs   iterable
      * @param groups groups
      * @throws ConstraintViolationException 异常
      */
-    public static void validate(@Nullable Iterable<?> objs, @Nullable Class<?>... groups) {
+    public static void validateList(@Nullable Iterable<?> objs, @Nullable Class<?>... groups) {
         if (objs == null) {
             return;
         }
