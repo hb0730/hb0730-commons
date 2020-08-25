@@ -1,6 +1,6 @@
 package com.hb0730.commons.lang.collection;
 
-import com.hb0730.commons.lang.UrlUtils;
+import com.hb0730.commons.lang.net.UrlUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;

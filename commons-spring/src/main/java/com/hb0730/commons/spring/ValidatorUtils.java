@@ -22,7 +22,7 @@ public class ValidatorUtils {
     /**
      * 获取validator
      *
-     * @return Validator
+     * @return {@link Validator}
      */
     public static javax.validation.Validator getValidator() {
         if (VALIDATOR == null) {
@@ -40,7 +40,7 @@ public class ValidatorUtils {
      *
      * @param obj   需校验的bean
      * @param group 分组
-     * @throws ConstraintViolationException
+     * @throws ConstraintViolationException 异常
      */
     public static void validate(Object obj, Class<?>... group) {
         javax.validation.Validator validator = getValidator();
@@ -55,7 +55,7 @@ public class ValidatorUtils {
      *
      * @param objs   iterable
      * @param groups groups
-     * @throws ConstraintViolationException
+     * @throws ConstraintViolationException 异常
      */
     public static void validate(@Nullable Iterable<?> objs, @Nullable Class<?>... groups) {
         if (objs == null) {

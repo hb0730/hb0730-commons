@@ -1,5 +1,6 @@
 package com.hb0730.commons.lang;
 
+import com.hb0730.commons.lang.net.UrlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;

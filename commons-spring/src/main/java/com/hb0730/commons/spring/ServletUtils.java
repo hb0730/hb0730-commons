@@ -102,6 +102,7 @@ public class ServletUtils {
      *
      * @param response response
      * @param string   待渲染字符串
+     * @throws IOException 异常
      */
     public static void renderString(HttpServletResponse response, String string) throws IOException {
         response.setStatus(200);

@@ -1,4 +1,7 @@
-package com.hb0730.commons.lang;
+package com.hb0730.commons.lang.net;
+
+import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.Validate;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

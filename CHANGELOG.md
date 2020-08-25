@@ -5,6 +5,9 @@
     + ObjectUtils新增isNotEmpty方法
     + CharUtils新增isNumber方法
     + CharUtils新增isLetterLower,isLetterUpper, isLetter等方法
+    + 新增IpUtils工具类
++ **[commons-spring]**
+    + 新增IpUtils工具类实现请求获取ip
 ## Fixed
 + **[commons-lang]**
   + 优化使用jdk7提供的安全随机数生成器ThreadLocalRandom
@@ -17,6 +20,8 @@
   + 优化json创建以及多json优选
 + **[commons-mail]**
   + 新增对javaMail的支持
++ **[commons-lang]**
+  + 位置转移:UrlUtils
 # 1.0.2
 ## Feature
 - commons-lang
