@@ -2,6 +2,7 @@ package com.hb0730.commons.cache.impl;
 
 import com.hb0730.commons.cache.Cache;
 import com.hb0730.commons.cache.CacheWrapper;
+import com.hb0730.commons.lang.collection.CollectionUtils;
 import com.hb0730.commons.lang.date.DateMsUnit;
 import com.hb0730.commons.lang.date.DateUtils;
 import org.slf4j.Logger;
@@ -10,9 +11,9 @@ import org.springframework.util.Assert;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 缓存抽象
@@ -31,6 +32,16 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
      */
     @Nonnull
     protected abstract Optional<CacheWrapper<V>> getInternal(@Nonnull K key);
+
+    /**
+     * 根据keys获取包装集合
+     *
+     * @param keys keys
+     * @return 缓存值
+     * @since 2.0.0
+     */
+    @Nonnull
+    protected abstract Optional<Map<K, CacheWrapper<V>>> getInternal(@Nonnull Set<K> keys);
 
     /**
      * 设置缓存
@@ -53,7 +64,7 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
     @Nonnull
     @Override
     public Optional<V> get(@Nonnull K key) {
-        Assert.notNull(key, "Cache key must not be blank");
+        Assert.notNull(key, "Cache key must not be null");
         return getInternal(key).map(wrapper -> {
             // Check expiration
             if (wrapper.getExpireAt() != null && wrapper.getExpireAt().before(DateUtils.now())) {
@@ -68,6 +79,33 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
             }
             return wrapper.getData();
         });
+    }
+
+    @Override
+    public Optional<List<V>> get(@Nonnull Set<K> keys) {
+        Assert.notEmpty(keys, "Cache key must not be null");
+        List<K> keyList = new ArrayList<>(keys.size());
+        Optional<List<V>> result = getInternal(keys).map(map -> {
+            return map.entrySet().stream().map(entry -> {
+                CacheWrapper<V> wrapper = entry.getValue();
+                // Check expiration
+                if (wrapper.getExpireAt() != null && wrapper.getExpireAt().before(DateUtils.now())) {
+                    // Expired then delete it
+                    LOGGER.warn("Cache key: [{}] has been expired", entry.getKey());
+                    // Delete the key
+                    keyList.add(entry.getKey());
+
+                    // Return null
+                    return null;
+                }
+                return wrapper.getData();
+            }).collect(Collectors.toList());
+        });
+        if (!CollectionUtils.isEmpty(keyList)) {
+            delete(CollectionUtils.newHashSet(keyList));
+        }
+        return result;
+
     }
 
     @Override

@@ -29,7 +29,7 @@ public class IpUtils {
     private static volatile String LOCAL_ADDRESS = null;
 
     /**
-     * * 从多级反向代理中获得第一个非unknown IP地址
+     * 从多级反向代理中获得第一个非unknown IP地址
      *
      * @param ip 获得的IP地址
      * @return 第一个非unknown IP地址

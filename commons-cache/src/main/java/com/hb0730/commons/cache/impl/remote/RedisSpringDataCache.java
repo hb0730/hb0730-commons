@@ -1,6 +1,7 @@
 package com.hb0730.commons.cache.impl.remote;
 
 import com.hb0730.commons.cache.CacheWrapper;
+import com.hb0730.commons.cache.exception.CacheException;
 import com.hb0730.commons.cache.support.redis.springdata.RedisSpringDataCacheConfig;
 import com.hb0730.commons.cache.support.serial.Serializer;
 import org.slf4j.Logger;
@@ -12,7 +13,8 @@ import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.util.Assert;
 
 import javax.annotation.Nonnull;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * spring redis impl
@@ -54,6 +56,44 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             closeConnection(connection);
         }
 
+        return Optional.empty();
+    }
+
+    @Nonnull
+    @Override
+    @SuppressWarnings({"unchecked"})
+    protected Optional<Map<K, CacheWrapper<V>>> getInternal(@Nonnull Set<K> keys) {
+        Assert.notEmpty(keys, "Cache key must not be null");
+        RedisConnection connection = null;
+        try {
+            connection = connectionFactory.getConnection();
+            ArrayList<K> keyList = new ArrayList<>(keys);
+            byte[][] newKeys = keyList.stream().map((k) -> {
+                try {
+                    return buildKey(k);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new CacheException("build key error");
+                }
+            }).toArray(byte[][]::new);
+            Map<K, CacheWrapper<V>> resultMap = new HashMap<>();
+            if (newKeys.length > 0) {
+                List<byte[]> mgetResults = connection.mGet(newKeys);
+                for (int i = 0; i < (mgetResults != null ? mgetResults.size() : 0); i++) {
+                    byte[] bytes = mgetResults.get(i);
+                    K k = keyList.get(i);
+                    CacheWrapper<V> result = (CacheWrapper<V>) serializer.deserialize(bytes);
+                    resultMap.put(k, result);
+                }
+                return Optional.of(resultMap);
+            }
+            return Optional.empty();
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("get error key [{}], message:[{}]", keys, e.getMessage());
+        } finally {
+            closeConnection(connection);
+        }
         return Optional.empty();
     }
 
@@ -117,6 +157,28 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
         }
     }
 
+    @Override
+    public void delete(@Nonnull Set<K> keys) {
+        Assert.notEmpty(keys, "Cache key must not be null");
+        RedisConnection connection = null;
+        try {
+            connection = connectionFactory.getConnection();
+            byte[][] newKeys = keys.stream().map((k) -> {
+                try {
+                    return buildKey(k);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new CacheException("build key error", e);
+                }
+            }).toArray((len) -> new byte[keys.size()][]);
+            connection.del(newKeys);
+            LOGGER.debug("delete success then key [{}]", keys);
+        } catch (Exception e) {
+            LOGGER.error("delete error", e);
+        } finally {
+            closeConnection(connection);
+        }
+    }
 
     private void closeConnection(RedisConnection connection) {
         try {

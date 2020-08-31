@@ -8,8 +8,10 @@ import org.springframework.util.Assert;
 
 import javax.annotation.Nonnull;
 import javax.annotation.PreDestroy;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -67,9 +69,26 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
 
     }
 
+    @Nonnull
+    @Override
+    protected Optional<Map<K, CacheWrapper<V>>> getInternal(@Nonnull Set<K> keys) {
+        Assert.notNull(keys, "Cache key must not be blank");
+        readLock.lock();
+        try {
+            Map<K, CacheWrapper<V>> result = new HashMap<>();
+            for (K key : keys) {
+                CacheWrapper<V> wrapper = cacheContainer.get(key);
+                result.put(key, wrapper);
+            }
+            return Optional.of(result);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
     @Override
     public void putInternal(@Nonnull K key, @Nonnull CacheWrapper<V> cacheWrapper) {
-        Assert.notNull(key, "Cache key must not be blank");
+        Assert.notNull(key, "Cache key  must  not be null");
         Assert.notNull(cacheWrapper, "Cache wrapper must not be null");
         // Put the cache wrapper
         writeLock.lock();
@@ -83,7 +102,7 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
 
     @Override
     public Boolean putInternalIfAbsent(@Nonnull K key, @Nonnull CacheWrapper<V> cacheWrapper) {
-        Assert.notNull(key, "Cache key must not be blank");
+        Assert.notNull(key, "Cache key must  not be null");
         Assert.notNull(cacheWrapper, "Cache wrapper must not be null");
         // Get the value before
         Optional<V> valueOptional = get(key);
@@ -101,11 +120,24 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
 
     @Override
     public void delete(@Nonnull K key) {
-        Assert.notNull(key, "Cache key must not be blank");
+        Assert.notNull(key, "Cache key  must  not be null");
         writeLock.lock();
         try {
             cacheContainer.remove(key);
             LOGGER.debug("removed key [{}]", key);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public void delete(@Nonnull Set<K> keys) {
+        Assert.notNull(keys, "Cache key must  not be null");
+        writeLock.lock();
+        try {
+            for (K key : keys) {
+                cacheContainer.remove(key);
+            }
         } finally {
             writeLock.unlock();
         }

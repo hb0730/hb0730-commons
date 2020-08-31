@@ -2,7 +2,9 @@ package com.hb0730.commons.cache;
 
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -22,6 +24,15 @@ public interface Cache<K, V> {
      */
     @Nonnull
     Optional<V> get(@Nonnull K key);
+
+    /**
+     * 根据keys获取
+     *
+     * @param keys key集合
+     * @return 缓存值
+     * @since 2.0.0
+     */
+    Optional<List<V>> get(@Nonnull Set<K> keys);
 
     /**
      * 缓存过期时效的值
@@ -58,6 +69,14 @@ public interface Cache<K, V> {
      * @param key 缓存key 不为null
      */
     void delete(@Nonnull K key);
+
+    /**
+     * 根据keys删除
+     *
+     * @param keys key集合
+     * @since 2.0.0
+     */
+    void delete(@Nonnull Set<K> keys);
 
     /**
      * 清除缓存

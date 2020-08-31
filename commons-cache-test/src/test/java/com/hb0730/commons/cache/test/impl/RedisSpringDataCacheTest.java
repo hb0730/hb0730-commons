@@ -5,6 +5,8 @@ import com.hb0730.commons.cache.impl.remote.RedisSpringDataCache;
 import com.hb0730.commons.cache.support.redis.springdata.RedisSpringDataCacheConfig;
 import com.hb0730.commons.cache.support.serial.GlobalSerializeMap;
 import com.hb0730.commons.cache.support.serial.impl.Jackson2JsonCacheWrapperSerializer;
+import com.hb0730.commons.lang.collection.CollectionUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -55,6 +59,19 @@ public class RedisSpringDataCacheTest {
     }
 
     @Test
+    public void getByKeys() {
+        config.setConnectionFactory(connectionFactory);
+        AbstractCache<String, String> cache = new RedisSpringDataCache<String, String>(config);
+        cache.put("key1", "测试1");
+        cache.put("key2", "测试2", 30, TimeUnit.MINUTES);
+        cache.put("key3", "测试3", 10, TimeUnit.MINUTES);
+        cache.put("key4", "测试4");
+        List<String> keys = Arrays.asList("key1", "key2", "key3", "key4");
+        Optional<List<String>> strings = cache.get(CollectionUtils.newHashSet(keys));
+        Assert.assertNotNull(strings);
+    }
+
+    @Test
     public void putTimout() {
         config.setConnectionFactory(connectionFactory);
         AbstractCache<String, String> cache = new RedisSpringDataCache<String, String>(config);
@@ -66,6 +83,14 @@ public class RedisSpringDataCacheTest {
         config.setConnectionFactory(connectionFactory);
         AbstractCache<String, String> cache = new RedisSpringDataCache<String, String>(config);
         cache.delete("test");
+    }
+
+    @Test
+    public void deleteByKeys() {
+        config.setConnectionFactory(connectionFactory);
+        AbstractCache<String, String> cache = new RedisSpringDataCache<String, String>(config);
+        List<String> keys = Arrays.asList("key1", "key2", "key3", "key4");
+        cache.delete(CollectionUtils.newHashSet(keys));
     }
 
     @Test

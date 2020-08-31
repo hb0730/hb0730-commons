@@ -2,12 +2,15 @@ package com.hb0730.commons.cache.test.impl;
 
 import com.hb0730.commons.cache.Cache;
 import com.hb0730.commons.cache.impl.local.InMemoryCacheStore;
+import com.hb0730.commons.lang.collection.CollectionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -53,12 +56,37 @@ public class InMemoryCacheStoreTest {
     }
 
     @Test
+    public void getByKeys() throws InterruptedException {
+        cache.put("key1", "测试1");
+        cache.put("key2", "测试2", 30, TimeUnit.MILLISECONDS);
+        cache.put("key3", "测试3", 10, TimeUnit.MILLISECONDS);
+        cache.put("key4", "测试4");
+        List<String> keys = Arrays.asList("key1", "key2", "key3", "key4");
+        Thread.sleep(15*1000);
+        Optional<List<String>> strings = cache.get(CollectionUtils.newHashSet(keys));
+        Assert.assertNotNull(strings);
+    }
+
+    @Test
     public void delete() {
         Assert.assertNotNull(cache);
         cache.put("test", "test");
         log.info(cache.get("test").orElseGet(() -> "为空"));
         cache.delete("test");
         log.info(cache.get("test").orElseGet(() -> "为空"));
+    }
+
+    @Test
+    public void deleteByKeys() throws InterruptedException {
+        cache.put("key1", "测试1");
+        cache.put("key2", "测试2", 30, TimeUnit.MILLISECONDS);
+        cache.put("key3", "测试3", 10, TimeUnit.MILLISECONDS);
+        cache.put("key4", "测试4");
+        List<String> keys = Arrays.asList("key1", "key2", "key3", "key4");
+        Thread.sleep(15*1000);
+        Optional<List<String>> strings = cache.get(CollectionUtils.newHashSet(keys));
+        Assert.assertNotNull(strings);
+        cache.delete(CollectionUtils.newHashSet(keys));
     }
 
     @Test

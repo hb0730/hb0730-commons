@@ -15,8 +15,8 @@ import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.params.SetParams;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * jedis pool cache
@@ -102,6 +102,41 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
         }
     }
 
+    @Nonnull
+    @Override
+    @SuppressWarnings({"unchecked"})
+    protected Optional<Map<K, CacheWrapper<V>>> getInternal(@Nonnull Set<K> keys) {
+        Assert.notNull(keys, "Cache key must not be null");
+        try (Jedis jedis = JEDIS_POOL.getResource()) {
+            ArrayList<K> keyList = new ArrayList<>(keys);
+            byte[][] newKeys = keyList.stream().map((k) -> {
+                try {
+                    return buildKey(k);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new CacheException("build key error");
+                }
+            }).toArray(byte[][]::new);
+            Map<K, CacheWrapper<V>> result = new HashMap<>();
+            if (newKeys.length > 0) {
+                List<byte[]> mgetResults = jedis.mget(newKeys);
+                for (int i = 0; i < mgetResults.size(); i++) {
+                    byte[] value = mgetResults.get(i);
+                    if (null != value) {
+                        CacheWrapper<V> resultValue = (CacheWrapper<V>) serializer.deserialize(value);
+                        K key = keyList.get(i);
+                        result.put(key, resultValue);
+                    }
+                }
+            }
+            Optional.of(result);
+        } catch (Exception e) {
+            LOGGER.error("get error key [{}], message:[{}]", keys, e.getMessage());
+            throw new CacheException("get cache error:" + e.getMessage());
+        }
+        return Optional.empty();
+    }
+
     @Override
     protected void putInternal(@Nonnull K key, @Nonnull CacheWrapper<V> cacheWrapper) {
         Assert.notNull(key, "Cache key must not be blank");
@@ -150,6 +185,26 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
                 LOGGER.debug("delete cache success key [{}]", key);
             }
 
+        } catch (Exception e) {
+            LOGGER.error("delete error message:[{}]", e.getMessage(), e);
+            throw new CacheException("delete cache error :" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void delete(@Nonnull Set<K> keys) {
+        Assert.notEmpty(keys, "Cache key must not be null");
+        try (Jedis jedis = JEDIS_POOL.getResource()) {
+            byte[][] newKeys = keys.stream().map((k) -> {
+                try {
+                    return buildKey(k);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new CacheException("build key error");
+                }
+            }).toArray((len) -> new byte[keys.size()][]);
+            jedis.del(newKeys);
+            LOGGER.debug("delete cache success key [{}]", keys);
         } catch (Exception e) {
             LOGGER.error("delete error message:[{}]", e.getMessage(), e);
             throw new CacheException("delete cache error :" + e.getMessage());

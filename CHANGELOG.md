@@ -8,6 +8,8 @@
     + 新增IpUtils工具类
 + **[commons-spring]**
     + 新增IpUtils工具类实现请求获取ip
++ **[commons-cache]**
+    + 新增#get(keys)根据keys获取,#delete(keys)根据keys删除 集合操作
 ## Fixed
 + **[commons-lang]**
   + 优化使用jdk7提供的安全随机数生成器ThreadLocalRandom

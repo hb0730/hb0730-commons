@@ -26,7 +26,7 @@ public abstract class AbstractRemoteCache<K, V> extends AbstractCache<K, V> {
         this.config = config;
     }
 
-    protected byte[] buildKey(K key) throws IOException {
+    protected byte[] buildKey(K key) throws CacheException, IOException {
         Object newKey = key;
         if (key instanceof byte[]) {
             newKey = key;
@@ -40,7 +40,7 @@ public abstract class AbstractRemoteCache<K, V> extends AbstractCache<K, V> {
         return buildKeyForByte(newKey);
     }
 
-    protected byte[] buildKeyForByte(Object key) throws IOException {
+    protected byte[] buildKeyForByte(Object key) throws CacheException, IOException {
         Assert.notNull(key, "key must not be null");
         byte[] keyBytesWithOutPrefix = null;
         if (key instanceof String) {
