@@ -130,13 +130,17 @@ public class FastJsonImpl extends AbstractJson {
     }
 
     @Override
-    public Map<?, ?> objectToMap(Object source) throws JsonException {
+    public <T> Map<String, T> objectToMap(Object source) throws JsonException {
         return objectToMap(source, getSerializeConfig());
     }
 
     @Override
-    public Map<?, ?> objectToMap(Object source, Object serializeConfig) throws JsonException {
+    public <T> Map<String, T> objectToMap(Object source, Object serializeConfig) throws JsonException {
         String json = objectToJson(source, serializeConfig);
-        return jsonToObject(json, Map.class);
+        try {
+            return JSON.parseObject(json, Map.class, getParserConfig());
+        } catch (JSONException e) {
+            throw new JsonException(e);
+        }
     }
 }

@@ -1,7 +1,10 @@
 package com.hb0730.commons.lang.convert;
 
+import com.hb0730.commons.lang.ObjectUtils;
+import com.hb0730.commons.lang.convert.exceptions.ConverterException;
 import com.hb0730.commons.lang.convert.impl.*;
 import com.hb0730.commons.lang.reflect.ReflectUtils;
+import com.hb0730.commons.lang.reflect.TypeUtils;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -44,6 +47,68 @@ public class ConverterRegistry {
 
     public ConverterRegistry() {
         defaultConverter();
+    }
+
+    /**
+     * 转换值为指定类型
+     *
+     * @param <T>           转换的目标类型（转换器转换到的类型）
+     * @param type          类型目标
+     * @param value         被转换值
+     * @param defaultValue  默认值
+     * @param isCustomFirst 是否自定义转换器优先
+     * @return 转换后的值
+     * @throws ConverterException 转换器不存在
+     * @since 2.0.0
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T convert(Type type, Object value, T defaultValue, boolean isCustomFirst) {
+        if (TypeUtils.isUnknow(type) && null == defaultValue) {
+            // 对于用户不指定目标类型的情况，返回原值
+            return (T) value;
+        }
+        if (ObjectUtils.isNull(value)) {
+            return defaultValue;
+        }
+        if (TypeUtils.isUnknow(type)) {
+            type = defaultValue.getClass();
+        }
+        final Converter<T> converter = getConverter(type, isCustomFirst);
+        if (null != converter) {
+            return converter.convert(value, defaultValue);
+        }
+        // 无法转换
+        throw new ConverterException("No Converter for type [" + type.getTypeName() + "]");
+    }
+
+    /**
+     * 转换值为指定类型<br>
+     * 自定义转换器优先
+     *
+     * @param <T>          转换的目标类型（转换器转换到的类型）
+     * @param type         类型
+     * @param value        值
+     * @param defaultValue 默认值
+     * @return 转换后的值
+     * @throws ConverterException 转换器不存在
+     * @since 2.0.0
+     */
+    public <T> T convert(Type type, Object value, T defaultValue) throws ConverterException {
+        return convert(type, value, defaultValue, false);
+    }
+
+    /**
+     * 转换值为指定类型
+     *
+     * @param <T>   转换的目标类型（转换器转换到的类型）
+     * @param type  类型
+     * @param value 值
+     * @return 转换后的值，默认为<code>null</code>
+     * @throws ConverterException 转换器不存在
+     * @since 2.0.0
+     */
+    public <T> T convert(Type type, Object value) throws ConverterException {
+        return convert(type, value, null);
     }
 
     /**

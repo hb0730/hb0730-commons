@@ -6,6 +6,7 @@
     + CharUtils新增isNumber方法
     + CharUtils新增isLetterLower,isLetterUpper, isLetter等方法
     + 新增IpUtils工具类
+    + ConverterRegistry新增convert等方法
 + **[commons-spring]**
     + 新增IpUtils工具类实现请求获取ip
 + **[commons-cache]**
@@ -17,6 +18,8 @@
   + 修复httpClient设置请求头可能抛出NullPointerException
 + **[commons-cache]**
   + 优化InMemoryCache 锁的方式以及新增有参构造，运行自定义map类型
++ **[commons-json]**
+  + 修复JsonToMap序列化问题导致异常
 ## Change
 + **[commons-json]**
   + 优化json创建以及多json优选

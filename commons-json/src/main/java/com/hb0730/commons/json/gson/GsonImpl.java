@@ -142,13 +142,21 @@ public class GsonImpl extends AbstractJson {
     }
 
     @Override
-    public Map<?, ?> objectToMap(Object source) throws JsonException {
+    public <T> Map<String, T> objectToMap(Object source) throws JsonException {
         return objectToMap(source, getMapper());
     }
 
     @Override
-    public Map<?, ?> objectToMap(Object source, Object gson) throws JsonException {
+    public <T> Map<String, T> objectToMap(Object source, Object gson) throws JsonException {
         String json = objectToJson(source, gson);
-        return jsonToObject(json, Map.class, gson);
+        if (gson instanceof Gson) {
+            try {
+                return ((Gson) gson).fromJson(json, new TypeToken<Map<String, T>>() {
+                }.getType());
+            } catch (JsonParseException e) {
+                throw new JsonException(e);
+            }
+        }
+        return null;
     }
 }

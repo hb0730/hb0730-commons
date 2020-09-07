@@ -112,7 +112,7 @@ public interface IJson {
      * @throws JsonException 转换异常
      * @see #objectToMap(Object, Object)
      */
-    Map<?, ?> objectToMap(Object source) throws JsonException;
+   <T> Map<String, T> objectToMap(Object source) throws JsonException;
 
     /**
      * 将 源目标对象转成map类型
@@ -122,5 +122,5 @@ public interface IJson {
      * @return map实例
      * @throws JsonException 转换异常
      */
-    Map<?, ?> objectToMap(Object source, Object mapper) throws JsonException;
+    <T> Map<String, T> objectToMap(Object source, Object mapper) throws JsonException;
 }

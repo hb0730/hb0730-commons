@@ -143,13 +143,14 @@ public class JacksonImpl extends AbstractJson {
     }
 
     @Override
-    public Map<?, ?> objectToMap(Object source) throws JsonException {
+    public <T> Map<String, T> objectToMap(Object source) throws JsonException {
         return objectToMap(source, getMapper());
     }
 
     @Override
-    public Map<?, ?> objectToMap(Object source, Object mapper) throws JsonException {
+    @SuppressWarnings({"unchecked"})
+    public <T> Map<String, T> objectToMap(Object source, Object mapper) throws JsonException {
         String json = objectToJson(source, mapper);
-        return jsonToObject(json, Map.class, mapper);
+        return (Map<String, T>) jsonToObject(json, Map.class, mapper);
     }
 }
