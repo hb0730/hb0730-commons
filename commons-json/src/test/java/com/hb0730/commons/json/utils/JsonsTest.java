@@ -22,7 +22,7 @@ public class JsonsTest {
     @Test
     public void jsonToObjectTest() throws JsonException {
         String json = "{\"id\":\"1\",\"name\":\"测试\"}";
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         Test1 test1 = jsons.jsonToObject(json, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -40,7 +40,7 @@ public class JsonsTest {
     @Test
     public void testJsonToObjectTest() throws JsonException {
         String json = "{\"id\":\"1\",\"name\":\"测试\"}";
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         Test1 test1 = jsons.jsonToObject(json, Test1.class, new ObjectMapper());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -64,7 +64,7 @@ public class JsonsTest {
     @Test
     public void jsonToListTest() throws JsonException {
         String json = "[{\"id\":\"1\",\"name\":\"测试1\"},{\"id\":\"2\",\"name\":\"测试2\"}]";
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         List<Test1> test1 = jsons.jsonToList(json, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -73,7 +73,7 @@ public class JsonsTest {
     @Test
     public void testJsonToListTest() throws JsonException {
         String json = "[{\"id\":\"1\",\"name\":\"测试1\"},{\"id\":\"2\",\"name\":\"测试2\"}]";
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         List<Test1> test1 = jsons.jsonToList(json, Test1.class, new ObjectMapper());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -82,7 +82,7 @@ public class JsonsTest {
     @Test
     public void objectToJsonTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         String s = jsons.objectToJson(test1);
         Assert.assertNotNull(s);
         log.info(s);
@@ -91,7 +91,7 @@ public class JsonsTest {
     @Test
     public void testObjectToJsonTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         String s = jsons.objectToJson(test1, new ObjectMapper());
         Assert.assertNotNull(s);
         log.info(s);
@@ -102,7 +102,7 @@ public class JsonsTest {
         Map<String, String> map = new HashMap<>();
         map.put("id", "1");
         map.put("name", "测试1");
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         Test1 test1 = jsons.mapToObject(map, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -113,7 +113,7 @@ public class JsonsTest {
         Map<String, String> map = new HashMap<>();
         map.put("id", "1");
         map.put("name", "测试1");
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         Test1 test1 = jsons.mapToObject(map, Test1.class, new ObjectMapper());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
@@ -122,7 +122,7 @@ public class JsonsTest {
     @Test
     public void objectToMapTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         Map<?, ?> map = jsons.objectToMap(test1);
         Assert.assertNotNull(map);
         log.info(map.toString());
@@ -131,7 +131,7 @@ public class JsonsTest {
     @Test
     public void testObjectToMapTest() throws JsonException {
         Test1 test1 = Test1.builder().name("测试").id("1").build();
-        Jsons jsons = Jsons.Utils.instance();
+        Jsons jsons = Jsons.JSONS;
         Map<?, ?> map = jsons.objectToMap(test1, new ObjectMapper());
         Assert.assertNotNull(map);
         log.info(map.toString());

@@ -1,4 +1,12 @@
 # Changelog
+# 2.0.1
+## Feature
+
+## Fixed
++ **[commons-json]**
+    + 修复Jsons创建方法以及Jsons转map时重写问题
+## Change
+
 # 2.0.0
 ## Feature
 + **[commons-lang]**

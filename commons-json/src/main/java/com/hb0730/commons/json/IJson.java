@@ -108,17 +108,19 @@ public interface IJson {
      * 将 源目标对象转成map类型
      *
      * @param source 源目标，不为空
+     * @param <T>    返回值类型
      * @return map实例
      * @throws JsonException 转换异常
      * @see #objectToMap(Object, Object)
      */
-   <T> Map<String, T> objectToMap(Object source) throws JsonException;
+    <T> Map<String, T> objectToMap(Object source) throws JsonException;
 
     /**
      * 将 源目标对象转成map类型
      *
      * @param source 源目标，不为空
      * @param mapper 如Jackson{@link com.fasterxml.jackson.databind.ObjectMapper},Gson{@link com.google.gson.Gson},不为空
+     * @param <T>    返回值类型
      * @return map实例
      * @throws JsonException 转换异常
      */

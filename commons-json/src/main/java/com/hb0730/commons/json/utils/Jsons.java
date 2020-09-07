@@ -18,6 +18,8 @@ import java.util.Map;
  * @since 2.0.0
  */
 public class Jsons implements IJson {
+
+    public static final Jsons JSONS = new Jsons();
     private AbstractJson proxy;
 
     private void selectProxy() throws JsonException {
@@ -124,23 +126,14 @@ public class Jsons implements IJson {
     }
 
     @Override
-    public Map<?, ?> objectToMap(Object source) throws JsonException {
+    public <T> Map<String, T> objectToMap(Object source) throws JsonException {
         checkProxyNotNull(proxy);
         return proxy.objectToMap(source);
     }
 
     @Override
-    public Map<?, ?> objectToMap(Object source, Object mapper) throws JsonException {
+    public <T> Map<String, T> objectToMap(Object source, Object mapper) throws JsonException {
         checkProxyNotNull(proxy);
         return proxy.objectToMap(source, mapper);
-    }
-
-
-    public static class Utils {
-        private static Jsons jsons = new Jsons();
-
-        public static Jsons instance() {
-            return jsons;
-        }
     }
 }
