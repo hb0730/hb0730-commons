@@ -43,4 +43,9 @@ public interface MailService {
      * 测试连接
      */
     void testConnection();
+
+    /**
+     * 清除缓存
+     */
+    void clearCache();
 }

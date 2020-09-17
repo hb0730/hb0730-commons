@@ -10,6 +10,8 @@
 ## Change
 + **[commons-lang]**
     + convert移除无用的工具类ConvertUtils
++ **[commons-mail]**
+    + spring MailService新增clearCache清除缓存方法
 # 2.0.0
 ## Feature
 + **[commons-lang]**
