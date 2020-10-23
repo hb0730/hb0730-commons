@@ -28,13 +28,13 @@
 
 ```java
 String json = "{\"id\":\"1\",\"name\":\"测试\"}";
-Jsons jsons = Jsons.Utils.instance();
+Jsons jsons = Jsons.JSONS;
 Test1 test1 = jsons.jsonToObject(json, Test1.class);
 ```
 或者
 ```java
 String json = "{\"id\":\"1\",\"name\":\"测试\"}";
-Jsons jsons = Jsons.Utils.instance();
+Jsons jsons = Jsons.JSONS;
 Test1 test1 = jsons.jsonToObject(json, Test1.class, new ObjectMapper());
 ```
 
