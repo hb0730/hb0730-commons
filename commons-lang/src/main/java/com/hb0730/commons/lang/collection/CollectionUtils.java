@@ -24,6 +24,17 @@ public class CollectionUtils {
     }
 
     /**
+     * 集合不为空
+     *
+     * @param collection 集合
+     * @return 集合不为空
+     * @since 2.0.1
+     */
+    public static boolean isNotEmpty(Collection<?> collection) {
+        return !isEmpty(collection);
+    }
+
+    /**
      * map 是否为空
      *
      * @param maps map
@@ -31,6 +42,17 @@ public class CollectionUtils {
      */
     public static boolean isEmpty(Map<?, ?> maps) {
         return maps == null || maps.isEmpty();
+    }
+
+    /**
+     * map不为空
+     *
+     * @param maps map
+     * @return map不为空
+     * @since 2.0.1
+     */
+    public static boolean isNotEmpty(Map<?, ?> maps) {
+        return !isEmpty(maps);
     }
 
     /**

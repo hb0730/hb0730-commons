@@ -190,7 +190,8 @@ public abstract class AbstractMailService implements MailService {
     /**
      * 清除缓存
      */
-    protected void clearCache() {
+    @Override
+    public void clearCache() {
         this.cachedMailProperties = null;
         this.cacheFromName = null;
         this.cachedMailSender = null;

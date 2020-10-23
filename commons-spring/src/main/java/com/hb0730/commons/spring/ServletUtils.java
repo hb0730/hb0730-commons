@@ -1,6 +1,6 @@
 package com.hb0730.commons.spring;
 
-import com.hb0730.commons.lang.convert.ConvertUtils;
+import com.hb0730.commons.lang.convert.ConverterRegistry;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -35,7 +35,7 @@ public class ServletUtils {
      * @return 如果请求参数为空返回默认参数
      */
     public static String getParameter(String name, String defaultValue) {
-        return ConvertUtils.toStr(getRequest().getParameter(name), defaultValue);
+        return ConverterRegistry.getInstance().convert(String.class, getRequest().getParameter(name), defaultValue);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ServletUtils {
      * @return value
      */
     public static Integer getParameterToInt(String name) {
-        return ConvertUtils.toInt(getRequest().getParameter(name));
+        return ConverterRegistry.getInstance().convert(Integer.class, getRequest().getParameter(name));
     }
 
     /**
@@ -56,7 +56,7 @@ public class ServletUtils {
      * @return 如果Integer为空则返回默认值
      */
     public static Integer getParameterToInt(String name, Integer defaultValue) {
-        return ConvertUtils.toInt(getRequest().getParameter(name), defaultValue);
+        return ConverterRegistry.getInstance().convert(Integer.class, getRequest().getParameter(name), defaultValue);
     }
 
 

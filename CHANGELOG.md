@@ -1,4 +1,17 @@
 # Changelog
+# 2.0.1
+## Feature
++ **[commons-lang]**
+    + CollectionUtils新增isNotEmpty方法
+    + 新增建造者模式的接口定义Builder
+## Fixed
++ **[commons-json]**
+    + 修复Jsons创建方法以及Jsons转map时重写问题
+## Change
++ **[commons-lang]**
+    + convert移除无用的工具类ConvertUtils
++ **[commons-mail]**
+    + spring MailService新增clearCache清除缓存方法
 # 2.0.0
 ## Feature
 + **[commons-lang]**
