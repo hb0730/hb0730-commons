@@ -23,7 +23,7 @@
         <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
 
         <compile.version>8</compile.version>
-        <junit.version>4.13</junit.version>
+        <junit.version>4.13.1</junit.version>
         <lombok.version>1.18.12</lombok.version>
         <commons.version>1.0.0-SNAPSHOT</commons.version>
     </properties>
@@ -64,7 +64,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
