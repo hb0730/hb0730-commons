@@ -29,7 +29,7 @@
         <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
 
         <compile.version>8</compile.version>
-        <junit.version>4.13.1</junit.version>
+        <junit.version>4.13</junit.version>
         <lombok.version>1.18.12</lombok.version>
         <jakarta-mail.version>1.6.5</jakarta-mail.version>
     </properties>
