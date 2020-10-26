@@ -35,7 +35,7 @@ public class Jsons implements IJson {
             defaultProxy = getProxy(JacksonImpl.class);
         }
         if (defaultProxy == null) {
-            throw new JsonException("Has no HttpImpl defined in environment!");
+            throw new JsonException("Has no JsonImpl defined in environment!");
         }
         proxy = defaultProxy;
     }

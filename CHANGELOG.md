@@ -1,4 +1,10 @@
 # Changelog
+# 2.0.2
+## Feature
+## Fixed
+## Change
++ **[commons-json]**
+    + 异常提示
 # 2.0.1
 ## Feature
 + **[commons-lang]**
