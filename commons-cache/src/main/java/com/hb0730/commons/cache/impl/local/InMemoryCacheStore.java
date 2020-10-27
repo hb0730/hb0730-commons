@@ -1,6 +1,7 @@
 package com.hb0730.commons.cache.impl.local;
 
 import com.hb0730.commons.cache.CacheWrapper;
+import com.hb0730.commons.cache.exception.CacheException;
 import com.hb0730.commons.cache.impl.AbstractCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +64,9 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
         readLock.lock();
         try {
             return Optional.ofNullable(cacheContainer.get(key));
+        } catch (Exception e) {
+            LOGGER.error("get error key [{}]", key, e);
+            throw new CacheException("get cache error", e);
         } finally {
             readLock.unlock();
         }
@@ -81,6 +85,9 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
                 result.put(key, wrapper);
             }
             return Optional.of(result);
+        } catch (Exception e) {
+            LOGGER.error("get error keys [{}]", keys, e);
+            throw new CacheException("get cache error", e);
         } finally {
             readLock.unlock();
         }
@@ -95,6 +102,9 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
         try {
             CacheWrapper<V> wrapper = cacheContainer.put(key, cacheWrapper);
             LOGGER.debug("put[{}] cache result:[{}],original  cache wrapper: [{}]", key, wrapper, cacheWrapper);
+        } catch (Exception e) {
+            LOGGER.error("put cache error", e);
+            throw new CacheException("put cache error", e);
         } finally {
             writeLock.unlock();
         }
@@ -125,6 +135,9 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
         try {
             cacheContainer.remove(key);
             LOGGER.debug("removed key [{}]", key);
+        } catch (Exception e) {
+            LOGGER.error("delete cache error", e);
+            throw new CacheException("delete cache error", e);
         } finally {
             writeLock.unlock();
         }
@@ -138,6 +151,9 @@ public class InMemoryCacheStore<K, V> extends AbstractCache<K, V> {
             for (K key : keys) {
                 cacheContainer.remove(key);
             }
+        } catch (Exception e) {
+            LOGGER.error("delete cache error", e);
+            throw new CacheException("delete cache error", e);
         } finally {
             writeLock.unlock();
         }

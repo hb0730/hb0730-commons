@@ -51,12 +51,11 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             }
             return Optional.empty();
         } catch (Exception e) {
-            LOGGER.error("get error key [{}], message:[{}]", key, e.getMessage());
+            LOGGER.error("get cache error key [{}], message:[{}]", key, e.getMessage());
+            throw new CacheException("get cache error", e);
         } finally {
             closeConnection(connection);
         }
-
-        return Optional.empty();
     }
 
     @Nonnull
@@ -89,12 +88,11 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             }
             return Optional.empty();
         } catch (Exception e) {
-            e.printStackTrace();
-            LOGGER.error("get error key [{}], message:[{}]", keys, e.getMessage());
+            LOGGER.error("get cache error key [{}], message:[{}]", keys, e.getMessage());
+            throw new CacheException("get cache error", e);
         } finally {
             closeConnection(connection);
         }
-        return Optional.empty();
     }
 
     @Override
@@ -111,7 +109,8 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             connection.pSetEx(keyByte, expireAt, valueBytes);
             LOGGER.debug("put success then key [{}]", key);
         } catch (Exception e) {
-            LOGGER.error("put error", e);
+            LOGGER.error("put cache error message:[{}]", e.getMessage(), e);
+            throw new CacheException("put cache error", e);
         } finally {
             closeConnection(connection);
         }
@@ -134,11 +133,11 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             LOGGER.debug("put_is_absent success,then key [{}] result:[{}]", key, result);
             return result;
         } catch (Exception e) {
-            LOGGER.error("put_if_absent error", e);
+            LOGGER.error("put_if_absent cache error message:[{}]", e.getMessage(), e);
+            throw new CacheException("put ifAbsent error", e);
         } finally {
             closeConnection(connection);
         }
-        return false;
     }
 
     @Override
@@ -151,7 +150,8 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             connection.del(keyByte);
             LOGGER.debug("delete success then key [{}]", key);
         } catch (Exception e) {
-            LOGGER.error("delete error", e);
+            LOGGER.error("delete error message:[{}]", e.getMessage(), e);
+            throw new CacheException("delete cache error", e);
         } finally {
             closeConnection(connection);
         }
@@ -174,7 +174,8 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             connection.del(newKeys);
             LOGGER.debug("delete success then key [{}]", keys);
         } catch (Exception e) {
-            LOGGER.error("delete error", e);
+            LOGGER.error("delete error message:[{}]", e.getMessage(), e);
+            throw new CacheException("delete cache error", e);
         } finally {
             closeConnection(connection);
         }

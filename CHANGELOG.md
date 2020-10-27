@@ -1,10 +1,14 @@
 # Changelog
 # 2.0.2
 ## Feature
++ **[commons-lang]**
+    + StringUtils#join 拼接对个string类型的参数
 ## Fixed
 ## Change
 + **[commons-json]**
     + 异常提示
++ **[commons-cache]**
+    + try cache 异常响应问题
 # 2.0.1
 ## Feature
 + **[commons-lang]**

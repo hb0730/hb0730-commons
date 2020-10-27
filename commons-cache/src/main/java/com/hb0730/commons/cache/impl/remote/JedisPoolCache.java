@@ -66,19 +66,6 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
                 this.properties.getDatabase());
     }
 
-    protected JedisPool getJedis() {
-        if (JEDIS_POOL == null) {
-            synchronized (JedisPoolConfig.class) {
-                if (JEDIS_POOL != null) {
-                    return JEDIS_POOL;
-                }
-                initRedis();
-                return JEDIS_POOL;
-            }
-        }
-        return JEDIS_POOL;
-    }
-
 
     @Nonnull
     @Override
@@ -97,8 +84,8 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
             }
             return Optional.empty();
         } catch (Exception e) {
-            LOGGER.error("get error key [{}], message:[{}]", key, e.getMessage());
-            throw new CacheException("get cache error:" + e.getMessage());
+            LOGGER.error("get cache error key [{}], message:[{}]", key, e.getMessage());
+            throw new CacheException("get cache error", e);
         }
     }
 
@@ -131,8 +118,8 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
             }
             Optional.of(result);
         } catch (Exception e) {
-            LOGGER.error("get error key [{}], message:[{}]", keys, e.getMessage());
-            throw new CacheException("get cache error:" + e.getMessage());
+            LOGGER.error("get cache error key [{}], message:[{}]", keys, e.getMessage());
+            throw new CacheException("get cache error", e);
         }
         return Optional.empty();
     }
@@ -150,7 +137,7 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
             }
         } catch (Exception e) {
             LOGGER.error("put cache error message:[{}]", e.getMessage(), e);
-            throw new CacheException("put cache error :" + e.getMessage());
+            throw new CacheException("put cache error", e);
         }
     }
 
@@ -171,7 +158,7 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
 
         } catch (Exception e) {
             LOGGER.error("put_if_absent cache error message:[{}]", e.getMessage(), e);
-            throw new CacheException("put ifAbsent error :" + e.getMessage());
+            throw new CacheException("put ifAbsent error", e);
         }
     }
 
@@ -187,7 +174,7 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
 
         } catch (Exception e) {
             LOGGER.error("delete error message:[{}]", e.getMessage(), e);
-            throw new CacheException("delete cache error :" + e.getMessage());
+            throw new CacheException("delete cache error", e);
         }
     }
 
@@ -207,7 +194,7 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
             LOGGER.debug("delete cache success key [{}]", keys);
         } catch (Exception e) {
             LOGGER.error("delete error message:[{}]", e.getMessage(), e);
-            throw new CacheException("delete cache error :" + e.getMessage());
+            throw new CacheException("delete cache error", e);
         }
     }
 }

@@ -316,4 +316,21 @@ public class StringUtils {
         return str;
     }
 
+    /**
+     * 字符串拼接 <br>
+     *
+     * @param elements 需要拼接的String
+     * @return 拼接后的String
+     * @see StringBuilder
+     * @since 2.0.2
+     */
+    public static String join(CharSequence... elements) {
+        Validate.notEmpty(elements, "element not empty");
+        StringBuilder sb = new StringBuilder(elements.length);
+        for (CharSequence element : elements) {
+            sb.append(element);
+        }
+        return sb.toString();
+    }
+
 }

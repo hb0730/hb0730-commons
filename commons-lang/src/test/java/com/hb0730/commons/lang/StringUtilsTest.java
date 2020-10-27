@@ -302,4 +302,14 @@ public class StringUtilsTest {
         b = StringUtils.isNotBlank(str);
         Assert.assertTrue("参数为空", b);
     }
+
+    @Test
+    public void joinTest() {
+        String s1 = "test:";
+        String s2 = "1:";
+        String s3 = "1";
+        String newStr = StringUtils.join(s1, s2, s3);
+        Assert.assertNotNull("参数为空", newStr);
+        log.debug(newStr);
+    }
 }
