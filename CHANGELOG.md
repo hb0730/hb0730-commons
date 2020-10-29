@@ -8,7 +8,7 @@
 + **[commons-json]**
     + 异常提示
 + **[commons-cache]**
-    + try cache 异常响应问题
+    + try catch 异常响应问题
 # 2.0.1
 ## Feature
 + **[commons-lang]**
