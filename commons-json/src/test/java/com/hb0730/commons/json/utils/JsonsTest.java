@@ -3,6 +3,7 @@ package com.hb0730.commons.json.utils;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.hb0730.commons.json.IJson;
 import com.hb0730.commons.json.exceptions.JsonException;
 import com.hb0730.commons.json.fastjson.FastJsonImpl;
 import com.hb0730.commons.json.gson.GsonImpl;
@@ -35,6 +36,12 @@ public class JsonsTest {
         Assert.assertNotNull(test1);
         log.info(test1.toString());
 
+    }
+
+    @Test
+    public void getCurrentTest() {
+        IJson json = Jsons.JSONS.getCurrentJson();
+        Assert.assertNull("json为空", json);
     }
 
     @Test

@@ -3,7 +3,11 @@
 ## Feature
 + **[commons-lang]**
     + StringUtils#join 拼接对个string类型的参数
++ **[commons-json]**
+    + Jsons#getCurrentJson 获取当前IJson
 ## Fixed
++ **[commons-cache]**
+    + 当使用jdk8的LocalDateTime时jackson序列化出现问题
 ## Change
 + **[commons-json]**
     + 异常提示

@@ -60,6 +60,16 @@ public class Jsons implements IJson {
     }
 
     /**
+     * 获取当前的{@link IJson}
+     *
+     * @return {@link IJson}
+     * @since 2.0.2
+     */
+    public IJson getCurrentJson() {
+        return proxy;
+    }
+
+    /**
      * 设置对应的json
      *
      * @param support 所支持的json

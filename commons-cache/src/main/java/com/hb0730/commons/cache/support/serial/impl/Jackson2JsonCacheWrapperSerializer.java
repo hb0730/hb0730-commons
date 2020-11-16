@@ -19,13 +19,26 @@ import java.io.ByteArrayOutputStream;
 public class Jackson2JsonCacheWrapperSerializer extends AbstractSerializer {
     public static final Jackson2JsonCacheWrapperSerializer JSON_STRING_SERIALIZER = new Jackson2JsonCacheWrapperSerializer(true);
     @Getter
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
     public static final int IDENTITY_NUMBER = 0x4A953A81;
 
 
     public Jackson2JsonCacheWrapperSerializer(boolean useIdentityNumber) {
         super(useIdentityNumber, IDENTITY_NUMBER);
+        this.objectMapper = new ObjectMapper();
+    }
+
+    /**
+     * 扩展运行设置{@link ObjectMapper}
+     *
+     * @param objectMapper      {@link ObjectMapper}
+     * @param useIdentityNumber 是否使用使用标识号{@link #IDENTITY_NUMBER}
+     * @since 2.0.2
+     */
+    public Jackson2JsonCacheWrapperSerializer(boolean useIdentityNumber, ObjectMapper objectMapper) {
+        super(useIdentityNumber, IDENTITY_NUMBER);
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -35,9 +48,9 @@ public class Jackson2JsonCacheWrapperSerializer extends AbstractSerializer {
         }
         try {
             if (useIdentityNumber) {
-                return this.objectMapper.readValue(buffer, 4, buffer.length - 4, CacheWrapper.class);
+                return getObjectMapper().readValue(buffer, 4, buffer.length - 4, CacheWrapper.class);
             }
-            return this.objectMapper.readValue(buffer, CacheWrapper.class);
+            return getObjectMapper().readValue(buffer, CacheWrapper.class);
 
         } catch (Exception e) {
             throw new CacheException("jackson deserialize error:" + e.getMessage(), e);
@@ -49,7 +62,7 @@ public class Jackson2JsonCacheWrapperSerializer extends AbstractSerializer {
         if (null == value) {
             return EMPTY_ARRAY;
         }
-        this.objectMapper.writeValue(outStream, value);
+        getObjectMapper().writeValue(outStream, value);
         outStream.flush();
         return outStream.toByteArray();
     }
