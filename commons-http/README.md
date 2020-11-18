@@ -14,27 +14,30 @@ commons-http 扩展自[simple-http-1.0.2](https://github.com/xkcoding/simple-htt
 
 ## 用法
 ```java
-HttpSyncUtils syncUtils = CommonHttps.sync().setHttp(new HttpClientSyncImpl());
-utils.get("http://localhost:10000/")
+ HttpSync http = Https.SYNC.getHttp();
+ String s = http.get("https://baidu.com");
+
+  s = http.setHttp(new OkHttp3SyncImpl())
+                 .get("https://baidu.com");
 ```
 或者
 ```java
-HttpAsyncUtils asyncUtils = CommonHttps.async().setHttp(new HttpClientAsyncImpl());
-utils.get("http://localhost:10000/", new CommonsNetCall() {
-                @Override
-                public void success(String result) {
-                    System.out.println(result);
-                }
+HttpAsync http = Https.ASYNC.getHttp();
+        http.get("http://baidu.com", new CommonsNetCall() {
+            @Override
+            public void success(String result) throws IOException {
+                log.debug(result);
+            }
 
-                @Override
-                public void success(byte[] result) throws IOException {
+            @Override
+            public void success(byte[] result) throws IOException {
 
-                }
+            }
 
-                @Override
-                public void file(Exception e) {
+            @Override
+            public void file(Exception e) {
 
-                }
-            });
+            }
+        });
 ```
-具体请参考`commons-http-test`案例
+具体请参考`commons-http-test` 案例或者javadoc
