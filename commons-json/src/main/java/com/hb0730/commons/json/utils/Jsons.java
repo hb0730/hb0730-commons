@@ -17,9 +17,8 @@ import java.util.Map;
  * @author bing_huang
  * @since 2.0.0
  */
-public class Jsons implements IJson {
-
-    public static final Jsons JSONS = new Jsons();
+public enum Jsons implements IJson {
+    JSONS;
     private AbstractJson proxy;
 
     private void selectProxy() throws JsonException {

@@ -1,4 +1,12 @@
 # Changelog
+# 2.0.3
+## Feature
+
+## Fixed
+
+## Change
++ [commons-json]
+    + Jsons改成枚举类型(安全单例)
 # 2.0.2
 ## Feature
 + **[commons-lang]**
