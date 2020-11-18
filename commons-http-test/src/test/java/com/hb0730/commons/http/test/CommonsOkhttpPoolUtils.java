@@ -1,6 +1,6 @@
 package com.hb0730.commons.http.test;
 
-import com.hb0730.commons.http.CommonHttps;
+import com.hb0730.commons.http.Https;
 import com.hb0730.commons.http.inter.AbstractAsyncHttp;
 import com.hb0730.commons.http.support.okhttp3.OkHttp3AsyncImpl;
 import com.hb0730.commons.http.utils.HttpAsync;
@@ -18,6 +18,6 @@ public class CommonsOkhttpPoolUtils {
     }
 
     public static HttpAsync async() {
-        return CommonHttps.async().setHttp(http);
+        return ((HttpAsync) Https.ASYNC.getHttp()).setHttp(http);
     }
 }

@@ -2,8 +2,8 @@ package com.hb0730.commons.http.test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hb0730.commons.http.CommonHttps;
 import com.hb0730.commons.http.HttpHeader;
+import com.hb0730.commons.http.Https;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
 import com.hb0730.commons.http.support.callback.CommonsNetCall;
@@ -52,7 +52,7 @@ public class CommHttpUtilsTest {
 //        HttpClientTest.postSyncTest(syncUtils);
 //        HttpClientTest.postSyncParamsTest(syncUtils);
 //        HttpClientTest.postSyncParamsJsonTest(syncUtils);
-        HttpAsync asyncUtils = CommonHttps.async().setHttp(new HttpClientAsyncImpl());
+        HttpAsync asyncUtils = ((HttpAsync) Https.ASYNC.getHttp()).setHttp(new HttpClientAsyncImpl());
 //        HttpClientTest.getAsyncTest(asyncUtils);
 //        HttpClientTest.getAsyncParamsTest(asyncUtils);
 //        HttpClientTest.postAsyncTest(asyncUtils);
@@ -71,7 +71,7 @@ public class CommHttpUtilsTest {
 //        OkhttpTest.postSyncTest(syncUtils);
 //        OkhttpTest.postSyncParamsTest(syncUtils);
 //        OkhttpTest.postSyncParamsJsonTest(syncUtils);
-        HttpAsync asyncUtils = CommonHttps.async().setHttp(new OkHttp3AsyncImpl());
+        HttpAsync asyncUtils = ((HttpAsync) Https.ASYNC.getHttp()).setHttp(new OkHttp3AsyncImpl());
 //        OkhttpTest.getAsyncTest(asyncUtils);
 //        OkhttpTest.getAsyncParamsTest(asyncUtils);
 //        OkhttpTest.postAsyncTest(asyncUtils);

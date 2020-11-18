@@ -1,6 +1,6 @@
 package com.hb0730.commons.http.test;
 
-import com.hb0730.commons.http.CommonHttps;
+import com.hb0730.commons.http.Https;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.support.httpclient.HttpClientAsyncImpl;
 import com.hb0730.commons.http.utils.HttpAsync;
@@ -43,7 +43,7 @@ public class CommonsHttpClientPoolUtils {
                             .setConnectionManager(connectionManager)
                             .build();
 
-                    asyncUtils = CommonHttps.async().setHttp(new HttpClientAsyncImpl(asyncClient, new HttpConfig()));
+                    asyncUtils = ((HttpAsync) Https.ASYNC.getHttp()).setHttp(new HttpClientAsyncImpl(asyncClient, new HttpConfig()));
                 }
             }
         }
