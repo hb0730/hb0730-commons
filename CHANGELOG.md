@@ -9,6 +9,7 @@
     + `Jsons`改成枚举类型(安全单例)
 + [commons-http]
     + 将`CommonHttps`改成`Https`,并优化创建方式
+    + `httpConfig#timeout`的`int`改为`long`
 # 2.0.2
 ## Feature
 + **[commons-lang]**

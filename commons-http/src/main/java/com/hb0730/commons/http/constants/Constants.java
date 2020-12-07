@@ -13,7 +13,7 @@ public interface Constants {
     /**
      * 超时时长，单位毫秒
      */
-    int DEFAULT_TIMEOUT = 3000;
+    long DEFAULT_TIMEOUT = 3000L;
     /**
      * 编码格式
      */

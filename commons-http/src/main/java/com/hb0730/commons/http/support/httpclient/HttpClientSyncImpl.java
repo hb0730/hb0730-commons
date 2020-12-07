@@ -163,10 +163,16 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
 
     private String exec(HttpRequestBase request) {
         this.addHeader(request);
+        int timeout;
+        if (httpConfig.getTimeout() > Integer.MAX_VALUE) {
+            timeout = Integer.MAX_VALUE;
+        } else {
+            timeout = Long.valueOf(httpConfig.getTimeout()).intValue();
+        }
         RequestConfig.Builder builder = RequestConfig.custom()
-                .setConnectionRequestTimeout(httpConfig.getTimeout())
-                .setConnectTimeout(httpConfig.getTimeout())
-                .setSocketTimeout(httpConfig.getTimeout());
+                .setConnectionRequestTimeout(timeout)
+                .setConnectTimeout(timeout)
+                .setSocketTimeout(timeout);
         if (null != httpConfig.getProxy()) {
             Proxy proxy = httpConfig.getProxy();
             InetSocketAddress address = (InetSocketAddress) proxy.address();

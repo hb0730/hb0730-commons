@@ -25,7 +25,7 @@ public class HttpConfig {
     /**
      * 超时时长，单位毫秒
      */
-    private int timeout = Constants.DEFAULT_TIMEOUT;
+    private long timeout = Constants.DEFAULT_TIMEOUT;
 
     /**
      * 编码
