@@ -1,5 +1,7 @@
 package com.hb0730.commons.lang.collection;
 
+import com.hb0730.commons.lang.map.MapUtils;
+
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;

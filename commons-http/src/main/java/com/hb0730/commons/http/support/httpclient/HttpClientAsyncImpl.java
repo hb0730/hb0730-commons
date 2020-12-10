@@ -8,7 +8,7 @@ import com.hb0730.commons.http.inter.AbstractAsyncHttp;
 import com.hb0730.commons.http.support.callback.CommonsNetCall;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.collection.CollectionUtils;
-import com.hb0730.commons.lang.collection.MapUtils;
+import com.hb0730.commons.lang.map.MapUtils;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.apache.hc.client5.http.classic.methods.HttpGet;

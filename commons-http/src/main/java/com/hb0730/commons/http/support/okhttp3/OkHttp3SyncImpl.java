@@ -6,7 +6,7 @@ import com.hb0730.commons.http.constants.Constants;
 import com.hb0730.commons.http.exception.CommonHttpException;
 import com.hb0730.commons.http.inter.AbstractSyncHttp;
 import com.hb0730.commons.lang.StringUtils;
-import com.hb0730.commons.lang.collection.MapUtils;
+import com.hb0730.commons.lang.map.MapUtils;
 import okhttp3.*;
 
 import java.io.IOException;

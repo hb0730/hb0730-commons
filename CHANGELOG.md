@@ -1,7 +1,8 @@
 # Changelog
 # 2.0.3
 ## Feature
-
++ [commons-lang]
+    + 新增 `MapBuilder` 链式map
 ## Fixed
 
 ## Change
@@ -10,6 +11,8 @@
 + [commons-http]
     + 将`CommonHttps`改成`Https`,并优化创建方式
     + `httpConfig#timeout`的`int`改为`long`
++ [commons-lang]
+    + 将`MapUtils`从`collection`包迁址至`map`包下
 # 2.0.2
 ## Feature
 + **[commons-lang]**

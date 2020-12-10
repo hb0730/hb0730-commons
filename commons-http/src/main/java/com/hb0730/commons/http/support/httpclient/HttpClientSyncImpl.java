@@ -7,7 +7,7 @@ import com.hb0730.commons.http.exception.CommonHttpException;
 import com.hb0730.commons.http.inter.AbstractSyncHttp;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.collection.CollectionUtils;
-import com.hb0730.commons.lang.collection.MapUtils;
+import com.hb0730.commons.lang.map.MapUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
