@@ -191,13 +191,13 @@ public class HexUtils {
      *
      * @param data 十六进制char[]
      * @return byte[]
-     * @throws RuntimeException 如果源十六进制字符数组是一个奇怪的长度，将抛出运行时异常
+     * @throws IllegalArgumentException 如果源十六进制字符数组是一个奇怪的长度，将抛出运行时异常
      */
     public static byte[] decodeHex(final char[] data) {
         int len = data.length;
 
         if ((len & 0x01) != 0) {
-            throw new RuntimeException("Odd number of characters.");
+            throw new IllegalArgumentException("Odd number of characters.");
         }
 
         byte[] out = new byte[len >> 1];
@@ -249,12 +249,12 @@ public class HexUtils {
      * @param ch    十六进制char
      * @param index 十六进制字符在字符数组中的位置
      * @return 一个整数
-     * @throws RuntimeException 当ch不是一个合法的十六进制字符时，抛出运行时异常
+     * @throws IllegalArgumentException 当ch不是一个合法的十六进制字符时，抛出运行时异常
      */
     private static int toDigit(char ch, int index) {
         int digit = Character.digit(ch, 16);
         if (digit == -1) {
-            throw new RuntimeException("Illegal hexadecimal character " + ch + " at index " + index);
+            throw new IllegalArgumentException("Illegal hexadecimal character " + ch + " at index " + index);
         }
         return digit;
     }
