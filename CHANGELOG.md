@@ -3,6 +3,7 @@
 ## Feature
 + [commons-lang]
     + 新增 `MapBuilder` 链式map
+    + 新增 `HexUtils` 16进制转换
 ## Fixed
 
 ## Change
