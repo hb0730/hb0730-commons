@@ -5,7 +5,7 @@ import com.hb0730.commons.encrypt.constant.Mode;
 import com.hb0730.commons.encrypt.constant.Padding;
 import com.hb0730.commons.encrypt.exceptions.EncryptException;
 import com.hb0730.commons.lang.StringUtils;
-import org.apache.commons.codec.binary.Base64;
+import com.hb0730.commons.lang.codec.Base64Utils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
@@ -113,7 +113,7 @@ public class DESedeUtils {
             return null;
         }
         byte[] encrypt = encrypt(data.getBytes(), key.getBytes(), iv, mode, padding);
-        return Base64.encodeBase64String(encrypt);
+        return Base64Utils.encodeToString(encrypt);
     }
 
     /**
@@ -234,7 +234,7 @@ public class DESedeUtils {
         if (StringUtils.isEmpty(data)) {
             return null;
         }
-        byte[] decrypt = decrypt(Base64.decodeBase64(data), key.getBytes(), iv, mode, padding);
+        byte[] decrypt = decrypt(Base64Utils.decodeFromString(data), key.getBytes(), iv, mode, padding);
         return new String(decrypt);
     }
 

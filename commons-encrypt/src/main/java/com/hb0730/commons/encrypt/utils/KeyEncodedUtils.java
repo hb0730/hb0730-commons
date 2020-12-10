@@ -1,6 +1,6 @@
 package com.hb0730.commons.encrypt.utils;
 
-import org.apache.commons.codec.binary.Base64;
+import com.hb0730.commons.lang.codec.Base64Utils;
 
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -20,7 +20,7 @@ public class KeyEncodedUtils {
      * @return 编码后的内容
      */
     public static String encodePkcs8Base64(byte[] bytes) {
-        return Base64.encodeBase64String(encodePkcs8(bytes));
+        return Base64Utils.encodeToString(encodePkcs8(bytes));
     }
 
     /**
@@ -41,7 +41,7 @@ public class KeyEncodedUtils {
      * @return 编码后的内容
      */
     public static String encodeX509Base64(byte[] bytes) {
-        return Base64.encodeBase64String(encodeX509(bytes));
+        return Base64Utils.encodeToString(encodeX509(bytes));
     }
 
     /**

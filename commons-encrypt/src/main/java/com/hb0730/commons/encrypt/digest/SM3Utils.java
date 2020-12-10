@@ -1,7 +1,7 @@
 package com.hb0730.commons.encrypt.digest;
 
 import com.hb0730.commons.encrypt.constant.Algorithm;
-import org.apache.commons.codec.binary.Hex;
+import com.hb0730.commons.lang.codec.HexUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.security.MessageDigest;
@@ -31,7 +31,7 @@ public class SM3Utils {
         try {
             MessageDigest md = MessageDigest.getInstance(Algorithm.SM3.getAlgorithm());
             byte[] bytes = md.digest(data.getBytes());
-            return Hex.encodeHexString(bytes);
+            return HexUtils.encodeHexString(bytes, true);
         } catch (Exception e) {
             throw new IllegalArgumentException("sm3 error", e);
         }

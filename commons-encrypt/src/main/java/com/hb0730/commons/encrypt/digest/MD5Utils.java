@@ -1,7 +1,7 @@
 package com.hb0730.commons.encrypt.digest;
 
 import com.hb0730.commons.encrypt.constant.Algorithm;
-import org.apache.commons.codec.binary.Hex;
+import com.hb0730.commons.lang.codec.HexUtils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,7 +21,7 @@ public class MD5Utils {
      */
     public static String md5(String data) {
         byte[] bytes = md5(data.getBytes());
-        return Hex.encodeHexString(bytes);
+        return HexUtils.encodeHexString(bytes, true);
     }
 
     /**
@@ -52,7 +52,7 @@ public class MD5Utils {
      */
     public static String md5(String data, String salt) {
         byte[] bytes = md5WithSalt(data.getBytes(), salt.getBytes(), 1);
-        return Hex.encodeHexString(bytes);
+        return HexUtils.encodeHexString(bytes, true);
     }
 
     /**
@@ -76,7 +76,7 @@ public class MD5Utils {
      */
     public static String md5(String data, String salt, int hashCount) {
         byte[] bytes = md5WithSalt(data.getBytes(), salt.getBytes(), hashCount);
-        return Hex.encodeHexString(bytes);
+        return HexUtils.encodeHexString(bytes, true);
     }
 
     /**

@@ -6,7 +6,7 @@ import com.hb0730.commons.encrypt.exceptions.EncryptException;
 import com.hb0730.commons.encrypt.pojo.SM2KeyPair;
 import com.hb0730.commons.encrypt.utils.KeyEncodedUtils;
 import com.hb0730.commons.lang.StringUtils;
-import org.apache.commons.codec.binary.Base64;
+import com.hb0730.commons.lang.codec.Base64Utils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
@@ -69,7 +69,7 @@ public class SM2Utils {
         if (StringUtils.isEmpty(data)) {
             return null;
         }
-        return Base64.encodeBase64String(encrypt(data.getBytes(), ecPublicKey));
+        return Base64Utils.encodeToString(encrypt(data.getBytes(), ecPublicKey));
     }
 
     /**
@@ -122,7 +122,7 @@ public class SM2Utils {
         if (StringUtils.isEmpty(data)) {
             return null;
         }
-        byte[] decrypt = decrypt(Base64.decodeBase64(data.getBytes()), ecPrivateKey);
+        byte[] decrypt = decrypt(Base64Utils.decode(data.getBytes()), ecPrivateKey);
         return new String(decrypt);
     }
 
@@ -181,7 +181,7 @@ public class SM2Utils {
             Signature signature = Signature.getInstance(signType.getType());
             signature.initSign(privateKey);
             signature.update(data);
-            return Base64.encodeBase64String(signature.sign());
+            return Base64Utils.encodeToString(signature.sign());
         } catch (Exception e) {
             throw new EncryptException("EC sign error", e);
         }
@@ -197,7 +197,7 @@ public class SM2Utils {
      * @return 验签结果，true表示验签通过
      */
     public static boolean verifySign(SM2SignType signType, String data, String publicKey, String sign) {
-        return verifySign(signType, data.getBytes(), publicKey, Base64.decodeBase64(sign));
+        return verifySign(signType, data.getBytes(), publicKey, Base64Utils.decodeFromString(sign));
     }
 
     /**
@@ -210,7 +210,7 @@ public class SM2Utils {
      * @return 验签结果，true表示验签通过
      */
     public static boolean verifySign(SM2SignType signType, String data, ECPublicKey publicKey, String sign) {
-        return verifySign(signType, data.getBytes(), publicKey, Base64.decodeBase64(sign));
+        return verifySign(signType, data.getBytes(), publicKey, Base64Utils.decodeFromString(sign));
     }
 
     /**
@@ -296,7 +296,7 @@ public class SM2Utils {
      * @return 公钥
      */
     public static ECPublicKey getPublicKey(String publicKey) {
-        return getPublicKey(Base64.decodeBase64(publicKey.getBytes()));
+        return getPublicKey(Base64Utils.decode(publicKey.getBytes()));
     }
 
     /**
@@ -322,7 +322,7 @@ public class SM2Utils {
      * @return 私钥
      */
     public static ECPrivateKey getPrivateKey(String privateKey) {
-        return getPrivateKey(Base64.decodeBase64(privateKey.getBytes()));
+        return getPrivateKey(Base64Utils.decode(privateKey.getBytes()));
     }
 
     /**

@@ -2,7 +2,7 @@ package com.hb0730.commons.encrypt.digest;
 
 import com.hb0730.commons.encrypt.constant.HmacType;
 import com.hb0730.commons.encrypt.exceptions.EncryptException;
-import org.apache.commons.codec.binary.Hex;
+import com.hb0730.commons.lang.codec.HexUtils;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
@@ -161,7 +161,7 @@ public class HmacUtils {
      */
     public static String hmac(String data, String key, HmacType hmacType) {
         byte[] bytes = hmac(data.getBytes(), key.getBytes(), hmacType);
-        return Hex.encodeHexString(bytes);
+        return HexUtils.encodeHexString(bytes, true);
     }
 
     /**
@@ -299,7 +299,7 @@ public class HmacUtils {
      */
     public static String generateKeyHex(HmacType hmacType) {
         byte[] key = generateKey(hmacType);
-        return Hex.encodeHexString(key);
+        return HexUtils.encodeHexString(key, true);
     }
 
     /**

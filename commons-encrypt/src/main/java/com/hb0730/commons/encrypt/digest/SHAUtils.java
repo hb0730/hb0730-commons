@@ -1,7 +1,7 @@
 package com.hb0730.commons.encrypt.digest;
 
 import com.hb0730.commons.encrypt.constant.Algorithm;
-import org.apache.commons.codec.binary.Hex;
+import com.hb0730.commons.lang.codec.HexUtils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -222,7 +222,7 @@ public class SHAUtils {
      */
     public static String sha(String data, Algorithm algorithm) {
         byte[] bytes = sha(data.getBytes(), algorithm);
-        return Hex.encodeHexString(bytes);
+        return HexUtils.encodeHexString(bytes, true);
     }
 
     /**

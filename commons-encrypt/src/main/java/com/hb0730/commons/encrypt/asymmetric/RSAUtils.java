@@ -7,7 +7,7 @@ import com.hb0730.commons.encrypt.constant.RSASignType;
 import com.hb0730.commons.encrypt.exceptions.EncryptException;
 import com.hb0730.commons.encrypt.pojo.RSAKeyPair;
 import com.hb0730.commons.lang.StringUtils;
-import org.apache.commons.codec.binary.Base64;
+import com.hb0730.commons.lang.codec.Base64Utils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.BadPaddingException;
@@ -148,7 +148,7 @@ public class RSAUtils {
         if (StringUtils.isEmpty(data)) {
             return null;
         }
-        return Base64.encodeBase64String(encrypt(data.getBytes(), rsaKey, mode, padding));
+        return Base64Utils.encodeToString(encrypt(data.getBytes(), rsaKey, mode, padding));
     }
 
     /**
@@ -294,7 +294,7 @@ public class RSAUtils {
         if (StringUtils.isEmpty(data)) {
             return null;
         }
-        byte[] decrypt = decrypt(Base64.decodeBase64(data.getBytes()), rsaKey, mode, padding);
+        byte[] decrypt = decrypt(Base64Utils.decode(data.getBytes()), rsaKey, mode, padding);
         return new String(decrypt);
     }
 
@@ -350,7 +350,7 @@ public class RSAUtils {
             Signature signature = Signature.getInstance(signType.getType());
             signature.initSign(rsaPrivateKey);
             signature.update(data);
-            return Base64.encodeBase64String(signature.sign());
+            return Base64Utils.encodeToString(signature.sign());
         } catch (Exception e) {
             throw new EncryptException("RSA sign error", e);
         }
@@ -366,7 +366,7 @@ public class RSAUtils {
      * @return 验签结果，true表示验签通过
      */
     public static boolean verifySign(RSASignType signType, String data, String publicKey, String sign) {
-        return verifySign(signType, data.getBytes(), publicKey, Base64.decodeBase64(sign));
+        return verifySign(signType, data.getBytes(), publicKey, Base64Utils.decodeFromString(sign));
     }
 
     /**
@@ -418,8 +418,8 @@ public class RSAUtils {
         RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
 
         RSAKeyPair rsaKeyPair = new RSAKeyPair();
-        rsaKeyPair.setPublicKey(Base64.encodeBase64String(rsaPublicKey.getEncoded()));
-        rsaKeyPair.setPrivateKey(Base64.encodeBase64String(rsaPrivateKey.getEncoded()));
+        rsaKeyPair.setPublicKey(Base64Utils.encodeToString(rsaPublicKey.getEncoded()));
+        rsaKeyPair.setPrivateKey(Base64Utils.encodeToString(rsaPrivateKey.getEncoded()));
         rsaKeyPair.setModules(rsaPublicKey.getModulus());
         return rsaKeyPair;
     }
@@ -452,7 +452,7 @@ public class RSAUtils {
      * @return 公钥（X509格式）
      */
     public static RSAPublicKey getPublicKey(String publicKey) {
-        return getPublicKey(Base64.decodeBase64(publicKey.getBytes()));
+        return getPublicKey(Base64Utils.decode(publicKey.getBytes()));
     }
 
     /**
@@ -478,7 +478,7 @@ public class RSAUtils {
      * @return 私钥（PKCS8格式）
      */
     public static RSAPrivateKey getPrivateKey(String privateKey) {
-        return getPrivateKey(Base64.decodeBase64(privateKey.getBytes()));
+        return getPrivateKey(Base64Utils.decode(privateKey.getBytes()));
     }
 
     /**

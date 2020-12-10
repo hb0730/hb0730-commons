@@ -14,6 +14,8 @@
     + `httpConfig#timeout`的`int`改为`long`
 + [commons-lang]
     + 将`MapUtils`从`collection`包迁址至`map`包下
++ [commons-encrypt]
+    + 移除对`commons-codec:1.13`的依赖
 # 2.0.2
 ## Feature
 + **[commons-lang]**
