@@ -38,8 +38,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * HTTPClient async,需要自行关闭
- * {@link #getHttpClient()}
+ * HTTPClient async,需要自行关闭{@link #httpClient}
  *
  * @author bing_huang
  * @since 1.0.1
