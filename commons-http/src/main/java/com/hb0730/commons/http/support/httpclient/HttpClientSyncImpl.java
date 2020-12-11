@@ -3,7 +3,7 @@ package com.hb0730.commons.http.support.httpclient;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
-import com.hb0730.commons.http.exception.CommonHttpException;
+import com.hb0730.commons.http.exception.HttpException;
 import com.hb0730.commons.http.inter.AbstractSyncHttp;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.collection.CollectionUtils;
@@ -41,37 +41,34 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
     private final CloseableHttpClient httpClient;
 
     public HttpClientSyncImpl() {
-        this(HttpClients.createDefault(), new HttpConfig());
+        this(HttpConfig.builder().build(), HttpClients.createDefault());
     }
 
     public HttpClientSyncImpl(CloseableHttpClient httpClient) {
-        this(httpClient, new HttpConfig());
-    }
-
-    public HttpClientSyncImpl(CloseableHttpClient httpClient, HttpConfig config) {
-        super(config);
+        super(HttpConfig.builder().build());
         this.httpClient = httpClient;
     }
 
+    public HttpClientSyncImpl(HttpConfig httpConfig, CloseableHttpClient httpClient) {
+        super(httpConfig);
+        this.httpClient = httpClient;
+    }
+
+
     @Override
     public String get(String url) {
-        return get(url, null, null);
+        return get(url, null);
     }
 
     @Override
     public String get(String url, Map<String, String> params) {
-        return get(url, new HttpHeader(), params);
-    }
-
-    @Override
-    public String get(String url, HttpHeader header, Map<String, String> params) {
         if (StringUtils.isEmpty(url)) {
             return Constants.EMPTY;
         }
         String baseUrl = StringUtils.appendIfNotContain(url, "?", "&");
         url = baseUrl + MapUtils.parseMapToUrlString(params, httpConfig.isEncode());
         HttpGet httpGet = new HttpGet(url);
-        addHeader(httpGet, header);
+        addHeader(httpGet, getHeader());
         return this.exec(httpGet);
     }
 
@@ -82,11 +79,6 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
 
     @Override
     public String post(String url, String dataJson) {
-        return post(url, dataJson, null);
-    }
-
-    @Override
-    public String post(String url, String dataJson, HttpHeader header) {
         if (StringUtils.isEmpty(url)) {
             return Constants.EMPTY;
         }
@@ -97,17 +89,12 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
             entity.setContentType(Constants.CONTENT_TYPE_JSON);
             httpPost.setEntity(entity);
         }
-        addHeader(httpPost, header);
+        addHeader(httpPost, getHeader());
         return this.exec(httpPost);
     }
 
     @Override
     public String post(String url, Map<String, String> formdata) {
-        return post(url, null, formdata);
-    }
-
-    @Override
-    public String post(String url, HttpHeader header, Map<String, String> formdata) {
         if (StringUtils.isEmpty(url)) {
             return Constants.EMPTY;
         }
@@ -118,7 +105,7 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
                     form.add(new BasicNameValuePair(k, v)));
             httpPost.setEntity(new UrlEncodedFormEntity(form, Constants.DEFAULT_ENCODING));
         }
-        addHeader(httpPost, header);
+        addHeader(httpPost, getHeader());
         return this.exec(httpPost);
     }
 
@@ -191,7 +178,7 @@ public class HttpClientSyncImpl extends AbstractSyncHttp {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new CommonHttpException("request result error:" + e.getMessage());
+            throw new HttpException("request result error:" + e.getMessage());
         }
         return result;
     }

@@ -1,7 +1,7 @@
 package com.hb0730.commons.http.utils;
 
 import com.hb0730.commons.http.Https;
-import com.hb0730.commons.http.support.callback.CommonsNetCall;
+import com.hb0730.commons.http.support.callback.HttpCallback;
 import com.hb0730.commons.http.support.okhttp3.OkHttp3SyncImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class HttpsTest {
     @Test
     public void testAsync() throws InterruptedException {
         HttpAsync http = Https.ASYNC.getHttp();
-        http.get("http://baidu.com", new CommonsNetCall() {
+        http.get("http://baidu.com", new HttpCallback() {
             @Override
             public void success(String result) throws IOException {
                 log.debug(result);

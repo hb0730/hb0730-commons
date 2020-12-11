@@ -1,9 +1,8 @@
 package com.hb0730.commons.http.support.okhttp3;
 
-import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
-import com.hb0730.commons.http.exception.CommonHttpException;
+import com.hb0730.commons.http.exception.HttpException;
 import com.hb0730.commons.http.inter.AbstractSyncHttp;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.map.MapUtils;
@@ -41,16 +40,11 @@ public class OkHttp3SyncImpl extends AbstractSyncHttp {
 
     @Override
     public String get(String url) {
-        return this.get(url, null, null);
+        return get(url, null);
     }
 
     @Override
     public String get(String url, Map<String, String> params) {
-        return this.get(url, null, params);
-    }
-
-    @Override
-    public String get(String url, HttpHeader header, Map<String, String> params) {
         if (StringUtils.isEmpty(url)) {
             return Constants.EMPTY;
         }
@@ -71,16 +65,12 @@ public class OkHttp3SyncImpl extends AbstractSyncHttp {
 
     @Override
     public String post(String url) {
-        return this.post(url, "", null);
+        return this.post(url, "");
     }
+
 
     @Override
     public String post(String url, String data) {
-        return this.post(url, data, null);
-    }
-
-    @Override
-    public String post(String url, String data, HttpHeader header) {
         if (StringUtils.isEmpty(url)) {
             return Constants.EMPTY;
         }
@@ -95,11 +85,6 @@ public class OkHttp3SyncImpl extends AbstractSyncHttp {
 
     @Override
     public String post(String url, Map<String, String> formdata) {
-        return this.post(url, null, formdata);
-    }
-
-    @Override
-    public String post(String url, HttpHeader header, Map<String, String> formdata) {
         FormBody.Builder builder = new FormBody.Builder();
         if (this.httpConfig.isEncode()) {
             MapUtils.forEach(formdata, builder::addEncoded);
@@ -139,7 +124,7 @@ public class OkHttp3SyncImpl extends AbstractSyncHttp {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new CommonHttpException("http execute error:" + e.getMessage(), e);
+            throw new HttpException("http execute error:" + e.getMessage(), e);
         }
         return result;
 

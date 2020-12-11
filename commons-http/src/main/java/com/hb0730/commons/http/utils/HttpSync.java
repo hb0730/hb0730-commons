@@ -3,7 +3,7 @@ package com.hb0730.commons.http.utils;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
-import com.hb0730.commons.http.exception.CommonHttpException;
+import com.hb0730.commons.http.exception.HttpException;
 import com.hb0730.commons.http.inter.AbstractSyncHttp;
 import com.hb0730.commons.http.inter.SyncHttp;
 import com.hb0730.commons.http.support.httpclient.HttpClientSyncImpl;
@@ -31,7 +31,7 @@ public class HttpSync implements SyncHttp {
             defaultProxy = getHttpProxy(OkHttp3SyncImpl.class);
         }
         if (defaultProxy == null) {
-            throw new CommonHttpException("Has no HttpImpl defined in environment!");
+            throw new HttpException("Has no HttpImpl defined in environment!");
         }
         proxy = defaultProxy;
     }
@@ -66,6 +66,19 @@ public class HttpSync implements SyncHttp {
     }
 
     /**
+     * 设置请求头
+     *
+     * @param header {@link HttpHeader}
+     * @return {@link HttpSync}
+     * @since 2.0.3
+     */
+    public HttpSync setHeader(HttpHeader header) {
+        checkHttpNotNull(proxy);
+        proxy.setHeader(header);
+        return this;
+    }
+
+    /**
      * GET 请求
      *
      * @param url URL
@@ -88,20 +101,6 @@ public class HttpSync implements SyncHttp {
     public String get(String url, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.get(url, params);
-    }
-
-    /**
-     * GET 请求
-     *
-     * @param url    URL
-     * @param header 请求头
-     * @param params 参数
-     * @return 结果
-     */
-    @Override
-    public String get(String url, HttpHeader header, Map<String, String> params) {
-        checkHttpNotNull(proxy);
-        return proxy.get(url, header, params);
     }
 
     /**
@@ -133,20 +132,6 @@ public class HttpSync implements SyncHttp {
      * POST 请求
      *
      * @param url    URL
-     * @param data   JSON 参数
-     * @param header 请求头
-     * @return 结果
-     */
-    @Override
-    public String post(String url, String data, HttpHeader header) {
-        checkHttpNotNull(proxy);
-        return proxy.post(url, data, header);
-    }
-
-    /**
-     * POST 请求
-     *
-     * @param url    URL
      * @param params form 参数
      * @return 结果
      */
@@ -154,20 +139,6 @@ public class HttpSync implements SyncHttp {
     public String post(String url, Map<String, String> params) {
         checkHttpNotNull(proxy);
         return proxy.post(url, params);
-    }
-
-    /**
-     * POST 请求
-     *
-     * @param url    URL
-     * @param header 请求头
-     * @param params form 参数
-     * @return 结果
-     */
-    @Override
-    public String post(String url, HttpHeader header, Map<String, String> params) {
-        checkHttpNotNull(proxy);
-        return proxy.post(url, header, params);
     }
 
 }

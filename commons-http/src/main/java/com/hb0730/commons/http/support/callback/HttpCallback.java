@@ -12,15 +12,15 @@ import java.io.IOException;
  * @author bing_huang
  * @since 1.0.1
  */
-public interface CommonsNetCall {
+public interface HttpCallback {
 
     /**
      * 响应成功 200 &gt;= http code &lt; 300
      *
      * @param result 响应结果
      * @throws IOException 异常
-     * @see com.hb0730.commons.http.support.okhttp3.OkHttp3AsyncImpl#exec(Request.Builder, CommonsNetCall)
-     * @see com.hb0730.commons.http.support.httpclient.HttpClientAsyncImpl#exec(HttpUriRequestBase, BasicRequestProducer, CommonsNetCall)
+     * @see com.hb0730.commons.http.support.okhttp3.OkHttp3AsyncImpl#exec(Request.Builder, HttpCallback)
+     * @see com.hb0730.commons.http.support.httpclient.HttpClientAsyncImpl#exec(HttpUriRequestBase, BasicRequestProducer, HttpCallback)
      */
     void success(String result) throws IOException;
 
@@ -29,8 +29,8 @@ public interface CommonsNetCall {
      *
      * @param result 响应结果
      * @throws IOException 异常
-     * @see com.hb0730.commons.http.support.okhttp3.OkHttp3AsyncImpl#exec(Request.Builder, CommonsNetCall)
-     * @see com.hb0730.commons.http.support.httpclient.HttpClientAsyncImpl#exec(HttpUriRequestBase, BasicRequestProducer, CommonsNetCall)
+     * @see com.hb0730.commons.http.support.okhttp3.OkHttp3AsyncImpl#exec(Request.Builder, HttpCallback)
+     * @see com.hb0730.commons.http.support.httpclient.HttpClientAsyncImpl#exec(HttpUriRequestBase, BasicRequestProducer, HttpCallback)
      */
     void success(byte[] result) throws IOException;
 

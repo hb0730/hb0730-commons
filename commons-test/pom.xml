@@ -6,7 +6,6 @@
 
     <modules>
         <module>../commons-cache-test</module>
-        <module>../commons-http-test</module>
         <module>../commons-spring-test</module>
     </modules>
     <packaging>pom</packaging>

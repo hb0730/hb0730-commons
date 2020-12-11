@@ -3,10 +3,10 @@ package com.hb0730.commons.http.utils;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
-import com.hb0730.commons.http.exception.CommonHttpException;
+import com.hb0730.commons.http.exception.HttpException;
 import com.hb0730.commons.http.inter.AbstractAsyncHttp;
 import com.hb0730.commons.http.inter.AsyncHttp;
-import com.hb0730.commons.http.support.callback.CommonsNetCall;
+import com.hb0730.commons.http.support.callback.HttpCallback;
 import com.hb0730.commons.http.support.httpclient.HttpClientAsyncImpl;
 import com.hb0730.commons.http.support.okhttp3.OkHttp3AsyncImpl;
 import com.hb0730.commons.lang.ClassUtils;
@@ -32,7 +32,7 @@ public class HttpAsync implements AsyncHttp {
             defaultProxy = getHttpProxy(OkHttp3AsyncImpl.class);
         }
         if (defaultProxy == null) {
-            throw new CommonHttpException("Has no HttpImpl defined in environment!");
+            throw new HttpException("Has no HttpImpl defined in environment!");
         }
         proxy = defaultProxy;
     }
@@ -66,107 +66,78 @@ public class HttpAsync implements AsyncHttp {
     }
 
     /**
-     * GET 请求
+     * 设置请求头
      *
-     * @param url            URL
-     * @param commonsNetCall 回调
+     * @param header {@link HttpHeader}
+     * @return {@link HttpAsync}
+     * @since 2.0.3
      */
-    @Override
-    public void get(String url, CommonsNetCall commonsNetCall) {
+    public HttpAsync setHeader(HttpHeader header) {
         checkHttpNotNull(proxy);
-        proxy.get(url, commonsNetCall);
+        proxy.setHeader(header);
+        return this;
     }
 
     /**
      * GET 请求
      *
-     * @param url            URL
-     * @param commonsNetCall 回调
-     * @param params         参数
+     * @param url          URL
+     * @param httpCallback 回调
      */
     @Override
-    public void get(String url, CommonsNetCall commonsNetCall, Map<String, String> params) {
+    public void get(String url, HttpCallback httpCallback) {
         checkHttpNotNull(proxy);
-        proxy.get(url, commonsNetCall, params);
+        proxy.get(url, httpCallback);
     }
 
     /**
      * GET 请求
      *
-     * @param url            URL
-     * @param header         请求头
-     * @param commonsNetCall 回调
-     * @param params         参数
+     * @param url          URL
+     * @param params       参数
+     * @param httpCallback 回调
      */
     @Override
-    public void get(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> params) {
+    public void get(String url, Map<String, String> params, HttpCallback httpCallback) {
         checkHttpNotNull(proxy);
-        proxy.get(url, header, commonsNetCall, params);
+        proxy.get(url, params, httpCallback);
     }
 
     /**
      * POST 请求
      *
-     * @param url            URL
-     * @param commonsNetCall 回调
+     * @param url          URL
+     * @param httpCallback 回调
      */
     @Override
-    public void post(String url, CommonsNetCall commonsNetCall) {
+    public void post(String url, HttpCallback httpCallback) {
         checkHttpNotNull(proxy);
-        proxy.post(url, commonsNetCall);
+        proxy.post(url, httpCallback);
     }
 
     /**
      * POST 请求
      *
-     * @param url            URL
-     * @param data           JSON 参数
-     * @param commonsNetCall 回调
+     * @param url          URL
+     * @param data         JSON 参数
+     * @param httpCallback 回调
      */
     @Override
-    public void post(String url, String data, CommonsNetCall commonsNetCall) {
+    public void post(String url, String data, HttpCallback httpCallback) {
         checkHttpNotNull(proxy);
-        proxy.post(url, data, commonsNetCall);
+        proxy.post(url, data, httpCallback);
     }
 
     /**
      * POST 请求
      *
-     * @param url            URL
-     * @param data           JSON 参数
-     * @param header         请求头
-     * @param commonsNetCall 回调
+     * @param url          URL
+     * @param params       form 参数
+     * @param httpCallback 回调
      */
     @Override
-    public void post(String url, String data, HttpHeader header, CommonsNetCall commonsNetCall) {
+    public void post(String url, Map<String, String> params, HttpCallback httpCallback) {
         checkHttpNotNull(proxy);
-        proxy.post(url, data, header, commonsNetCall);
-    }
-
-    /**
-     * POST 请求
-     *
-     * @param url            URL
-     * @param commonsNetCall 回调
-     * @param params         form 参数
-     */
-    @Override
-    public void post(String url, CommonsNetCall commonsNetCall, Map<String, String> params) {
-        checkHttpNotNull(proxy);
-        proxy.post(url, commonsNetCall, params);
-    }
-
-    /**
-     * POST 请求
-     *
-     * @param url            URL
-     * @param header         请求头
-     * @param commonsNetCall 回调
-     * @param params         form 参数
-     */
-    @Override
-    public void post(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> params) {
-        checkHttpNotNull(proxy);
-        proxy.post(url, header, commonsNetCall, params);
+        proxy.post(url, params, httpCallback);
     }
 }

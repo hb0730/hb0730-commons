@@ -3,9 +3,9 @@ package com.hb0730.commons.http.support.httpclient;
 import com.hb0730.commons.http.HttpHeader;
 import com.hb0730.commons.http.config.HttpConfig;
 import com.hb0730.commons.http.constants.Constants;
-import com.hb0730.commons.http.exception.CommonHttpException;
+import com.hb0730.commons.http.exception.HttpException;
 import com.hb0730.commons.http.inter.AbstractAsyncHttp;
-import com.hb0730.commons.http.support.callback.CommonsNetCall;
+import com.hb0730.commons.http.support.callback.HttpCallback;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.collection.CollectionUtils;
 import com.hb0730.commons.lang.map.MapUtils;
@@ -38,7 +38,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * HTTPClient async
+ * HTTPClient async,需要自行关闭
+ * {@link #getHttpClient()}
  *
  * @author bing_huang
  * @since 1.0.1
@@ -61,19 +62,14 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
     }
 
     @Override
-    public void get(String url, CommonsNetCall commonsNetCall) {
-        get(url, null, commonsNetCall, null);
+    public void get(String url, HttpCallback httpCallback) {
+        get(url, null, httpCallback);
     }
 
     @Override
-    public void get(String url, CommonsNetCall commonsNetCall, Map<String, String> params) {
-        get(url, new HttpHeader(), commonsNetCall, params);
-    }
-
-    @Override
-    public void get(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> params) {
+    public void get(String url, Map<String, String> params, HttpCallback httpCallback) {
         if (StringUtils.isBlank(url)) {
-            throw new CommonHttpException("request url must be not null");
+            throw new HttpException("request url must be not null");
         }
         String baseUrl = StringUtils.appendIfNotContain(url, "?", "&");
         url = baseUrl + MapUtils.parseMapToUrlString(params, httpConfig.isEncode());
@@ -81,26 +77,21 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
         addHeader(httpGet, header);
         StringAsyncEntityProducer entityProducer = new StringAsyncEntityProducer(Constants.EMPTY);
         BasicRequestProducer producer = new BasicRequestProducer(httpGet, entityProducer);
-        this.exec(httpGet, producer, commonsNetCall);
+        this.exec(httpGet, producer, httpCallback);
     }
 
     @Override
-    public void post(String url, final CommonsNetCall commonsNetCall) {
-        post(url, Constants.EMPTY, commonsNetCall);
+    public void post(String url, final HttpCallback httpCallback) {
+        post(url, Constants.EMPTY, httpCallback);
     }
 
     @Override
-    public void post(String url, String dataJson, CommonsNetCall commonsNetCall) {
-        post(url, dataJson, null, commonsNetCall);
-    }
-
-    @Override
-    public void post(String url, String dataJson, HttpHeader header, CommonsNetCall commonsNetCall) {
+    public void post(String url, String dataJson, HttpCallback httpCallback) {
         if (StringUtils.isBlank(url)) {
-            throw new CommonHttpException("request url must be not null");
+            throw new HttpException("request url must be not null");
         }
         HttpPost httpPost = new HttpPost(url);
-        addHeader(httpPost,header);
+        addHeader(httpPost, header);
         AsyncEntityProducer entityProducer;
         if (StringUtils.isEmpty(dataJson)) {
             entityProducer = AsyncEntityProducers.create(Constants.EMPTY);
@@ -108,21 +99,16 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
             entityProducer = AsyncEntityProducers.create(dataJson, ContentType.APPLICATION_JSON);
         }
         BasicRequestProducer producer = new BasicRequestProducer(httpPost, entityProducer);
-        this.exec(httpPost, producer, commonsNetCall);
+        this.exec(httpPost, producer, httpCallback);
     }
 
     @Override
-    public void post(String url, CommonsNetCall commonsNetCall, Map<String, String> formdata) {
-        post(url, null, commonsNetCall, formdata);
-    }
-
-    @Override
-    public void post(String url, HttpHeader header, CommonsNetCall commonsNetCall, Map<String, String> formdata) {
+    public void post(String url, Map<String, String> formdata, HttpCallback httpCallback) {
         if (StringUtils.isBlank(url)) {
-            throw new CommonHttpException("request url must be not null");
+            throw new HttpException("request url must be not null");
         }
         HttpPost httpPost = new HttpPost(url);
-        addHeader(httpPost,header);
+        addHeader(httpPost, header);
         AsyncEntityProducer entityProducer;
         if (!CollectionUtils.isEmpty(formdata)) {
             List<NameValuePair> requestData = new ArrayList<>();
@@ -133,8 +119,9 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
         }
 
         BasicRequestProducer producer = new BasicRequestProducer(httpPost, entityProducer);
-        this.exec(httpPost, producer, commonsNetCall);
+        this.exec(httpPost, producer, httpCallback);
     }
+
     /**
      * 设置请求头信息
      *
@@ -164,7 +151,7 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
         }
     }
 
-    private void exec(HttpUriRequestBase request, BasicRequestProducer producer, CommonsNetCall commonsNetCall) {
+    private void exec(HttpUriRequestBase request, BasicRequestProducer producer, HttpCallback httpCallback) {
         this.addHeader(request);
         RequestConfig.Builder builder = RequestConfig.custom()
                 .setConnectionRequestTimeout(httpConfig.getTimeout(), TimeUnit.MILLISECONDS)
@@ -184,21 +171,21 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
             @SneakyThrows
             @Override
             public void completed(Message<HttpResponse, String> result) {
-                if (null == commonsNetCall) {
+                if (null == httpCallback) {
                     return;
                 }
                 HttpResponse head = result.getHead();
                 if (head.getCode() >= 200 && head.getCode() < 300) {
-                    commonsNetCall.success(result.getBody());
+                    httpCallback.success(result.getBody());
                 }
             }
 
             @Override
             public void failed(Exception ex) {
-                if (null == commonsNetCall) {
+                if (null == httpCallback) {
                     return;
                 }
-                commonsNetCall.file(ex);
+                httpCallback.file(ex);
             }
 
             @Override

@@ -15,6 +15,16 @@ import java.util.Map;
 public class HttpHeader {
     private final Map<String, String> header;
 
+    /**
+     * 构建{@link HttpHeader}
+     *
+     * @return {@link HttpHeader}
+     * @since 2.0.3
+     */
+    public static HttpHeader builder() {
+        return new HttpHeader();
+    }
+
     public HttpHeader() {
         this.header = new HashMap<>(16);
     }

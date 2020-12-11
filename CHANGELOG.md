@@ -1,20 +1,25 @@
 # Changelog
 # 2.0.3
 ## Feature
-+ [commons-lang]
++ **[commons-lang]**
     + 新增 `MapBuilder` 链式map
     + 新增 `HexUtils` 16进制转换
 ## Fixed
 
 ## Change
-+ [commons-json]
++ **[commons-json]**
     + `Jsons`改成枚举类型(安全单例)
-+ [commons-http]
++ **[commons-http]**
     + 将`CommonHttps`改成`Https`,并优化创建方式
     + `httpConfig#timeout`的`int`改为`long`
-+ [commons-lang]
+    + **重构http,删除相关`header`相关方法，使用`setter`**
+    + `HttpHeader`新增`builder`方法
+    + 重命名`CommonsNetCall`为`HttpCallback`
+    + 重命名`CommonHttpException`为`HttpException`
+    + 方法参数重排
++ **[commons-lang]**
     + 将`MapUtils`从`collection`包迁址至`map`包下
-+ [commons-encrypt]
++ **[commons-encrypt]**
     + 移除对`commons-codec:1.13`的依赖
 # 2.0.2
 ## Feature
