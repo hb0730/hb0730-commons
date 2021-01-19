@@ -2,7 +2,7 @@ package com.hb0730.commons.cache.support.serial.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hb0730.commons.cache.CacheWrapper;
-import com.hb0730.commons.cache.exception.CacheException;
+import com.hb0730.commons.cache.exception.SerializationException;
 import com.hb0730.commons.cache.support.serial.AbstractSerializer;
 import lombok.Getter;
 
@@ -53,7 +53,7 @@ public class Jackson2JsonCacheWrapperSerializer extends AbstractSerializer {
             return getObjectMapper().readValue(buffer, CacheWrapper.class);
 
         } catch (Exception e) {
-            throw new CacheException("jackson deserialize error:" + e.getMessage(), e);
+            throw new SerializationException("jackson deserialize error:" + e.getMessage(), e);
         }
     }
 

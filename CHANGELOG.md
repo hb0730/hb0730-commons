@@ -8,7 +8,8 @@
 ## Fixed
 
 ## Change
-
++ **[commons-cache]**
+  + 更新 `Serializer#serialize` , `Serializer#deserialize` 抛出的异常信息
 # 2.0.3
 ## Feature
 + **[commons-lang]**

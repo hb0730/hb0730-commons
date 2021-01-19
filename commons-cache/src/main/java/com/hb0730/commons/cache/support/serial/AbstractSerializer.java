@@ -1,6 +1,6 @@
 package com.hb0730.commons.cache.support.serial;
 
-import com.hb0730.commons.cache.exception.CacheException;
+import com.hb0730.commons.cache.exception.SerializationException;
 import lombok.Getter;
 
 import javax.annotation.Nonnull;
@@ -43,7 +43,7 @@ public abstract class AbstractSerializer implements Serializer {
 
     @Nullable
     @Override
-    public byte[] serialize(@Nullable Object obj) throws Exception {
+    public byte[] serialize(@Nullable Object obj) throws SerializationException {
         if (obj == null) {
             return EMPTY_ARRAY;
         }
@@ -60,6 +60,8 @@ public abstract class AbstractSerializer implements Serializer {
                 bos.write(headerBuffer);
             }
             return doSerialize(bos, obj);
+        } catch (Exception e) {
+            throw new SerializationException("Cannot serialize", e);
         } finally {
             bos.reset();
         }
@@ -77,7 +79,7 @@ public abstract class AbstractSerializer implements Serializer {
 
     @Nullable
     @Override
-    public Object deserialize(@Nullable byte[] buffer) throws Exception {
+    public Object deserialize(@Nullable byte[] buffer) throws SerializationException {
         if (buffer == null || 0 == buffer.length) {
             return null;
         }
@@ -91,7 +93,7 @@ public abstract class AbstractSerializer implements Serializer {
             }
             return doDeserialize(buffer);
         } catch (Exception e) {
-            throw new CacheException("decode error", e);
+            throw new SerializationException("decode error", e);
         }
     }
 
