@@ -13,6 +13,7 @@ on:
     inputs:
       languages:
         required: true
+        description: "java语言"
         default: 'java'
 env:
   JAVA_VERSION: 8
