@@ -43,6 +43,34 @@ public class MapUtils {
         return null != map && !map.isEmpty();
     }
 
+    /**
+     * 是否为空，如果为空，返回一个{@link HashMap}
+     *
+     * @param map map集合
+     * @param <K> key类型
+     * @param <V> value类型
+     * @return map
+     */
+    public static <K, V> Map<K, V> defaultIfEmpty(Map<K, V> map) {
+        return defaultIfEmpty(map, newHashMap());
+    }
+
+    /**
+     * 是否为空,如果为空返回默认map
+     *
+     * @param map        map集合
+     * @param defaultMap 默认map集合
+     * @param <K>        key类型
+     * @param <V>        value类型
+     * @return map
+     */
+    public static <K, V> Map<K, V> defaultIfEmpty(Map<K, V> map, Map<K, V> defaultMap) {
+        if (isEmpty(map)) {
+            return defaultMap;
+        }
+        return map;
+    }
+
 
     /**
      * 新建map

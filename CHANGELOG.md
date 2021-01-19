@@ -2,6 +2,8 @@
 # 2.0.4
 
 ## Feature
++ **[commons-lang]**
+  + 新增`MapUtils#defaultIfEmpty`为空返回默认值
 
 ## Fixed
 
