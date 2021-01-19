@@ -50,6 +50,7 @@ public class MapUtils {
      * @param <K> key类型
      * @param <V> value类型
      * @return map
+     * @since 2.0.4
      */
     public static <K, V> Map<K, V> defaultIfEmpty(Map<K, V> map) {
         return defaultIfEmpty(map, newHashMap());
@@ -63,6 +64,7 @@ public class MapUtils {
      * @param <K>        key类型
      * @param <V>        value类型
      * @return map
+     * @since 2.0.4
      */
     public static <K, V> Map<K, V> defaultIfEmpty(Map<K, V> map, Map<K, V> defaultMap) {
         if (isEmpty(map)) {
