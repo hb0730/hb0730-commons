@@ -27,7 +27,7 @@ import java.util.*;
 public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
     private static final Logger LOGGER = LoggerFactory.getLogger(JedisPoolCache.class);
     private final JedisProperties properties;
-    private final Serializer serializer;
+    private final Serializer<V> serializer;
     @Getter
     private volatile static JedisPool JEDIS_POOL;
 
@@ -69,7 +69,6 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
 
     @Nonnull
     @Override
-    @SuppressWarnings({"unchecked"})
     protected Optional<CacheWrapper<V>> getInternal(@Nonnull K key) {
         Assert.notNull(key, "Cache key must not be null");
         try {
@@ -77,7 +76,7 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
             try (Jedis jedis = JEDIS_POOL.getResource()) {
                 byte[] resultBytes = jedis.get(newKey);
                 if (resultBytes != null) {
-                    CacheWrapper<V> result = (CacheWrapper<V>) serializer.deserialize(resultBytes);
+                    CacheWrapper<V> result = serializer.deserialize(resultBytes);
                     LOGGER.debug("get success key:[{}],result:[{}]", key, result);
                     return Optional.ofNullable(result);
                 }
@@ -91,7 +90,6 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
 
     @Nonnull
     @Override
-    @SuppressWarnings({"unchecked"})
     protected Optional<Map<K, CacheWrapper<V>>> getInternal(@Nonnull Set<K> keys) {
         Assert.notNull(keys, "Cache key must not be null");
         try (Jedis jedis = JEDIS_POOL.getResource()) {
@@ -110,18 +108,17 @@ public class JedisPoolCache<K, V> extends AbstractRemoteCache<K, V> {
                 for (int i = 0; i < mgetResults.size(); i++) {
                     byte[] value = mgetResults.get(i);
                     if (null != value) {
-                        CacheWrapper<V> resultValue = (CacheWrapper<V>) serializer.deserialize(value);
+                        CacheWrapper<V> resultValue = serializer.deserialize(value);
                         K key = keyList.get(i);
                         result.put(key, resultValue);
                     }
                 }
             }
-            Optional.of(result);
+            return Optional.of(result);
         } catch (Exception e) {
             LOGGER.error("get cache error key [{}], message:[{}]", keys, e.getMessage());
             throw new CacheException("get cache error", e);
         }
-        return Optional.empty();
     }
 
     @Override

@@ -2,30 +2,35 @@ package com.hb0730.commons.cache.support.serial.impl;
 
 import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.support.serial.Serializer;
-import com.hb0730.commons.lang.date.DateUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
-
+@Slf4j
 public class JdkCacheSerializerTest {
-    public Serializer serializer;
+    private Serializer<String> jdkCacheSerializer;
 
     @Before
-    public void init() {
-        serializer = JdkCacheSerializer.INSTANCE;
+    public void before() throws Exception {
+        jdkCacheSerializer = (Serializer) new JdkCacheSerializer(true);
     }
 
     @Test
-    public void serializeAndDeserializeTest() throws Exception {
-        CacheWrapper<String> wrapper = new CacheWrapper<>();
-        wrapper.setCreateAt(new Date());
-        Date date = DateUtils.addHours(wrapper.getCreateAt(), 1);
-        wrapper.setExpireAt(date);
-        System.out.println(wrapper);
-        byte[] serialize = serializer.serialize(wrapper);
-        wrapper = null;
-        wrapper = (CacheWrapper<String>) serializer.deserialize(serialize);
-        System.out.println(wrapper);
+    public void serializeTest() {
+        CacheWrapper<String> testData = new CacheWrapper<String>();
+        testData.setData("测试test");
+        byte[] serialize = jdkCacheSerializer.serialize(testData);
+
+    }
+
+    @Test
+    public void deserializeTest() {
+        CacheWrapper<String> testData = new CacheWrapper<String>();
+        testData.setData("测试test");
+        byte[] serialize = jdkCacheSerializer.serialize(testData);
+        CacheWrapper<String> deserialize = jdkCacheSerializer.deserialize(serialize);
+        String data = deserialize.getData();
+        Assert.assertNotNull("data为空", data);
     }
 }

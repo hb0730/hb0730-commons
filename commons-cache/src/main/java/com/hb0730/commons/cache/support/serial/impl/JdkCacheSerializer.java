@@ -1,6 +1,7 @@
 package com.hb0730.commons.cache.support.serial.impl;
 
 
+import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.support.serial.AbstractSerializer;
 
 import javax.annotation.Nonnull;
@@ -13,13 +14,13 @@ import java.io.*;
  * @author bing_huang
  * @since 1.0.0
  */
-public class JdkCacheSerializer extends AbstractSerializer {
+public class JdkCacheSerializer extends AbstractSerializer<Object> {
     public static final JdkCacheSerializer INSTANCE = new JdkCacheSerializer(true);
 
     public static final int IDENTITY_NUMBER = 0x4A953A80;
 
     public JdkCacheSerializer(boolean useIdentityNumber) {
-        super(useIdentityNumber, IDENTITY_NUMBER);
+        super(useIdentityNumber, IDENTITY_NUMBER, Object.class);
     }
 
     @Override
@@ -34,7 +35,8 @@ public class JdkCacheSerializer extends AbstractSerializer {
     }
 
     @Override
-    protected Object doDeserialize(@Nullable byte[] buffer) throws Exception {
+    @SuppressWarnings({"unchecked"})
+    protected CacheWrapper<Object> doDeserialize(@Nullable byte[] buffer) throws Exception {
         if (null == buffer || 0 == buffer.length) {
             return null;
         }
@@ -45,7 +47,7 @@ public class JdkCacheSerializer extends AbstractSerializer {
             in = new ByteArrayInputStream(buffer);
         }
         ObjectInputStream ois = buildObjectInputStream(in);
-        return ois.readObject();
+        return (CacheWrapper<Object>) ois.readObject();
     }
 
     protected ObjectInputStream buildObjectInputStream(ByteArrayInputStream in) throws IOException {

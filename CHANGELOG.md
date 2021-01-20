@@ -6,6 +6,9 @@
   + 新增`MapUtils#defaultIfEmpty`为空返回默认值
 
 ## Fixed
++ **[commons-cache]**
+  + 移除 `GlobalSerializeMap` 
+  + fixed jackson2反序列化泛型擦除问题
 
 ## Change
 + **[commons-cache]**

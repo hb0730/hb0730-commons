@@ -3,7 +3,6 @@ package com.hb0730.commons.cache.test.impl;
 import com.hb0730.commons.cache.impl.AbstractCache;
 import com.hb0730.commons.cache.impl.remote.RedisSpringDataCache;
 import com.hb0730.commons.cache.support.redis.springdata.RedisSpringDataCacheConfig;
-import com.hb0730.commons.cache.support.serial.GlobalSerializeMap;
 import com.hb0730.commons.cache.support.serial.impl.Jackson2JsonCacheWrapperSerializer;
 import com.hb0730.commons.lang.collection.CollectionUtils;
 import org.junit.Assert;
@@ -36,8 +35,7 @@ public class RedisSpringDataCacheTest {
 
     static {
         if (useJson) {
-            GlobalSerializeMap.register();
-            config.setSerializer(GlobalSerializeMap.get(Jackson2JsonCacheWrapperSerializer.IDENTITY_NUMBER));
+            config.setSerializer(new Jackson2JsonCacheWrapperSerializer(true, String.class));
 
         }
     }

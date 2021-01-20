@@ -1,5 +1,6 @@
 package com.hb0730.commons.cache.support.serial;
 
+import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.exception.SerializationException;
 
 import javax.annotation.Nullable;
@@ -11,7 +12,7 @@ import javax.annotation.Nullable;
  * @see org.springframework.data.redis.serializer
  * @since 1.0.0
  */
-public interface Serializer {
+public interface Serializer<T> {
     byte[] EMPTY_ARRAY = new byte[0];
 
     /**
@@ -22,7 +23,7 @@ public interface Serializer {
      * @throws SerializationException 序列化异常
      */
     @Nullable
-    byte[] serialize(@Nullable Object obj) throws SerializationException;
+    byte[] serialize(@Nullable CacheWrapper<T> obj) throws SerializationException;
 
 
     /**
@@ -33,6 +34,6 @@ public interface Serializer {
      * @throws SerializationException 反序列化异常
      */
     @Nullable
-    Object deserialize(@Nullable byte[] bytes) throws SerializationException;
+    CacheWrapper<T> deserialize(@Nullable byte[] bytes) throws SerializationException;
 
 }

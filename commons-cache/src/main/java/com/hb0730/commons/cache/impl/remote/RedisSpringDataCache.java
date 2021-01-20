@@ -25,7 +25,7 @@ import java.util.*;
 public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisSpringDataCache.class);
     private final RedisConnectionFactory connectionFactory;
-    private final Serializer serializer;
+    private final Serializer<V> serializer;
 
     public RedisSpringDataCache(RedisSpringDataCacheConfig<K, V> config) {
         super(config);
@@ -36,7 +36,6 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
 
     @Nonnull
     @Override
-    @SuppressWarnings({"unchecked"})
     protected Optional<CacheWrapper<V>> getInternal(@Nonnull K key) {
         Assert.notNull(key, "Cache key must not be null");
         RedisConnection connection = null;
@@ -45,7 +44,7 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             byte[] newKey = buildKey(key);
             byte[] resultBytes = connection.get(newKey);
             if (resultBytes != null) {
-                CacheWrapper<V> result = (CacheWrapper<V>) serializer.deserialize(resultBytes);
+                CacheWrapper<V> result = serializer.deserialize(resultBytes);
                 LOGGER.debug("get success key:[{}],result:[{}]", key, result);
                 return Optional.ofNullable(result);
             }
@@ -60,7 +59,6 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
 
     @Nonnull
     @Override
-    @SuppressWarnings({"unchecked"})
     protected Optional<Map<K, CacheWrapper<V>>> getInternal(@Nonnull Set<K> keys) {
         Assert.notEmpty(keys, "Cache key must not be null");
         RedisConnection connection = null;
@@ -81,7 +79,7 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
                 for (int i = 0; i < (mgetResults != null ? mgetResults.size() : 0); i++) {
                     byte[] bytes = mgetResults.get(i);
                     K k = keyList.get(i);
-                    CacheWrapper<V> result = (CacheWrapper<V>) serializer.deserialize(bytes);
+                    CacheWrapper<V> result = serializer.deserialize(bytes);
                     resultMap.put(k, result);
                 }
                 return Optional.of(resultMap);

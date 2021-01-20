@@ -21,5 +21,6 @@ public class CacheConfig<K, V> {
     /**
      * 序列化
      */
-    private Serializer serializer = JdkCacheSerializer.INSTANCE;
+    @SuppressWarnings("rawtypes")
+    private Serializer serializer = new JdkCacheSerializer(true);
 }

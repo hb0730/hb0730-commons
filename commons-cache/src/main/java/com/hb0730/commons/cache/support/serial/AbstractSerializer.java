@@ -1,5 +1,8 @@
 package com.hb0730.commons.cache.support.serial;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.exception.SerializationException;
 import lombok.Getter;
 
@@ -7,7 +10,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.lang.ref.WeakReference;
-import java.util.Objects;
 
 /**
  * 序列化抽象
@@ -15,19 +17,28 @@ import java.util.Objects;
  * @author bing_huang
  * @since 1.0.0
  */
-public abstract class AbstractSerializer implements Serializer {
+public abstract class AbstractSerializer<T> implements Serializer<T> {
     @Getter
     protected boolean useIdentityNumber;
     private static final int INIT_BUF_SIZE = 256;
     @Getter
     private final int identityNumber;
+    @Getter
+    private final JavaType javaType;
 
     private static ThreadLocal<WeakReference<ByteArrayOutputStream>> threadLocal =
             ThreadLocal.withInitial(() -> new WeakReference<>(new ByteArrayOutputStream(INIT_BUF_SIZE)));
 
-    public AbstractSerializer(boolean useIdentityNumber, int identityNumber) {
+    public AbstractSerializer(boolean useIdentityNumber, int identityNumber, Class<T> type) {
         this.useIdentityNumber = useIdentityNumber;
         this.identityNumber = identityNumber;
+        this.javaType = getJavaType(type);
+    }
+
+    public AbstractSerializer(boolean useIdentityNumber, int identityNumber, JavaType type) {
+        this.useIdentityNumber = useIdentityNumber;
+        this.identityNumber = identityNumber;
+        this.javaType = type;
     }
 
     /**
@@ -43,7 +54,7 @@ public abstract class AbstractSerializer implements Serializer {
 
     @Nullable
     @Override
-    public byte[] serialize(@Nullable Object obj) throws SerializationException {
+    public byte[] serialize(@Nullable CacheWrapper<T> obj) throws SerializationException {
         if (obj == null) {
             return EMPTY_ARRAY;
         }
@@ -74,23 +85,16 @@ public abstract class AbstractSerializer implements Serializer {
      * @return 完成反序列的对象
      * @throws Exception 反序列化异常
      */
-    protected abstract Object doDeserialize(@Nullable byte[] buffer) throws Exception;
+    protected abstract CacheWrapper<T> doDeserialize(@Nullable byte[] buffer) throws Exception;
 
 
     @Nullable
     @Override
-    public Object deserialize(@Nullable byte[] buffer) throws SerializationException {
+    public CacheWrapper<T> deserialize(@Nullable byte[] buffer) throws SerializationException {
         if (buffer == null || 0 == buffer.length) {
             return null;
         }
         try {
-            if (useIdentityNumber) {
-                GlobalSerializeMap.register();
-                int identityNumber = parseHeader(buffer);
-                AbstractSerializer serializer = (AbstractSerializer) GlobalSerializeMap.get(identityNumber);
-                Objects.requireNonNull(serializer, "no deserialize for identity number:" + identityNumber);
-                return serializer.doDeserialize(buffer);
-            }
             return doDeserialize(buffer);
         } catch (Exception e) {
             throw new SerializationException("decode error", e);
@@ -105,15 +109,7 @@ public abstract class AbstractSerializer implements Serializer {
         buf[3] = (byte) (header & 0xFF);
     }
 
-    protected int parseHeader(byte[] buf) {
-        int x = 0;
-        x = x | (buf[0] & 0xFF);
-        x <<= 8;
-        x = x | (buf[1] & 0xFF);
-        x <<= 8;
-        x = x | (buf[2] & 0xFF);
-        x <<= 8;
-        x = x | (buf[3] & 0xFF);
-        return x;
+    protected JavaType getJavaType(Class<?> clazz) {
+        return TypeFactory.defaultInstance().constructType(clazz);
     }
 }
