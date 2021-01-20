@@ -51,7 +51,6 @@ public class Jackson2JsonCacheWrapperSerializerTest {
         testData.setData(listData);
         JavaType javaType = TypeFactory.defaultInstance().constructParametricType(DataClass.class, String.class);
         JavaType javaType1 = TypeFactory.defaultInstance().constructParametricType(List.class, javaType);
-//        JavaType javaType2 = TypeFactory.defaultInstance().constructParametricType(CacheWrapper.class, javaType1);
         Serializer<List<DataClass<String>>> serializer = new Jackson2JsonCacheWrapperSerializer<>(true, javaType1);
         byte[] serialize = serializer.serialize(testData);
         CacheWrapper<List<DataClass<String>>> deserialize = serializer.deserialize(serialize);
