@@ -1,6 +1,6 @@
 package com.hb0730.commons.cache.config;
 
-import com.hb0730.commons.cache.support.serial.Serializer;
+import com.hb0730.commons.cache.support.serializer.Serializer;
 import org.junit.Test;
 
 public class CacheConfigTest {

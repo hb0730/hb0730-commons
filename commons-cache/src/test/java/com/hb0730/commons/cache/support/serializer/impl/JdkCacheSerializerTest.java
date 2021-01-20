@@ -1,7 +1,7 @@
-package com.hb0730.commons.cache.support.serial.impl;
+package com.hb0730.commons.cache.support.serializer.impl;
 
 import com.hb0730.commons.cache.CacheWrapper;
-import com.hb0730.commons.cache.support.serial.Serializer;
+import com.hb0730.commons.cache.support.serializer.Serializer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Before;

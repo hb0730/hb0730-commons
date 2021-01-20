@@ -1,4 +1,4 @@
-package com.hb0730.commons.cache.support.serial;
+package com.hb0730.commons.cache.support.serializer;
 
 import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.exception.SerializationException;

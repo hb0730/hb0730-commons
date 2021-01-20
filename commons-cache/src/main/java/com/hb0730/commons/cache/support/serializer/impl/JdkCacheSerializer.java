@@ -1,8 +1,8 @@
-package com.hb0730.commons.cache.support.serial.impl;
+package com.hb0730.commons.cache.support.serializer.impl;
 
 
 import com.hb0730.commons.cache.CacheWrapper;
-import com.hb0730.commons.cache.support.serial.AbstractSerializer;
+import com.hb0730.commons.cache.support.serializer.AbstractSerializer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

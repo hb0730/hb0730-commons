@@ -1,11 +1,11 @@
-package com.hb0730.commons.cache.support.serial.impl;
+package com.hb0730.commons.cache.support.serializer.impl;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.exception.SerializationException;
-import com.hb0730.commons.cache.support.serial.AbstractSerializer;
+import com.hb0730.commons.cache.support.serializer.AbstractSerializer;
 import lombok.Getter;
 
 import javax.annotation.Nonnull;

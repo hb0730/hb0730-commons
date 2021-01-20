@@ -1,7 +1,7 @@
 package com.hb0730.commons.cache.config;
 
-import com.hb0730.commons.cache.support.serial.Serializer;
-import com.hb0730.commons.cache.support.serial.impl.JdkCacheSerializer;
+import com.hb0730.commons.cache.support.serializer.Serializer;
+import com.hb0730.commons.cache.support.serializer.impl.JdkCacheSerializer;
 import lombok.Data;
 
 import java.util.function.Function;

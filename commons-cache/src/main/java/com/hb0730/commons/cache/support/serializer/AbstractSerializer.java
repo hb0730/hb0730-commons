@@ -1,4 +1,4 @@
-package com.hb0730.commons.cache.support.serial;
+package com.hb0730.commons.cache.support.serializer;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;

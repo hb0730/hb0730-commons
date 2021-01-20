@@ -4,7 +4,7 @@ import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.exception.CacheException;
 import com.hb0730.commons.cache.support.redis.jedis.JedisCacheConfig;
 import com.hb0730.commons.cache.support.redis.jedis.JedisProperties;
-import com.hb0730.commons.cache.support.serial.Serializer;
+import com.hb0730.commons.cache.support.serializer.Serializer;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
