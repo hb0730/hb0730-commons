@@ -1,10 +1,18 @@
 package com.hb0730.commons.cache.test.impl;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.google.common.collect.Lists;
+import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.impl.AbstractCache;
 import com.hb0730.commons.cache.impl.remote.RedisSpringDataCache;
 import com.hb0730.commons.cache.support.redis.springdata.RedisSpringDataCacheConfig;
 import com.hb0730.commons.cache.support.serial.impl.Jackson2JsonCacheWrapperSerializer;
 import com.hb0730.commons.lang.collection.CollectionUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +22,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -109,4 +118,31 @@ public class RedisSpringDataCacheTest {
         cache.putIfAbsent("test", "test2", 1, TimeUnit.HOURS);
         System.out.println(cache.get("test").orElseGet(() -> "为空"));
     }
+
+    @Test
+    public void javaTypeTest() {
+        RedisSpringDataCacheConfig<String, List<DataClass<String>>> configuration = new RedisSpringDataCacheConfig<>();
+        configuration.setConnectionFactory(connectionFactory);
+        JavaType javaType = TypeFactory.defaultInstance().constructParametricType(DataClass.class, String.class);
+        JavaType javaType1 = TypeFactory.defaultInstance().constructParametricType(List.class, javaType);
+        configuration.setSerializer(new Jackson2JsonCacheWrapperSerializer(true, javaType1));
+        AbstractCache<String, List<DataClass<String>>> cache = new RedisSpringDataCache<>(configuration);
+        List<DataClass<String>> listData = Lists.newArrayList();
+        listData.add(new DataClass<>("测试1"));
+        listData.add(new DataClass<>("测试2"));
+        listData.add(new DataClass<>("测试3"));
+        cache.put("test",listData);
+        Optional<List<DataClass<String>>> test = cache.get("test");
+        List<DataClass<String>> dataClasses = test.get();
+        String data = dataClasses.get(0).getData();
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class DataClass<T> implements Serializable {
+        private T data;
+    }
+
 }

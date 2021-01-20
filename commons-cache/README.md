@@ -49,3 +49,21 @@ public static class DataClass<T> implements Serializable {
     private T data;
 }
 ```
+
+# spring data redis 泛型 demo
+```java
+RedisSpringDataCacheConfig<String, List<DataClass<String>>> configuration = new RedisSpringDataCacheConfig<>();
+configuration.setConnectionFactory(connectionFactory);
+JavaType javaType = TypeFactory.defaultInstance().constructParametricType(DataClass.class, String.class);
+JavaType javaType1 = TypeFactory.defaultInstance().constructParametricType(List.class, javaType);
+configuration.setSerializer(new Jackson2JsonCacheWrapperSerializer(true, javaType1));
+AbstractCache<String, List<DataClass<String>>> cache = new RedisSpringDataCache<>(configuration);
+List<DataClass<String>> listData = Lists.newArrayList();
+listData.add(new DataClass<>("测试1"));
+listData.add(new DataClass<>("测试2"));
+listData.add(new DataClass<>("测试3"));
+cache.put("test",listData);
+Optional<List<DataClass<String>>> test = cache.get("test");
+List<DataClass<String>> dataClasses = test.get();
+String data = dataClasses.get(0).getData();
+```
