@@ -22,6 +22,11 @@ cache.get("test")
 ```
 具体用法可以参考`commons-cache-test`案例
 
+## 支持的Serializer
+* Jdk Serializer (jdk序列化)
+* jackson2 Serializer (jackson2序列化)
+* Generic Jackson2 Serializer (支持泛型的jackson2序列化)
+
 ## jackson泛型擦除问题
 ```java
   @Test

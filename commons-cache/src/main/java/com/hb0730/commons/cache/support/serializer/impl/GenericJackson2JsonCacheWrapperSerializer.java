@@ -26,7 +26,7 @@ import java.io.IOException;
  * @see org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
  */
 public class GenericJackson2JsonCacheWrapperSerializer extends AbstractSerializer<Object> {
-    public static final int IDENTITY_NUMBER = 0x4A953A81;
+    public static final int IDENTITY_NUMBER = 0x4A953A82;
     @Getter
     private final ObjectMapper mapper;
 
@@ -96,6 +96,7 @@ public class GenericJackson2JsonCacheWrapperSerializer extends AbstractSerialize
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     protected CacheWrapper<Object> doDeserialize(@Nullable byte[] buffer) throws Exception {
         if (null == buffer || 0 == buffer.length) {
             return null;
