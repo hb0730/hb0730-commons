@@ -1,5 +1,6 @@
 package com.hb0730.commons.cache.support.serializer.impl;
 
+import com.hb0730.commons.cache.BaseTest;
 import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.support.serializer.Serializer;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @Slf4j
-public class JdkCacheSerializerTest {
+public class JdkCacheSerializerTest extends BaseTest {
     private Serializer<String> jdkCacheSerializer;
 
     @Before

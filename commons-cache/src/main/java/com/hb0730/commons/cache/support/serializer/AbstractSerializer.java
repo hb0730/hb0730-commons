@@ -23,22 +23,13 @@ public abstract class AbstractSerializer<T> implements Serializer<T> {
     private static final int INIT_BUF_SIZE = 256;
     @Getter
     private final int identityNumber;
-    @Getter
-    private final JavaType javaType;
 
     private static ThreadLocal<WeakReference<ByteArrayOutputStream>> threadLocal =
             ThreadLocal.withInitial(() -> new WeakReference<>(new ByteArrayOutputStream(INIT_BUF_SIZE)));
 
-    public AbstractSerializer(boolean useIdentityNumber, int identityNumber, Class<T> type) {
+    public AbstractSerializer(boolean useIdentityNumber, int identityNumber) {
         this.useIdentityNumber = useIdentityNumber;
         this.identityNumber = identityNumber;
-        this.javaType = getJavaType(type);
-    }
-
-    public AbstractSerializer(boolean useIdentityNumber, int identityNumber, JavaType type) {
-        this.useIdentityNumber = useIdentityNumber;
-        this.identityNumber = identityNumber;
-        this.javaType = type;
     }
 
     /**

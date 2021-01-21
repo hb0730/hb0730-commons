@@ -20,7 +20,7 @@ public class JdkCacheSerializer extends AbstractSerializer<Object> {
     public static final int IDENTITY_NUMBER = 0x4A953A80;
 
     public JdkCacheSerializer(boolean useIdentityNumber) {
-        super(useIdentityNumber, IDENTITY_NUMBER, Object.class);
+        super(useIdentityNumber, IDENTITY_NUMBER);
     }
 
     @Override

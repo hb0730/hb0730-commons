@@ -24,15 +24,16 @@ public class Jackson2JsonCacheWrapperSerializer<T> extends AbstractSerializer<T>
 
     public static final int IDENTITY_NUMBER = 0x4A953A81;
 
+    @Getter
+    public JavaType javaType;
+
 
     public Jackson2JsonCacheWrapperSerializer(boolean useIdentityNumber, Class<T> type) {
-        super(useIdentityNumber, IDENTITY_NUMBER, type);
-        this.objectMapper = new ObjectMapper();
+        this(useIdentityNumber, new ObjectMapper(), type);
     }
 
     public Jackson2JsonCacheWrapperSerializer(boolean useIdentityNumber, JavaType type) {
-        super(useIdentityNumber, IDENTITY_NUMBER, type);
-        this.objectMapper = new ObjectMapper();
+        this(useIdentityNumber, new ObjectMapper(), type);
     }
 
     /**
@@ -43,8 +44,22 @@ public class Jackson2JsonCacheWrapperSerializer<T> extends AbstractSerializer<T>
      * @since 2.0.2
      */
     public Jackson2JsonCacheWrapperSerializer(boolean useIdentityNumber, ObjectMapper objectMapper, Class<T> type) {
-        super(useIdentityNumber, IDENTITY_NUMBER, type);
+        super(useIdentityNumber, IDENTITY_NUMBER);
         this.objectMapper = objectMapper;
+        this.javaType = getJavaType(type);
+    }
+
+    /**
+     * 扩展运行设置{@link ObjectMapper}
+     *
+     * @param objectMapper      {@link ObjectMapper}
+     * @param useIdentityNumber 是否使用使用标识号{@link #IDENTITY_NUMBER}
+     * @since 2.0.2
+     */
+    public Jackson2JsonCacheWrapperSerializer(boolean useIdentityNumber, ObjectMapper objectMapper, JavaType type) {
+        super(useIdentityNumber, IDENTITY_NUMBER);
+        this.objectMapper = objectMapper;
+        this.javaType = type;
     }
 
     @Override

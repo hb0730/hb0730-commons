@@ -3,20 +3,16 @@ package com.hb0730.commons.cache.support.serializer.impl;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.collect.Lists;
+import com.hb0730.commons.cache.BaseTest;
 import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.support.serializer.Serializer;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class Jackson2JsonCacheWrapperSerializerTest {
+public class Jackson2JsonCacheWrapperSerializerTest extends BaseTest {
     Serializer<String> jackson2CacheSerializer = null;
 
     @Before
@@ -56,13 +52,5 @@ public class Jackson2JsonCacheWrapperSerializerTest {
         CacheWrapper<List<DataClass<String>>> deserialize = serializer.deserialize(serialize);
         List<DataClass<String>> data = deserialize.getData();
         Assert.assertNotNull("序列化失败", data);
-    }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class DataClass<T> implements Serializable {
-        private T data;
     }
 }
