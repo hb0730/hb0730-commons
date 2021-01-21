@@ -61,9 +61,9 @@ public class GenericJackson2JsonCacheWrapperSerializer extends AbstractSerialize
         registerNullValueSerializer(mapper, classPropertyTypeName);
         this.mapper = mapper;
         if (StringUtils.hasText(classPropertyTypeName)) {
-            mapper.enableDefaultTypingAsProperty(ObjectMapper.DefaultTyping.NON_FINAL, classPropertyTypeName);
+            mapper.activateDefaultTypingAsProperty(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, classPropertyTypeName);
         } else {
-            mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+            mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         }
     }
 
