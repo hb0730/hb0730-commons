@@ -9,7 +9,7 @@ import org.springframework.aop.support.AopUtils;
  * @author bing_huang
  * @see AopProxyUtils
  * @see AopUtils
- * @since 2.04
+ * @since 2.0.4
  */
 public class AopTargetUtils {
 
