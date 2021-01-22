@@ -24,6 +24,7 @@ import java.io.IOException;
  *
  * @author bing_huang
  * @see org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer
+ * @since 2.0.4
  */
 public class GenericJackson2JsonCacheWrapperSerializer extends AbstractSerializer<Object> {
     public static final int IDENTITY_NUMBER = 0x4A953A82;

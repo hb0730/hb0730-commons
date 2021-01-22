@@ -24,7 +24,7 @@
         <compile.version>8</compile.version>
         <junit.version>4.13.1</junit.version>
         <lombok.version>1.18.12</lombok.version>
-        <commons.version>2.0.3-SNAPSHOT</commons.version>
+        <commons.version>2.0.4-SNAPSHOT</commons.version>
     </properties>
     <dependencyManagement>
         <dependencies>

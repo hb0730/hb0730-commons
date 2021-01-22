@@ -4,6 +4,7 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 
@@ -51,14 +52,28 @@ public class SpringContextUtils {
     /**
      * 获取spring beanFactory中bean
      *
-     * @param clz class bean
+     * @param clazz class bean
      * @param <T> bean 类型
      * @return bean实例
      * @throws BeansException bean exception
      */
 
-    public static <T> T getBean(Class<T> clz) throws BeansException {
-        return getApplicationContext().getBean(clz);
+    public static <T> T getBean(Class<T> clazz) throws BeansException {
+        return getApplicationContext().getBean(clazz);
+    }
+
+
+    /**
+     * 通过name,以及Clazz返回指定的Bean
+     *
+     * @param <T>   bean类型
+     * @param name  Bean名称
+     * @param clazz bean类型
+     * @return Bean对象
+     * @since 2.0.4
+     */
+    public static <T> T getBean(String name, Class<T> clazz) {
+        return getApplicationContext().getBean(name, clazz);
     }
 
     /**
@@ -113,5 +128,43 @@ public class SpringContextUtils {
     @SuppressWarnings("unchecked")
     public static <T> T getAopProxy() {
         return (T) AopContext.currentProxy();
+    }
+
+    /**
+     * 获取配置文件配置项的值
+     *
+     * @param key 配置项key
+     * @return 属性值
+     * @since 2.0.4
+     */
+    public static String getProperty(String key) {
+        return getApplicationContext().getEnvironment().getProperty(key);
+    }
+
+
+    /**
+     * 获取当前的环境配置，无配置返回null
+     *
+     * @return 当前的环境配置
+     * @since 2.0.4
+     */
+    public static String[] getActiveProfiles() {
+        return getApplicationContext().getEnvironment().getActiveProfiles();
+    }
+
+
+    /**
+     * 动态向Spring注册Bean
+     * <p>
+     * 由{@link org.springframework.beans.factory.BeanFactory} 实现，通过工具开放API
+     *
+     * @param <T>      Bean类型
+     * @param beanName 名称
+     * @param bean     bean
+     * @since 2.0.4
+     */
+    public static <T> void registerBean(String beanName, T bean) {
+        ConfigurableApplicationContext context = (ConfigurableApplicationContext) applicationContext;
+        context.getBeanFactory().registerSingleton(beanName, bean);
     }
 }

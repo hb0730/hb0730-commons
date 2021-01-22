@@ -6,6 +6,8 @@
   + 新增`MapUtils#defaultIfEmpty`为空返回默认
 + **[commons-cache]**
   + 新增 **GenericJackson2JsonCacheWrapperSerializer** 类,用来对泛型的支持, see [GenericJackson2JsonRedisSerializer](https://github.com/spring-projects/spring-data-redis/blob/master/src/main/java/org/springframework/data/redis/serializer/GenericJackson2JsonRedisSerializer.java)
++ **[commons-spring]** 
+  + 新增 `SpringContextUtils#getProperty`等方法
 ## Fixed
 + **[commons-cache]**
   + 移除 `GlobalSerializeMap` 
