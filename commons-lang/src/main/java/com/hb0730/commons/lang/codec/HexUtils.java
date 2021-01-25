@@ -70,6 +70,17 @@ public class HexUtils {
     }
 
     /**
+     * 将字节数组转换为十六进制字符串,默认小写
+     *
+     * @param data byte[]
+     * @return 十六进制String
+     * @since 2.1.0
+     */
+    public static String encodeHexString(byte[] data) {
+        return encodeHexString(data, false);
+    }
+
+    /**
      * 将字节数组转换为十六进制字符串
      *
      * @param data        byte[]

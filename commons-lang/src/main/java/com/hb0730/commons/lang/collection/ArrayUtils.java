@@ -97,6 +97,17 @@ public class ArrayUtils {
     }
 
     /**
+     * 当前对象不为空
+     *
+     * @param array 数组对象
+     * @return 是否为空
+     * @since 2.1.0
+     */
+    public static boolean isNotEmpty(Object array) {
+        return !isEmpty(array);
+    }
+
+    /**
      * 反转数组的元素顺序。如果数组为<code>null</code>，则什么也不做。
      *
      * @param array 要反转的数组

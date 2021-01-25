@@ -115,7 +115,8 @@ public class MD5Utils {
             digest.update(salt);
         }
         byte[] bytes = digest.digest(data);
-        for (int i = 0; i < hashCount; i++) {
+
+        for (int i = 0; i < hashCount - 1; i++) {
             digest.reset();
             bytes = digest.digest(bytes);
         }
