@@ -11,6 +11,7 @@ import com.hb0730.commons.lang.collection.CollectionUtils;
 import com.hb0730.commons.lang.map.MapUtils;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.apache.hc.client5.http.ClientProtocolException;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
@@ -176,6 +177,8 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
                 HttpResponse head = result.getHead();
                 if (head.getCode() >= HttpStatus.SC_SUCCESS && head.getCode() < HttpStatus.SC_REDIRECTION) {
                     httpCallback.success(result.getBody());
+                } else {
+                    httpCallback.failure(new ClientProtocolException("Unexpected response status: " + head.getCode()));
                 }
             }
 
