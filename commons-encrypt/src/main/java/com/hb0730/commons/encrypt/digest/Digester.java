@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 
 /**
- * 摘要算法
+ * 摘要算法,(该设计来自<a href="http://www.hutool.cn/">hutool</a>)
  *
  * @author bing_huang
  * @since 2.1.0
