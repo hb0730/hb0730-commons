@@ -174,7 +174,7 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
                     return;
                 }
                 HttpResponse head = result.getHead();
-                if (head.getCode() >= 200 && head.getCode() < 300) {
+                if (head.getCode() >= HttpStatus.SC_SUCCESS && head.getCode() < HttpStatus.SC_REDIRECTION) {
                     httpCallback.success(result.getBody());
                 }
             }
