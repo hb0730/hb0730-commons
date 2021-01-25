@@ -9,16 +9,20 @@
 + **[commons-spring]** 
   + 新增 `SpringContextUtils#getProperty`等方法
   + 新增 `AopTargetUtils`对aop代理相关工具类
+  
 ## Fixed
 + **[commons-cache]**
   + 移除 `GlobalSerializeMap` 
   + fixed jackson2反序列化泛型擦除问题
-
+  
 ## Change
 + **[commons-cache]**
   + 更新 `Serializer#serialize` , `Serializer#deserialize` 抛出的异常信息
 + **[commons-http]**
   + 移除 `HttpCallback#success(byte[] result)` method
++ **[commons-json]**
+  + update Exception为RuntimeException
+  
 # 2.0.3
 ## Feature
 + **[commons-lang]**

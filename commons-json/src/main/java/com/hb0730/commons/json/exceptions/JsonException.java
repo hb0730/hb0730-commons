@@ -6,7 +6,7 @@ package com.hb0730.commons.json.exceptions;
  * @author bing_huang
  * @since 2.0.0
  */
-public class JsonException extends Exception {
+public class JsonException extends RuntimeException {
     public JsonException(String message) {
         super(message);
     }
