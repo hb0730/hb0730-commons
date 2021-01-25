@@ -25,20 +25,10 @@ public interface HttpCallback {
     void success(String result) throws IOException;
 
     /**
-     * 响应成功, 200 &gt;= http code &lt; 300
-     *
-     * @param result 响应结果
-     * @throws IOException 异常
-     * @see com.hb0730.commons.http.support.okhttp3.OkHttp3AsyncImpl#exec(Request.Builder, HttpCallback)
-     * @see com.hb0730.commons.http.support.httpclient.HttpClientAsyncImpl#exec(HttpUriRequestBase, BasicRequestProducer, HttpCallback)
-     */
-    void success(byte[] result) throws IOException;
-
-    /**
      * 请求参数
      *
      * @param e 异常
      */
-    void file(Exception e);
+    void failure(Exception e);
 
 }

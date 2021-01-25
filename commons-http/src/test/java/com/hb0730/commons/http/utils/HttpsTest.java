@@ -32,12 +32,7 @@ public class HttpsTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
 
             }
         });

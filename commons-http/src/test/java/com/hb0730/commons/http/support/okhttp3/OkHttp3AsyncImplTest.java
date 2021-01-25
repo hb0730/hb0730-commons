@@ -51,12 +51,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });
@@ -76,12 +71,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });
@@ -101,12 +91,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });
@@ -136,12 +121,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });
@@ -172,12 +152,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });
@@ -194,12 +169,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });
@@ -217,12 +187,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });
@@ -243,12 +208,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });
@@ -268,12 +228,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });
@@ -296,12 +251,7 @@ public class OkHttp3AsyncImplTest {
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
                 throw new RuntimeException("请求失败", e);
             }
         });

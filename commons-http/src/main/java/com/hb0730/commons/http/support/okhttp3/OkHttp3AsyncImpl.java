@@ -125,7 +125,7 @@ public class OkHttp3AsyncImpl extends AbstractAsyncHttp {
                 if (null == httpCallback) {
                     return;
                 }
-                httpCallback.file(e);
+                httpCallback.failure(e);
             }
 
             @Override

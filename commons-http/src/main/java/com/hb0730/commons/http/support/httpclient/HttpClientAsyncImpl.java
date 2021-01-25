@@ -184,7 +184,7 @@ public class HttpClientAsyncImpl extends AbstractAsyncHttp {
                 if (null == httpCallback) {
                     return;
                 }
-                httpCallback.file(ex);
+                httpCallback.failure(ex);
             }
 
             @Override
