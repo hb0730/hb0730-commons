@@ -21,6 +21,9 @@ public class MD5 extends Digester {
         return new MD5();
     }
 
+    /**
+     * 构造
+     */
     public MD5() {
         super(DigestAlgorithm.MD5);
     }

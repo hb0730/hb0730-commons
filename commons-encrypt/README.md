@@ -1,5 +1,5 @@
 #   commons encrypt
-加密与解密，本项目来源https://github.com/duanxinyuan/cipher-utils
+加密与解密，本项目来源[cipher-utils](https://github.com/duanxinyuan/cipher-utils) 与 [hutool-crypto](https://www.hutool.cn/)
 ## Maven依赖
 ```xml
 <dependency>

@@ -9,7 +9,14 @@ import com.hb0730.commons.lang.constants.AsciiStrCache;
  * @since 1.0.0
  */
 public class CharUtils {
+    /**
+     * 字符常量：空格符 {@code ' '}
+     */
     public static final char SPACE = ' ';
+    /**
+     * 字符常量：斜杠 {@code '/'}
+     */
+    public static final char SLASH = '/';
 
     /**
      * 给定对象对应的类是否为字符类，字符类包括：
