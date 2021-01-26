@@ -1,6 +1,8 @@
 package com.hb0730.commons.encrypt.exceptions;
 
 /**
+ * 加密异常
+ *
  * @author bing_huang
  */
 public class EncryptException extends RuntimeException {

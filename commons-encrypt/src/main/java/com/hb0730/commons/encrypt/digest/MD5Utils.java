@@ -10,7 +10,9 @@ import java.security.NoSuchAlgorithmException;
  * 摘要算法MD5
  *
  * @author bing_huang
+ * @see MD5
  * @since 1.0.2
+ * @deprecated 2.1.0
  */
 public class MD5Utils {
     /**

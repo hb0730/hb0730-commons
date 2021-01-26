@@ -43,6 +43,15 @@ public class Digester implements Serializable {
     }
 
     /**
+     * 构造,默认使用JDK
+     *
+     * @param algorithm 算法枚举
+     */
+    public Digester(String algorithm) {
+        init(algorithm, null);
+    }
+
+    /**
      * 构造
      *
      * @param algorithm 算法
