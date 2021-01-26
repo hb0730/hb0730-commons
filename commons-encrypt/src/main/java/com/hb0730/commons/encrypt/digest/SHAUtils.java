@@ -10,7 +10,9 @@ import java.security.NoSuchAlgorithmException;
  * SHA工具类
  *
  * @author bing_huang
+ * @see DigesterUtils
  * @since 1.0.2
+ * @deprecated 2.1.0
  */
 public class SHAUtils {
     /**

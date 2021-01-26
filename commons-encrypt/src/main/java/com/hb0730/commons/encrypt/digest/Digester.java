@@ -57,6 +57,16 @@ public class Digester implements Serializable {
      * @param algorithm 算法
      * @param provider  算法提供者,可以为{@code null},如果为{@code null},则使用JDK默认
      */
+    public Digester(String algorithm, Provider provider) {
+        init(algorithm, provider);
+    }
+
+    /**
+     * 构造
+     *
+     * @param algorithm 算法
+     * @param provider  算法提供者,可以为{@code null},如果为{@code null},则使用JDK默认
+     */
     public Digester(DigestAlgorithm algorithm, Provider provider) {
         init(algorithm.getValue(), provider);
     }

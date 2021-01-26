@@ -12,7 +12,9 @@ import java.security.Security;
  * SM3密码杂凑算法，类似MD5
  *
  * @author bing_huang
+ * @see SM3
  * @since 1.0.3
+ * @deprecated 2.1.0
  */
 public class SM3Utils {
 
