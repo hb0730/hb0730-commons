@@ -41,7 +41,7 @@ public class ArrayUtils {
     public static boolean isEmpty(Object obj) {
         if (null != obj) {
             if (isArray(obj)) {
-                return 0 != Array.getLength(obj);
+                return 0 == Array.getLength(obj);
             }
         }
         return true;
@@ -508,6 +508,95 @@ public class ArrayUtils {
         Object temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+    }
+
+    /**
+     * 获取数组长度<br>
+     * 如果参数为{@code null}，返回0
+     *
+     * <pre>
+     * ArrayUtil.length(null)            = 0
+     * ArrayUtil.length([])              = 0
+     * ArrayUtil.length([null])          = 1
+     * ArrayUtil.length([true, false])   = 2
+     * ArrayUtil.length([1, 2, 3])       = 3
+     * ArrayUtil.length(["a", "b", "c"]) = 3
+     * </pre>
+     *
+     * @param array 数组对象
+     * @return 数组长度
+     * @throws IllegalArgumentException 如果参数不为数组，抛出此异常
+     * @see Array#getLength(Object)
+     * @since 2.1.0
+     */
+    public static int length(Object array) throws IllegalArgumentException {
+        if (null == array) {
+            return 0;
+        }
+        return Array.getLength(array);
+    }
+
+    /**
+     * 生成一个新的重新设置大小的数组<br>
+     * 新数组的类型为原数组的类型，调整大小后拷贝原数组到新数组下。扩大则占位前N个位置，缩小则截断
+     *
+     * @param <T>     数组元素类型
+     * @param buffer  原数组
+     * @param newSize 新的数组大小
+     * @return 调整后的新数组
+     * @since 2.1.0
+     */
+    public static <T> T[] resize(T[] buffer, int newSize) {
+        return resize(buffer, newSize, buffer.getClass().getComponentType());
+    }
+
+    /**
+     * 生成一个新的重新设置大小的数组<br>
+     * 调整大小后拷贝原数组到新数组下。扩大则占位前N个位置，缩小则截断
+     *
+     * @param <T>           数组元素类型
+     * @param data          原数组
+     * @param newSize       新的数组大小
+     * @param componentType 数组元素类型
+     * @return 调整后的新数组
+     * @since 2.1.0
+     */
+    public static <T> T[] resize(T[] data, int newSize, Class<?> componentType) {
+        if (newSize < 0) {
+            return data;
+        }
+
+        final T[] newArray = newArray(componentType, newSize);
+        if (newSize > 0 && isNotEmpty(data)) {
+            System.arraycopy(data, 0, newArray, 0, Math.min(data.length, newSize));
+        }
+        return newArray;
+    }
+
+
+    /**
+     * 生成一个新的重新设置大小的数组<br>
+     * 调整大小后拷贝原数组到新数组下。扩大则占位前N个位置，其它位置补充0，缩小则截断
+     *
+     * @param array   原数组
+     * @param newSize 新的数组大小
+     * @return 调整后的新数组
+     * @since 2.1.0
+     */
+    public static Object resize(Object array, int newSize) {
+        if (newSize < 0) {
+            return array;
+        }
+        if (null == array) {
+            return null;
+        }
+        final int length = length(array);
+        final Object newArray = Array.newInstance(array.getClass().getComponentType(), newSize);
+        if (newSize > 0 && isNotEmpty(array)) {
+            //noinspection SuspiciousSystemArraycopy
+            System.arraycopy(array, 0, newArray, 0, Math.min(length, newSize));
+        }
+        return newArray;
     }
 
 

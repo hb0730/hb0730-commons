@@ -52,4 +52,10 @@ public class RandomUtilsTest {
         Assert.assertNotNull(i);
         log.info(String.valueOf(i));
     }
+
+    @Test
+    public void randomBytesTest() {
+        byte[] bytes = RandomUtils.randomBytes(8);
+        Assert.assertEquals("长度不相等", bytes.length, 8);
+    }
 }

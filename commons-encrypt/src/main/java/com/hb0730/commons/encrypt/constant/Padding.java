@@ -9,12 +9,18 @@ package com.hb0730.commons.encrypt.constant;
  * AES加密时，在CBC、ECB和PCBC三种模式下不能使用，不改变密文长度
  *
  * @author bing_huang
+ * @see <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#Cipher"> Cipher章节</a>
  */
 public enum Padding {
     /**
-     * 全填充0x00
+     * 无不骂
      */
     NoPadding("NoPadding"),
+
+    /**
+     * 0补码
+     */
+    ZeroPadding("ZeroPadding"),
 
     /**
      * 用于RSA算法

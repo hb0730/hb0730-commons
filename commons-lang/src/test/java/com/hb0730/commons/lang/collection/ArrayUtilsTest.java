@@ -411,4 +411,35 @@ public class ArrayUtilsTest {
         Assert.assertNotNull(s1);
         log.info(s1);
     }
+
+    @Test
+    public void lengthTest() {
+        String[] s = new String[]{"1", "2"};
+        int length = ArrayUtils.length(s);
+        log.debug(length + "");
+    }
+
+    @Test
+    public void resizeTest() {
+        String[] s = new String[]{"1", "2"};
+        String[] resize = ArrayUtils.resize(s, 4);
+        Assert.assertNotNull(resize);
+        log.debug(ArrayUtils.toString(resize));
+    }
+
+    @Test
+    public void testResizeTest() {
+        String[] s = new String[]{"1", "2"};
+        String[] resize = ArrayUtils.resize(s, 4, String.class);
+        Assert.assertNotNull(resize);
+        log.debug(ArrayUtils.toString(resize));
+    }
+
+    @Test
+    public void testResize1Test() {
+        int[] s = new int[]{1, 2};
+        int[] resize = (int[]) ArrayUtils.resize(s, 4);
+        Assert.assertNotNull(resize);
+        log.debug(ArrayUtils.toString(resize));
+    }
 }

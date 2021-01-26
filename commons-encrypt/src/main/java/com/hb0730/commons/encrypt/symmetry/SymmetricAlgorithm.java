@@ -10,13 +10,22 @@ package com.hb0730.commons.encrypt.symmetry;
 public enum SymmetricAlgorithm {
     /**
      * 默认的AES加密方式：AES/ECB/PKCS5Padding
+     *
+     * @see <a href="http://csrc.nist.gov/publications/fips/index.html">FIPS 197</a>
      */
     AES("AES"),
     ARCFOUR("ARCFOUR"),
+    /**
+     * Blowfish
+     *
+     * @see <a href="http://www.schneier.com/blowfish.html">blowfish</a>
+     */
     Blowfish("Blowfish"),
 
     /**
      * 默认的DES加密方式：DES/ECB/PKCS5Padding
+     *
+     * @see <a href="http://csrc.nist.gov/publications/fips/index.html">FIPS PUB 46-3</a>
      */
     DES("DES"),
     /**

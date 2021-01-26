@@ -130,5 +130,18 @@ public class RandomUtils {
         return getRandom().nextInt();
     }
 
+    /**
+     * 随机bytes
+     *
+     * @param length 随机长度
+     * @return bytes
+     * @since 2.1.0
+     */
+    public static byte[] randomBytes(int length) {
+        byte[] bytes = new byte[length];
+        getRandom().nextBytes(bytes);
+        return bytes;
+    }
+
 
 }
