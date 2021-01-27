@@ -36,7 +36,7 @@ public class SM3 extends Digester {
      * 构造
      */
     public SM3() {
-        super(ALGORITHM_NAME);
+        this((Provider) null);
     }
 
     /**
@@ -54,7 +54,17 @@ public class SM3 extends Digester {
      * @param salt 盐值
      */
     public SM3(byte[] salt) {
-        this(salt, 0, 1);
+        this(salt, null);
+    }
+
+    /**
+     * 构造
+     *
+     * @param salt     盐值
+     * @param provider {@link Provider}
+     */
+    public SM3(byte[] salt, Provider provider) {
+        this(salt, 0, 1, provider);
     }
 
     /**
@@ -64,7 +74,18 @@ public class SM3 extends Digester {
      * @param digestCount 摘要次数，当此值小于等于1,默认为1。
      */
     public SM3(byte[] salt, int digestCount) {
-        this(salt, 0, digestCount);
+        this(salt, digestCount, null);
+    }
+
+    /**
+     * 构造
+     *
+     * @param salt        盐值
+     * @param digestCount 摘要次数，当此值小于等于1,默认为1。
+     * @param provider    {@link Provider}
+     */
+    public SM3(byte[] salt, int digestCount, Provider provider) {
+        this(salt, 0, digestCount, provider);
     }
 
     /**
@@ -75,7 +96,19 @@ public class SM3 extends Digester {
      * @param digestCount  摘要次数，当此值小于等于1,默认为1。
      */
     public SM3(byte[] salt, int saltPosition, int digestCount) {
-        this();
+        this(salt, saltPosition, digestCount, null);
+    }
+
+    /**
+     * 构造
+     *
+     * @param salt         盐值
+     * @param saltPosition 加盐位置，即将盐值字符串放置在数据的index数，默认0
+     * @param digestCount  摘要次数，当此值小于等于1,默认为1。
+     * @param provider     {@link Provider}
+     */
+    public SM3(byte[] salt, int saltPosition, int digestCount, Provider provider) {
+        this(provider);
         this.salt = salt;
         this.saltPosition = saltPosition;
         this.digestCount = digestCount;

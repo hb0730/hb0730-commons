@@ -13,7 +13,7 @@ import java.security.Provider;
  * @author bing_huang
  * @since 2.1.0
  */
-public class DigesterUtils {
+public class Digesters {
     //-----------------md5
 
     /**
@@ -234,6 +234,27 @@ public class DigesterUtils {
      */
     public static HMac hmac(HmacAlgorithm algorithm, SecretKey key) {
         return new HMac(algorithm, key, getBouncyCastleProvider());
+    }
+    //-------------------------------------------SM3
+    /**
+     * SM3加密<br>
+     * 例：<br>
+     * SM3加密：sm3().digest(data)<br>
+     * SM3加密并转为16进制字符串：sm3().digestHex(data)<br>
+     *
+     * @return {@link SM3}
+     */
+    public static SM3 sm3(){
+        return new SM3(getBouncyCastleProvider());
+    }
+    /**
+     * SM3加密，生成16进制SM3字符串<br>
+     *
+     * @param data 数据
+     * @return SM3字符串
+     */
+    public static String sm3(String data){
+        return sm3().digestHex(data);
     }
 
     /**

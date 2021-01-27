@@ -146,6 +146,6 @@ public class MD5 extends Digester {
      * @return 16位MD5摘要
      */
     public String digestHex16(String data, Charset charset, boolean toLowerCase) {
-        return DigesterUtils.md5HexTo16(digestHex(data, charset, toLowerCase));
+        return Digesters.md5HexTo16(digestHex(data, charset, toLowerCase));
     }
 }
