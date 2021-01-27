@@ -2,6 +2,7 @@ package com.hb0730.commons.encrypt.digest;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.security.Provider;
 
 /**
  * MD5算法
@@ -25,8 +26,18 @@ public class MD5 extends Digester {
      * 构造
      */
     public MD5() {
-        super(DigestAlgorithm.MD5);
+        this((Provider) null);
     }
+
+    /**
+     * 构造
+     *
+     * @param provider {@link Provider}
+     */
+    public MD5(Provider provider) {
+        super(DigestAlgorithm.MD5, provider);
+    }
+
 
     /**
      * 构造
@@ -34,7 +45,17 @@ public class MD5 extends Digester {
      * @param salt 盐值
      */
     public MD5(byte[] salt) {
-        this(salt, 0, 1);
+        this(salt, null);
+    }
+
+    /**
+     * 构造
+     *
+     * @param salt     盐值
+     * @param provider {@link Provider}
+     */
+    public MD5(byte[] salt, Provider provider) {
+        this(salt, 0, 1, provider);
     }
 
     /**
@@ -44,7 +65,18 @@ public class MD5 extends Digester {
      * @param digestCount 摘要次数，当此值小于等于1,默认为1。
      */
     public MD5(byte[] salt, int digestCount) {
-        this(salt, 0, digestCount);
+        this(salt, digestCount, null);
+    }
+
+    /**
+     * 构造
+     *
+     * @param salt        盐值
+     * @param digestCount 摘要次数，当此值小于等于1,默认为1。
+     * @param provider    {@link Provider}
+     */
+    public MD5(byte[] salt, int digestCount, Provider provider) {
+        this(salt, 0, digestCount, provider);
     }
 
     /**
@@ -55,7 +87,19 @@ public class MD5 extends Digester {
      * @param digestCount  摘要次数，当此值小于等于1,默认为1。
      */
     public MD5(byte[] salt, int saltPosition, int digestCount) {
-        this();
+        this(salt, saltPosition, digestCount, null);
+    }
+
+    /**
+     * 构造
+     *
+     * @param salt         盐值
+     * @param saltPosition 加盐位置，即将盐值字符串放置在数据的index数，默认0
+     * @param digestCount  摘要次数，当此值小于等于1,默认为1。
+     * @param provider     {@link Provider}
+     */
+    public MD5(byte[] salt, int saltPosition, int digestCount, Provider provider) {
+        this(provider);
         this.salt = salt;
         this.saltPosition = saltPosition;
         this.digestCount = digestCount;

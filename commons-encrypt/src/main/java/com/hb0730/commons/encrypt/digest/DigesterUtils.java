@@ -1,9 +1,11 @@
 package com.hb0730.commons.encrypt.digest;
 
+import com.hb0730.commons.encrypt.constant.GlobalBouncyCastleProvider;
 import com.hb0730.commons.lang.constants.Charsets;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.Charset;
+import java.security.Provider;
 
 /**
  * 摘要算法工具类
@@ -21,7 +23,7 @@ public class DigesterUtils {
      * @return MD5摘要
      */
     public static byte[] md5(byte[] data) {
-        return new MD5().digest(data);
+        return new MD5(getBouncyCastleProvider()).digest(data);
     }
 
     /**
@@ -32,7 +34,7 @@ public class DigesterUtils {
      * @return MD5摘要
      */
     public static byte[] md5(String data, String charset) {
-        return new MD5().digest(data, charset);
+        return new MD5(getBouncyCastleProvider()).digest(data, charset);
     }
 
     /**
@@ -63,7 +65,7 @@ public class DigesterUtils {
      * @return MD5摘要的16进制表示
      */
     public static String md5Hex(String data, String charset) {
-        return new MD5().digestHex(data, charset);
+        return new MD5(getBouncyCastleProvider()).digestHex(data, charset);
     }
 
     /**
@@ -74,7 +76,7 @@ public class DigesterUtils {
      * @return MD5摘要的16进制表示
      */
     public static String md5Hex(String data, Charset charset) {
-        return new MD5().digestHex(data, charset);
+        return new MD5(getBouncyCastleProvider()).digestHex(data, charset);
     }
 
     /**
@@ -85,7 +87,7 @@ public class DigesterUtils {
      * @return MD5摘要的16进制表示
      */
     public static String md5Hex16(String data, Charset charset) {
-        return new MD5().digestHex16(data, charset);
+        return new MD5(getBouncyCastleProvider()).digestHex16(data, charset);
     }
 
     /**
@@ -117,7 +119,7 @@ public class DigesterUtils {
      * @return SHA-1摘要
      */
     public static byte[] sha1(byte[] data) {
-        return new Digester(DigestAlgorithm.SHA1).digest(data);
+        return new Digester(DigestAlgorithm.SHA1, getBouncyCastleProvider()).digest(data);
     }
 
     /**
@@ -128,7 +130,7 @@ public class DigesterUtils {
      * @return SHA-1摘要
      */
     public static byte[] sha1(String data, String charset) {
-        return new Digester(DigestAlgorithm.SHA1).digest(data, charset);
+        return new Digester(DigestAlgorithm.SHA1, getBouncyCastleProvider()).digest(data, charset);
     }
 
     /**
@@ -149,7 +151,7 @@ public class DigesterUtils {
      * @return SHA-1摘要的16进制表示
      */
     public static String sha1Hex(String data, String charset) {
-        return new Digester(DigestAlgorithm.SHA1).digestHex(data, charset);
+        return new Digester(DigestAlgorithm.SHA1, getBouncyCastleProvider()).digestHex(data, charset);
     }
 
     /**
@@ -172,7 +174,7 @@ public class DigesterUtils {
      * @since 3.0.8
      */
     public static byte[] sha256(String data, String charset) {
-        return new Digester(DigestAlgorithm.SHA256).digest(data, charset);
+        return new Digester(DigestAlgorithm.SHA256, getBouncyCastleProvider()).digest(data, charset);
     }
 
     /**
@@ -195,7 +197,7 @@ public class DigesterUtils {
      * @since 3.0.8
      */
     public static String sha256Hex(String data, String charset) {
-        return new Digester(DigestAlgorithm.SHA256).digestHex(data, charset);
+        return new Digester(DigestAlgorithm.SHA256, getBouncyCastleProvider()).digestHex(data, charset);
     }
 
     /**
@@ -219,7 +221,7 @@ public class DigesterUtils {
      * @since 3.0.3
      */
     public static HMac hmac(HmacAlgorithm algorithm, byte[] key) {
-        return new HMac(algorithm, key);
+        return new HMac(algorithm, key, getBouncyCastleProvider());
     }
 
     /**
@@ -231,7 +233,7 @@ public class DigesterUtils {
      * @since 3.0.3
      */
     public static HMac hmac(HmacAlgorithm algorithm, SecretKey key) {
-        return new HMac(algorithm, key);
+        return new HMac(algorithm, key, getBouncyCastleProvider());
     }
 
     /**
@@ -241,7 +243,7 @@ public class DigesterUtils {
      * @return Digester
      */
     public static Digester digester(DigestAlgorithm algorithm) {
-        return new Digester(algorithm);
+        return new Digester(algorithm, getBouncyCastleProvider());
     }
 
     /**
@@ -251,7 +253,23 @@ public class DigesterUtils {
      * @return Digester
      */
     public static Digester digester(String algorithm) {
-        return new Digester(algorithm);
+        return new Digester(algorithm, getBouncyCastleProvider());
+    }
+
+    /**
+     * 强制关闭Bouncy Castle库的使用，全局有效
+     */
+    public static void disableBouncyCastle() {
+        GlobalBouncyCastleProvider.setUseBouncyCastle(false);
+    }
+
+    /**
+     * 获取{@link org.bouncycastle.jce.provider.BouncyCastleProvider}
+     *
+     * @return {@link org.bouncycastle.jce.provider.BouncyCastleProvider}
+     */
+    private static Provider getBouncyCastleProvider() {
+        return GlobalBouncyCastleProvider.INSTANCE.getProvider();
     }
 
 

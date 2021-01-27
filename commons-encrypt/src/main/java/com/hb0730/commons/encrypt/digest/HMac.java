@@ -76,7 +76,18 @@ public class HMac implements Serializable {
      * @param key       密钥
      */
     public HMac(HmacAlgorithm algorithm, byte[] key) {
-        this(algorithm.getValue(), key);
+        this(algorithm, key, null);
+    }
+
+    /**
+     * 构造
+     *
+     * @param algorithm 算法 {@link HmacAlgorithm}
+     * @param key       密钥
+     * @param provider  {@link Provider}
+     */
+    public HMac(HmacAlgorithm algorithm, byte[] key, Provider provider) {
+        this(algorithm.getValue(), key, provider);
     }
 
     /**
@@ -86,7 +97,19 @@ public class HMac implements Serializable {
      * @param key       密钥
      */
     public HMac(HmacAlgorithm algorithm, Key key) {
-        this(algorithm.getValue(), key);
+
+        this(algorithm, key, null);
+    }
+
+    /**
+     * 构造
+     *
+     * @param algorithm 算法 {@link HmacAlgorithm}
+     * @param key       密钥
+     * @param provider  {@link Provider}
+     */
+    public HMac(HmacAlgorithm algorithm, Key key, Provider provider) {
+        this(algorithm.getValue(), key, provider);
     }
 
     /**
@@ -96,7 +119,18 @@ public class HMac implements Serializable {
      * @param key       密钥
      */
     public HMac(String algorithm, byte[] key) {
-        this(algorithm, (key == null) ? null : new SecretKeySpec(key, algorithm));
+        this(algorithm, key, null);
+    }
+
+    /**
+     * 构造
+     *
+     * @param algorithm 算法
+     * @param key       密钥
+     * @param provider  {@link Provider}
+     */
+    public HMac(String algorithm, byte[] key, Provider provider) {
+        this(algorithm, (key == null) ? null : new SecretKeySpec(key, algorithm), provider);
     }
 
     /**
