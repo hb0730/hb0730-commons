@@ -24,6 +24,7 @@ import java.security.Security;
  *
  * @author bing_huang
  * @see SM4
+ * @see Symmetrys#sm4()
  * @since 1.0.2
  * @deprecated 2.1.0
  */

@@ -23,7 +23,10 @@ import java.security.Security;
  * DESede：密钥长 112/168，块长64，速度很慢，中等安全, 适合加密较小的数据
  *
  * @author bing_huang
+ * @see DESede
+ * @see Symmetrys#desede()
  * @since 1.0.2
+ * @deprecated 2.1.0
  */
 public class DESedeUtils {
     static {

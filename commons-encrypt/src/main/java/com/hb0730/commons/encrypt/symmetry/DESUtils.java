@@ -26,6 +26,7 @@ import java.security.Security;
  *
  * @author bing_huang
  * @see DES
+ * @see Symmetrys#des()
  * @since 1.0.2
  * @deprecated 2.1.0
  */
