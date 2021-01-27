@@ -24,7 +24,9 @@ import java.security.Security;
  * 优点：AES具有比DES更好的安全性、效率、灵活性，在软件及硬件上都能快速地加解密，相对来说较易于实作，且只需要很少的存储器。
  *
  * @author bing_huang
+ * @see AES
  * @since 1.0.2
+ * @deprecated 2.1.0
  */
 public class AESUtils {
     static {

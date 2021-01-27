@@ -74,4 +74,11 @@ public final class RegexConstant {
      */
     public static final String IP_ADDRESS = "[1-9](\\d{1,2})?\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))";
 
+    /**
+     * 16进制
+     *
+     * @since 2.1.0
+     */
+    public static final String HEX = "^[a-f0-9]+$";
+
 }

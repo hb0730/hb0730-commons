@@ -5,17 +5,20 @@
   +  新增 `ArrayUtils#isNotEmpty(Object)`等方法
   +  新增 `HexUtils#encodeHexString(byte[])` 方法
   +  新增 `RandomUtils#randomBytes` 方法
+  +  新增 `RegexUtils#isHex` 等方法
 + **[commons-encrypt]**
   + 新增 **Digester**摘要器
   + 新增 **MD5**摘要算法
   + 新增 **HMac**摘要算法
   + 新增 **SM3**摘要算法
+  + 新增 **AES**加密算法
 
 ## Fixed
 + **[commons-encrypt]**
   + fixed `MD5Utils#md5WithSalt` 加盐摘要错误
 + **[commons-lang]**
   + fixed `ArrayUtils#isEmpty` 错误
+  + fixed `HexUtils#encodeHex` 注释与返回值不一致
 
 ## update
 

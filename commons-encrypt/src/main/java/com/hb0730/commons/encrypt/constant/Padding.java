@@ -13,14 +13,9 @@ package com.hb0730.commons.encrypt.constant;
  */
 public enum Padding {
     /**
-     * 无不骂
+     * 全填充0x00
      */
     NoPadding("NoPadding"),
-
-    /**
-     * 0补码
-     */
-    ZeroPadding("ZeroPadding"),
 
     /**
      * 用于RSA算法

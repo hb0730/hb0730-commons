@@ -40,7 +40,10 @@ public enum Mode {
      * 输出反馈模式，加密后密文与原文异或XOR，缺点：能够对密文进行校验
      */
     OFB("OFB"),
-
+    /**
+     * Cipher Text Stealing
+     */
+    CTS("CTS"),
     /**
      * 计数器模式，增加一个序列函数对所有密文快做XOR
      */

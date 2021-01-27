@@ -77,7 +77,7 @@ public class HexUtils {
      * @since 2.1.0
      */
     public static String encodeHexString(byte[] data) {
-        return encodeHexString(data, false);
+        return encodeHexString(data, true);
     }
 
     /**

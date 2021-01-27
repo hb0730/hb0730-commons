@@ -2,6 +2,8 @@ package com.hb0730.commons.lang;
 
 import com.hb0730.commons.lang.constants.RegexConstant;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.regex.Pattern;
 
 /**
@@ -21,6 +23,38 @@ public class RegexUtils {
      */
     public static boolean find(final String str, final String regex) {
         return Pattern.compile(regex).matcher(str).find();
+    }
+
+    /**
+     * 给定内容是否匹配正则
+     *
+     * @param regex   正则
+     * @param content 内容
+     * @return 正则为null或者""则不检查，返回false，内容为null返回false
+     * @since 2.1.0
+     */
+    public static boolean isMatch(String regex, CharSequence content) {
+        if (StringUtils.isBlank(regex) || null == content) {
+            return false;
+        }
+        //达式'.'可以匹配任意字符，包括表示一行的结束符。默认情况下，表达式'.'不匹配行的结束符。
+        Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
+        return isMatch(pattern, content);
+    }
+
+    /**
+     * 给定内容是否匹配正则
+     *
+     * @param pattern 模式
+     * @param content 内容
+     * @return 正则为null或者""则不检查，返回true，内容为null返回false
+     * @since 2.1.0
+     */
+    public static boolean isMatch(Pattern pattern, CharSequence content) {
+        if (null == pattern || null == content) {
+            return false;
+        }
+        return pattern.matcher(content).matches();
     }
 
     /**
@@ -117,20 +151,39 @@ public class RegexUtils {
     /**
      * 验证URL地址
      *
-     * @param url url
-     * @return 是否符合
+     * @param value url
+     * @return 是否为URL
      */
-    public static boolean isURL(String url) {
-        return Pattern.matches(RegexConstant.URL, url);
+    public static boolean isURL(String value) {
+        try {
+            new URL(value);
+        } catch (MalformedURLException e) {
+            return false;
+        }
+        return true;
     }
 
     /**
      * 验证中国邮编
      *
-     * @param postCode 邮编
+     * @param value 邮编
      * @return 是否符合
      */
-    public static boolean isChinaPostCode(String postCode) {
-        return Pattern.matches(RegexConstant.CHINA_POST_CODE, postCode);
+    public static boolean isChinaPostCode(String value) {
+        Pattern pattern = Pattern.compile(RegexConstant.CHINA_POST_CODE);
+        return isMatch(pattern, value);
+    }
+
+    /**
+     * 验证是否为Hex（16进制）字符串
+     *
+     * @param value 值
+     * @return 是否为Hex（16进制）字符串
+     * @since 2.1.0
+     */
+    public static boolean isHex(String value) {
+        //大小写不明感
+        Pattern pattern = Pattern.compile(RegexConstant.HEX, Pattern.CASE_INSENSITIVE);
+        return isMatch(pattern, value);
     }
 }
