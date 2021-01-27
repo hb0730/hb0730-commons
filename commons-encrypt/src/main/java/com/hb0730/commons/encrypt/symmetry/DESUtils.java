@@ -25,7 +25,9 @@ import java.security.Security;
  * 缺点：分组短、密钥短、密码生命周期短、运算速度较慢
  *
  * @author bing_huang
+ * @see DES
  * @since 1.0.2
+ * @deprecated 2.1.0
  */
 public class DESUtils {
 

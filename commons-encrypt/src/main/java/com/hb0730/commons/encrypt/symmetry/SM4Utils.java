@@ -23,7 +23,9 @@ import java.security.Security;
  * 无线局域网标准的分组数据算法，密钥长 128，块长128，类似AES
  *
  * @author bing_huang
+ * @see SM4
  * @since 1.0.2
+ * @deprecated 2.1.0
  */
 public class SM4Utils {
     static {

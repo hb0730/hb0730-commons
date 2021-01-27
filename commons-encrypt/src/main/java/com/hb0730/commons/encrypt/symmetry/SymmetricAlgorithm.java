@@ -36,7 +36,10 @@ public enum SymmetricAlgorithm {
 
     PBEWithMD5AndDES("PBEWithMD5AndDES"),
     PBEWithSHA1AndDESede("PBEWithSHA1AndDESede"),
-    PBEWithSHA1AndRC2_40("PBEWithSHA1AndRC2_40");;
+    PBEWithSHA1AndRC2_40("PBEWithSHA1AndRC2_40"),
+
+    SM4("SM4"),
+    ;
 
 
     private final String value;

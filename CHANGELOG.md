@@ -12,7 +12,10 @@
   + 新增 **HMac**摘要算法
   + 新增 **SM3**摘要算法
   + 新增 **AES**加密算法
-
+  + 新增 **DES**加密算法
+  + 新增 **DESede**加密算法
+  + 新增 **SM4**加密算法
+  
 ## Fixed
 + **[commons-encrypt]**
   + fixed `MD5Utils#md5WithSalt` 加盐摘要错误
