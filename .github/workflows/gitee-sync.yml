@@ -1,8 +1,5 @@
 name: Gitee repos mirror periodic job
-on:
-  push:
-    branches:
-      - '**'
+on: [ push ]
 jobs:
   sync:
     runs-on: ubuntu-latest
