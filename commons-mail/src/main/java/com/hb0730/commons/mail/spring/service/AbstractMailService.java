@@ -1,7 +1,7 @@
 package com.hb0730.commons.mail.spring.service;
 
 import com.hb0730.commons.lang.StringUtils;
-import com.hb0730.commons.mail.spring.exceptions.MailException;
+import com.hb0730.commons.mail.exceptions.MailException;
 import com.hb0730.commons.mail.spring.factory.MailSenderFactory;
 import com.hb0730.commons.mail.spring.properties.MailProperties;
 import com.hb0730.commons.mail.spring.properties.SpringMailProperties;
