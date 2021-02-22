@@ -8,7 +8,7 @@ public class MailTest {
     public void sendTest() {
         MailAccount account = new MailAccount().
                 user("1278032416@qq.com").
-                password("npzmbnxrdhlyhaja").
+                password("").
                 host("smtp.qq.com").
                 port(465).
                 sslEnable(true).
