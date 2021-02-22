@@ -15,6 +15,8 @@
   + 新增 **DES**加密算法
   + 新增 **DESede**加密算法
   + 新增 **SM4**加密算法
++ **[commons-mail]**
+  + 新增`javax.mail`方式
   
 ## Fixed
 + **[commons-encrypt]**
