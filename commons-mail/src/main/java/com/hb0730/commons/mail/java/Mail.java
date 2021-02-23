@@ -24,6 +24,10 @@ import java.util.Date;
  * @since 2.1.0
  */
 public class Mail {
+    private static final String CONTENT_TYPE_HTML = "text/html";
+
+    private static final String CONTENT_TYPE_CHARSET_SUFFIX = ";charset=";
+
     private final MailAccount account;
     /**
      * 设置是否使用全局会话，默认为false
@@ -57,16 +61,14 @@ public class Mail {
      * 是否为HTML
      */
     private boolean isHtml;
-    /**
-     * 正文、附件和图片的混合部分
-     */
-    private final Multipart multipart = new MimeMultipart();
 
     /**
-     * 构造，使用全局邮件帐户
+     * 创建邮件客户端，使用全局邮件帐户
+     *
+     * @return Mail
      */
-    public Mail() {
-        this(GlobalMailAccount.INSTANCE.getAccount());
+    public static Mail create() {
+        return new Mail();
     }
 
     /**
@@ -79,6 +81,20 @@ public class Mail {
         return new Mail(account);
     }
 
+
+    /**
+     * 正文、附件和图片的混合部分
+     */
+    private final Multipart multipart = new MimeMultipart();
+
+    /**
+     * 构造，使用全局邮件帐户
+     */
+    public Mail() {
+        this(GlobalMailAccount.INSTANCE.getAccount());
+    }
+
+
     /**
      * 构造
      *
@@ -86,10 +102,6 @@ public class Mail {
      */
     public Mail(MailAccount account) {
         this.account = account;
-    }
-
-    public MailAccount getAccount() {
-        return account;
     }
 
     /**
@@ -107,20 +119,9 @@ public class Mail {
      * @param useGlobalSession 是否使用全局会话，默认为false
      * @return this
      */
-    public Mail setUseGlobalSession(boolean useGlobalSession) {
+    public Mail useGlobalSession(boolean useGlobalSession) {
         this.useGlobalSession = useGlobalSession;
         return this;
-    }
-
-    /**
-     * 设置收件人
-     *
-     * @param tos 收件人列表
-     * @return this
-     * @see #setTos(String...)
-     */
-    public Mail tos(String... tos) {
-        return setTos(tos);
     }
 
     /**
@@ -129,7 +130,7 @@ public class Mail {
      * @param tos 收件人列表
      * @return this
      */
-    public Mail setTos(String... tos) {
+    public Mail tos(String... tos) {
         this.tos = tos;
         return this;
     }
@@ -139,19 +140,8 @@ public class Mail {
      *
      * @param ccs 抄送人列表
      * @return this
-     * @see #setCcs(String...)
      */
     public Mail ccs(String... ccs) {
-        return setCcs(ccs);
-    }
-
-    /**
-     * 设置多个抄送人（carbon copy）
-     *
-     * @param ccs 抄送人列表
-     * @return this
-     */
-    public Mail setCcs(String... ccs) {
         this.ccs = ccs;
         return this;
     }
@@ -161,19 +151,8 @@ public class Mail {
      *
      * @param bccs 密送人列表
      * @return this
-     * @see #bccs(String...)
      */
     public Mail bccs(String... bccs) {
-        return setBccs(bccs);
-    }
-
-    /**
-     * 设置多个密送人（blind carbon copy）
-     *
-     * @param bccs 密送人列表
-     * @return this
-     */
-    public Mail setBccs(String... bccs) {
         this.bccs = bccs;
         return this;
     }
@@ -183,19 +162,8 @@ public class Mail {
      *
      * @param reply 回复地址(reply-to)列表
      * @return this
-     * @see #setReply(String...)
      */
-    public Mail reply(String... reply) {
-        return setReply(reply);
-    }
-
-    /**
-     * 设置多个回复地址(reply-to)
-     *
-     * @param reply 回复地址(reply-to)列表
-     * @return this
-     */
-    public Mail setReply(String... reply) {
+    public Mail replyTos(String... reply) {
         this.reply = reply;
         return this;
     }
@@ -203,22 +171,11 @@ public class Mail {
     /**
      * 设置标题
      *
-     * @param title 标题
-     * @return this
-     * @see #setTitle(String)
-     */
-    public Mail title(String title) {
-        return setTitle(title);
-    }
-
-    /**
-     * 设置标题
-     *
-     * @param title 标题
+     * @param subject 标题
      * @return this
      */
-    public Mail setTitle(String title) {
-        this.subject = title;
+    public Mail subject(String subject) {
+        this.subject = subject;
         return this;
     }
 
@@ -229,31 +186,20 @@ public class Mail {
      * @return this
      * @see MailAccount#charset(Charset)
      */
-    public Mail setCharset(Charset charset) {
+    public Mail charset(Charset charset) {
         this.account.charset(charset);
         return this;
-    }
-
-    /**
-     * 设置字符集编码
-     *
-     * @param charset 字符集编码
-     * @return this
-     * @see #setCharset(Charset)
-     */
-    public Mail charset(Charset charset) {
-        return setCharset(charset);
     }
 
 
     /**
      * 设置正文<br>
-     * 正文可以是普通文本也可以是HTML（默认普通文本），可以通过调用{@link #setHtml(boolean)} 设置是否为HTML
+     * 正文可以是普通文本也可以是HTML（默认普通文本），可以通过调用{@link #html(boolean)} 设置是否为HTML
      *
      * @param content 正文
      * @return this
      */
-    public Mail setContent(String content) {
+    public Mail content(String content) {
         this.content = content;
         return this;
     }
@@ -264,7 +210,7 @@ public class Mail {
      * @param isHtml 是否为HTML
      * @return this
      */
-    public Mail setHtml(boolean isHtml) {
+    public Mail html(boolean isHtml) {
         this.isHtml = isHtml;
         return this;
     }
@@ -276,9 +222,9 @@ public class Mail {
      * @param isHtml  是否为HTML
      * @return this
      */
-    public Mail setContent(String content, boolean isHtml) {
-        setContent(content);
-        return setHtml(isHtml);
+    public Mail content(String content, boolean isHtml) {
+        content(content);
+        return html(isHtml);
     }
 
     /**
@@ -412,11 +358,43 @@ public class Mail {
     private Multipart buildContent(Charset charset) throws MessagingException {
         // 正文
         final MimeBodyPart body = new MimeBodyPart();
-        String value = String.format("text/%s; charset=%s", isHtml ? "html" : "plain", charset);
-        body.setContent(content, value);
+        if (isHtml) {
+            setHtmlTextToMimePart(body, charset);
+        } else {
+            setPlainTextToMimePart(body, charset);
+        }
         this.multipart.addBodyPart(body);
-
         return this.multipart;
+    }
+
+    /**
+     * 构建文本邮件
+     *
+     * @param body    {@link MimeBodyPart}
+     * @param charset 编码
+     * @throws MessagingException 消息异常
+     */
+    private void setPlainTextToMimePart(final MimeBodyPart body, Charset charset) throws MessagingException {
+        if (null != charset) {
+            body.setText(this.content, content);
+        } else {
+            body.setText(this.content);
+        }
+    }
+
+    /**
+     * 构建html邮件
+     *
+     * @param body    {@link MimeBodyPart}
+     * @param charset 编码
+     * @throws MessagingException 消息异常
+     */
+    private void setHtmlTextToMimePart(final MimeBodyPart body, Charset charset) throws MessagingException {
+        if (null != charset) {
+            body.setContent(this.content, CONTENT_TYPE_HTML + CONTENT_TYPE_CHARSET_SUFFIX + charset);
+        } else {
+            body.setContent(this.content, CONTENT_TYPE_HTML);
+        }
     }
 
     /**
