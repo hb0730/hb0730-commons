@@ -69,9 +69,23 @@ jobs:
           mvn cobertura:cobertura -Dcobertura.report.format=xml -Dmaven.javadoc.skip.true -Dorg.slf4j.simpleLogger.defaultLogLevel=error
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
+  codacy-security-scan:
+     name: Codacy Security Scan
+     runs-on: ubuntu-latest
+     needs: codecov
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@master
+       - name: Run Codacy Analysis CLI
+         uses: codacy/codacy-analysis-cli-action@master
+         with:
+           tool: Codacy-Analysis-CLI
+           project-token: ${{secrets.CODACY_PROJECT_TOKEN}}
+           upload: true
+
   github-release:
     runs-on: ubuntu-latest
-    needs: codecov
+    needs: codacy-security-scan
     if: ${{contains(github.ref,'tags')}}
     steps:
       - uses: actions/checkout@v2
