@@ -75,12 +75,14 @@ jobs:
      needs: codecov
      steps:
        - name: Checkout code
-         uses: actions/checkout@master
+         uses: actions/checkout@v2
        - name: Run Codacy Analysis CLI
-         uses: codacy/codacy-analysis-cli-action@master
+         uses: codacy/codacy-analysis-cli-action@1.1.0
          with:
-           tool: Codacy-Analysis-CLI
            project-token: ${{secrets.CODACY_PROJECT_TOKEN}}
+           verbose: true
+           output: results.sarif
+           format: sarif
            upload: true
            max-allowed-issues: 2147483647
 
