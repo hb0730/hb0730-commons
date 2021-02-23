@@ -7,6 +7,7 @@ import javax.mail.PasswordAuthentication;
  * 用户名密码验证器
  *
  * @author bing_huang
+ * @since 2.1.0
  */
 public class UserPassAuthenticator extends Authenticator {
     private final String username;

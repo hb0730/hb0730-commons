@@ -11,6 +11,7 @@ import java.util.Properties;
  *
  * @author bing_huang
  * @see <a href="https://eclipse-ee4j.github.io/mail/docs/api/com/sun/mail/smtp/package-summary.html">smtp</a>
+ * @since 2.1.0
  */
 public class MailAccount implements Account {
     /**
