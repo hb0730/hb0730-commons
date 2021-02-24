@@ -1,6 +1,7 @@
 package com.hb0730.commons.mail.java;
 
 import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.Validate;
 import com.hb0730.commons.lang.collection.ArrayUtils;
 import com.hb0730.commons.mail.exceptions.MailException;
 
@@ -14,6 +15,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Date;
 
@@ -254,27 +256,64 @@ public class Mail {
      */
     public Mail addAttachments(DataSource... attachments) {
         if (ArrayUtils.isNotEmpty(attachments)) {
-            final Charset charset = this.account.getCharset();
-            MimeBodyPart bodyPart;
-            String nameEncoded;
-            try {
-                for (DataSource attachment : attachments) {
-                    bodyPart = new MimeBodyPart();
-                    nameEncoded = InternalMailUtil.encodeText(attachment.getName(), charset);
-                    bodyPart.setDisposition(MimeBodyPart.ATTACHMENT);
-                    bodyPart.setFileName(nameEncoded);
-                    bodyPart.setDataHandler(new DataHandler(attachment));
-                    if (attachment.getContentType().startsWith("image/")) {
-                        // 图片附件，用于正文中引用图片
-                        bodyPart.setContentID(nameEncoded);
-                    }
-                    this.multipart.addBodyPart(bodyPart);
-                }
-            } catch (MessagingException e) {
-                throw new MailException(e);
+            for (DataSource attachment : attachments) {
+                addAttachment(attachment.getName(), attachment);
             }
         }
         return this;
+    }
+
+    /**
+     * 新增附件或者图片
+     *
+     * @param attachmentFilename 附件名
+     * @param dataSource         附件
+     * @return this
+     */
+    public Mail addAttachment(String attachmentFilename, DataSource dataSource) {
+        Validate.notNull(attachmentFilename, "Attachment filename must not be null");
+        Validate.notNull(dataSource, "DataSource must not be null");
+        try {
+            final MimeBodyPart bodyPart = new MimeBodyPart();
+            String nameEncoded = InternalMailUtil.encodeText(attachmentFilename, this.account.getCharset());
+            bodyPart.setDisposition(MimeBodyPart.ATTACHMENT);
+            bodyPart.setFileName(nameEncoded);
+            bodyPart.setDataHandler(new DataHandler(dataSource));
+            if (dataSource.getContentType().startsWith("image/")) {
+                // 图片附件，用于正文中引用图片
+                bodyPart.setContentID(nameEncoded);
+            }
+            this.multipart.addBodyPart(bodyPart);
+        } catch (MessagingException ex) {
+            throw new MailException("Failed to encode attachment filename", ex);
+        }
+        return this;
+    }
+
+    /**
+     * 新增附件或者图片
+     *
+     * @param attachmentFilename 附件名
+     * @param file               附件
+     * @return this
+     */
+    public Mail addAttachment(String attachmentFilename, File file) {
+        Validate.notNull(file, "File must not be null");
+        FileDataSource dataSource = new FileDataSource(file);
+        return addAttachment(attachmentFilename, dataSource);
+    }
+
+    /**
+     * 新增附件或者图片
+     *
+     * @param attachmentFilename 附件名
+     * @param url                附件URL
+     * @return this
+     */
+    public Mail addAttachment(String attachmentFilename, URL url) {
+        Validate.notNull(url, "url must not be null");
+        DataHandler handler = new DataHandler(url);
+        return addAttachment(attachmentFilename, handler.getDataSource());
     }
 
     /**
@@ -422,7 +461,7 @@ public class Mail {
         if (this.account.isAuth()) {
             authenticator = new UserPassAuthenticator(this.account.getUser(), this.account.getPassword());
         }
-        return isUseGlobalSession() ? Session.getDefaultInstance(this.account.getSmtpProps(), authenticator) : Session.getInstance(this.account.getSmtpProps(), authenticator);
+        return this.useGlobalSession ? Session.getDefaultInstance(this.account.getSmtpProps(), authenticator) : Session.getInstance(this.account.getSmtpProps(), authenticator);
     }
 
 }
