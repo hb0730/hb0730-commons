@@ -4,8 +4,9 @@ engines:
     enabled: true
     language: java
 exclude_paths:
+  - "bin/**"
+  - "github/**"
   - "*.yml"
-  - "*.sh"
   - "*.md"
   - "**/test/**"
   - "**/resources/**"
