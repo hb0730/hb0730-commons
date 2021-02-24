@@ -8,6 +8,8 @@ exclude_paths:
   - "github/**"
   - "*.yml"
   - "*.md"
+  - "**/*.md"
+  - "**/*.yml"
   - "**/test/**"
   - "**/resources/**"
   - "commons-**-test"
