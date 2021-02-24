@@ -130,6 +130,10 @@ public class MailAccount implements Account {
      * 编码用于编码邮件正文和发送人、收件人等中文
      */
     private Charset charset = Charsets.UTF_8;
+    /**
+     * 其余的javaMail properties
+     */
+    private Properties javaMailProperties;
 
     /**
      * 获取SMTP服务器地址
@@ -452,6 +456,21 @@ public class MailAccount implements Account {
         return this;
     }
 
+    @Override
+    public MailAccount javaMailProperties(Properties javaMailProperties) {
+        this.javaMailProperties = javaMailProperties;
+        return this;
+    }
+
+    /**
+     * get Other JavaMail properties for the Session.
+     *
+     * @return Properties
+     */
+    public Properties getJavaMailProperties() {
+        return this.javaMailProperties;
+    }
+
     /**
      * 获得SMTP相关信息
      *
@@ -481,6 +500,10 @@ public class MailAccount implements Account {
             if (StringUtils.isNotBlank(this.sslProtocols)) {
                 props.put(SMTP_SSL_PROTOCOLS, this.sslProtocols);
             }
+        }
+        //other JavaMail Properties
+        if (null != this.getJavaMailProperties()) {
+            props.putAll(this.getJavaMailProperties());
         }
         return props;
     }

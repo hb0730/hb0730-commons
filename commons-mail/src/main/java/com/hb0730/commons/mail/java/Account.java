@@ -2,6 +2,7 @@ package com.hb0730.commons.mail.java;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.util.Properties;
 
 /**
  * 账号信息
@@ -135,5 +136,13 @@ public interface Account extends Serializable {
      * @return this
      */
     Account charset(Charset charset);
+
+    /**
+     * Set Other JavaMail properties for the Session.
+     *
+     * @param javaMailProperties JavaMail properties.
+     * @return this
+     */
+    Account javaMailProperties(Properties javaMailProperties);
 
 }

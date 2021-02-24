@@ -1,6 +1,7 @@
 package com.hb0730.commons.mail.java;
 
 import java.nio.charset.Charset;
+import java.util.Properties;
 
 /**
  * 全局邮件帐户
@@ -106,6 +107,12 @@ public enum GlobalMailAccount implements Account {
     @Override
     public GlobalMailAccount charset(Charset charset) {
         account.charset(charset);
+        return this;
+    }
+
+    @Override
+    public GlobalMailAccount javaMailProperties(Properties javaMailProperties) {
+        account.javaMailProperties(javaMailProperties);
         return this;
     }
 }
