@@ -1,0 +1,9 @@
+---
+exclude_paths:
+  - ".github"
+  - "bin"
+  - "*.yml"
+  - "*.md"
+  - "**/test/**"
+  - "**/resources/**"
+  - "commons-**-test"
