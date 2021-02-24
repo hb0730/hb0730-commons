@@ -4,10 +4,10 @@ engines:
     enabled: true
     language: java
 exclude_paths:
-  - ".github"
-  - "bin"
-  - "*.yml"
-  - "*.md"
+  - ".github/**"
+  - "bin/**"
+  - "**/*.yml"
+  - "**/*.md"
   - "**/test/**"
   - "**/resources/**"
   - "commons-**-test"
