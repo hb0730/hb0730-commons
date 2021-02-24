@@ -1,4 +1,8 @@
 ---
+engines:
+  cppcheck:
+    enabled: true
+    language: java
 exclude_paths:
   - ".github"
   - "bin"
