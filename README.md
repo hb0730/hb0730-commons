@@ -9,7 +9,7 @@
 <img alt="GitHub" src="https://img.shields.io/github/license/hb0730/hb0730-commons?style=flat-square">
 </a>
 
-<a href="https://travis-ci.com/github/hb0730/hb0730-commons">
+<a href="https://github.com/hb0730/hb0730-commons/actions">
 <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/hb0730/hb0730-commons/commons%20CI?style=flat-square">
 </a>
 
