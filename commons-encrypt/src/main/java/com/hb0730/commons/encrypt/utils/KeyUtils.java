@@ -165,6 +165,7 @@ public class KeyUtils {
      *
      * @param algorithm PBE算法，包括：PBEWithMD5AndDES、PBEWithSHA1AndDESede、PBEWithSHA1AndRC2_40等
      * @param key       密钥
+     * @param provider  {@link Provider}
      * @return {@link SecretKey}
      */
     public static SecretKey generatePBEKey(String algorithm, char[] key, Provider provider) {

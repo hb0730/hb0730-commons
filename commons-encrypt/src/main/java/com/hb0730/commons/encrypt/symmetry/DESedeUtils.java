@@ -39,6 +39,7 @@ public class DESedeUtils {
      *
      * @param data 密文（Base64编码）
      * @param key  密钥（Base64编码），长度必须是24位
+     * @return 密文（Base64编码）
      */
     public static String encrypt(String data, String key) {
         return encrypt(data, key, null, Mode.ECB, Padding.PKCS5Padding);
@@ -49,6 +50,7 @@ public class DESedeUtils {
      *
      * @param data 密文
      * @param key  密钥，长度必须是24位
+     * @return 密文
      */
     public static byte[] encrypt(byte[] data, byte[] key) {
         return encrypt(data, key, null, Mode.ECB, Padding.PKCS5Padding);
@@ -60,6 +62,7 @@ public class DESedeUtils {
      * @param data 密文（Base64编码）
      * @param key  密钥（Base64编码），长度必须是24位
      * @param iv   偏移量，长度必须是8位
+     * @return 密文（Base64编码）
      */
     public static String encrypt(String data, String key, String iv) {
         return encrypt(data, key, iv, Mode.CBC, Padding.PKCS7Padding);
@@ -71,6 +74,7 @@ public class DESedeUtils {
      * @param data 密文
      * @param key  密钥，长度必须是24位
      * @param iv   偏移量，长度必须是8位
+     * @return 密文
      */
     public static byte[] encrypt(byte[] data, byte[] key, String iv) {
         return encrypt(data, key, iv, Mode.CBC, Padding.PKCS7Padding);
@@ -83,6 +87,7 @@ public class DESedeUtils {
      * @param key     密钥（Base64编码），长度必须是24位
      * @param mode    工作模式{@link Mode}
      * @param padding 填充模式{@link Padding}
+     * @return 密文（Base64编码）
      */
     public static String encrypt(String data, String key, Mode mode, Padding padding) {
         return encrypt(data, key, null, mode, padding);

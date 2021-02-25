@@ -201,9 +201,10 @@ public class DES extends SymmetricCrypto {
     /**
      * 构造
      *
-     * @param mode    模式
-     * @param padding 补码方式
-     * @param key     密钥，长度：8的倍数
+     * @param mode     模式
+     * @param padding  补码方式
+     * @param key      密钥，长度：8的倍数
+     * @param provider {@link Provider}
      */
     public DES(String mode, String padding, byte[] key, Provider provider) {
         this(mode, padding, key, null, provider);

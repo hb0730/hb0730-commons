@@ -4,7 +4,7 @@ package com.hb0730.commons.encrypt.digest;
  * HMAC算法类型
  *
  * @author bing_huang
- * @see <a href=" https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#Mac">MAC</a>
+ * @see <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#Mac">MAC</a>
  * @since 2.1.0
  */
 public enum HmacAlgorithm {

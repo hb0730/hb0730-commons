@@ -40,6 +40,7 @@ public class AESUtils {
      *
      * @param data 密文（Base64编码）
      * @param key  密钥（Base64编码），长度必须是16或24或者32位
+     * @return 密文（Base64编码）
      */
     public static String encrypt(String data, String key) {
         return encrypt(data, key, null, Mode.ECB, Padding.PKCS5Padding);
@@ -50,6 +51,7 @@ public class AESUtils {
      *
      * @param data 密文
      * @param key  密钥，长度必须是16或24或者32位
+     * @return 密文
      */
     public static byte[] encrypt(byte[] data, byte[] key) {
         return encrypt(data, key, null, Mode.ECB, Padding.PKCS5Padding);
@@ -61,6 +63,7 @@ public class AESUtils {
      * @param data 密文（Base64编码）
      * @param key  密钥（Base64编码），长度必须是16或24或者32位
      * @param iv   偏移量，长度必须为16位
+     * @return 密文（Base64编码）
      */
     public static String encrypt(String data, String key, String iv) {
         return encrypt(data, key, iv, Mode.CBC, Padding.PKCS7Padding);
@@ -72,6 +75,7 @@ public class AESUtils {
      * @param data 密文
      * @param key  密钥，长度必须是16或24或者32位
      * @param iv   偏移量，长度必须为16位
+     * @return 密文
      */
     public static byte[] encrypt(byte[] data, byte[] key, String iv) {
         return encrypt(data, key, iv, Mode.CBC, Padding.PKCS7Padding);
@@ -80,8 +84,11 @@ public class AESUtils {
     /**
      * AES加密（不带偏移量）
      *
-     * @param data 密文（Base64编码）
-     * @param key  密钥（Base64编码），长度必须是16或24或者32位
+     * @param data    密文（Base64编码）
+     * @param key     密钥（Base64编码），长度必须是16或24或者32位
+     * @param mode    密码块工作模式
+     * @param padding 填充方式
+     * @return 密文（Base64编码）
      */
     public static String encrypt(String data, String key, Mode mode, Padding padding) {
         return encrypt(data, key, null, mode, padding);
@@ -90,8 +97,10 @@ public class AESUtils {
     /**
      * AES加密（不带偏移量）
      *
-     * @param data 密文
-     * @param key  密钥，长度必须是16或24或者32位
+     * @param data    密文
+     * @param key     密钥，长度必须是16或24或者32位
+     * @param mode    密码块工作模式
+     * @param padding 填充方式
      * @return 密文（Base64编码）
      */
     public static byte[] encrypt(byte[] data, byte[] key, Mode mode, Padding padding) {
@@ -197,8 +206,10 @@ public class AESUtils {
     /**
      * AES解密（不带偏移量）
      *
-     * @param data 密文（Base64编码）
-     * @param key  密钥（Base64编码），长度必须是16或24或者32位
+     * @param data    密文（Base64编码）
+     * @param key     密钥（Base64编码），长度必须是16或24或者32位
+     * @param mode    密码块工作模式
+     * @param padding 填充方式
      * @return 明文
      */
     public static String decrypt(String data, String key, Mode mode, Padding padding) {
@@ -208,8 +219,10 @@ public class AESUtils {
     /**
      * AES解密（不带偏移量）
      *
-     * @param data 密文
-     * @param key  密钥，长度必须是16或24或者32位
+     * @param data    密文
+     * @param key     密钥，长度必须是16或24或者32位
+     * @param mode    密码块工作模式
+     * @param padding 填充方式
      * @return 明文
      */
     public static byte[] decrypt(byte[] data, byte[] key, Mode mode, Padding padding) {

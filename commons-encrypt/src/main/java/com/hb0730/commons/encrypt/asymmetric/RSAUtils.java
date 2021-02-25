@@ -392,7 +392,9 @@ public class RSAUtils {
     }
 
     /**
-     * 生成公钥和私钥
+     * 生成公钥和私钥,默认2048
+     *
+     * @return RSA公私钥 {@link RSAUtils}
      */
     public static RSAKeyPair generateKey() {
         return generateKey(2048);
@@ -400,6 +402,9 @@ public class RSAUtils {
 
     /**
      * 生成公钥和私钥
+     *
+     * @param keysize key长度
+     * @return RSA公私钥 {@link RSAUtils}
      */
     public static RSAKeyPair generateKey(int keysize) {
         SecureRandom sr = new SecureRandom();
