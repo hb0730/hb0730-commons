@@ -307,15 +307,10 @@ public class FileUtils {
         File[] files = dir.listFiles();
         if (null != files && files.length > 0) {
             for (File file : files) {
-                if (file.isFile()) {
-                    if (!deleteFile(file)) {
-                        return false;
-
-                    }
-                } else if (file.isDirectory()) {
-                    if (!deleteDir(file)) {
-                        return false;
-                    }
+                if (file.isFile() && !deleteFile(file)) {
+                    return false;
+                } else if (file.isDirectory() && !deleteDir(file)) {
+                    return false;
                 }
             }
         }
