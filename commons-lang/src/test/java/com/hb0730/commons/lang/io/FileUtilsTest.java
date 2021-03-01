@@ -562,4 +562,166 @@ public class FileUtilsTest {
         int fileLines = FileUtils.getFileLines(FileUtils.getFile("d:/test/test.txt"));
         fileLines = FileUtils.getFileLines((File) null);
     }
+
+    @Test
+    public void writeByStreamTest() throws IOException {
+        FileInputStream inputStream = FileUtils.openInputStream(new File("d:/haha3.txt"));
+        boolean b = FileUtils.writeByStream("d:/test/test.txt", inputStream, false);
+        Assert.assertTrue(b);
+        b = FileUtils.writeByStream("d:/test/test.txt", null, false);
+        Assert.assertTrue(b);
+        b = FileUtils.writeByStream((String) null, null, false);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void testWriteByteStreamTest() throws IOException {
+        FileInputStream inputStream = FileUtils.openInputStream(new File("d:/haha3.txt"));
+        boolean b = FileUtils.writeByStream(FileUtils.getFile("d:/test/test.txt"), inputStream, false);
+        Assert.assertTrue(b);
+        b = FileUtils.writeByStream("d:/test/test.txt", null, false);
+        Assert.assertTrue(b);
+        b = FileUtils.writeByStream((String) null, null, false);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void copyDirTest() throws IOException {
+        boolean b = FileUtils.copyDir("d:/test/test1", "d:/test/test2");
+        Assert.assertTrue(b);
+        b = FileUtils.copyDir("d:/test/test1", null);
+        Assert.assertTrue(b);
+        b = FileUtils.copyDir((String) null, null);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void testCopyDirTest() throws IOException {
+        boolean b = FileUtils.copyDir(FileUtils.getFile("d:/test/test1"), FileUtils.getFile("d:/test/test2"));
+        Assert.assertTrue(b);
+        b = FileUtils.copyDir(FileUtils.getFile("d:/test/test1"), null);
+        Assert.assertTrue(b);
+        b = FileUtils.copyDir((File) null, null);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void copyFileTest() throws IOException {
+        boolean b = FileUtils.copyFile("d:/test/test1/test1.txt", "d:/test/test2/test2.txt");
+        Assert.assertTrue(b);
+        b = FileUtils.copyFile("d:/test/test1/test1.txt", null);
+        Assert.assertTrue(b);
+        b = FileUtils.copyFile((String) null, null);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void testCopyFileTest() throws IOException {
+        boolean b = FileUtils.copyFile(FileUtils.getFile("d:/test/test1/test1.txt"), FileUtils.getFile("d:/test/test2/test2.txt"));
+        Assert.assertTrue(b);
+        b = FileUtils.copyFile(FileUtils.getFile("d:/test/test1/test1.txt"), null);
+        Assert.assertTrue(b);
+        b = FileUtils.copyFile((File) null, null);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void moveDirTest() throws IOException {
+        FileUtils.createOrExistsDir("d:/test/test2");
+        boolean b = FileUtils.moveDir("d:/test/test2", "d:/test/test1/test2");
+        Assert.assertTrue(b);
+        b = FileUtils.moveDir("d:/test/test2", null);
+        Assert.assertTrue(b);
+        b = FileUtils.moveDir((String) null, null);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void testMoveDirTest() throws IOException {
+        boolean b = FileUtils.moveDir(FileUtils.getFile("d:/test/test1/test2"), FileUtils.getFile("d:/test/test2"));
+        Assert.assertTrue(b);
+        b = FileUtils.moveDir(FileUtils.getFile("d:/test/test2"), null);
+        Assert.assertTrue(b);
+        b = FileUtils.moveDir((File) null, null);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void moveFileTest() throws IOException {
+        FileUtils.createOrExistsFile("d:/test/test2/test2.txt");
+        boolean b = FileUtils.moveFile("d:/test/test2/test2.txt", "d:/test/test1/test2.txt");
+        Assert.assertTrue(b);
+        b = FileUtils.moveFile("d:/test/test2/test2.txt", null);
+        Assert.assertTrue(b);
+        b = FileUtils.moveFile((String) null, null);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void testMoveFileTest() throws IOException {
+        boolean b = FileUtils.moveFile(FileUtils.getFile("d:/test/test1/test2.txt"), FileUtils.getFile("d:/test/test2/test2.txt"));
+        Assert.assertTrue(b);
+        b = FileUtils.moveFile(FileUtils.getFile("d:/test/test1/test2.txt"), null);
+        Assert.assertTrue(b);
+        b = FileUtils.moveFile((File) null, null);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void copyOrMoveDirTest() throws IOException {
+        FileUtils.deleteDir("d:/test");
+        FileUtils.createOrExistsDir("d:/test/test1/test1-1");
+        boolean b = FileUtils.copyOrMoveDir("d:/test/test1", "d:/test/test2", false);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveDir("d:/test/test2", "d:/test", true);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveDir("d:/test/test2", null, true);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveDir((String) null, null, true);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void testCopyOrMoveDirTest() throws IOException {
+        FileUtils.deleteDir("d:/test");
+        FileUtils.createOrExistsDir("d:/test/test1/test1-1");
+        boolean b = FileUtils.copyOrMoveDir(FileUtils.getFile("d:/test/test1"), FileUtils.getFile("d:/test/test2"), false);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveDir(FileUtils.getFile("d:/test/test2"), FileUtils.getFile("d:/test"), true);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveDir(FileUtils.getFile("d:/test/test2"), null, true);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveDir((File) null, null, true);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void copyOrMoveFileTest() throws IOException {
+        FileUtils.deleteDir("d:/test");
+        FileUtils.createOrExistsFile("d:/test/test1/test1.txt");
+        FileUtils.write(FileUtils.getFile("d:/test/test1/test.txt"), "text,\r\ntest,\r\ntest", Charset.defaultCharset());
+        boolean b = FileUtils.copyOrMoveFile("d:/test/test1/test.txt", "d:/test/test2/test2.txt", false);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveFile("d:/test/test2/test2.txt", "d:/test/test.txt", true);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveFile("d:/test/test2/test2.txt", null, true);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveFile((String) null, null, true);
+        Assert.assertTrue(b);
+    }
+
+    @Test
+    public void testCopyOrMoveFileTest() throws IOException {
+        FileUtils.deleteDir("d:/test");
+        FileUtils.createOrExistsFile("d:/test/test1/test1.txt");
+        FileUtils.write(FileUtils.getFile("d:/test/test1/test.txt"), "text,\r\ntest,\r\ntest", Charset.defaultCharset());
+        boolean b = FileUtils.copyOrMoveFile(FileUtils.getFile("d:/test/test1/test.txt"), FileUtils.getFile("d:/test/test2/test2.txt"), false);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveFile(FileUtils.getFile("d:/test/test2/test2.txt"), FileUtils.getFile("d:/test/test.txt"), true);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveFile(FileUtils.getFile("d:/test/test2/test2.txt"), null, true);
+        Assert.assertTrue(b);
+        b = FileUtils.copyOrMoveFile((File) null, null, true);
+        Assert.assertTrue(b);
+    }
 }

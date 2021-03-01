@@ -753,6 +753,47 @@ public class FileUtils {
     }
 
     /**
+     * 将输入流写入文件
+     *
+     * @param filePath 路径
+     * @param is       输入流
+     * @param append   是否追加在文件末
+     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
+     * @since 2.1.1
+     */
+    public static boolean writeByStream(String filePath, InputStream is, boolean append) throws IOException {
+        return writeByStream(getFile(filePath), is, append);
+    }
+
+    /**
+     * 将输入流写入文件
+     *
+     * @param file   文件
+     * @param is     输入流
+     * @param append 是否追加在文件末
+     * @return {@code true}: 写入成功<br>{@code false}: 写入失败
+     * @since 2.1.1
+     */
+    public static boolean writeByStream(File file, InputStream is, boolean append) throws IOException {
+        if (null == file || null == is) {
+            return false;
+        }
+        if (!createOrExistsFile(file)) {
+            return false;
+        }
+        try (OutputStream os = new BufferedOutputStream(new FileOutputStream(file, append))) {
+            byte[] data = new byte[1024];
+            int len;
+            while ((len = is.read(data, 0, 1024)) != -1) {
+                os.write(data, 0, len);
+            }
+            return true;
+        } finally {
+            is.close();
+        }
+    }
+
+    /**
      * 获取input流
      *
      * @param file file
@@ -949,6 +990,200 @@ public class FileUtils {
             return null;
         }
         return Files.readAllBytes(file.toPath());
+    }
+
+    /**
+     * 复制或移动目录
+     *
+     * @param srcDirPath  源目录路径
+     * @param destDirPath 目标目录路径
+     * @param isMove      是否移动
+     * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
+     * @since 2.1.1
+     */
+    public static boolean copyOrMoveDir(String srcDirPath, String destDirPath, boolean isMove) throws IOException {
+        return copyOrMoveDir(getFile(srcDirPath), getFile(destDirPath), isMove);
+    }
+
+    /**
+     * 复制或移动目录
+     *
+     * @param srcDir  源目录
+     * @param destDir 目标目录
+     * @param isMove  是否移动
+     * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
+     * @since 2.1.1
+     */
+    public static boolean copyOrMoveDir(File srcDir, File destDir, boolean isMove) throws IOException {
+        if (null == srcDir || null == destDir) {
+            return false;
+        }
+        // 如果目标目录在源目录中则返回false，看不懂的话好好想想递归怎么结束
+        // 为防止以上这种情况出现出现误判，须分别在后面加个路径分隔符
+        String srcPath = srcDir.getPath() + File.separator;
+        String destPath = destDir.getPath() + File.separator;
+        // 源文件不存在或者不是目录则返回false
+        if (destPath.contains(srcPath)) {
+            return false;
+        }
+        if (!srcDir.exists() || !srcDir.isDirectory()) {
+            return false;
+        }
+        // 目标目录不存在返回false
+        if (!createOrExistsDir(destDir)) {
+            return false;
+        }
+
+        File[] files = srcDir.listFiles();
+        if (null != files && files.length > 0) {
+            for (File file : files) {
+                File destFile = new File(destPath + file.getName());
+                if (file.isFile() && !copyOrMoveFile(file, destFile, isMove)) {
+                    return false;
+                } else if (file.isDirectory() && !copyOrMoveDir(file, destFile, isMove)) {
+                    return false;
+                }
+            }
+        }
+        return !isMove || deleteDir(srcDir);
+
+    }
+
+    /**
+     * 复制或移动文件
+     *
+     * @param srcFilePath  源文件路径
+     * @param destFilePath 目标文件路径
+     * @param isMove       是否移动
+     * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
+     * @since 2.1.1
+     */
+    public static boolean copyOrMoveFile(String srcFilePath, String destFilePath, boolean isMove) throws IOException {
+        return copyOrMoveFile(getFile(srcFilePath), getFile(destFilePath), isMove);
+    }
+
+    /**
+     * 复制或移动文件
+     *
+     * @param srcFile  源文件
+     * @param destFile 目标文件
+     * @param isMove   是否移动
+     * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
+     * @since 2.1.1
+     */
+    public static boolean copyOrMoveFile(File srcFile, File destFile, boolean isMove) throws IOException {
+        if (null == srcFile || null == destFile) {
+            return false;
+        }
+        // 源文件不存在或者不是文件则返回false
+        if (!srcFile.exists() || !srcFile.isFile()) {
+            return false;
+        }
+        // 目标文件存在且是文件则返回false
+        if (srcFile.exists() && destFile.isFile()) {
+            return false;
+        }
+        if (!createOrExistsDir(destFile.getParentFile())) {
+            return false;
+        }
+        return writeByStream(destFile, openInputStream(srcFile), false) && !(isMove && !deleteFile(srcFile));
+    }
+
+    /**
+     * 复制目录
+     *
+     * @param srcDirPath  源目录路径
+     * @param destDirPath 目标目录路径
+     * @return {@code true}: 复制成功<br>{@code false}: 复制失败
+     * @since 2.1.1
+     */
+    public static boolean copyDir(String srcDirPath, String destDirPath) throws IOException {
+        return copyDir(getFile(srcDirPath), getFile(destDirPath));
+    }
+
+    /**
+     * 复制目录
+     *
+     * @param srcDir  源目录
+     * @param destDir 目标目录
+     * @return {@code true}: 复制成功<br>{@code false}: 复制失败
+     * @since 2.1.1
+     */
+    public static boolean copyDir(File srcDir, File destDir) throws IOException {
+        return copyOrMoveDir(srcDir, destDir, false);
+    }
+
+
+    /**
+     * 复制文件
+     *
+     * @param srcFilePath  源文件路径
+     * @param destFilePath 目标文件路径
+     * @return {@code true}: 复制成功<br>{@code false}: 复制失败
+     * @since 2.1.1
+     */
+    public static boolean copyFile(String srcFilePath, String destFilePath) throws IOException {
+        return copyFile(getFile(srcFilePath), getFile(destFilePath));
+    }
+
+    /**
+     * 复制文件
+     *
+     * @param srcFile  源文件
+     * @param destFile 目标文件
+     * @return {@code true}: 复制成功<br>{@code false}: 复制失败
+     * @since 2.1.1
+     */
+    public static boolean copyFile(File srcFile, File destFile) throws IOException {
+        return copyOrMoveFile(srcFile, destFile, false);
+    }
+
+    /**
+     * 移动目录
+     *
+     * @param srcDirPath  源目录路径
+     * @param destDirPath 目标目录路径
+     * @return {@code true}: 移动成功<br>{@code false}: 移动失败
+     * @since 2.1.1
+     */
+    public static boolean moveDir(String srcDirPath, String destDirPath) throws IOException {
+        return moveDir(getFile(srcDirPath), getFile(destDirPath));
+    }
+
+    /**
+     * 移动目录
+     *
+     * @param srcDir  源目录
+     * @param destDir 目标目录
+     * @return {@code true}: 移动成功<br>{@code false}: 移动失败
+     * @since 2.1.1
+     */
+    public static boolean moveDir(File srcDir, File destDir) throws IOException {
+        return copyOrMoveDir(srcDir, destDir, true);
+    }
+
+    /**
+     * 移动文件
+     *
+     * @param srcFilePath  源文件路径
+     * @param destFilePath 目标文件路径
+     * @return {@code true}: 移动成功<br>{@code false}: 移动失败
+     * @since 2.1.1
+     */
+    public static boolean moveFile(String srcFilePath, String destFilePath) throws IOException {
+        return moveFile(getFile(srcFilePath), getFile(destFilePath));
+    }
+
+    /**
+     * 移动文件
+     *
+     * @param srcFile  源文件
+     * @param destFile 目标文件
+     * @return {@code true}: 移动成功<br>{@code false}: 移动失败
+     * @since 2.1.1
+     */
+    public static boolean moveFile(File srcFile, File destFile) throws IOException {
+        return copyOrMoveFile(srcFile, destFile, true);
     }
 
     /**
