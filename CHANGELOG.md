@@ -4,6 +4,7 @@
 + **[commons-lang]**
   + 完善`FileUtils`方法
   + 新增 `CollectionUtils#addAll`方法
+  + 新增 `FileTypeUtils`类
 ## Fixed
 ## Update
 # 2.1.0
