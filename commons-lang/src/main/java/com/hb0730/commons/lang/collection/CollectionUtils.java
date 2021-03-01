@@ -277,6 +277,41 @@ public class CollectionUtils {
     }
 
     /**
+     * 加入全部
+     *
+     * @param collection 被加入的集合 {@link Collection}
+     * @param values     要加入的内容数组
+     * @param <T>        集合元素类型
+     * @return 原集合
+     * @since 2.1.1
+     */
+    @SafeVarargs
+    public static <T> Collection<T> addAll(Collection<T> collection, T... values) {
+        if (null == collection || null == values) {
+            return collection;
+        }
+        Collections.addAll(collection, values);
+        return collection;
+    }
+
+    /**
+     * 加入全部
+     *
+     * @param collection 被加入的集合 {@link Collection}
+     * @param values     要加入的内容数组
+     * @param <T>        集合元素类型
+     * @return 原集合
+     * @since 2.1.1
+     */
+    public static <T> Collection<T> addAll(Collection<T> collection, Collection<? extends T> values) {
+        if (null == collection || null == values) {
+            return collection;
+        }
+        collection.addAll(values);
+        return collection;
+    }
+
+    /**
      * 实例化一个{@link ArrayList}
      *
      * @param collection 元素集合

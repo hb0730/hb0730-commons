@@ -252,4 +252,26 @@ public class CollectionUtilsTest {
         BlockingQueue<Object> objects = CollectionUtils.toArrayBlockingQueue();
         Assert.assertNotNull(objects);
     }
+
+    @Test
+    public void addAllTest() {
+        List<String> list = new ArrayList<>();
+        list = (List<String>) CollectionUtils.addAll(list, "a", "b", "c");
+        Assert.assertNotNull("集合为空", list);
+        list = (List<String>) CollectionUtils.addAll(list, (String) null);
+        Assert.assertNotNull("集合为空", list);
+        list = (List<String>) CollectionUtils.addAll(null, (String) null);
+        Assert.assertNotNull("集合为空", list);
+    }
+
+    @Test
+    public void testAddAllTest() {
+        List<String> list = new ArrayList<>();
+        list = (List<String>) CollectionUtils.addAll(list, Arrays.asList("a", "b", "c"));
+        Assert.assertNotNull("集合为空", list);
+        list = (List<String>) CollectionUtils.addAll(list, (Collection<String>) null);
+        Assert.assertNotNull("集合为空", list);
+        list = (List<String>) CollectionUtils.addAll(null, (Collection<String>) null);
+        Assert.assertNotNull("集合为空", list);
+    }
 }
