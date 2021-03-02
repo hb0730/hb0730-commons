@@ -255,4 +255,91 @@ public class IOUtilsTest {
         inputStream = null;
         IOUtils.closeQuietly(inputStream);
     }
+
+    @Test
+    public void copyTest() throws IOException {
+        String message = "测试";
+        ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        long copy = IOUtils.copy(in, out);
+        String result = out.toString(StandardCharsets.UTF_8.name());
+        Assert.assertEquals(message, result);
+    }
+
+    @Test
+    public void copy2Test() throws IOException {
+        String message = "测试";
+        ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
+        long copy = IOUtils.copy(in, null);
+    }
+
+    @Test
+    public void copy3Test() throws IOException {
+        IOUtils.copy(null, null);
+    }
+
+    @Test
+    public void testCopyTest() throws IOException {
+        String message = "测试";
+        ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        IOUtils.copy(in, out, 2048);
+        String result = out.toString(StandardCharsets.UTF_8.name());
+        Assert.assertEquals(message, result);
+    }
+
+    @Test
+    public void testCopy2Test() throws IOException {
+        String message = "测试";
+        ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        IOUtils.copy(in, out, 0);
+        String result = out.toString(StandardCharsets.UTF_8.name());
+        Assert.assertEquals(message, result);
+    }
+
+    @Test
+    public void testCopy3Test() throws IOException {
+        String message = "测试";
+        ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
+        IOUtils.copy(in, null, 0);
+    }
+
+    @Test
+    public void testCopy4Test() throws IOException {
+        String message = "测试";
+        ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
+        IOUtils.copy(null, null, 0);
+    }
+
+    @Test
+    public void readTest() throws IOException {
+        String message = "测试";
+        ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
+        String result = IOUtils.read(in);
+        Assert.assertEquals(message, result);
+
+    }
+
+    @Test
+    public void testReadTest() throws IOException {
+        String message = "测试";
+        ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
+        String result = IOUtils.read(in, Charset.defaultCharset());
+        Assert.assertEquals(message, result);
+        result = IOUtils.read(in, null);
+        Assert.assertEquals(message, result);
+        result = IOUtils.read(null, null);
+        Assert.assertEquals(message, result);
+    }
+
+    @Test
+    public void readBytesTest() throws IOException {
+        String message = "测试";
+        ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));
+        byte[] bytes = IOUtils.readBytes(in);
+        Assert.assertNotNull(bytes);
+        bytes = IOUtils.readBytes(null);
+        Assert.assertNotNull(bytes);
+    }
 }

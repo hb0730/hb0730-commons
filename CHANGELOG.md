@@ -3,6 +3,7 @@
 ## Feature
 + **[commons-lang]**
   + 完善`FileUtils`方法
+  + 完善 `IOUtils`方法  
   + 新增 `CollectionUtils#addAll`方法
   + 新增 `FileTypeUtils`类
 ## Fixed
