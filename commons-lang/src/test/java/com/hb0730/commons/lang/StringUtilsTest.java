@@ -312,4 +312,13 @@ public class StringUtilsTest {
         Assert.assertNotNull("参数为空", newStr);
         log.debug(newStr);
     }
+
+    @Test
+    public void joinNotNullTest() {
+        String result = StringUtils.joinNotNull("s1,", "s2,", "s3");
+        Assert.assertEquals("s1,s2,s3", result);
+        result = StringUtils.joinNotNull(null, "s2,", "s3");
+        Assert.assertEquals("s2,s3", result);
+        result = StringUtils.joinNotNull(null);
+    }
 }
