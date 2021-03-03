@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
 @Slf4j
 public class ArrayUtilsTest {
 
@@ -441,5 +443,43 @@ public class ArrayUtilsTest {
         int[] resize = (int[]) ArrayUtils.resize(s, 4);
         Assert.assertNotNull(resize);
         log.debug(ArrayUtils.toString(resize));
+    }
+
+    @Test
+    public void toListTest() {
+        String[] s = new String[]{"1", "2", "3"};
+        List<String> list1 = ArrayUtils.toList(s);
+        Assert.assertNotNull(list1);
+        s = null;
+        list1 = ArrayUtils.toList(s);
+        Assert.assertNotNull(list1);
+    }
+
+    @Test
+    public void joinTest() {
+        String[] s = new String[]{"1", "2", "3"};
+        String s1 = ArrayUtils.join(s, ",");
+        Assert.assertEquals("1,2,3", s1);
+        s1 = ArrayUtils.join(s, "");
+        Assert.assertEquals("123", s1);
+        s1 = ArrayUtils.join(s, null);
+        Assert.assertEquals("1null2null3", s1);
+    }
+
+    @Test
+    public void testJoinTest() {
+        String[] s = new String[]{"1", "2", "3"};
+        String result = ArrayUtils.join(s, ",", "test", ".txt", 2);
+        Assert.assertEquals("test1.txt,test2.txt", result);
+        result = ArrayUtils.join(s, ",", "test", ".txt", 0);
+        Assert.assertEquals("test1.txt,test2.txt,test3.txt", result);
+        result = ArrayUtils.join(s, ",", "test", ".txt", 5);
+        Assert.assertEquals("test1.txt,test2.txt,test3.txt", result);
+        result = ArrayUtils.join(s, ",", "test", ".txt", 5);
+        Assert.assertEquals("test1.txt,test2.txt,test3.txt", result);
+        result = ArrayUtils.join(s, ",", "test", null, 5);
+        Assert.assertEquals("test1,test2,test3", result);
+        result = ArrayUtils.join(s, ",", null, null, 5);
+        Assert.assertEquals("1,2,3", result);
     }
 }

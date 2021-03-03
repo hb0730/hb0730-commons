@@ -537,6 +537,66 @@ public class ArrayUtils {
     }
 
     /**
+     * 以 divider 为分隔符将数组转换为字符串
+     *
+     * @param <T>     被处理的集合
+     * @param array   数组
+     * @param divider 分隔符
+     * @return 连接后的字符串
+     * @since 2.1.1
+     */
+    public static <T> String join(T[] array, CharSequence divider) {
+        return join(array, divider, null, null, 0);
+    }
+
+    /**
+     * 以特定分隔符拼接转字符串
+     *
+     * @param array   数组集合
+     * @param divider 分隔符
+     * @param prefix  前缀，null表示不添加
+     * @param suffix  后缀，null表示不添加
+     * @param length  分割长度,如果超过最大或者低于最小取全部
+     * @param <T>     被处理的集合
+     * @return 连接后的字符串
+     * @since 2.1.1
+     */
+    public static <T> String join(T[] array, CharSequence divider, String prefix, String suffix, int length) {
+        if (null == array) {
+            return null;
+        }
+        if (length <= 0 || length(array) < length) {
+            length = length(array);
+        }
+        final StringBuilder sb = new StringBuilder();
+        boolean isFirst = true;
+        for (int i = 0; i < length; i++) {
+            if (isFirst) {
+                isFirst = false;
+            } else {
+                sb.append(divider);
+            }
+            sb.append(StringUtils.joinNotNull(prefix, array[i].toString(), suffix));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 将array转成{@link ArrayList}
+     *
+     * @param array 数组
+     * @param <T>   类型
+     * @return {@link ArrayList}
+     * @since 2.1.1
+     */
+    public static <T> List<T> toList(T[] array) {
+        if (isEmpty(array)) {
+            return null;
+        }
+        return ListUtils.toArrayList(array);
+    }
+
+    /**
      * 生成一个新的重新设置大小的数组<br>
      * 新数组的类型为原数组的类型，调整大小后拷贝原数组到新数组下。扩大则占位前N个位置，缩小则截断
      *

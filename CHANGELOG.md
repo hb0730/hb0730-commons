@@ -6,6 +6,8 @@
   + 完善 `IOUtils`方法  
   + 新增 `CollectionUtils#addAll`方法
   + 新增 `FileTypeUtils`类
+  + 新增 `StringUtils#joinNotNull` 排除Null
+  + 新增 `ArrayUtils#join`
 ## Fixed
 ## Update
 # 2.1.0

@@ -333,4 +333,23 @@ public class StringUtils {
         return sb.toString();
     }
 
+    /**
+     * 字符串拼接，如果遇见{@code null},自动跳过
+     *
+     * @param elements 需要拼接的String
+     * @return 拼接后的String
+     * @since 2.1.1
+     */
+    public static String joinNotNull(CharSequence... elements) {
+        Validate.notEmpty(elements, "element not empty");
+        final StringBuilder sb = new StringBuilder(elements.length);
+        for (CharSequence element : elements) {
+            if (StringUtils.isBlank(element)) {
+                continue;
+            }
+            sb.append(element);
+        }
+        return sb.toString();
+    }
+
 }
