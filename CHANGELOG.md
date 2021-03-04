@@ -9,6 +9,7 @@
   + 新增 `StringUtils#joinNotNull` 排除Null
   + 新增 `ArrayUtils#join`
   + 新增 `LocalDateUtils`
+  + 完善 `Thread`相关
 + **[commons-spring]**
   + 新增`resourcesUtils`
   
