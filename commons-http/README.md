@@ -30,12 +30,7 @@ HttpAsync http = Https.ASYNC.getHttp();
             }
 
             @Override
-            public void success(byte[] result) throws IOException {
-
-            }
-
-            @Override
-            public void file(Exception e) {
+            public void failure(Exception e) {
 
             }
         });
