@@ -914,7 +914,9 @@ public class FileUtils {
         if (StringUtils.isBlank(charsetName) || !Charset.isSupported(charsetName)) {
             charsetName = com.hb0730.commons.lang.constants.Charsets.UTF_8_NAME;
         }
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), charsetName))) {
+        try (FileInputStream fileInputStream = new FileInputStream(file);
+             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, charsetName);
+             BufferedReader reader = new BufferedReader(inputStreamReader)) {
             String line;
             int curLine = 1;
             List<String> list = new ArrayList<>();
@@ -922,7 +924,10 @@ public class FileUtils {
                 if (curLine > end) {
                     break;
                 }
-                if (st <= curLine && curLine <= end) {
+//                if (st <= curLine && curLine <= end) {
+//                    list.add(line);
+//                }
+                if (st <= curLine) {
                     list.add(line);
                 }
                 ++curLine;
