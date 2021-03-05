@@ -3,6 +3,7 @@ package com.hb0730.commons.lang.thread;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 public class ThreadUtilsTest {
@@ -35,5 +36,27 @@ public class ThreadUtilsTest {
         ScheduledThreadPoolExecutor poolExecutor = new ScheduledThreadPoolExecutor(1, r -> ThreadUtils.newThread(r, String.format("cache-prune-timer-%d", 1)));
         Assert.assertNotNull(poolExecutor);
         ThreadUtils.shutdownAndAwaitTermination(poolExecutor);
+    }
+
+    @Test
+    public void newExecutorTest() {
+        ExecutorService service = ThreadUtils.newExecutor(1);
+        Assert.assertNotNull(service);
+        service = ThreadUtils.newExecutor(0);
+        Assert.assertNotNull(service);
+        service = ThreadUtils.newExecutor(-1);
+        Assert.assertNotNull(service);
+    }
+
+    @Test
+    public void newExecutorTest2() {
+        ExecutorService service = ThreadUtils.newExecutor(2, 3);
+        Assert.assertNotNull(service);
+    }
+
+    @Test
+    public void testNewExecutorTest() {
+        ExecutorService executorService = ThreadUtils.newExecutor(2, 4, 5);
+        Assert.assertNotNull(executorService);
     }
 }

@@ -18,18 +18,18 @@ public class ExecutorBuilder implements Builder<ThreadPoolExecutor> {
      */
     private int corePoolSize;
     /**
-     * 最大线程数
+     * 最大线程数,默认为corePoolSize<<1
      */
-    private int maximumPoolSize;
+    private Integer maximumPoolSize;
     /**
      * 当线程数大于核心线程数时，多余的空闲线程存活的最长时间
      */
     private long keepAliveTime = 0;
 
     /**
-     * 时间单位
+     * 时间单位,默认{@link TimeUnit#NANOSECONDS}
      */
-    private TimeUnit timeUnit = TimeUnit.MILLISECONDS;
+    private TimeUnit timeUnit = TimeUnit.NANOSECONDS;
     /**
      * 任务队列，用来储存等待执行任务的队列
      */
@@ -83,7 +83,7 @@ public class ExecutorBuilder implements Builder<ThreadPoolExecutor> {
     }
 
     /**
-     * 设置时间单位,默认为{@link TimeUnit#MILLISECONDS}
+     * 设置时间单位,默认为{@link TimeUnit#NANOSECONDS}
      *
      * @param timeUnit 时间单位
      * @return this
@@ -223,7 +223,7 @@ public class ExecutorBuilder implements Builder<ThreadPoolExecutor> {
      */
     private static ThreadPoolExecutor build(ExecutorBuilder builder) {
         final int corePoolSize = builder.corePoolSize;
-        final int maximumPoolSize = builder.maximumPoolSize;
+        final int maximumPoolSize = (null != builder.maximumPoolSize) ? builder.maximumPoolSize : ((corePoolSize <= 0) ? 1 : corePoolSize << 1);
         final long keepAliveTime = builder.keepAliveTime;
         final TimeUnit timeUnit = builder.timeUnit;
         final BlockingQueue<Runnable> workQueue;

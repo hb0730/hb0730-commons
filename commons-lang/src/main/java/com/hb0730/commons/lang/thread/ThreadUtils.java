@@ -9,6 +9,73 @@ import java.util.concurrent.*;
  * @since 1.0.0
  */
 public class ThreadUtils {
+
+    /**
+     * 新建一个线程池，默认的策略如下：
+     * <ul>
+     *     <li>
+     *         1. 初始线程数为corePoolSize指定的大小
+     *     </li>
+     *     <li>
+     *         2. 最大线程数为核心线程数的一倍，如果核心线程数为0则最大线程数为1
+     *     </li>
+     *     <li>
+     *         3.默认使用LinkedBlockingQueue，默认队列大小为1024
+     *     </li>
+     *     <li>
+     *         4.当运行线程大于corePoolSize放入队列，队列满后抛出异常
+     *     </li>
+     * </ul>
+     *
+     * @param corePoolSize 核心线程数
+     * @return {@link ExecutorService}
+     * @see ExecutorBuilder
+     * @since 2.1.1
+     */
+    public static ExecutorService newExecutor(int corePoolSize) {
+        ExecutorBuilder builder = ExecutorBuilder.create();
+        if (corePoolSize > 0) {
+            builder.setCorePoolSize(corePoolSize);
+        }
+        return builder.build();
+    }
+
+    /**
+     * 获得一个新的线程池
+     *
+     * @param corePoolSize    初始线程池大小
+     * @param maximumPoolSize 最大线程池大小
+     * @return {@link ThreadPoolExecutor}
+     * @see ExecutorBuilder
+     * @since 2.1.1
+     */
+    public static ExecutorService newExecutor(int corePoolSize, int maximumPoolSize) {
+        return ExecutorBuilder
+                .create()
+                .setCorePoolSize(corePoolSize)
+                .setMaximumPoolSize(maximumPoolSize)
+                .build();
+    }
+
+    /**
+     * 获得一个新的线程池，并指定最大任务队列大小
+     *
+     * @param corePoolSize     初始线程池大小
+     * @param maximumPoolSize  最大线程池大小
+     * @param maximumQueueSize 最大任务队列大小
+     * @return {@link ThreadPoolExecutor}
+     * @see ExecutorBuilder
+     * @since 2.1.1
+     */
+    public static ExecutorService newExecutor(int corePoolSize, int maximumPoolSize, int maximumQueueSize) {
+        return ExecutorBuilder.create()
+                .setCorePoolSize(corePoolSize)
+                .setMaximumPoolSize(maximumPoolSize)
+                .setWorkQueue(new LinkedBlockingQueue<>(maximumQueueSize))
+                .build();
+    }
+
+
     /**
      * 创建新线程，非守护线程，正常优先级，线程组与当前线程的线程组一致
      *
