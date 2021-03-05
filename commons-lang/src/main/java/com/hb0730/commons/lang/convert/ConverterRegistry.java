@@ -70,7 +70,7 @@ public class ConverterRegistry {
         if (ObjectUtils.isNull(value)) {
             return defaultValue;
         }
-        if (TypeUtils.isUnknow(type)) {
+        if (TypeUtils.isUnknow(type) && null != defaultValue) {
             type = defaultValue.getClass();
         }
         final Converter<T> converter = getConverter(type, isCustomFirst);

@@ -4,6 +4,7 @@ import com.hb0730.commons.cache.CacheWrapper;
 import com.hb0730.commons.cache.exception.CacheException;
 import com.hb0730.commons.cache.support.redis.springdata.RedisSpringDataCacheConfig;
 import com.hb0730.commons.cache.support.serializer.Serializer;
+import com.hb0730.commons.lang.collection.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -76,11 +77,13 @@ public class RedisSpringDataCache<K, V> extends AbstractRemoteCache<K, V> {
             Map<K, CacheWrapper<V>> resultMap = new HashMap<>();
             if (newKeys.length > 0) {
                 List<byte[]> mgetResults = connection.mGet(newKeys);
-                for (int i = 0; i < (mgetResults != null ? mgetResults.size() : 0); i++) {
-                    byte[] bytes = mgetResults.get(i);
-                    K k = keyList.get(i);
-                    CacheWrapper<V> result = serializer.deserialize(bytes);
-                    resultMap.put(k, result);
+                if (CollectionUtils.isNotEmpty(mgetResults)) {
+                    for (int i = 0; i < mgetResults.size(); i++) {
+                        byte[] bytes = mgetResults.get(i);
+                        K k = keyList.get(i);
+                        CacheWrapper<V> result = serializer.deserialize(bytes);
+                        resultMap.put(k, result);
+                    }
                 }
                 return Optional.of(resultMap);
             }
