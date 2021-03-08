@@ -10,6 +10,7 @@
   + 新增 `ArrayUtils#join`
   + 新增 `LocalDateUtils`
   + 完善 `Thread`相关
+  + 新增 `ListBuilder`
 + **[commons-spring]**
   + 新增`resourcesUtils`
   
