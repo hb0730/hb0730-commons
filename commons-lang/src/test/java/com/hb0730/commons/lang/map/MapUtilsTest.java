@@ -55,9 +55,9 @@ public class MapUtilsTest {
     @Test
     public void testDefaultIfEmptyTest() {
         Map<String, String> defaultMap = MapBuilder
-                .build(new HashMap<String, String>())
+                .builder(new HashMap<String, String>())
                 .put("test", "test")
-                .builder();
+                .build();
 
         Map<String, String> map = MapUtils.newHashMap();
         map.put("test", "test1");
