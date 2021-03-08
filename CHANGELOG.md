@@ -16,6 +16,8 @@
   
 ## Fixed
 ## Update
++ **[commons-lang]**
+  + update `MapBuilder` 更改继承方式为: `Builder<T>`
 # 2.1.0
 ## Feature
 + **[commons-lang]**

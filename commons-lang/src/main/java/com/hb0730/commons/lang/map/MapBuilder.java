@@ -1,6 +1,7 @@
 package com.hb0730.commons.lang.map;
 
-import java.io.Serializable;
+import com.hb0730.commons.lang.builder.Builder;
+
 import java.util.Map;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Map;
  * @author bing_huang
  * @since 2.0.3
  */
-public class MapBuilder<K, V> implements Serializable {
+public class MapBuilder<K, V> implements Builder<Map<K, V>> {
     private static final long serialVersionUID = -5240705513723579529L;
     private final Map<K, V> map;
 
@@ -22,8 +23,8 @@ public class MapBuilder<K, V> implements Serializable {
      * @see java.util.HashMap
      * @see MapUtils#newHashMap()
      */
-    public static <K, V> MapBuilder<K, V> build() {
-        return build(MapUtils.newHashMap());
+    public static <K, V> MapBuilder<K, V> builder() {
+        return builder(MapUtils.newHashMap());
     }
 
     /**
@@ -36,8 +37,8 @@ public class MapBuilder<K, V> implements Serializable {
      * @see java.util.HashMap
      * @see MapUtils#newHashMap(int)
      */
-    public static <K, V> MapBuilder<K, V> build(int initialCapacity) {
-        return build(MapUtils.newHashMap(initialCapacity));
+    public static <K, V> MapBuilder<K, V> builder(int initialCapacity) {
+        return builder(MapUtils.newHashMap(initialCapacity));
     }
 
     /**
@@ -48,7 +49,7 @@ public class MapBuilder<K, V> implements Serializable {
      * @param <V> map value类型
      * @return 链式map {@link MapBuilder}
      */
-    public static <K, V> MapBuilder<K, V> build(Map<K, V> map) {
+    public static <K, V> MapBuilder<K, V> builder(Map<K, V> map) {
         return new MapBuilder<>(map);
     }
 
@@ -59,15 +60,6 @@ public class MapBuilder<K, V> implements Serializable {
      */
     public MapBuilder(Map<K, V> map) {
         this.map = map;
-    }
-
-    /**
-     * 返回创建的Map
-     *
-     * @return map
-     */
-    public Map<K, V> builder() {
-        return map;
     }
 
     /**
@@ -91,5 +83,10 @@ public class MapBuilder<K, V> implements Serializable {
     public MapBuilder<K, V> putAll(Map<K, V> map) {
         this.map.putAll(map);
         return this;
+    }
+
+    @Override
+    public Map<K, V> build() {
+        return this.map;
     }
 }

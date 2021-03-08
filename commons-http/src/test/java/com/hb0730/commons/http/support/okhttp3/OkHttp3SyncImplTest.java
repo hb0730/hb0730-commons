@@ -44,8 +44,8 @@ public class OkHttp3SyncImplTest {
     public void testGetTest() {
         //有参请求
         SyncHttp sync = new OkHttp3SyncImpl();
-        MapBuilder<String, String> build = MapBuilder.build();
-        Map<String, String> params = build.put("count", "2").builder();
+        MapBuilder<String, String> build = MapBuilder.builder();
+        Map<String, String> params = build.put("count", "2").build();
         //http://poetry.apiopen.top/getTime
         String result = sync.get("", params);
         Assert.assertNotNull("获取失败", result);
@@ -55,8 +55,8 @@ public class OkHttp3SyncImplTest {
     public void testGet2Test() {
         //多参请求
         SyncHttp sync = new OkHttp3SyncImpl();
-        MapBuilder<String, String> build = MapBuilder.build();
-        Map<String, String> params = build.put("count", "2").builder();
+        MapBuilder<String, String> build = MapBuilder.builder();
+        Map<String, String> params = build.put("count", "2").build();
         //http://poetry.apiopen.top/poetryFull?page=1
         String result = sync.get("", params);
         Assert.assertNotNull("获取失败", result);
@@ -67,12 +67,12 @@ public class OkHttp3SyncImplTest {
     public void testGet1Test() {
         //请求头 参数判断
         AbstractSyncHttp sync = new OkHttp3SyncImpl();
-        MapBuilder<String, String> build = MapBuilder.build();
+        MapBuilder<String, String> build = MapBuilder.builder();
         Map<String, String> params = build
                 .put("count", "2")
                 .put("page", "1")
                 .put("name", "李白")
-                .builder();
+                .build();
         HttpHeader httpHeader = HttpHeader.builder();
         httpHeader.add("Accept", "*/*");
         //测试为空,为null
@@ -89,12 +89,12 @@ public class OkHttp3SyncImplTest {
         //请求头 参数判断
         AbstractSyncHttp sync = new OkHttp3SyncImpl();
         sync.setHttpConfig(HttpConfig.builder().encode(true).build());
-        MapBuilder<String, String> build = MapBuilder.build();
+        MapBuilder<String, String> build = MapBuilder.builder();
         Map<String, String> params = build
                 .put("count", "2")
                 .put("page", "1")
                 .put("name", "李白")
-                .builder();
+                .build();
         HttpHeader httpHeader = HttpHeader.builder();
         httpHeader.add("Accept", "*/*");
         //测试为空,为null
@@ -126,12 +126,12 @@ public class OkHttp3SyncImplTest {
     @Test
     public void testPost1Test() {
         AbstractSyncHttp sync = new OkHttp3SyncImpl();
-        MapBuilder<String, String> mapBuilder = MapBuilder.build();
+        MapBuilder<String, String> mapBuilder = MapBuilder.builder();
         mapBuilder.put("type", "all");
         mapBuilder.put("page", "1");
         mapBuilder.put("count", "10");
         // https://api.apiopen.top/getJoke
-        String result = sync.post("", mapBuilder.builder());
+        String result = sync.post("", mapBuilder.build());
         Assert.assertNotNull("获取失败", result);
     }
 
@@ -149,14 +149,14 @@ public class OkHttp3SyncImplTest {
     @Test
     public void testPost3Test() {
         AbstractSyncHttp sync = new OkHttp3SyncImpl();
-        MapBuilder<String, String> mapBuilder = MapBuilder.build();
+        MapBuilder<String, String> mapBuilder = MapBuilder.builder();
         mapBuilder.put("type", "all");
         mapBuilder.put("page", "1");
         mapBuilder.put("count", "10");
         // https://api.apiopen.top/getJoke
         HttpHeader header = HttpHeader.builder().add("Accept", "*/*");
         sync.setHeader(header);
-        String result = sync.post("", mapBuilder.builder());
+        String result = sync.post("", mapBuilder.build());
         Assert.assertNotNull("获取失败", result);
     }
 }
