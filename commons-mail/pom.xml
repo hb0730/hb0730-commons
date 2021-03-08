@@ -18,6 +18,7 @@
     <properties>
         <spring.version>5.2.4.RELEASE</spring.version>
         <freemarker.version>2.3.29</freemarker.version>
+        <jakarta-mail.version>1.6.5</jakarta-mail.version>
     </properties>
 
     <dependencies>
@@ -25,6 +26,11 @@
             <groupId>com.hb0730</groupId>
             <artifactId>commons-lang</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>${jakarta-mail.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

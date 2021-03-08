@@ -31,7 +31,6 @@
         <compile.version>8</compile.version>
         <junit.version>4.13.1</junit.version>
         <lombok.version>1.18.12</lombok.version>
-        <jakarta-mail.version>1.6.5</jakarta-mail.version>
     </properties>
 
     <dependencies>
@@ -51,12 +50,6 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-            <version>${jakarta-mail.version}</version>
         </dependency>
     </dependencies>
 
