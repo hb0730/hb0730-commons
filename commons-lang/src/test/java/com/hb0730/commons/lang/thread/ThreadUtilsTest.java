@@ -1,11 +1,14 @@
 package com.hb0730.commons.lang.thread;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
 
+@Slf4j
 public class ThreadUtilsTest {
     @Test
     public void newThreadTest() {
@@ -58,5 +61,28 @@ public class ThreadUtilsTest {
     public void testNewExecutorTest() {
         ExecutorService executorService = ThreadUtils.newExecutor(2, 4, 5);
         Assert.assertNotNull(executorService);
+    }
+
+    @Test
+    public void newNameThreadFactoryTest() {
+        ThreadFactory factory = ThreadUtils.newNamedThreadFactory("test", false);
+        Assert.assertNotNull(factory);
+    }
+
+    @Test
+    public void newNamedThreadFactoryTest() {
+        ThreadFactory factory = ThreadUtils.newNamedThreadFactory("test", Thread.currentThread().getThreadGroup(), false);
+        Assert.assertNotNull(factory);
+    }
+
+    @Test
+    public void testNewNamedThreadFactoryTest() {
+        ThreadFactory factory = ThreadUtils.newNamedThreadFactory("test", Thread.currentThread().getThreadGroup(), false, new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                log.debug("thread error");
+            }
+        });
+        Assert.assertNotNull(factory);
     }
 }

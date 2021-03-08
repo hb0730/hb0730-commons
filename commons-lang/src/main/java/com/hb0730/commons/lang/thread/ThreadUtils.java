@@ -75,6 +75,47 @@ public class ThreadUtils {
                 .build();
     }
 
+    /**
+     * 创建线程工厂
+     *
+     * @param prefix   线程名前缀
+     * @param isDaemon 是否守护线程
+     * @return {@link ThreadFactory}
+     * @see NamedThreadFactory
+     * @since 2.1.1
+     */
+    public static ThreadFactory newNamedThreadFactory(String prefix, boolean isDaemon) {
+        return new NamedThreadFactory(prefix, isDaemon);
+    }
+
+    /**
+     * 创建线程工厂
+     *
+     * @param prefix      线程名前缀
+     * @param threadGroup 线程组，可以为null
+     * @param isDaemon    是否守护线程
+     * @return {@link ThreadFactory}
+     * @see NamedThreadFactory
+     * @since 2.1.1
+     */
+    public static ThreadFactory newNamedThreadFactory(String prefix, ThreadGroup threadGroup, boolean isDaemon) {
+        return new NamedThreadFactory(prefix, threadGroup, isDaemon);
+    }
+
+    /**
+     * 创建线程工厂
+     *
+     * @param prefix      线程名前缀
+     * @param threadGroup 线程组，可以为null
+     * @param isDaemon    是否守护线程
+     * @param handler     未捕获异常处理
+     * @return {@link ThreadFactory}
+     * @see NamedThreadFactory
+     * @since 2.1.1
+     */
+    public static ThreadFactory newNamedThreadFactory(String prefix, ThreadGroup threadGroup, boolean isDaemon, Thread.UncaughtExceptionHandler handler) {
+        return new NamedThreadFactory(prefix, threadGroup, isDaemon, handler);
+    }
 
     /**
      * 创建新线程，非守护线程，正常优先级，线程组与当前线程的线程组一致
