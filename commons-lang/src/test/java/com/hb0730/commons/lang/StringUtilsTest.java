@@ -144,20 +144,20 @@ public class StringUtilsTest {
     @Test
     public void removeEndTest() {
         String str = "asda";
-        String newStr = StringUtils.removeEnd(str, "@");
+        String newStr = StringUtils.removeSuffix(str, "@");
         log.info("删除末尾给定的字符串1.不存在特定结尾: 原 {}, 新 {}", str, newStr);
         Assert.assertEquals(str, newStr);
 
-        newStr = StringUtils.removeEnd(str, "da");
+        newStr = StringUtils.removeSuffix(str, "da");
         log.info("删除末尾给定的字符串2.存在特定结尾: 原 {}, 新 {}", str, newStr);
         Assert.assertEquals(str, newStr);
 
-        newStr = StringUtils.removeEnd(str, null);
+        newStr = StringUtils.removeSuffix(str, null);
         log.info("删除末尾给定的字符串2.存在特定结尾: 原 {}, 新 {}", str, newStr);
         Assert.assertEquals(str, newStr);
 
         str = null;
-        newStr = StringUtils.removeEnd(str, null);
+        newStr = StringUtils.removeSuffix(str, null);
         log.info("删除末尾给定的字符串2.存在特定结尾: 原 {}, 新 {}", str, newStr);
         Assert.assertEquals(str, newStr);
     }
@@ -320,5 +320,18 @@ public class StringUtilsTest {
         result = StringUtils.joinNotNull(null, "s2,", "s3");
         Assert.assertEquals("s2,s3", result);
         result = StringUtils.joinNotNull(null);
+    }
+
+    @Test
+    public void removeFirstTest() {
+        String str = "/tst/test/test";
+        String s = StringUtils.removePrefix("", "/");
+        Assert.assertNotNull(s);
+        s = StringUtils.removePrefix("", "");
+        Assert.assertNotNull(s);
+        s = StringUtils.removePrefix(str, "");
+        Assert.assertNotNull(s);
+        s = StringUtils.removePrefix(str, "/");
+        Assert.assertNotNull(s);
     }
 }

@@ -262,7 +262,7 @@ public class StringUtils {
         if (isEmpty(string) || isEmpty(suffix)) {
             return string;
         }
-        return removeEnd(string, suffix) + suffix;
+        return removeSuffix(string, suffix) + suffix;
     }
 
     /**
@@ -272,12 +272,30 @@ public class StringUtils {
      * @param remove 需要删除的字符串
      * @return 已移除给定字符串
      */
-    public static String removeEnd(final String str, final String remove) {
+    public static String removeSuffix(final String str, final String remove) {
         if (isEmpty(str) || isEmpty(remove)) {
             return str;
         }
         if (str.endsWith(remove)) {
             return str.substring(0, str.length() - remove.length());
+        }
+        return str;
+    }
+
+    /**
+     * 删除特定字符串开头
+     *
+     * @param str    原字符串
+     * @param prefix 需要删除的字符串
+     * @return 删除后的字符串
+     * @since 2.1.1
+     */
+    public static String removePrefix(final String str, final String prefix) {
+        if (isEmpty(str) || isEmpty(prefix)) {
+            return str;
+        }
+        if (str.startsWith(prefix)) {
+            return str.substring(prefix.length());
         }
         return str;
     }
