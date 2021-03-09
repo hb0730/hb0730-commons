@@ -11,7 +11,7 @@
   + 新增 `LocalDateUtils`
   + 完善 `Thread`相关
   + 新增 `ListBuilder`
-  + 新增 `StringUtils#removePrefix`删除特定开头字符串
+  + 新增 `StringUtils#removePrefix`等方法
 + **[commons-spring]**
   + 新增`resourcesUtils`
   

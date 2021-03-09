@@ -31,6 +31,18 @@ public class StringUtils {
     }
 
     /**
+     * 判断给定字符串是否为{@link #isBlank(CharSequence)},如果为true，则返回defaultStr
+     *
+     * @param str        需要判断的字符串
+     * @param defaultStr 默认字符串
+     * @return 如果判断的字符串为 {@link #isBlank(CharSequence)} 返回defaultStr,否则返回判断的字符串
+     * @since 2.1.1
+     */
+    public static CharSequence isBlankDefault(CharSequence str, CharSequence defaultStr) {
+        return isBlank(str) ? defaultStr : str;
+    }
+
+    /**
      * 校验参数不为<code>""</code><br>
      * 1、为null <br>
      * 2、为不可见字符（如空格）<br>
@@ -160,6 +172,18 @@ public class StringUtils {
      */
     public static boolean isEmpty(CharSequence str) {
         return (str == null || 0 == str.length());
+    }
+
+    /**
+     * 判断是否为{@link #isEmpty(CharSequence)}，如果为true，则返回 default
+     *
+     * @param str        需要判断的字符串
+     * @param defaultStr 默认返回的字符串
+     * @return 如果字符串为 {@link #isEmpty(CharSequence)} 返回defaultStr,否则当前字符串
+     * @since 2.1.1
+     */
+    public static CharSequence isEmptyDefault(CharSequence str, CharSequence defaultStr) {
+        return isEmpty(str) ? defaultStr : str;
     }
 
     /**

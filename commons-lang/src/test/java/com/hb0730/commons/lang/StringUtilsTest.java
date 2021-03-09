@@ -334,4 +334,36 @@ public class StringUtilsTest {
         s = StringUtils.removePrefix(str, "/");
         Assert.assertNotNull(s);
     }
+
+    @Test
+    public void isEmptyDefaultTest() {
+        String str = "";
+        CharSequence test = StringUtils.isEmptyDefault(str, "test");
+        Assert.assertNotNull(test);
+        str = " ";
+        test = StringUtils.isEmptyDefault(str, "test");
+        Assert.assertNotNull(test);
+        str = null;
+        test = StringUtils.isEmptyDefault(str, "test");
+        Assert.assertNotNull(test);
+        str = "哈哈哈";
+        test = StringUtils.isEmptyDefault(str, "test");
+        Assert.assertNotNull(test);
+    }
+
+    @Test
+    public void isBlankDefaultTest() {
+        String str = "";
+        CharSequence test = StringUtils.isEmptyDefault(str, "test");
+        Assert.assertNotNull(test);
+        str = " ";
+        test = StringUtils.isEmptyDefault(str, "test");
+        Assert.assertNotNull(test);
+        str = null;
+        test = StringUtils.isEmptyDefault(str, "test");
+        Assert.assertNotNull(test);
+        str = "哈哈哈";
+        test = StringUtils.isEmptyDefault(str, "test");
+        Assert.assertNotNull(test);
+    }
 }
