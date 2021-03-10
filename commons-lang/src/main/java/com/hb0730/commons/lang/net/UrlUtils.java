@@ -103,4 +103,57 @@ public class UrlUtils {
         return URLDecoder.decode(params, enc.displayName());
     }
 
+
+    /**
+     * URL编码
+     *
+     * @param str     需要编码的字符串
+     * @param charset 编码类型
+     * @return 已编码的字符串
+     * @throws UnsupportedEncodingException The Character Encoding is not supported.
+     * @since 2.1.1
+     */
+    public static String encode(String str, Charset charset) throws UnsupportedEncodingException {
+        return (null == charset) ? str : encode(str, charset.name());
+    }
+
+    /**
+     * URL编码
+     *
+     * @param str 需要编码的字符串
+     * @param enc 编码类型
+     * @return 已编码的字符串
+     * @throws UnsupportedEncodingException The Character Encoding is not supported.
+     * @since 2.1.1
+     */
+    public static String encode(String str, String enc) throws UnsupportedEncodingException {
+        return StringUtils.isBlank(enc) ? str : URLEncoder.encode(str, enc);
+    }
+
+    /**
+     * URL解码
+     *
+     * @param str     需要解码的字符串
+     * @param charset 解码类型
+     * @return 已解码的字符串
+     * @throws UnsupportedEncodingException The Character Encoding is not supported.
+     * @since 2.1.1
+     */
+    public static String decode(String str, Charset charset) throws UnsupportedEncodingException {
+        return (null == charset) ? str : decode(str, charset.name());
+    }
+
+    /**
+     * URL解码
+     *
+     * @param str 需要解码的字符串
+     * @param enc 解码类型
+     * @return 已解码的字符串
+     * @throws UnsupportedEncodingException The Character Encoding is not supported.
+     * @since 2.1.1
+     */
+    public static String decode(String str, String enc) throws UnsupportedEncodingException {
+        return StringUtils.isBlank(enc) ? str : URLDecoder.decode(str, enc);
+    }
+
 }

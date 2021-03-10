@@ -182,8 +182,8 @@ public class PathBuilder implements Builder<String> {
         if (StringUtils.isBlank(path)) {
             return PunctuationConst.EMPTY;
         }
-        path = StringUtils.removePrefix(path, PathConst.ROOT_PATH);
-        path = StringUtils.removeSuffix(path, PathConst.ROOT_PATH);
-        return path.trim();
+        String newPath = StringUtils.removePrefix(path, PathConst.ROOT_PATH);
+        newPath = StringUtils.removeSuffix(newPath, PathConst.ROOT_PATH);
+        return newPath.trim();
     }
 }
