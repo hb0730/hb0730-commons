@@ -72,4 +72,30 @@ public class QueryBuilderTest {
                 .build();
         Assert.assertNotNull(query);
     }
+
+    @Test
+    public void getQuerysTest() {
+        Map<String, String> querys = MapBuilder.builder(new LinkedHashMap<String, String>())
+                .put("q1", "test1")
+                .put("q2", "test2")
+                .build();
+        Map<CharSequence, CharSequence> map = QueryBuilder.builder(querys, StandardCharsets.UTF_8)
+                .add("q3", "test3")
+                .getQuerys();
+
+        Assert.assertNotNull(map);
+    }
+
+    @Test
+    public void getTest() {
+        Map<String, String> querys = MapBuilder.builder(new LinkedHashMap<String, String>())
+                .put("q1", "test1")
+                .put("q2", "test2")
+                .build();
+        CharSequence sequence = QueryBuilder.builder(querys, StandardCharsets.UTF_8)
+                .add("q3", "test3")
+                .get("q3");
+        Assert.assertNotNull(sequence);
+
+    }
 }

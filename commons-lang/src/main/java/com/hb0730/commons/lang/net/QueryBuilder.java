@@ -112,6 +112,25 @@ public class QueryBuilder implements Builder<String> {
     }
 
     /**
+     * 获得查询的Map
+     *
+     * @return query map,只读，无法修改
+     */
+    public Map<CharSequence, CharSequence> getQuerys() {
+        return MapUtils.unmodifiableMap(this.querys);
+    }
+
+    /**
+     * 根据key获取值
+     *
+     * @param key key
+     * @return 值
+     */
+    public CharSequence get(CharSequence key) {
+        return this.querys.get(key);
+    }
+
+    /**
      * 构造
      *
      * @param queryMap 初始化的查询键值对

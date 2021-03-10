@@ -238,4 +238,17 @@ public class MapUtils {
         return result;
     }
 
+    /**
+     * 将对应Map转换为不可修改的Map
+     *
+     * @param map Map
+     * @param <K> 键类型
+     * @param <V> 值类型
+     * @return 不修改Map
+     * @since 2.1.1
+     */
+    public static <K, V> Map<K, V> unmodifiableMap(Map<K, V> map) {
+        return Collections.unmodifiableMap(map);
+    }
+
 }
