@@ -148,7 +148,7 @@ public class MapUtils {
      * 将map 转成 get 请求参数格式{@code XXX&XXX&XX}
      *
      * @param params map参数
-     * @param encode 是否编码
+     * @param encode 是否编码,使用UTF-8encode
      * @return str
      */
     public static String parseMapToUrlString(Map<String, String> params, boolean encode) {
