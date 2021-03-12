@@ -6,112 +6,114 @@ package com.hb0730.commons.lang.constants;
  * @author bing_huang
  * @since 1.0.1
  */
-public final class PunctuationConst {
-    private PunctuationConst() {
-    }
+public interface PunctuationConst {
 
     /**
      * 逗号
      */
-    public static final String COMMA = ",";
+    String COMMA = ",";
 
     /**
      * 冒号
      */
-    public static final String COLON = ":";
+    String COLON = ":";
 
     /**
      * 圆点
      */
-    public static final String DOT = ".";
+    String DOT = ".";
 
     /**
      * 空格
      */
-    public static final String BLANK = " ";
+    String BLANK = " ";
 
     /**
      * 单引号
      */
-    public static final String SINGLE_QUOTES = "'";
+    String SINGLE_QUOTES = "'";
 
     /**
      * 下划线
      */
-    public static final String UNDERLINE = "_";
+    String UNDERLINE = "_";
 
     /**
      * at 符号
      */
-    public static final String AT = "@";
+    String AT = "@";
 
     /**
      * 斜杠
      */
-    public static final String SLASH = "/";
+    String SLASH = "/";
 
     /**
      * 星
      */
-    public static final String STAR = "*";
+    String STAR = "*";
 
     /**
      * 双引号
      */
-    public static final String DOUBLE_QUOTES = "\"";
+    String DOUBLE_QUOTES = "\"";
 
     /**
      * 空
      */
-    public static final String EMPTY = "";
+    String EMPTY = "";
 
     /**
      * 非
      */
-    public static final String NOT = "!";
+    String NOT = "!";
 
     /**
      * 与
      */
-    public static final String AND = "&";
+    String AND = "&";
+    /**
+     * &
+     */
+    String HTML_AND = "&amp;";
 
     /**
      * 或
      */
-    public static final String OR = "|";
+    String OR = "|";
 
     /**
      * #
      */
-    public static final String SHAPE = "#";
+    String SHAPE = "#";
 
     /**
      * 美元
      */
-    public static final String DOLLAR = "$";
+    String DOLLAR = "$";
 
     /**
      * 百分比
      */
-    public static final String PERCENT = "%";
+    String PERCENT = "%";
 
     /**
      * 幂
      */
-    public static final String CARET = "^";
+    String CARET = "^";
 
     /**
      * 中划线
      */
-    public static final String MIDDLE_LINE = "-";
+    String MIDDLE_LINE = "-";
 
     /**
      * 等于号
      */
-    public static final String EQUAL = "=";
+    String EQUAL = "=";
 
     /**
      * 问号
      */
-    public static final String QUESTION_MARK = "?";
+    String QUESTION_MARK = "?";
 }

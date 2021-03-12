@@ -10,36 +10,34 @@ import java.nio.charset.StandardCharsets;
  * @author bing_huang
  * @since 1.0.1
  */
-public final class Charsets {
-    private Charsets() {
-    }
+public interface Charsets {
 
     /**
      * utf-8
      */
-    public static final String UTF_8_NAME = "UTF-8";
-    public static final Charset UTF_8 = StandardCharsets.UTF_8;
+    String UTF_8_NAME = "UTF-8";
+    Charset UTF_8 = StandardCharsets.UTF_8;
 
     /**
      * utf-16
      */
-    public static final Charset UTF_16 = StandardCharsets.UTF_16;
-    public static final String UTF_16_NAME = "UTF-16";
+    Charset UTF_16 = StandardCharsets.UTF_16;
+    String UTF_16_NAME = "UTF-16";
 
     /**
      * gbk
      */
-    public static final Charset GBK = Charset.forName("GBK");
-    public static final String GBK_NAME = "GBK";
+    Charset GBK = Charset.forName("GBK");
+    String GBK_NAME = "GBK";
     /**
      * US-ASCII
      */
-    public static final Charset US_ASCII = StandardCharsets.US_ASCII;
-    public static final String US_ASCII_NAME = "US-ASCII";
+    Charset US_ASCII = StandardCharsets.US_ASCII;
+    String US_ASCII_NAME = "US-ASCII";
 
     /**
      * ISO-8859-1
      */
-    public static final Charset ISO_8859_1 = StandardCharsets.ISO_8859_1;
-    public static final String ISO_8859_1_NAME = "ISO-8859-1";
+    Charset ISO_8859_1 = StandardCharsets.ISO_8859_1;
+    String ISO_8859_1_NAME = "ISO-8859-1";
 }

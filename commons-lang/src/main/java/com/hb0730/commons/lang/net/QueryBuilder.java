@@ -3,6 +3,7 @@ package com.hb0730.commons.lang.net;
 import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.builder.Builder;
 import com.hb0730.commons.lang.collection.CollectionUtils;
+import com.hb0730.commons.lang.constants.CharConst;
 import com.hb0730.commons.lang.constants.PunctuationConst;
 import com.hb0730.commons.lang.convert.ConverterRegistry;
 import com.hb0730.commons.lang.exceptions.CommonsLangException;
@@ -190,13 +191,13 @@ public class QueryBuilder implements Builder<String> {
             if (isFirst) {
                 isFirst = false;
             } else {
-                builder.append("&");
+                builder.append(PunctuationConst.AND);
             }
             key = entry.getKey();
             if (StringUtils.isNotBlank(key)) {
                 builder.append(key);
                 value = entry.getValue();
-                builder.append("=").append(value);
+                builder.append(PunctuationConst.EQUAL).append(value);
             }
         }
 
@@ -226,7 +227,7 @@ public class QueryBuilder implements Builder<String> {
         if (StringUtils.isBlank(queryStr)) {
             return this;
         }
-        int pathEndPos = queryStr.indexOf("?");
+        int pathEndPos = queryStr.indexOf(PunctuationConst.QUESTION_MARK);
         String newStr = queryStr;
         if (pathEndPos > -1) {
             newStr = queryStr.substring(pathEndPos + 1);
@@ -243,7 +244,7 @@ public class QueryBuilder implements Builder<String> {
         for (i = 0; i < len; i++) {
             c = newStr.charAt(i);
             switch (c) {
-                case '=': //键和值的分界符
+                case CharConst.EQUAL: //键和值的分界符
                     if (null == key) {
                         key = newStr.substring(pos, i);
                         // 开始位置从分节符后开始
@@ -251,10 +252,10 @@ public class QueryBuilder implements Builder<String> {
                     }
                     // 当=不作为分界符时，按照普通字符对待
                     break;
-                case '&':
+                case CharConst.AND:
                     addParams(key, newStr.substring(pos, i));
                     key = null;
-                    if (i + 4 < len && "amp;".equals(queryStr.substring(i + 1, i + 5))) {
+                    if (i + 4 < len && PunctuationConst.HTML_AND.equals(queryStr.substring(i + 1, i + 5))) {
                         // issue#850@Github，"&amp;"转义为"&"
                         i += 4;
                     }

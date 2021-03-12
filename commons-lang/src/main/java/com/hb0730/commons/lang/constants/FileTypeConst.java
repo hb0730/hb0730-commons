@@ -6,48 +6,72 @@ package com.hb0730.commons.lang.constants;
  * @author bing_huang
  * @since 1.0.1
  */
-public final class FileTypeConst {
+public interface FileTypeConst {
     /**
-     * file type const
+     * 所有文件类型
      */
-    private FileTypeConst() {
-    }
+    String ALL = "*";
+    /*压缩类型*/
+    /**
+     * zip
+     */
+    String ZIP = "zip";
+    /**
+     * 7z
+     */
+    String COMPRESS_7Z = "7z";
+    /**
+     * rar
+     */
+    String RAR = "rar";
+    /**
+     * jar
+     */
+    String JAR = "jar";
+    /**
+     * tar
+     */
+    String TAR = "tar";
+    /**
+     * tz
+     */
+    String GZ = "gz";
+
+
+    /*图片类型*/
+    /**
+     * png
+     */
+    String PNG = "png";
+    /**
+     * jpg
+     */
+    String JPG = "jpg";
+    /**
+     * jpeg
+     */
+    String JPEG = "jpeg";
+    /**
+     * gif
+     */
+    String GIF = "gif";
+    /**
+     * BMP
+     */
+    String BMP = "BMP";
+    /**
+     * Webp
+     */
+    String WEBP = "Webp";
+    /**
+     * svg
+     */
+    String SVG = "svg";
+
+    /**/
 
     /**
-     * 文件类型过滤
+     * war文件
      */
-    public static class Glob {
-        private Glob() {
-        }
-
-        /**
-         * 所有文件类型
-         */
-        public static final String ALL = "*.*";
-    }
-
-    /**
-     * 压缩文件
-     */
-    public static class Compress {
-        private Compress() {
-        }
-
-        public static final String ZIP = ".zip";
-        public static final String RAR = ".rar";
-        public static final String JAR = ".jar";
-    }
-
-    /**
-     * 图片
-     */
-    public static class Image {
-        private Image() {
-        }
-
-        public static final String PNG = ".png";
-        public static final String JPG = ".jpg";
-        public static final String JPEG = ".jpeg";
-        public static final String GIF = ".gif";
-    }
+    String WAR = "war";
 }
