@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 链式List
  * <pre>
- * ListBuilder&lt;String&gt; builder = ListBuilder.build(new ArrayList<>());
+ * ListBuilder&lt;String&gt; builder = ListBuilder.build(new ArrayList&lt;&gt;());
  * builder.add("test").add("test1");
  * List&lt;String&gt; list = builder.build();
  * </pre>

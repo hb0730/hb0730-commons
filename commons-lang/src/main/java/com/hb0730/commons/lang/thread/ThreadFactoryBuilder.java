@@ -39,7 +39,6 @@ public class ThreadFactoryBuilder implements Builder<ThreadFactory> {
      *
      * @param namePrefix 线程名前缀
      * @return this
-     * @see Executors.DefaultThreadFactory#DefaultThreadFactory()
      */
     public ThreadFactoryBuilder setNamePrefix(String namePrefix) {
         this.namePrefix = namePrefix;

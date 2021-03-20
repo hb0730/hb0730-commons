@@ -18,7 +18,7 @@ public class ExecutorBuilder implements Builder<ThreadPoolExecutor> {
      */
     private int corePoolSize;
     /**
-     * 最大线程数,默认为corePoolSize<<1
+     * 最大线程数
      */
     private Integer maximumPoolSize;
     /**

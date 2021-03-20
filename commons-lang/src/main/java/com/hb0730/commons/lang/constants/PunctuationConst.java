@@ -73,7 +73,7 @@ public interface PunctuationConst {
      */
     String AND = "&";
     /**
-     * &
+     * 与
      */
     String HTML_AND = "&amp;";
 

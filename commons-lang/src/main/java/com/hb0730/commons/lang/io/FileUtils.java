@@ -759,6 +759,7 @@ public class FileUtils {
      * @param is       输入流
      * @param append   是否追加在文件末
      * @return {@code true}: 写入成功<br>{@code false}: 写入失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean writeByStream(String filePath, InputStream is, boolean append) throws IOException {
@@ -772,6 +773,7 @@ public class FileUtils {
      * @param is     输入流
      * @param append 是否追加在文件末
      * @return {@code true}: 写入成功<br>{@code false}: 写入失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean writeByStream(File file, InputStream is, boolean append) throws IOException {
@@ -860,6 +862,7 @@ public class FileUtils {
      * @param filePath    文件路径
      * @param charsetName 编码格式
      * @return 文件行链表
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static List<String> readFileList(String filePath, String charsetName) throws IOException {
@@ -872,6 +875,7 @@ public class FileUtils {
      * @param file        文件
      * @param charsetName 编码格式
      * @return 文件行链表
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static List<String> readFileList(File file, String charsetName) throws IOException {
@@ -886,6 +890,7 @@ public class FileUtils {
      * @param end         需要读取的结束行数
      * @param charsetName 编码格式
      * @return 包含制定行的list
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static List<String> readFileList(String filePath, int st, int end, String
@@ -901,6 +906,7 @@ public class FileUtils {
      * @param end         需要读取的结束行数
      * @param charsetName 编码格式
      * @return 包含从start行到end行的list
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static List<String> readFileList(File file, int st, int end, String charsetName) throws IOException {
@@ -1004,6 +1010,7 @@ public class FileUtils {
      * @param destDirPath 目标目录路径
      * @param isMove      是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean copyOrMoveDir(String srcDirPath, String destDirPath, boolean isMove) throws IOException {
@@ -1017,6 +1024,7 @@ public class FileUtils {
      * @param destDir 目标目录
      * @param isMove  是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean copyOrMoveDir(File srcDir, File destDir, boolean isMove) throws IOException {
@@ -1061,6 +1069,7 @@ public class FileUtils {
      * @param destFilePath 目标文件路径
      * @param isMove       是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean copyOrMoveFile(String srcFilePath, String destFilePath, boolean isMove) throws IOException {
@@ -1074,6 +1083,7 @@ public class FileUtils {
      * @param destFile 目标文件
      * @param isMove   是否移动
      * @return {@code true}: 复制或移动成功<br>{@code false}: 复制或移动失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean copyOrMoveFile(File srcFile, File destFile, boolean isMove) throws IOException {
@@ -1100,6 +1110,7 @@ public class FileUtils {
      * @param srcDirPath  源目录路径
      * @param destDirPath 目标目录路径
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean copyDir(String srcDirPath, String destDirPath) throws IOException {
@@ -1112,6 +1123,7 @@ public class FileUtils {
      * @param srcDir  源目录
      * @param destDir 目标目录
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean copyDir(File srcDir, File destDir) throws IOException {
@@ -1125,6 +1137,7 @@ public class FileUtils {
      * @param srcFilePath  源文件路径
      * @param destFilePath 目标文件路径
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean copyFile(String srcFilePath, String destFilePath) throws IOException {
@@ -1137,6 +1150,7 @@ public class FileUtils {
      * @param srcFile  源文件
      * @param destFile 目标文件
      * @return {@code true}: 复制成功<br>{@code false}: 复制失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean copyFile(File srcFile, File destFile) throws IOException {
@@ -1149,6 +1163,7 @@ public class FileUtils {
      * @param srcDirPath  源目录路径
      * @param destDirPath 目标目录路径
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean moveDir(String srcDirPath, String destDirPath) throws IOException {
@@ -1161,6 +1176,7 @@ public class FileUtils {
      * @param srcDir  源目录
      * @param destDir 目标目录
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean moveDir(File srcDir, File destDir) throws IOException {
@@ -1173,6 +1189,7 @@ public class FileUtils {
      * @param srcFilePath  源文件路径
      * @param destFilePath 目标文件路径
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean moveFile(String srcFilePath, String destFilePath) throws IOException {
@@ -1185,6 +1202,7 @@ public class FileUtils {
      * @param srcFile  源文件
      * @param destFile 目标文件
      * @return {@code true}: 移动成功<br>{@code false}: 移动失败
+     * @throws IOException io异常
      * @since 2.1.1
      */
     public static boolean moveFile(File srcFile, File destFile) throws IOException {
