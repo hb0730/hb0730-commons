@@ -126,13 +126,13 @@ public interface SystemConst {
 
     /**
      * 路径分隔符
-     * Unix :
+     * Unix: <code>:</code> Win: <code>;</code>
      */
     String PATH_SEPARATOR = "path.separator";
 
     /**
      * 行分隔符
-     * Unix /n
+     * Unix: <code>/n</code> Win: <code>/r/n</code>
      */
     String LINE_SEPARATOR = "line.separator";
 

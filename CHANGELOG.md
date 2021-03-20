@@ -17,6 +17,8 @@
   + 新增`resourcesUtils`
   
 ## Fixed
++ **[commons-spring]**
+  + update tomcat version 
 ## Update
 + **[commons-lang]**
   + update `MapBuilder` 更改继承方式为: `Builder<T>`

@@ -34,6 +34,16 @@ public class SystemUtils {
     public static String getLineSeparator() {
         return getProperty(SystemConst.LINE_SEPARATOR);
     }
+
+    /**
+     * 获取路径分隔符
+     *
+     * @return 路径分隔符
+     * @since 2.1.1
+     */
+    public static String getPathSeparator() {
+        return getProperty(SystemConst.PATH_SEPARATOR);
+    }
     /// RunTimeMxBean////
 
     /**

@@ -61,4 +61,10 @@ public class SystemUtilsTest {
             }
         });
     }
+
+    @Test
+    public void getPathSeparatorTest() {
+        String separator = SystemUtils.getPathSeparator();
+        Assert.assertNotNull(separator);
+    }
 }
