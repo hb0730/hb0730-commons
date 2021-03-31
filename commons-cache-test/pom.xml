@@ -30,7 +30,7 @@
 
     <properties>
         <mysql.version>8.0.16</mysql.version>
-        <guava.version>28.2-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
     </properties>
     <dependencies>
         <dependency>
