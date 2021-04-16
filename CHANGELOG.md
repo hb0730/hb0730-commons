@@ -1,4 +1,12 @@
 # Changelog
+# 2.1.2
+## Feature
++ **[commons-lang]**
+  * 新增`ListUtils#list(boolean isLinked, Enumeration<T> enumeration)`支持`Enumeration`转`List`
+  + 新增`ClassLoaderUtils`
+  + 新增`ResourcesUtils`资源工具类
+## Fixed
+## Update
 # 2.1.1
 ## Feature
 + **[commons-lang]**

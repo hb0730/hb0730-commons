@@ -1,6 +1,13 @@
 package com.hb0730.commons.lang.collection;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * {@link java.util.List}封装
@@ -84,6 +91,39 @@ public class ListUtils {
             }
         }
         return list;
+    }
+
+    /**
+     * 新建一个List<br>
+     * 提供的参数为null时返回空{@link ArrayList}
+     *
+     * @param enumeration {@link Enumeration}
+     * @param <T>         集合元素类型
+     * @return ArrayList对象
+     * @since 2.1.2
+     */
+    public static <T> List<T> list(Enumeration<T> enumeration) {
+        return list(false, enumeration);
+    }
+
+    /**
+     * 新建一个List<br>
+     * 提供的参数为null时返回空{@link List}
+     *
+     * @param isLinked    是否为链表
+     * @param enumeration {@link Enumeration}
+     * @param <T>         集合元素类型
+     * @return List对象
+     * @since 2.1.2
+     */
+    public static <T> List<T> list(boolean isLinked, Enumeration<T> enumeration) {
+        final List<T> data = list(isLinked);
+        if (null != enumeration) {
+            while (enumeration.hasMoreElements()) {
+                data.add(enumeration.nextElement());
+            }
+        }
+        return data;
     }
 
     /**
