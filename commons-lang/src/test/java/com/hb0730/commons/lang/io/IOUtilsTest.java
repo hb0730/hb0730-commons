@@ -257,6 +257,15 @@ public class IOUtilsTest {
     }
 
     @Test
+    public void testCloseQuietly2Test() {
+        String data = "测试";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(data.getBytes());
+        ByteArrayInputStream inputStream2 = new ByteArrayInputStream(data.getBytes());
+        ByteArrayInputStream inputStream3 = null;
+        IOUtils.closeQuietly(inputStream, inputStream2, inputStream3);
+    }
+
+    @Test
     public void copyTest() throws IOException {
         String message = "测试";
         ByteArrayInputStream in = new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8));

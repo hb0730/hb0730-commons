@@ -3,7 +3,11 @@ package com.hb0730.commons.lang.io;
 import com.hb0730.commons.lang.Charsets;
 import com.hb0730.commons.lang.Validate;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 /**
@@ -47,11 +51,12 @@ public class IOUtils {
         }
         byte[] buffer = new byte[bufferSize];
         long size = 0;
-        for (int len; (len = is.read(buffer)) != EOF; ) {
+        int len;
+        while ((len = is.read(buffer)) != EOF) {
             os.write(buffer, 0, len);
             size += len;
-            os.flush();
         }
+        os.flush();
         return size;
 
     }
@@ -215,6 +220,18 @@ public class IOUtils {
             }
         } catch (final IOException ioe) {
             // ignore
+        }
+    }
+
+    /**
+     * 关闭流
+     *
+     * @param closes 要关闭的对象集合，可能关闭或者为<code>null</code>
+     * @since 2.1.2
+     */
+    public static void closeQuietly(final Closeable... closes) {
+        for (Closeable close : closes) {
+            closeQuietly(close);
         }
     }
 

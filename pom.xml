@@ -15,6 +15,7 @@
         <module>commons-json</module>
         <module>commons-encrypt</module>
         <module>commons-mail</module>
+        <module>commons-ssh</module>
     </modules>
 
     <groupId>com.hb0730</groupId>
@@ -125,6 +126,11 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
                 <version>${bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jsch</artifactId>
+                <version>0.1.55</version>
             </dependency>
 
 
