@@ -25,4 +25,5 @@ public class JschChannelTest extends SessionTest {
         return JschChannel.builder(session)
                 .openShell();
     }
+
 }

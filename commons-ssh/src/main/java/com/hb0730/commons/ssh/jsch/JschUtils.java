@@ -1,5 +1,6 @@
 package com.hb0730.commons.ssh.jsch;
 
+import com.hb0730.commons.lang.io.IORuntimeException;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -11,6 +12,7 @@ import java.io.InputStream;
  * <a href="http://www.jcraft.com/jsch">JSch</a>工具类<br>
  * Jsch是Java Secure Channel的缩写。JSch是一个SSH2的纯Java实现。<br>
  * 它允许你连接到一个SSH服务器，并且可以使用端口转发，X11转发，文件传输等。<br>
+ * 在线<a href="http://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/package-summary.html">API</a><br>
  *
  * @author bing_huang
  * @since 2.1.2
@@ -75,8 +77,10 @@ public class JschUtils {
                 }
                 Thread.sleep(1000);
             }
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new IORuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new JschRuntimeException(e);
         }
         return sb.toString();
     }

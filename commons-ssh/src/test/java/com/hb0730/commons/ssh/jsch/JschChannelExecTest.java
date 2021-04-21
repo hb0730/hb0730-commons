@@ -28,7 +28,15 @@ public class JschChannelExecTest extends JschChannelTest {
         System.out.println(result);
         result = channelExec.exec("ps -ef | grep ssh", Charset.defaultCharset());
         System.out.println(result);
-        result = channelExec.exec("//", Charset.defaultCharset());
+        result = channelExec.exec("ls", Charset.defaultCharset());
+        System.out.println(result);
+        result = channelExec.exec("mkdir test", Charset.defaultCharset());
+        System.out.println(result);
+        result = channelExec.exec("ls", Charset.defaultCharset());
+        System.out.println(result);
+        result = channelExec.exec("rm -rf test", Charset.defaultCharset());
+        System.out.println(result);
+        result = channelExec.exec("ls", Charset.defaultCharset());
         System.out.println(result);
         result = channelExec.exec("exit", Charset.defaultCharset());
         System.out.println(result);

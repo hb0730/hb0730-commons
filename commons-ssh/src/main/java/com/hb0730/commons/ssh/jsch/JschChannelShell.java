@@ -14,6 +14,7 @@ import java.nio.charset.Charset;
  * <a href="http://www.jcraft.com/jsch">JSch</a> {@link ChannelShell}相关操作
  *
  * @author bing_huang
+ * @see <a href="http://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/ChannelShell.html">API</a>
  * @since 2.1.2
  */
 public class JschChannelShell {
