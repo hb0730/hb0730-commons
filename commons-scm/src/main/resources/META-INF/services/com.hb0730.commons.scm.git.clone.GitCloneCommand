@@ -1,0 +1,5 @@
+com.hb0730.commons.scm.git.clone.strategy.SshPasswordStrategy
+com.hb0730.commons.scm.git.clone.strategy.TokenStrategy
+com.hb0730.commons.scm.git.clone.strategy.UsernamePasswordStrategy
+com.hb0730.commons.scm.git.clone.strategy.SshKeyStrategy
+com.hb0730.commons.scm.git.clone.strategy.PublicStrategy

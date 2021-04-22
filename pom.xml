@@ -16,6 +16,7 @@
         <module>commons-encrypt</module>
         <module>commons-mail</module>
         <module>commons-ssh</module>
+        <module>commons-scm</module>
     </modules>
 
     <groupId>com.hb0730</groupId>
@@ -34,6 +35,8 @@
         <lombok.version>1.18.12</lombok.version>
 
         <bouncycastle.version>1.65</bouncycastle.version>
+
+        <jgit.version>5.11.0.202103091610-r</jgit.version>
 
         <spring.version>5.2.4.RELEASE</spring.version>
         <spring.data.version>2.2.5.RELEASE</spring.data.version>
@@ -131,6 +134,17 @@
                 <groupId>com.jcraft</groupId>
                 <artifactId>jsch</artifactId>
                 <version>0.1.55</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.jgit</groupId>
+                <artifactId>org.eclipse.jgit</artifactId>
+                <version>${jgit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jgit</groupId>
+                <artifactId>org.eclipse.jgit.ssh.jsch</artifactId>
+                <version>${jgit.version}</version>
             </dependency>
 
 

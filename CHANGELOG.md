@@ -5,7 +5,8 @@
   * 新增`ListUtils#list(boolean isLinked, Enumeration<T> enumeration)`支持`Enumeration`转`List`
   + 新增`ClassLoaderUtils`
   + 新增`ResourcesUtils`资源工具类
-+ 新增一个模块 **[commons-ssh]**  
++ 新增 **[commons-ssh]**  模块
++ 新增 **[commons-scm]** 模板
 ## Fixed
 ## Update
 # 2.1.1
