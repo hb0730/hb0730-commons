@@ -1,7 +1,7 @@
 # commons-scm
 对SCM(git,svn)等支持
 ## git
-使用[jgit]()对git操作的支持
+使用 [jgit](https://www.eclipse.org/jgit/) 对git操作的支持
 ### clone
 1. username/password 方式
 

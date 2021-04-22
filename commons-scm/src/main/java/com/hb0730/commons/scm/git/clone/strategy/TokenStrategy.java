@@ -1,6 +1,6 @@
 package com.hb0730.commons.scm.git.clone.strategy;
 
-import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.Validate;
 import com.hb0730.commons.scm.git.builder.Git;
 import com.hb0730.commons.scm.git.clone.GitCloneCommand;
 import com.hb0730.commons.scm.git.clone.GitCloneStrategy;
@@ -18,11 +18,12 @@ public class TokenStrategy extends GitCloneStrategy implements GitCloneCommand {
 
     @Override
     protected CloneCommand getCommand() {
-        final String token = ((GitTokenClone) getGit()).getToken();
-        if (StringUtils.isNotBlank(token)) {
-            return getSuperCommand().setCredentialsProvider(new UsernamePasswordCredentialsProvider("PRIVATE-TOKEN", token));
-        }
-        return null;
+        final GitTokenClone git = (GitTokenClone) getGit();
+        String token = git.getToken();
+        Validate.notBlank(token, "token must be not null");
+        return getSuperCommand().setCredentialsProvider(
+                new UsernamePasswordCredentialsProvider("PRIVATE-TOKEN", token)
+        );
     }
 
     @Override

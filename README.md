@@ -45,6 +45,7 @@ hb0730-commons是个人平时用到的java类库(封装http,cache等工具)
 |commons-mail|java发送mail使用spring Mail|
 |commons-spring|spring相关工具|
 |commons-ssh|对 [jsch](http://www.jcraft.com/jsch/) 等SSH Client简单封装|
+|commons-scm|对 scm(git,svn)等支持,方便操作|
 ## 测试 
 测试依赖第三方组件
 

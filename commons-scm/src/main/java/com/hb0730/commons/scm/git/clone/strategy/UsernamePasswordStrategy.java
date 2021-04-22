@@ -1,6 +1,6 @@
 package com.hb0730.commons.scm.git.clone.strategy;
 
-import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.Validate;
 import com.hb0730.commons.scm.git.builder.Git;
 import com.hb0730.commons.scm.git.clone.GitCloneCommand;
 import com.hb0730.commons.scm.git.clone.GitCloneStrategy;
@@ -17,13 +17,12 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 public class UsernamePasswordStrategy extends GitCloneStrategy implements GitCloneCommand {
     @Override
     protected CloneCommand getCommand() {
-        GitUsernamePasswordClone git = (GitUsernamePasswordClone) getGit();
+        final GitUsernamePasswordClone git = (GitUsernamePasswordClone) getGit();
         String username = git.getUsername();
         String password = git.getPassword();
-        if (StringUtils.isNotBlank(username) && StringUtils.isNotBlank(password)) {
-            return getSuperCommand().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password));
-        }
-        return null;
+        Validate.notBlank(username, "username must be not null");
+        Validate.notBlank(password, "password must be not null");
+        return getSuperCommand().setCredentialsProvider(new UsernamePasswordCredentialsProvider(username, password));
     }
 
     @Override

@@ -55,7 +55,7 @@ public abstract class GitCloneStrategy implements GitCloneCommand {
     }
 
     public Git getGit() {
-        Validate.notNull(git, "Please set GitCloneBuilder");
+        Validate.notNull(git, "Please set Git");
         return git;
     }
 }

@@ -1,5 +1,6 @@
 package com.hb0730.commons.scm.git.clone.strategy;
 
+import com.hb0730.commons.lang.Validate;
 import com.hb0730.commons.scm.git.builder.Git;
 import com.hb0730.commons.scm.git.clone.GitCloneStrategy;
 import com.hb0730.commons.scm.git.clone.builder.GitSshKeyClone;
@@ -30,7 +31,7 @@ public class SshKeyStrategy extends GitCloneStrategy {
 
     @Override
     protected CloneCommand getCommand() {
-        GitSshKeyClone git = (GitSshKeyClone) getGit();
+        final GitSshKeyClone git = (GitSshKeyClone) getGit();
         return getSuperCommand().setTransportConfigCallback(transport -> {
             if (transport instanceof SshTransport) {
                 SshTransport sshTransport = (SshTransport) transport;
@@ -40,6 +41,7 @@ public class SshKeyStrategy extends GitCloneStrategy {
     }
 
     private SshSessionFactory sshSessionFactory(String keyPath) {
+        Validate.notBlank(keyPath, "private key path must be not null");
         return new JschConfigSessionFactory() {
             @Override
             protected JSch createDefaultJSch(FS fs) throws JSchException {

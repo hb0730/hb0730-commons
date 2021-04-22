@@ -1,6 +1,6 @@
 package com.hb0730.commons.scm.git.clone.strategy;
 
-import com.hb0730.commons.lang.StringUtils;
+import com.hb0730.commons.lang.Validate;
 import com.hb0730.commons.scm.git.builder.Git;
 import com.hb0730.commons.scm.git.clone.GitCloneStrategy;
 import com.hb0730.commons.scm.git.clone.builder.GitSshPasswordClone;
@@ -31,25 +31,21 @@ public class SshPasswordStrategy extends GitCloneStrategy {
 
     @Override
     protected CloneCommand getCommand() {
-        GitSshPasswordClone git = (GitSshPasswordClone) getGit();
-        final String url = git.getRemoteUrl();
-        final String password = git.getPassword();
-        if (url.toLowerCase().startsWith(SSH.toLowerCase()) && StringUtils.isNotBlank(password)) {
-            return getSuperCommand().setTransportConfigCallback(transport -> {
-                if (transport instanceof SshTransport) {
-                    SshTransport sshTransport = (SshTransport) transport;
-                    sshTransport.setSshSessionFactory(sshSessionFactory());
-                }
-            });
-        }
-        return null;
+        final GitSshPasswordClone git = (GitSshPasswordClone) getGit();
+        return getSuperCommand().setTransportConfigCallback(transport -> {
+            if (transport instanceof SshTransport) {
+                SshTransport sshTransport = (SshTransport) transport;
+                sshTransport.setSshSessionFactory(sshSessionFactory(git.getPassword()));
+            }
+        });
     }
 
-    private SshSessionFactory sshSessionFactory() {
+    private SshSessionFactory sshSessionFactory(String password) {
+        Validate.notBlank("password must be not null");
         return new JschConfigSessionFactory() {
             @Override
             protected void configure(OpenSshConfig.Host hc, Session session) {
-                session.setPassword(((GitSshPasswordClone) getGit()).getPassword());
+                session.setPassword(password);
             }
         };
     }
