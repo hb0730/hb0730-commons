@@ -194,6 +194,7 @@ public class JschChannelSftp {
      * 列出远程目录的内容。
      *
      * @param path 路径
+     * @return 文件内容
      */
     public List<ChannelSftp.LsEntry> ls(String path) {
         final List<ChannelSftp.LsEntry> rptFiles = new LinkedList<>();

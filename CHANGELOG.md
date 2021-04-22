@@ -7,6 +7,8 @@
   + 新增`ResourcesUtils`资源工具类
 + 新增 **[commons-ssh]**  模块
 + 新增 **[commons-scm]** 模板
++ **[commons-json]**
+  + 新增对jackson 泛型擦除问题新增`#jsonObject(String json, JavaType javaType)` 方法
 ## Fixed
 ## Update
 # 2.1.1

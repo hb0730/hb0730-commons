@@ -1,6 +1,7 @@
 package com.hb0730.commons.json.jackson;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.hb0730.commons.json.AbstractJson;
@@ -51,6 +52,44 @@ public class JacksonImpl extends AbstractJson {
             try {
 
                 return ((ObjectMapper) mapper).readValue(json, type);
+            } catch (IOException e) {
+                throw new JsonException(e);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 支持泛型序列化
+     *
+     * @param json     json string
+     * @param javaType 泛型类型
+     * @param <T>      对象转换类型
+     * @return 对象指定类型
+     * @since 2.1.2
+     */
+    public <T> T jsonObject(String json, JavaType javaType) {
+        return jsonToObject(json, javaType, getMapper());
+    }
+
+    /**
+     * 支持泛型序列化
+     *
+     * @param json     json string
+     * @param javaType 泛型类型
+     * @param mapper   {@link ObjectMapper}
+     * @param <T>      对象转换类型
+     * @return 对象指定类型
+     * @since 2.1.2
+     */
+    public <T> T jsonToObject(String json, JavaType javaType, Object mapper) {
+        Validate.notBlank(json, "json content must be not null");
+        Validate.notNull(javaType, "target type must be not null");
+        Validate.notNull(mapper, "ObjectMapper must be not null");
+        if (mapper instanceof ObjectMapper) {
+            try {
+
+                return ((ObjectMapper) mapper).readValue(json, javaType);
             } catch (IOException e) {
                 throw new JsonException(e);
             }
