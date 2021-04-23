@@ -79,11 +79,7 @@ public class JschChannel {
     public Channel openChannel(ChannelType channelType, int timeout) {
         Channel channel = createChannel(channelType);
         if (0 != timeout) {
-            try {
-                channel.connect(Math.max(timeout, 0));
-            } catch (JSchException e) {
-                throw new JschRuntimeException(e);
-            }
+            JschUtils.connect(channel, timeout);
         }
         return channel;
     }

@@ -1,5 +1,6 @@
 package com.hb0730.commons.ssh.jsch;
 
+import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.Session;
 import org.junit.After;
 import org.junit.Assert;
@@ -34,5 +35,17 @@ public class JschChannelShellTest extends JschChannelTest {
      */
     @Test
     public void shellTest() throws InterruptedException {
+    }
+
+    @Test
+    public void testOpenShellTest() {
+        ChannelShell shell = JschChannelShell.builder(session)
+                .openShell(0);
+        Assert.assertNotNull(shell);
+        JschUtils.close(shell);
+        shell = JschChannelShell.builder(session)
+                .openShell(2);
+        Assert.assertNotNull(shell);
+        JschUtils.close(shell);
     }
 }

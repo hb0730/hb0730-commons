@@ -9,8 +9,8 @@ import java.nio.charset.Charset;
  * <a href="http://www.jcraft.com/jsch">JSch</a> {@link ChannelExec}相关操作
  *
  * @author bing_huang
- * @since 2.1.2
  * @see <a href="http://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/ChannelExec.html">API</a>
+ * @since 2.1.2
  */
 public class JschChannelExec {
     private final Session session;

@@ -92,4 +92,17 @@ public class JschChannelShell {
                 .openShell();
     }
 
+    /**
+     * 创建ChannelShell,并Connect
+     *
+     * @param timeout 超时时间，如果为timeout==0,永不超时
+     * @return {@link ChannelShell}
+     * @since 2.1.3
+     */
+    public ChannelShell openShell(int timeout) {
+        ChannelShell channelShell = openShell();
+        JschUtils.connect(channelShell, timeout);
+        return channelShell;
+    }
+
 }

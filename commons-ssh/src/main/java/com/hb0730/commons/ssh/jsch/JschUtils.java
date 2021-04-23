@@ -43,6 +43,38 @@ public class JschUtils {
     }
 
     /**
+     * Connect
+     *
+     * @param channel {@link Channel}
+     * @since 2.1.3
+     */
+    public static void connect(Channel channel) {
+        connect(channel, 0);
+    }
+
+    /**
+     * Connect
+     *
+     * @param channel {@link Channel}
+     * @param timeout 超时时间,timeout==0,永不超时
+     * @since 2.1.3
+     */
+    public static void connect(Channel channel, int timeout) {
+        if (null == channel) {
+            return;
+        }
+        try {
+            if (0 == timeout) {
+                channel.connect();
+            } else {
+                channel.connect(timeout);
+            }
+        } catch (JSchException e) {
+            throw new JschRuntimeException(e);
+        }
+    }
+
+    /**
      * 流的读取,如果当前Channel并未链接，会自动链接
      *
      * @param channel Channel
@@ -53,11 +85,7 @@ public class JschUtils {
         try {
             InputStream in = channel.getInputStream();
             if (!channel.isConnected()) {
-                try {
-                    channel.connect();
-                } catch (JSchException e) {
-                    e.printStackTrace();
-                }
+                JschUtils.connect(channel);
             }
             sb = new StringBuilder();
             byte[] tmp = new byte[1024];
