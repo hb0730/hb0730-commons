@@ -60,7 +60,7 @@ hb0730-commons是个人平时用到的java类库(封装http,cache等工具)
 <dependency>
     <groupId>com.hb0730</groupId>
     <artifactId>commons-dependencies</artifactId>
-    <version>2.1.2-RELEASE</version>
+    <version>2.1.3-SNAPSHOT</version>
     <type>pom</type>
     <scope>import</scope>
 </dependency>
@@ -70,6 +70,6 @@ hb0730-commons是个人平时用到的java类库(封装http,cache等工具)
 <dependency>
     <groupId>com.hb0730</groupId>
     <artifactId>commons-all</artifactId>
-    <version>2.1.2-RELEASE</version>
+    <version>2.1.3-SNAPSHOT</version>
 </dependency>
 ```
