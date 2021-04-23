@@ -10,7 +10,7 @@ import com.jcraft.jsch.Session;
  * <a href="http://www.jcraft.com/jsch">JSch</a> {@link Session} 构建
  *
  * @author bing_huang
- * @since 1.0.0
+ * @since 2.1.2
  */
 public class JschSessionBuilder implements Builder<Session> {
     public static final int DEFAULT_PORT = 22;

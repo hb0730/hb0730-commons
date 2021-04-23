@@ -4,7 +4,7 @@ package com.hb0730.commons.lang;
  * {@link ClassLoader}工具类
  *
  * @author bing_huang
- * @since 1.0.0
+ * @since 2.1.2
  */
 public class ClassLoaderUtils {
 
