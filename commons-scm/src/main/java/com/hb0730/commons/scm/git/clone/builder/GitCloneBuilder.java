@@ -1,6 +1,5 @@
 package com.hb0730.commons.scm.git.clone.builder;
 
-import com.hb0730.commons.lang.StringUtils;
 import com.hb0730.commons.lang.builder.Builder;
 import com.hb0730.commons.scm.git.builder.Git;
 import com.hb0730.commons.scm.git.clone.GitStrategy;
@@ -13,7 +12,6 @@ import org.eclipse.jgit.api.CloneCommand;
  * @since 2.1.2
  */
 public class GitCloneBuilder implements Builder<CloneCommand> {
-    private static final String BRANCH_MASTER = "master";
     private final Git git;
 
     public GitCloneBuilder(Git git) {
@@ -33,7 +31,7 @@ public class GitCloneBuilder implements Builder<CloneCommand> {
         CloneCommand command = org.eclipse.jgit.api.Git.cloneRepository()
                 .setURI(git.getRemoteUrl())
                 .setDirectory(git.getLocalDirectory())
-                .setBranch(StringUtils.isBlank(git.getBranch()) ? BRANCH_MASTER : git.getBranch());
+                .setBranch(git.getBranch());
         return new GitStrategy(command, git).doCommand();
     }
 
