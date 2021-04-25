@@ -3,6 +3,8 @@
 ## Feature
 + **[commons-ssh]**
   + 优化对`JSch`相关操作
++ **[commons-lang]**
+  + 新增 `RuntimeUtils` Class
 # 2.1.2
 ## Feature
 + **[commons-lang]**
