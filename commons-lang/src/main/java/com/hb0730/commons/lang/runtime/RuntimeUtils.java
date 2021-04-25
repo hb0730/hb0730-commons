@@ -85,7 +85,6 @@ public class RuntimeUtils {
      * @param envp 环境变量参数，传入形式为key=value，null表示继承系统环境变量
      * @param cmds 命令
      * @return {@link Process}
-     * @since 4.1.6
      */
     public static Process execProcess(String[] envp, String... cmds) {
         return execProcess(envp, null, cmds);
@@ -205,7 +204,6 @@ public class RuntimeUtils {
      * 获得JVM中剩余的内存数，单位byte
      *
      * @return JVM中剩余的内存数，单位byte
-     * @since 5.3.0
      */
     public static long getFreeMemory() {
         return Runtime.getRuntime().freeMemory();
@@ -215,7 +213,6 @@ public class RuntimeUtils {
      * 获得JVM已经从系统中获取到的总共的内存数，单位byte
      *
      * @return JVM中剩余的内存数，单位byte
-     * @since 5.3.0
      */
     public static long getTotalMemory() {
         return Runtime.getRuntime().totalMemory();
