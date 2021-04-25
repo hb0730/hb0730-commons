@@ -2,7 +2,7 @@
 # 2.1.3
 ## Feature
 + **[commons-ssh]**
-  + 对`JSch`新增`Channel#Connect`方法
+  + 优化对`JSch`相关操作
 # 2.1.2
 ## Feature
 + **[commons-lang]**

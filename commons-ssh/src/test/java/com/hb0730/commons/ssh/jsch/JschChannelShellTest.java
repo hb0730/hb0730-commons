@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class JschChannelShellTest extends JschChannelTest {
     private Session session;
@@ -23,28 +23,48 @@ public class JschChannelShellTest extends JschChannelTest {
     }
 
     @Test
-    public void execTest() {
-        String result = JschChannelShell.builder(session)
-                .exec("cd /root\nls\nexit\n", Charset.defaultCharset());
+    public void sessionConstructorTest() throws InterruptedException {
+        JschChannelShell shell = JschChannelShell.builder(session);
+        String result = "";
+        result = shell.exec("cd /root\nls\n", StandardCharsets.UTF_8);
+        Assert.assertNotNull(result);
+        System.out.println(result);
+
+        Thread.sleep(3000L);
+        result = shell.exec("cd /usr/local/docker\nmkdir test\nls\n", StandardCharsets.UTF_8);
+        Assert.assertNotNull(result);
+        System.out.println(result);
+
+        Thread.sleep(3000L);
+        result = shell.exec("cd /usr/local/docker/test\nmkdir test1\ncd /usr/local/docker/test/test1\nls\n", StandardCharsets.UTF_8);
+        Assert.assertNotNull(result);
+        System.out.println(result);
+
+        Thread.sleep(3000L);
+        result = shell.exec("cd /usr/local/docker\nrm -rf test\nls\n", StandardCharsets.UTF_8);
         Assert.assertNotNull(result);
         System.out.println(result);
     }
 
-    /**
-     * 交互
-     */
     @Test
-    public void shellTest() throws InterruptedException {
+    public void shellConstructorTest() throws InterruptedException {
+        //无法多次调用exec
+        JschChannelShell shell = JschChannelShell.builder(session);
+        JschChannelShell channelShell = JschChannelShell.builder(shell.openShell());
+        String result = "";
+        result = channelShell.exec("cd /root\nls\n");
+        Assert.assertNotNull(result);
+        System.out.println(result);
+
+        Thread.sleep(3000L);
+        result = channelShell.exec("cd /usr/local/docker\nls\n");
+        Assert.assertNotNull(result);
+        System.out.println(result);
     }
 
     @Test
     public void testOpenShellTest() {
-        ChannelShell shell = JschChannelShell.builder(session)
-                .openShell(0);
-        Assert.assertNotNull(shell);
-        JschUtils.close(shell);
-        shell = JschChannelShell.builder(session)
-                .openShell(2);
+        ChannelShell shell = JschChannelShell.builder(session).openShell(0);
         Assert.assertNotNull(shell);
         JschUtils.close(shell);
     }

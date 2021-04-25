@@ -1,14 +1,11 @@
 package com.hb0730.commons.ssh.jsch;
 
-import com.hb0730.commons.lang.io.IORuntimeException;
-import com.hb0730.commons.lang.io.IOUtils;
 import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * <a href="http://www.jcraft.com/jsch">JSch</a> {@link ChannelShell}相关操作
@@ -18,10 +15,11 @@ import java.nio.charset.Charset;
  * @since 2.1.2
  */
 public class JschChannelShell {
-    private final Session session;
+    private ChannelShell shell;
+    private Session session;
 
     /**
-     * 创建{@link JschChannelShell}
+     * 创建{@link JschChannelShell},可以使用同一个实例多次调用{@link #exec(String)}
      *
      * @param session {@link Session}
      * @return {@link JschChannelShell}
@@ -31,11 +29,22 @@ public class JschChannelShell {
     }
 
     /**
+     * 创建{@link JschChannelShell},如果通过这，无法多次调用 {@link #exec(String)}
+     *
+     * @param shell {@link ChannelShell}
+     * @return {@link JschChannelShell}
+     * @since 2.1.3
+     */
+    public static JschChannelShell builder(ChannelShell shell) {
+        return new JschChannelShell(shell);
+    }
+
+    /**
      * 构造ChannelShell
      *
      * @param session {@link Session}
      */
-    private JschChannelShell(Session session) {
+    public JschChannelShell(Session session) {
         if (null == session) {
             throw new JschRuntimeException("JSch session is null");
         }
@@ -43,11 +52,38 @@ public class JschChannelShell {
             throw new JschRuntimeException("JSch session is Close null");
         }
         this.session = session;
+        this.shell = openShell();
     }
 
+    /**
+     * 构造ChannelShell
+     *
+     * @param shell {@link ChannelShell}
+     * @since 2.1.3
+     */
+    public JschChannelShell(ChannelShell shell) {
+        if (null == shell) {
+            throw new JschRuntimeException("JSch ChannelShell is null");
+        }
+        this.shell = shell;
+    }
 
     /**
-     * 执行Shell命令
+     * 执行Shell命令,UTF-8编码
+     * <p>
+     * 此方法单次发送一个命令到服务端，自动读取环境变量，执行结束后自动关闭channel，不会产生阻塞。
+     * </p>
+     *
+     * @param cmd 命令
+     * @return String
+     * @since 2.1.3
+     */
+    public String exec(final String cmd) {
+        return exec(cmd, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * 执行Shell命令,包含一个<code>exit</code>命令
      * <p>
      * 此方法单次发送一个命令到服务端，自动读取环境变量，执行结束后自动关闭channel，不会产生阻塞。
      * </p>
@@ -63,21 +99,21 @@ public class JschChannelShell {
         } else {
             bytes = cmd.getBytes(charset);
         }
-        ChannelShell shell = openShell();
-        OutputStream out = null;
+        if (null == shell) {
+            this.shell = openShell();
+        }
         try {
-            shell.connect();
-            out = shell.getOutputStream();
-            out.write(bytes);
-            out.flush();
-            return JschUtils.read(shell);
-        } catch (IOException e) {
-            throw new IORuntimeException(e);
+            if (!shell.isConnected()) {
+                shell.connect();
+            }
+            JschUtils.write(shell, bytes);
+            return JschUtils.read(shell, charset);
         } catch (JSchException e) {
             throw new JschRuntimeException(e);
         } finally {
-            IOUtils.closeQuietly(out);
             JschUtils.close(shell);
+            //使其可以多次调用生效
+            shell = null;
         }
     }
 

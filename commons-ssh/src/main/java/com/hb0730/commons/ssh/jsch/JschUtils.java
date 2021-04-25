@@ -1,12 +1,20 @@
 package com.hb0730.commons.ssh.jsch;
 
+import com.hb0730.commons.lang.Validate;
+import com.hb0730.commons.lang.constants.Charsets;
 import com.hb0730.commons.lang.io.IORuntimeException;
+import com.hb0730.commons.lang.io.IOUtils;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.function.Consumer;
 
 /**
  * <a href="http://www.jcraft.com/jsch">JSch</a>工具类<br>
@@ -81,9 +89,24 @@ public class JschUtils {
      * @return 执行的结果
      */
     public static String read(Channel channel) {
+        return read(channel, Charsets.UTF_8);
+    }
+
+    /**
+     * 流的读取,如果当前Channel并未链接，会自动链接
+     *
+     * @param channel Channel
+     * @param charset 编码，if charset==null,Charset.defaultCharset()
+     * @return 执行结果
+     * @since 2.1.3
+     */
+    public static String read(final Channel channel, final Charset charset) {
+        Validate.notNull(channel, "Channel must be not null");
+        Charset c = (charset == null ? Charset.defaultCharset() : charset);
         StringBuilder sb;
+        InputStream in = null;
         try {
-            InputStream in = channel.getInputStream();
+            in = channel.getInputStream();
             if (!channel.isConnected()) {
                 JschUtils.connect(channel);
             }
@@ -95,7 +118,7 @@ public class JschUtils {
                     if (i < 0) {
                         break;
                     }
-                    sb.append(new String(tmp, 0, i));
+                    sb.append(new String(tmp, 0, i, c));
                 }
                 if (channel.isClosed()) {
                     if (in.available() > 0) {
@@ -109,7 +132,85 @@ public class JschUtils {
             throw new IORuntimeException(e);
         } catch (InterruptedException e) {
             throw new JschRuntimeException(e);
+        } finally {
+            IOUtils.closeQuietly(in);
         }
         return sb.toString();
     }
+
+    /**
+     * 阻塞读取
+     *
+     * @param channel  {@link Channel}
+     * @param consumer 回调函数
+     * @since 2.1.3
+     */
+    public static void read(final Channel channel, Consumer<byte[]> consumer) {
+        Validate.notNull(channel, "channel must be not null");
+        if (!channel.isConnected()) {
+            JschUtils.connect(channel);
+        }
+        InputStream in = null;
+        try {
+
+            in = channel.getInputStream();
+            //循环读取
+            byte[] buffer = new byte[1024];
+            int i = 0;
+            //如果没有数据来，线程会一直阻塞在这个地方等待数据。
+            while ((i = in.read(buffer)) != -1) {
+                consumer.accept(Arrays.copyOfRange(buffer, 0, i));
+            }
+        } catch (IOException e) {
+            throw new IORuntimeException(e);
+        } finally {
+            IOUtils.closeQuietly(in);
+        }
+    }
+
+    /**
+     * 往{@link Channel}写,默认UTF-8编码
+     *
+     * @param channel channel
+     * @param cmd     命令
+     * @since 2.1.3
+     */
+    public static void write(final Channel channel, String cmd) {
+        write(channel, cmd, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * 往{@link Channel}写，默认UTF-8编码
+     *
+     * @param channel channel
+     * @param cmd     命令
+     * @param charset 编码,默认UTF-8编码
+     * @since 2.1.3
+     */
+    public static void write(final Channel channel, final String cmd, Charset charset) {
+        charset = (charset == null ? StandardCharsets.UTF_8 : charset);
+        write(channel, cmd.getBytes(charset));
+    }
+
+    /**
+     * 往channel写
+     *
+     * @param channel  channel
+     * @param commands 命令
+     * @since 2.1.3
+     */
+    public static void write(final Channel channel, byte[] commands) {
+        Validate.notNull(channel, "Channel must be not null");
+        OutputStream out = null;
+        try {
+            out = channel.getOutputStream();
+            out.write(commands);
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeQuietly(out);
+        }
+    }
+
 }

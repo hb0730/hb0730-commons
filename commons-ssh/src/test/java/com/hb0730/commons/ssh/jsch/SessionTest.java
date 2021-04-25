@@ -9,7 +9,7 @@ public class SessionTest {
 
     public Session session() {
         return JschSessionBuilder.builder()
-                .sshHost("192.168.52.128")
+                .sshHost("192.168.245.128")
                 .sshUser("root")
                 .sshPort(22)
                 .sshPass("123456")

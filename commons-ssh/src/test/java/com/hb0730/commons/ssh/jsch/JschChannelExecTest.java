@@ -42,4 +42,25 @@ public class JschChannelExecTest extends JschChannelTest {
         System.out.println(result);
 
     }
+
+    @Test
+    public void execTest2() {
+        JschChannelExec channelExec = JschChannelExec.builder(session);
+        String result = channelExec.exec("echo 'hello word'");
+        System.out.println(result);
+        result = channelExec.exec("ps -ef | grep ssh");
+        System.out.println(result);
+        result = channelExec.exec("ls");
+        System.out.println(result);
+        result = channelExec.exec("mkdir test");
+        System.out.println(result);
+        result = channelExec.exec("ls");
+        System.out.println(result);
+        result = channelExec.exec("rm -rf test");
+        System.out.println(result);
+        result = channelExec.exec("ls");
+        System.out.println(result);
+        result = channelExec.exec("exit");
+        System.out.println(result);
+    }
 }
