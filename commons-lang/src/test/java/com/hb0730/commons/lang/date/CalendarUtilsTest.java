@@ -49,7 +49,7 @@ public class CalendarUtilsTest {
         Date date1 = DateUtils.toDate(date, "yyyy/MM/dd");
         Calendar calendar1 = CalendarUtils.calendar(date1);
         sameDay = CalendarUtils.isSameDay(calendar, calendar1);
-        Assert.assertTrue("不是相同一天", sameDay);
+        Assert.assertFalse("是相同一天", sameDay);
     }
 
     @Test
@@ -58,6 +58,6 @@ public class CalendarUtilsTest {
         Instant instant = CalendarUtils.toInstant(calender);
         Assert.assertNotNull(instant);
         instant = CalendarUtils.toInstant(null);
-        Assert.assertNotNull(instant);
+        Assert.assertNull("参数为空", instant);
     }
 }

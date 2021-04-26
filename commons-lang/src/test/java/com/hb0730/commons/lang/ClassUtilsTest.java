@@ -17,7 +17,7 @@ public class ClassUtilsTest {
     public void isPresentTest() {
         Assert.assertTrue("Integer不能比加载", ClassUtils.isPresent("java.lang.Integer", this.getClass().getClassLoader()));
 
-        Assert.assertTrue("httpClient不能被加载", ClassUtils.isPresent("java.net.http.HttpClient", this.getClass().getClassLoader()));
+        Assert.assertFalse("httpClient不能被加载", ClassUtils.isPresent("java.net.http.HttpClient", this.getClass().getClassLoader()));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ClassUtilsTest {
         Assert.assertTrue("对象不是基本类型或者包装类型", type);
 
         type = ClassUtils.isBasicType(Person.class);
-        Assert.assertTrue("对象不是基本类型或者包装类型", type);
+        Assert.assertFalse("对象不是基本类型或者包装类型", type);
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ClassUtilsTest {
         clazz1 = new Class[]{Integer.class, Long.class};
         clazz2 = new Class[]{Integer.class};
         assignable = ClassUtils.isAllAssignableFrom(clazz1, clazz2);
-        Assert.assertTrue("类型不一致", assignable);
+        Assert.assertFalse("类型不一致", assignable);
 
         clazz1 = new Class[]{String.class, Person.class};
         clazz2 = new Class[]{String.class, Person.class};
@@ -110,7 +110,7 @@ public class ClassUtilsTest {
         boolean b = ClassUtils.isEnum(TestEnum.class);
         Assert.assertTrue("TestEnum.class不是枚举类型", b);
         b = ClassUtils.isEnum(Person.class);
-        Assert.assertTrue("Person.class不是枚举类型 ", b);
+        Assert.assertFalse("Person.class不是枚举类型 ", b);
 
     }
 
@@ -122,7 +122,7 @@ public class ClassUtilsTest {
 
         List<String> list = new ArrayList<>();
         aClass = ClassUtils.getTypeArgument(list.getClass());
-        Assert.assertNotNull("list 泛型为null", aClass);
+        Assert.assertNull("list 泛型为null", aClass);
 
     }
 
@@ -135,7 +135,7 @@ public class ClassUtilsTest {
         Assert.assertNotNull("泛型为null", aClass);
 
         aClass = ClassUtils.getTypeArgument(ClassTest.class, 2);
-        Assert.assertNotNull("泛型为null", aClass);
+        Assert.assertNull("泛型为null", aClass);
     }
 
     @Test

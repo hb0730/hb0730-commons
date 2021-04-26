@@ -110,10 +110,10 @@ public class RSAUtilsTest {
     public void testProperty() {
         RSAKeyPair rsaKeyPair = RSAUtils.generateKey();
 
-        int count = 10000;
+        int count = 100;
 
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = count; i > 0; i--) {
             RSAUtils.encryptByPublicKey(content, rsaKeyPair.getPublicKey());
         }
         log.info("加密" + count + "次，耗时" + (System.currentTimeMillis() - startTime) + "毫秒");
@@ -124,7 +124,7 @@ public class RSAUtilsTest {
 
         //解密
         startTime = System.currentTimeMillis();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = count; i >= 0; i--) {
             RSAUtils.decryptByPrivateKey(encryptedData, rsaKeyPair.getPrivateKey());
         }
         log.info("解密" + count + "次，耗时" + (System.currentTimeMillis() - startTime) + "毫秒");

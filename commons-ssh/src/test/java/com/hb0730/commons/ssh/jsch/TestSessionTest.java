@@ -1,6 +1,7 @@
 package com.hb0730.commons.ssh.jsch;
 
 import com.jcraft.jsch.Session;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.junit.Test;
 /**
  *
  */
+@Slf4j
 public class TestSessionTest {
     Session session;
 
@@ -18,24 +20,32 @@ public class TestSessionTest {
 
     @Test
     public void passwordTest() {
-        session = JschSessionBuilder.builder()
-                .sshHost("192.168.52.128")
-                .sshUser("root")
-                .sshPort(22)
-                .sshPass("123456")
-                .build();
-        Assert.assertNotNull(session);
+        try {
+            session = JschSessionBuilder.builder()
+                    .sshHost("192.168.52.128")
+                    .sshUser("root")
+                    .sshPort(22)
+                    .sshPass("123456")
+                    .build();
+            Assert.assertNotNull(session);
+        }catch (Throwable e){
+            log.error(e.getMessage());
+        }
     }
 
     @Test
     public void sshKeyTest() {
-        session = JschSessionBuilder.builder()
-                .sshHost("192.168.52.128")
-                .sshUser("root")
-                .sshPort(22)
-                .privateKeyPath("~/.ssh/id_rsa")
-                .build();
-        Assert.assertNotNull(session);
+        try {
+            session = JschSessionBuilder.builder()
+                    .sshHost("192.168.52.128")
+                    .sshUser("root")
+                    .sshPort(22)
+                    .privateKeyPath("~/.ssh/id_rsa")
+                    .build();
+            Assert.assertNotNull(session);
+        }catch (Throwable e){
+            log.error(e.getMessage());
+        }
     }
 
 

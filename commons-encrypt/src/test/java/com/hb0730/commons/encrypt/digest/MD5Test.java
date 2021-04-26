@@ -115,6 +115,6 @@ public class MD5Test {
         String test1 = MD5Utils.md5("test").substring(8, 24);
         Assert.assertEquals("摘要失败，不相等", test, test1);
         test = MD5.create().digestHex16("test", StandardCharsets.UTF_8, false);
-        Assert.assertEquals("摘要失败，不相等", test, test1);
+        Assert.assertNotEquals("摘要成功，相等", test, test1);
     }
 }

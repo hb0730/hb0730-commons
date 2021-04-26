@@ -23,10 +23,8 @@ public class StringConverterTest {
         s = converter.convert(null, "测试");
         Assert.assertNotNull(s);
         log.info(s);
-
-
         s = converter.convert(null, null);
-        Assert.assertNotNull(s);
+        Assert.assertNull("返回值为空", s);
         log.info(s);
     }
 }

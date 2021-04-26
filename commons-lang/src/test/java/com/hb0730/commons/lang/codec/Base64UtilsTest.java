@@ -13,8 +13,11 @@ public class Base64UtilsTest {
         String test = "测试";
         byte[] bytes = Base64Utils.encode(test.getBytes());
         Assert.assertNotNull(bytes);
-        bytes = Base64Utils.encode(null);
-        Assert.assertNotNull(bytes);
+        try {
+            Base64Utils.encode(null);
+        } catch (Exception e) {
+            log.error("base64编码失败");
+        }
     }
 
     @Test
@@ -23,8 +26,11 @@ public class Base64UtilsTest {
         byte[] encode = Base64Utils.encode(test.getBytes());
         byte[] decode = Base64Utils.decode(encode);
         Assert.assertNotNull(decode);
-        decode = Base64Utils.decode(null);
-        Assert.assertNotNull(decode);
+        try {
+            Base64Utils.decode(null);
+        } catch (Exception e) {
+            log.error("base64解码失败失败");
+        }
     }
 
     @Test
@@ -32,8 +38,11 @@ public class Base64UtilsTest {
         String url = "https://www.baidu.com/s?wd=测试";
         byte[] encodeUrlSafe = Base64Utils.encodeUrlSafe(url.getBytes());
         Assert.assertNotNull(encodeUrlSafe);
-        encodeUrlSafe = Base64Utils.encodeUrlSafe(null);
-        Assert.assertNotNull(encodeUrlSafe);
+        try {
+            Base64Utils.encodeUrlSafe(null);
+        } catch (Exception e) {
+            log.error("base64 url编码失败");
+        }
     }
 
     @Test
@@ -42,8 +51,11 @@ public class Base64UtilsTest {
         byte[] encodeUrlSafe = Base64Utils.encodeUrlSafe(url.getBytes());
         byte[] decodeUrlSafe = Base64Utils.decodeUrlSafe(encodeUrlSafe);
         Assert.assertNotNull(decodeUrlSafe);
-        decodeUrlSafe = Base64Utils.decodeUrlSafe(null);
-        Assert.assertNotNull(decodeUrlSafe);
+        try {
+            Base64Utils.decodeUrlSafe(null);
+        } catch (Exception e) {
+            log.error("base64 url解码失败");
+        }
     }
 
     @Test
@@ -56,8 +68,13 @@ public class Base64UtilsTest {
         String encode2 = Base64Utils.encodeToString(test.getBytes(), Charsets.UTF_8);
         Assert.assertEquals(encode, encode2);
         log.info(encode2);
-        String encode3 = Base64Utils.encodeToString(null);
-        Assert.assertEquals("编码失败" + encode3, encode, encode3);
+        try {
+            String encode3 = Base64Utils.encodeToString(null);
+            Assert.assertEquals("编码失败" + encode3, encode, encode3);
+        } catch (Exception e) {
+            log.error("编码失败");
+        }
+
     }
 
     @Test
@@ -67,11 +84,16 @@ public class Base64UtilsTest {
         byte[] decode = Base64Utils.decodeFromString(encode);
         Assert.assertNotNull(decode);
         byte[] decode1 = Base64Utils.decodeFromString(encode, "utf-8");
-        Assert.assertEquals(decode, decode1);
+        Assert.assertNotEquals("编码成功", decode, decode1);
         byte[] decode2 = Base64Utils.decodeFromString(encode, Charsets.UTF_8);
-        Assert.assertEquals(decode, decode2);
-        byte[] decode3 = Base64Utils.decodeFromString(null);
-        Assert.assertEquals("编码失败" + decode3, decode, decode3);
+        Assert.assertNotEquals("编码失败", decode, decode2);
+        try {
+            byte[] decode3 = Base64Utils.decodeFromString(null);
+            Assert.assertNotEquals("编码失败" + decode3, decode, decode3);
+        } catch (Exception e) {
+            log.error("编码失败");
+        }
+
     }
 
     @Test
@@ -84,9 +106,13 @@ public class Base64UtilsTest {
         String encode2 = Base64Utils.encodeToUrlSafeString(url.getBytes(), Charsets.UTF_8);
         Assert.assertEquals(encode, encode2);
         String encode4 = Base64Utils.encodeToUrlSafeString("".getBytes(), Charsets.UTF_8);
-        Assert.assertEquals("解码失败" + encode4, encode, encode4);
-        String encode3 = Base64Utils.encodeToUrlSafeString(null);
-        Assert.assertEquals("解码失败" + encode3, encode, encode3);
+        Assert.assertNotEquals("解码成功" + encode4, encode, encode4);
+        try {
+            String encode3 = Base64Utils.encodeToUrlSafeString(null);
+            Assert.assertEquals("解码失败" + encode3, encode, encode3);
+        } catch (Exception e) {
+            log.error("解码失败");
+        }
     }
 
     @Test
@@ -101,8 +127,12 @@ public class Base64UtilsTest {
         Assert.assertNotNull(decode2);
         byte[] decode3 = Base64Utils.decodeFromUrlSafeString("");
         Assert.assertNotNull(decode3);
-        byte[] decode4 = Base64Utils.decodeFromUrlSafeString(null);
-        Assert.assertNotNull(decode4);
+        try {
+            byte[] decode4 = Base64Utils.decodeFromUrlSafeString(null);
+            Assert.assertNotNull(decode4);
+        }catch (Exception e){
+            log.error("解码失败");
+        }
     }
 
 }

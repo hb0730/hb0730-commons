@@ -22,7 +22,7 @@ public class RegexUtilsTest {
         Assert.assertTrue("邮箱不合法", RegexUtils.isEmail(email));
 
         email = "sasdasd";
-        Assert.assertTrue("邮箱不合法", RegexUtils.isEmail(email));
+        Assert.assertFalse("邮箱合法", RegexUtils.isEmail(email));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class RegexUtilsTest {
         String blank = " ";
         Assert.assertTrue("非空白符", RegexUtils.isBlank(blank));
         blank = "";
-        Assert.assertTrue("非空白符", RegexUtils.isBlank(blank));
+        Assert.assertFalse("为空白符", RegexUtils.isBlank(blank));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class RegexUtilsTest {
     @Test
     public void isURLTest() {
         String url = "www.baidu.com";
-        Assert.assertTrue("非法网址", RegexUtils.isURL(url));
+        Assert.assertFalse("合格网址", RegexUtils.isURL(url));
     }
 
     @Test

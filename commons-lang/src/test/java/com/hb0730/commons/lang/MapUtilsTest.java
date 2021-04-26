@@ -1,35 +1,39 @@
 package com.hb0730.commons.lang;
 
 import com.hb0730.commons.lang.map.MapUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+@Slf4j
 public class MapUtilsTest {
 
     @Test
     public void isEmptyTest() {
         Map<String, String> map = new HashMap<>();
-        System.out.println(MapUtils.isEmpty(map));
+        log.info(MapUtils.isEmpty(map) + "");
         map.put("test", "cccc");
-        System.out.println(MapUtils.isEmpty(map));
+        System.out.println();
+        log.info(MapUtils.isEmpty(map) + "");
     }
 
     @Test
     public void isNotEmptyTest() {
         Map<String, String> map = new HashMap<>();
-        System.out.println(MapUtils.isNotEmpty(map));
+        log.info(MapUtils.isNotEmpty(map) + "");
         map.put("test", "cccc");
-        System.out.println(MapUtils.isNotEmpty(map));
+        log.info(MapUtils.isNotEmpty(map) + "");
     }
 
     @Test
     public void newHashMapTest() {
         HashMap<Object, Object> map = MapUtils.newHashMap();
         map.put("a", null);
-        System.out.println(map);
+        Assert.assertNotNull(map);
     }
 
     @Test
@@ -37,7 +41,7 @@ public class MapUtilsTest {
         TreeMap<Object, Object> treeMap = MapUtils.newTreeMap(null);
         treeMap.put("c", null);
         treeMap.put("a", null);
-        System.out.println(treeMap);
+        Assert.assertNotNull(treeMap);
 
     }
 
@@ -49,7 +53,7 @@ public class MapUtilsTest {
         map.put("y", null);
         map.put("d", null);
         map.put("a", null);
-        System.out.println(MapUtils.newTreeMap(map, null));
+        Assert.assertNotNull(map);
     }
 
     @Test
@@ -59,8 +63,8 @@ public class MapUtilsTest {
         map.put("ax", "ax");
         map.put("sq", "as阿斯頓");
         map.put("af", "sd");
-        System.out.println(MapUtils.parseMapToUrlString(map, false));
-        System.out.println(MapUtils.parseMapToUrlString(map, true));
+        log.info(MapUtils.parseMapToUrlString(map, false));
+        log.info(MapUtils.parseMapToUrlString(map, true));
     }
 
     @Test
@@ -71,7 +75,7 @@ public class MapUtilsTest {
         map.put("sq", "as阿斯頓");
         map.put("af", "sd");
         MapUtils.forEach(map, (k, v) -> {
-            System.out.println(k + "-" + v);
+            log.info(k + "-" + v);
         });
     }
 
@@ -82,7 +86,7 @@ public class MapUtilsTest {
         map.put("ax", "ax");
         map.put("sq", "as阿斯頓");
         map.put("af", "sd");
-        System.out.println(MapUtils.sort(map));
+        Assert.assertNotNull(MapUtils.sort(map));
     }
 
     @Test
@@ -92,6 +96,6 @@ public class MapUtilsTest {
         map.put("ax", "ax");
         map.put("sq", "as阿斯頓");
         map.put("af", "sd");
-        System.out.println(MapUtils.sort(map, null));
+        Assert.assertNotNull(MapUtils.sort(map, null));
     }
 }

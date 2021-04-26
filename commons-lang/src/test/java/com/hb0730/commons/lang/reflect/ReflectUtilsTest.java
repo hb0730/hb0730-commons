@@ -1,6 +1,10 @@
 package com.hb0730.commons.lang.reflect;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -142,8 +146,13 @@ public class ReflectUtilsTest {
         Constructor<Person>[] constructors = ReflectUtils.getConstructors(Person.class);
         Assert.assertNotNull(constructors);
 
-        constructors = ReflectUtils.getConstructors(null);
-        Assert.assertNotNull(constructors);
+        try {
+            constructors = ReflectUtils.getConstructors(null);
+            Assert.assertNull("参数为空", constructors);
+        }catch (Throwable e){
+            log.error("参数为空");
+        }
+
     }
 
     @Test

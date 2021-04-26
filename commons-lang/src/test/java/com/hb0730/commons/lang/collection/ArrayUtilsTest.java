@@ -19,7 +19,7 @@ public class ArrayUtilsTest {
         s1 = ArrayUtils.newArray(String.class, 10);
         s1[0] = "测试";
         empty = ArrayUtils.isEmpty(s1);
-        Assert.assertTrue("集合不为空", empty);
+        Assert.assertFalse("集合为空", empty);
     }
 
     @Test
@@ -29,10 +29,10 @@ public class ArrayUtilsTest {
         Assert.assertTrue("非数组", array);
         Object obj = new Object();
         array = ArrayUtils.isArray(obj);
-        Assert.assertTrue("非数组", array);
+        Assert.assertFalse("为数组", array);
         obj = null;
         array = ArrayUtils.isArray(obj);
-        Assert.assertTrue("非数组", array);
+        Assert.assertFalse("为数组", array);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ArrayUtilsTest {
     public void testIsEmptyTest() {
         Object obj = ArrayUtils.newArray(String.class, 1);
         boolean array = ArrayUtils.isEmpty(obj);
-        Assert.assertTrue("非数组", array);
+        Assert.assertFalse("数组", array);
         obj = ArrayUtils.newArray(String.class, 0);
         array = ArrayUtils.isEmpty(obj);
         Assert.assertTrue("非数组", array);
@@ -80,7 +80,7 @@ public class ArrayUtilsTest {
         array1 = ArrayUtils.newArray(String.class, 0);
         array2 = ArrayUtils.newArray(String.class, 1);
         length = ArrayUtils.isArraySameLength(array1, array2);
-        Assert.assertTrue("长度不相等", length);
+        Assert.assertFalse("长度相等", length);
 
 
     }
@@ -92,10 +92,10 @@ public class ArrayUtilsTest {
         Assert.assertTrue("数组为空", notEmpty);
         array = ArrayUtils.newArray(String.class, 0);
         notEmpty = ArrayUtils.isNotEmpty(array);
-        Assert.assertTrue("数组为空", notEmpty);
+        Assert.assertFalse("数组不为空", notEmpty);
         array = null;
         notEmpty = ArrayUtils.isNotEmpty(array);
-        Assert.assertTrue("数组为空", notEmpty);
+        Assert.assertFalse("数组不为空", notEmpty);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class ArrayUtilsTest {
         boolean b1 = ArrayUtils.hashNull("1", "2", null);
         Assert.assertTrue("不存在null元素", b1);
         boolean b = ArrayUtils.hashNull(1, 3, 5, 4);
-        Assert.assertTrue("不存在null元素", b);
+        Assert.assertFalse("存在null元素", b);
     }
 
     @Test
@@ -133,7 +133,7 @@ public class ArrayUtilsTest {
         boolean contains = ArrayUtils.contains(new Object[]{"1", 2, "5", "6"}, "6");
         Assert.assertTrue("不包含特定元素", contains);
         boolean contains1 = ArrayUtils.contains(null, "7");
-        Assert.assertTrue("不包含特定元素", contains1);
+        Assert.assertFalse("包含特定元素", contains1);
     }
 
     @Test
@@ -145,9 +145,9 @@ public class ArrayUtilsTest {
         a = ArrayUtils.containsIgnoreCase(new String[]{"1", "4", "5", "9", "A", "c"}, "C");
         Assert.assertTrue("不包含特定元素", a);
         a = ArrayUtils.containsIgnoreCase(new String[]{"1", "4", "5", "9", "A", "c"}, "d");
-        Assert.assertTrue("不包含特定元素", a);
+        Assert.assertFalse("包含特定元素", a);
         a = ArrayUtils.containsIgnoreCase(null, "C");
-        Assert.assertTrue("不包含特定元素", a);
+        Assert.assertFalse("包含特定元素", a);
     }
 
     @Test
@@ -159,9 +159,9 @@ public class ArrayUtilsTest {
         b = ArrayUtils.containsAny(new String[]{"1", "3", "5", "9", "a", "c", "D", "B"}, "1");
         Assert.assertTrue("不包含特定元素", b);
         b = ArrayUtils.containsAny(new String[]{"1", "3", "5", "9", "a", "c", "D", "B"}, 1, 4);
-        Assert.assertTrue("不包含特定元素", b);
+        Assert.assertFalse("包含特定元素", b);
         b = ArrayUtils.containsAny(null, "1");
-        Assert.assertTrue("不包含特定元素", b);
+        Assert.assertFalse("包含特定元素", b);
     }
 
     @Test
@@ -176,10 +176,10 @@ public class ArrayUtilsTest {
         Assert.assertTrue("元素不存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayIndexOf(null, "B");
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayIndexOf(new Object[]{"1", "c", "B", "4", 5, "c", "D", "B"}, 7);
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
 
     }
@@ -196,12 +196,12 @@ public class ArrayUtilsTest {
         Assert.assertTrue("元素不存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayIndexOf(new Object[]{"1", "c", "B", "4", 5, "c", "D", "B"}, "1", 1);
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         c = ArrayUtils.arrayIndexOf(null, "1", 1);
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayIndexOf(new Object[]{"1", "c", "B", "4", 5, "c", "D", "B"}, 7, 1);
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
     }
 
@@ -217,10 +217,10 @@ public class ArrayUtilsTest {
         Assert.assertTrue("元素不存在", d > -1);
         log.info(d + "");
         d = ArrayUtils.arrayIndexOfIgnoreCase(null, "D");
-        Assert.assertTrue("元素不存在", d > -1);
+        Assert.assertFalse("元素存在", d > -1);
         log.info(d + "");
         d = ArrayUtils.arrayIndexOfIgnoreCase(new String[]{"a", "C", "D", "b"}, "1");
-        Assert.assertTrue("元素不存在", d > -1);
+        Assert.assertFalse("元素存在", d > -1);
         log.info(d + "");
     }
 
@@ -236,32 +236,32 @@ public class ArrayUtilsTest {
         Assert.assertTrue("元素不存在", d > -1);
         log.info(d + "");
         d = ArrayUtils.arrayIndexOfIgnoreCase(new String[]{"a", "C", "D", "b"}, "A", 1);
-        Assert.assertTrue("元素不存在", d > -1);
+        Assert.assertFalse("元素存在", d > -1);
         log.info(d + "");
         d = ArrayUtils.arrayIndexOfIgnoreCase(null, "D");
-        Assert.assertTrue("元素不存在", d > -1);
+        Assert.assertFalse("元素存在", d > -1);
         log.info(d + "");
         d = ArrayUtils.arrayIndexOfIgnoreCase(new String[]{"a", "C", "D", "b"}, "1");
-        Assert.assertTrue("元素不存在", d > -1);
+        Assert.assertFalse("元素存在", d > -1);
         log.info(d + "");
     }
 
     @Test
     public void arrayLastIndexOfTest() {
         int c = ArrayUtils.arrayLastIndexOf(new Object[]{"1", "c", "B", "4", 5, "c", "D", "B"}, "c");
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayLastIndexOf(new Object[]{"1", "c", "B", "4", 5, "c", "D", "B"}, "B");
         Assert.assertTrue("元素不存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayLastIndexOf(new Object[]{"1", "c", "B", "4", 5, "c", "D", "B"}, 5);
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayLastIndexOf(null, "B");
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayLastIndexOf(new Object[]{"1", "c", "B", "4", 5, "c", "D", "B"}, 7);
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
     }
 
@@ -277,12 +277,12 @@ public class ArrayUtilsTest {
         Assert.assertTrue("元素不存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayLastIndexOf(new Object[]{"1", "c", "B", "4", 5, "c", "D", "B"}, "1", 1);
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         c = ArrayUtils.arrayLastIndexOf(null, "1", 1);
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
         c = ArrayUtils.arrayLastIndexOf(new Object[]{"1", "c", "B", "4", 5, "c", "D", "B"}, 7, 1);
-        Assert.assertTrue("元素不存在", c > -1);
+        Assert.assertFalse("元素存在", c > -1);
         log.info(c + "");
     }
 
@@ -299,8 +299,8 @@ public class ArrayUtilsTest {
         Assert.assertNotNull(o);
         log.info("" + o.toString());
         o = ArrayUtils.get(null, 0);
-        Assert.assertNotNull(o);
-        log.info("" + o.toString());
+        Assert.assertNull(o);
+        log.info("为null");
     }
 
     @Test
@@ -313,8 +313,8 @@ public class ArrayUtilsTest {
         Assert.assertNotNull(objects1);
         log.info(objects1.length + "");
         Object[] o = ArrayUtils.get(null, 0);
-        Assert.assertNotNull(o);
-        log.info(o.length + "");
+        Assert.assertNull(o);
+        log.info("为null");
     }
 
     @Test
@@ -327,7 +327,7 @@ public class ArrayUtilsTest {
         Object[] remove2 = ArrayUtils.remove(obj, -1);
         Assert.assertNotNull(remove2);
         Object[] remove3 = ArrayUtils.remove(null, 1);
-        Assert.assertNotNull(remove3);
+        Assert.assertNull(remove3);
     }
 
     @Test
@@ -343,7 +343,7 @@ public class ArrayUtilsTest {
         Object remove4 = ArrayUtils.remove(obj1, 1);
         Assert.assertNotNull(remove4);
         Object remove3 = ArrayUtils.remove(null, 1);
-        Assert.assertNotNull(remove3);
+        Assert.assertNull(remove3);
     }
 
     @Test
@@ -359,7 +359,7 @@ public class ArrayUtilsTest {
         Assert.assertNotNull(objects2);
         log.info(objects2.length + "");
         String[] strings = ArrayUtils.removeEl(null, "1");
-        Assert.assertNotNull(strings);
+        Assert.assertNull(strings);
         log.info(strings + "");
     }
 
@@ -375,8 +375,7 @@ public class ArrayUtilsTest {
         log.info(distinct.length + "");
         obj = null;
         distinct = ArrayUtils.distinct(obj);
-        Assert.assertNotNull(distinct);
-        log.info(distinct.length + "");
+        Assert.assertNull(distinct);
 
     }
 
@@ -452,7 +451,7 @@ public class ArrayUtilsTest {
         Assert.assertNotNull(list1);
         s = null;
         list1 = ArrayUtils.toList(s);
-        Assert.assertNotNull(list1);
+        Assert.assertNull(list1);
     }
 
     @Test

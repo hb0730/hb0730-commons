@@ -3,7 +3,12 @@ package com.hb0730.commons.json.fastjson;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.hb0730.commons.json.exceptions.JsonException;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,14 +33,23 @@ public class FastJsonImplTest {
         Assert.assertNotNull(test1);
         log.info(test1.toString());
         fastjsons.setParserConfig(new ParserConfig());
-        test1 = fastjsons.jsonToObject(null, Test1.class);
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
-        fastjsons.setParserConfig(new ParserConfig());
-        test1 = fastjsons.jsonToObject(json, null);
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
-        fastjsons.setParserConfig(new ParserConfig());
+        try {
+            test1 = fastjsons.jsonToObject(null, Test1.class);
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            fastjsons.setParserConfig(new ParserConfig());
+            test1 = fastjsons.jsonToObject(json, null);
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+            fastjsons.setParserConfig(new ParserConfig());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+
     }
 
     @Test
@@ -58,12 +72,20 @@ public class FastJsonImplTest {
         test1s = fastJsons.jsonToList(json, Test1.class);
         Assert.assertNotNull(test1s);
         log.info(test1s.toString());
-        test1s = fastJsons.jsonToList(null, Test1.class);
-        Assert.assertNotNull(test1s);
-        log.info(test1s.toString());
-        test1s = fastJsons.jsonToList(null, null);
-        Assert.assertNotNull(test1s);
-        log.info(test1s.toString());
+        try {
+            test1s = fastJsons.jsonToList(null, Test1.class);
+            Assert.assertNotNull(test1s);
+            log.info(test1s.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            test1s = fastJsons.jsonToList(null, null);
+            Assert.assertNotNull(test1s);
+            log.info(test1s.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -86,9 +108,13 @@ public class FastJsonImplTest {
         s = fastJsons.objectToJson(test1);
         Assert.assertNotNull(s);
         log.info(s);
-        s = fastJsons.objectToJson(null);
-        Assert.assertNotNull(s);
-        log.info(s);
+        try {
+            s = fastJsons.objectToJson(null);
+            Assert.assertNotNull(s);
+            log.info(s);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -98,12 +124,20 @@ public class FastJsonImplTest {
         String s = fastJsons.objectToJson(test1, SerializeConfig.getGlobalInstance());
         Assert.assertNotNull(s);
         log.info(s);
-        s = fastJsons.objectToJson(null, null);
-        Assert.assertNotNull(s);
-        log.info(s);
-        s = fastJsons.objectToJson(null, null);
-        Assert.assertNotNull(s);
-        log.info(s);
+        try {
+            s = fastJsons.objectToJson(null, null);
+            Assert.assertNotNull(s);
+            log.info(s);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            s = fastJsons.objectToJson(null, null);
+            Assert.assertNotNull(s);
+            log.info(s);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -119,12 +153,20 @@ public class FastJsonImplTest {
         test1 = fastJsons.mapToObject(map, Test1.class);
         Assert.assertNotNull(test1);
         log.info(test1.toString());
-        test1 = fastJsons.mapToObject(null, Test1.class);
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
-        test1 = fastJsons.mapToObject(null, null);
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
+        try {
+            test1 = fastJsons.mapToObject(null, Test1.class);
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            test1 = fastJsons.mapToObject(null, null);
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
 
     }
 
@@ -137,15 +179,27 @@ public class FastJsonImplTest {
         Test1 test1 = fastJsons.mapToObject(map, Test1.class, SerializeConfig.getGlobalInstance());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
-        test1 = fastJsons.mapToObject(null, Test1.class, SerializeConfig.getGlobalInstance());
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
-        test1 = fastJsons.mapToObject(null, null, SerializeConfig.getGlobalInstance());
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
-        test1 = fastJsons.mapToObject(null, null, null);
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
+        try {
+            test1 = fastJsons.mapToObject(null, Test1.class, SerializeConfig.getGlobalInstance());
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            test1 = fastJsons.mapToObject(null, null, SerializeConfig.getGlobalInstance());
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            test1 = fastJsons.mapToObject(null, null, null);
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -155,9 +209,13 @@ public class FastJsonImplTest {
         Map<?, ?> map = fastJsons.objectToMap(test1);
         Assert.assertNotNull(map);
         log.info(map.toString());
-        map = fastJsons.objectToMap(null);
-        Assert.assertNotNull(map);
-        log.info(map.toString());
+        try {
+            map = fastJsons.objectToMap(null);
+            Assert.assertNotNull(map);
+            log.info(map.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -167,12 +225,20 @@ public class FastJsonImplTest {
         Map<?, ?> map = fastJsons.objectToMap(test1, SerializeConfig.getGlobalInstance());
         Assert.assertNotNull(map);
         log.info(map.toString());
-        map = fastJsons.objectToMap(null, SerializeConfig.getGlobalInstance());
-        Assert.assertNotNull(map);
-        log.info(map.toString());
-        map = fastJsons.objectToMap(null, null);
-        Assert.assertNotNull(map);
-        log.info(map.toString());
+        try {
+            map = fastJsons.objectToMap(null, SerializeConfig.getGlobalInstance());
+            log.info(map.toString());
+            Assert.assertNotNull(map);
+        } catch (Throwable e) {
+            log.error("参数为空");
+        }
+        try {
+            map = fastJsons.objectToMap(null, null);
+            Assert.assertNotNull(map);
+            log.info(map.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Data

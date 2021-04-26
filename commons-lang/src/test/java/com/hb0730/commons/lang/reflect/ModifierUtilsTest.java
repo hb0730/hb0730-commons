@@ -16,9 +16,9 @@ public class ModifierUtilsTest {
         boolean b = ModifierUtils.hasModifier(Test1.class, ModifierUtils.ModifierType.STATIC);
         Assert.assertTrue("非静态类", b);
         b = ModifierUtils.hasModifier(Test1.class, null);
-        Assert.assertTrue("非静态类", b);
+        Assert.assertFalse("静态类", b);
         b = ModifierUtils.hasModifier((Class<?>) null, null);
-        Assert.assertTrue("非静态类", b);
+        Assert.assertFalse("静态类", b);
     }
 
     @Test
@@ -26,13 +26,13 @@ public class ModifierUtilsTest {
         Constructor<Test2> constructor = ReflectUtils.getConstructor(Test2.class);
         Constructor<Test2> constructor1 = ReflectUtils.getConstructor(Test2.class, String.class);
         boolean b = ModifierUtils.hasModifier(constructor, ModifierUtils.ModifierType.PRIVATE);
-        Assert.assertTrue("非私有构造函数", b);
+        Assert.assertFalse("私有构造函数", b);
         b = ModifierUtils.hasModifier(constructor1, ModifierUtils.ModifierType.PUBLIC);
-        Assert.assertTrue("非公开构造函数", b);
+        Assert.assertFalse("公开构造函数", b);
         b = ModifierUtils.hasModifier(constructor1, null);
-        Assert.assertTrue("非公开构造函数", b);
+        Assert.assertFalse("公开构造函数", b);
         b = ModifierUtils.hasModifier((Constructor) null, null);
-        Assert.assertTrue("非公开构造函数", b);
+        Assert.assertFalse("公开构造函数", b);
     }
 
     @Test
@@ -48,9 +48,9 @@ public class ModifierUtilsTest {
         b = ModifierUtils.hasModifier(test4, ModifierUtils.ModifierType.PRIVATE);
         Assert.assertTrue("非Private方法", b);
         b = ModifierUtils.hasModifier(test2, null);
-        Assert.assertTrue("非public方法", b);
+        Assert.assertFalse("public方法", b);
         b = ModifierUtils.hasModifier((Method) null, null);
-        Assert.assertTrue("非public方法", b);
+        Assert.assertFalse("public方法", b);
     }
 
     @Test
@@ -67,9 +67,9 @@ public class ModifierUtilsTest {
         b = ModifierUtils.hasModifier(test2, ModifierUtils.ModifierType.FINAL);
         Assert.assertTrue("非Final", b);
         b = ModifierUtils.hasModifier(test3, null);
-        Assert.assertTrue("非Final", b);
+        Assert.assertFalse("Final", b);
         b = ModifierUtils.hasModifier((Field) null, null);
-        Assert.assertTrue("非Final", b);
+        Assert.assertFalse("Final", b);
 
 
     }
@@ -81,9 +81,9 @@ public class ModifierUtilsTest {
         boolean aPublic = ModifierUtils.isPublic(test2);
         Assert.assertTrue("非public", aPublic);
         aPublic = ModifierUtils.isPublic(test1);
-        Assert.assertTrue("非public", aPublic);
+        Assert.assertFalse("public", aPublic);
         aPublic = ModifierUtils.isPublic((Field) null);
-        Assert.assertTrue("非public", aPublic);
+        Assert.assertFalse("public", aPublic);
     }
 
     @Test
@@ -93,9 +93,9 @@ public class ModifierUtilsTest {
         boolean aPublic = ModifierUtils.isPublic(test1);
         Assert.assertTrue("非public", aPublic);
         aPublic = ModifierUtils.isPublic(test4);
-        Assert.assertTrue("非public", aPublic);
+        Assert.assertFalse("public", aPublic);
         aPublic = ModifierUtils.isPublic((Method) null);
-        Assert.assertTrue("非public", aPublic);
+        Assert.assertFalse("public", aPublic);
     }
 
     @Test
@@ -103,11 +103,11 @@ public class ModifierUtilsTest {
         Constructor<Test2> constructor = ReflectUtils.getConstructor(Test2.class);
         Constructor<Test2> constructor1 = ReflectUtils.getConstructor(Test2.class, String.class);
         boolean aPublic = ModifierUtils.isPublic(constructor1);
-        Assert.assertTrue("非public", aPublic);
+        Assert.assertFalse("public", aPublic);
         aPublic = ModifierUtils.isPublic(constructor);
-        Assert.assertTrue("非public", aPublic);
+        Assert.assertFalse("public", aPublic);
         aPublic = ModifierUtils.isPublic((Constructor) null);
-        Assert.assertTrue("非public", aPublic);
+        Assert.assertFalse("public", aPublic);
     }
 
     @Test
@@ -115,9 +115,9 @@ public class ModifierUtilsTest {
         boolean aPublic = ModifierUtils.isPublic(Test1.class);
         Assert.assertTrue("非public", aPublic);
         aPublic = ModifierUtils.isPublic(Test2.class);
-        Assert.assertTrue("非public", aPublic);
+        Assert.assertFalse("public", aPublic);
         aPublic = ModifierUtils.isPublic((Class) null);
-        Assert.assertTrue("非public", aPublic);
+        Assert.assertFalse("非public", aPublic);
     }
 
     @Test
@@ -127,9 +127,9 @@ public class ModifierUtilsTest {
         boolean aStatic = ModifierUtils.isStatic(test1);
         Assert.assertTrue("非Static", aStatic);
         aStatic = ModifierUtils.isStatic(test3);
-        Assert.assertTrue("非Static", aStatic);
+        Assert.assertFalse("Static", aStatic);
         aStatic = ModifierUtils.isStatic((Field) null);
-        Assert.assertTrue("非Static", aStatic);
+        Assert.assertFalse("Static", aStatic);
     }
 
     @Test
@@ -139,9 +139,9 @@ public class ModifierUtilsTest {
         boolean aStatic = ModifierUtils.isStatic(test1);
         Assert.assertTrue("非Static", aStatic);
         aStatic = ModifierUtils.isStatic(test2);
-        Assert.assertTrue("非Static", aStatic);
+        Assert.assertFalse("Static", aStatic);
         aStatic = ModifierUtils.isStatic((Field) null);
-        Assert.assertTrue("非Static", aStatic);
+        Assert.assertFalse("Static", aStatic);
 
     }
 
@@ -150,9 +150,9 @@ public class ModifierUtilsTest {
         boolean aPublic = ModifierUtils.isStatic(Test1.class);
         Assert.assertTrue("非Static", aPublic);
         aPublic = ModifierUtils.isStatic(Test2.class);
-        Assert.assertTrue("非Static", aPublic);
+        Assert.assertFalse("Static", aPublic);
         aPublic = ModifierUtils.isStatic((Class) null);
-        Assert.assertTrue("非Static", aPublic);
+        Assert.assertFalse("Static", aPublic);
     }
 
     public static class Test1 {

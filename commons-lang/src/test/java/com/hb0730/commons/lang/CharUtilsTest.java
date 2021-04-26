@@ -37,7 +37,7 @@ public class CharUtilsTest {
         Assert.assertTrue("参数不合法", b);
         character = null;
         b = CharUtils.isChar(character);
-        Assert.assertTrue("参数不合法", b);
+        Assert.assertFalse("参数不合法", b);
     }
 
     @Test
@@ -49,11 +49,11 @@ public class CharUtilsTest {
         number = CharUtils.isNumber('8');
         Assert.assertTrue("非数字", number);
         number = CharUtils.isNumber('a');
-        Assert.assertTrue("非数字", number);
+        Assert.assertFalse("非数字", number);
         number = CharUtils.isNumber('A');
-        Assert.assertTrue("非数字", number);
+        Assert.assertFalse("非数字", number);
         number = CharUtils.isNumber('~');
-        Assert.assertTrue("非数字", number);
+        Assert.assertFalse("非数字", number);
     }
 
     @Test
@@ -63,9 +63,9 @@ public class CharUtilsTest {
         letter = CharUtils.isLetter('a');
         Assert.assertTrue("非字母", letter);
         letter = CharUtils.isLetter('1');
-        Assert.assertTrue("非字母", letter);
+        Assert.assertFalse("非字母", letter);
         letter = CharUtils.isLetter('~');
-        Assert.assertTrue("非字母", letter);
+        Assert.assertFalse("非字母", letter);
     }
 
     @Test
@@ -73,22 +73,22 @@ public class CharUtilsTest {
         boolean letter = CharUtils.isLetterUp('A');
         Assert.assertTrue("非大写字母", letter);
         letter = CharUtils.isLetterUp('a');
-        Assert.assertTrue("非大写字母", letter);
+        Assert.assertFalse("非大写字母", letter);
         letter = CharUtils.isLetterUp('1');
-        Assert.assertTrue("非大写字母", letter);
+        Assert.assertFalse("非大写字母", letter);
         letter = CharUtils.isLetterUp('~');
-        Assert.assertTrue("非大写字母", letter);
+        Assert.assertFalse("非大写字母", letter);
     }
 
     @Test
     public void isLetterLowerTest() {
-        boolean letter =CharUtils.isLetterUp('a');
-        Assert.assertTrue("非小写字母", letter);
-        letter =  CharUtils.isLetterUp('A');
+        boolean letter = CharUtils.isLetterUp('a');
+        Assert.assertFalse("非小写字母", letter);
+        letter = CharUtils.isLetterUp('A');
         Assert.assertTrue("非小写字母", letter);
         letter = CharUtils.isLetterUp('1');
-        Assert.assertTrue("非小写字母", letter);
+        Assert.assertFalse("非小写字母", letter);
         letter = CharUtils.isLetterUp('~');
-        Assert.assertTrue("非小写字母", letter);
+        Assert.assertFalse("非小写字母", letter);
     }
 }

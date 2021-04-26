@@ -3,7 +3,11 @@ package com.hb0730.commons.lang.map;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class MapUtilsTest {
 
@@ -18,7 +22,7 @@ public class MapUtilsTest {
         map = MapUtils.newHashMap(1);
         map.put("test", "测试");
         isNull = MapUtils.isEmpty(map);
-        Assert.assertTrue("不为空", isNull);
+        Assert.assertFalse("为空", isNull);
     }
 
     @Test
@@ -26,7 +30,7 @@ public class MapUtilsTest {
         Map<String, String> map = MapUtils.newHashMap(1);
         map.put("test", "测试");
         boolean isNull = MapUtils.isEmpty(map);
-        Assert.assertTrue("不为空", isNull);
+        Assert.assertFalse("为空", isNull);
         map = null;
         isNull = MapUtils.isEmpty(map);
         Assert.assertTrue("为空", isNull);
@@ -65,10 +69,10 @@ public class MapUtilsTest {
         Assert.assertEquals("map不为空", resultMap, map);
         map = MapUtils.newHashMap();
         resultMap = MapUtils.defaultIfEmpty(map, defaultMap);
-        Assert.assertEquals("map为空", resultMap, map);
+        Assert.assertNotEquals("map不为空", resultMap, map);
         map = null;
         resultMap = MapUtils.defaultIfEmpty(map, defaultMap);
-        Assert.assertEquals("map为空", resultMap, map);
+        Assert.assertNotEquals("map不为空", resultMap, map);
     }
 
     @Test
@@ -157,7 +161,7 @@ public class MapUtilsTest {
         TreeMap<String, String> sort = MapUtils.sort(defaultMap);
         Assert.assertNotNull(sort);
         sort = MapUtils.sort(null);
-        Assert.assertNotNull(sort);
+        Assert.assertNull(sort);
     }
 
     @Test
@@ -173,7 +177,7 @@ public class MapUtilsTest {
         sort = MapUtils.sort(defaultMap, null);
         Assert.assertNotNull(sort);
         sort = MapUtils.sort(null, Comparator.comparing(Integer::parseInt));
-        Assert.assertNotNull(sort);
+        Assert.assertNull(sort);
 
     }
 }

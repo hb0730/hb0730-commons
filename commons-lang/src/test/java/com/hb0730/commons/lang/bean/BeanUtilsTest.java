@@ -1,6 +1,10 @@
 package com.hb0730.commons.lang.bean;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,7 +29,7 @@ public class BeanUtilsTest {
         Assert.assertNotNull(o1);
         log.info(o1.toString());
         Object o2 = BeanUtils.deepClone(null);
-        Assert.assertNotNull(o2);
+        Assert.assertNull(o2);
     }
 
     @Test

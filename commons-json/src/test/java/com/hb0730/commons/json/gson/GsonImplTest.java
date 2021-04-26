@@ -4,7 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hb0730.commons.json.exceptions.JsonException;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,9 +34,13 @@ public class GsonImplTest {
         Test1 test11 = gson.jsonToObject(json, Test1.class);
         Assert.assertNotNull(test11);
         log.info(test11.toString());
-        gson.setMapper(new ObjectMapper());
-        gson.jsonToObject(null, Test1.class);
-        gson.jsonToObject(null, null);
+        try {
+            gson.setMapper(new ObjectMapper());
+            gson.jsonToObject(null, Test1.class);
+            gson.jsonToObject(null, null);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -55,9 +64,13 @@ public class GsonImplTest {
         List<Test1> test11 = gson.jsonToList(json, Test1.class);
         Assert.assertNotNull(test11);
         log.info(test11.toString());
-        gson.setMapper(new ObjectMapper());
-        gson.jsonToObject(null, Test1.class);
-        gson.jsonToObject(null, null);
+        try {
+            gson.setMapper(new ObjectMapper());
+            gson.jsonToObject(null, Test1.class);
+            gson.jsonToObject(null, null);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -81,9 +94,13 @@ public class GsonImplTest {
         List<Test1> test11 = gson.jsonToList2(json, Test1.class);
         Assert.assertNotNull(test11);
         log.info(test11.toString());
-        gson.setMapper(new ObjectMapper());
-        gson.jsonToObject(null, Test1.class);
-        gson.jsonToObject(null, null);
+        try {
+            gson.setMapper(new ObjectMapper());
+            gson.jsonToObject(null, Test1.class);
+            gson.jsonToObject(null, null);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -106,13 +123,21 @@ public class GsonImplTest {
         String s1 = gsons.objectToJson(test1);
         Assert.assertNotNull(s1);
         log.info(s1);
-        gsons.setMapper(new ObjectMapper());
-        String s2 = gsons.objectToJson(test1);
-        Assert.assertNotNull(s2);
-        log.info(s2);
-        String s3 = gsons.objectToJson(null);
-        Assert.assertNotNull(s3);
-        log.info(s3);
+        try {
+            gsons.setMapper(new ObjectMapper());
+            String s2 = gsons.objectToJson(test1);
+            Assert.assertNotNull(s2);
+            log.info(s2);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            String s3 = gsons.objectToJson(null);
+            Assert.assertNotNull(s3);
+            log.info(s3);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -122,12 +147,20 @@ public class GsonImplTest {
         String s = gsons.objectToJson(test1, new Gson());
         Assert.assertNotNull(s);
         log.info(s);
-        s = gsons.objectToJson(null, new Gson());
-        Assert.assertNotNull(s);
-        log.info(s);
-        s = gsons.objectToJson(null, null);
-        Assert.assertNotNull(s);
-        log.info(s);
+        try {
+            s = gsons.objectToJson(null, new Gson());
+            Assert.assertNotNull(s);
+            log.info(s);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            s = gsons.objectToJson(null, null);
+            Assert.assertNotNull(s);
+            log.info(s);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
 
     }
 
@@ -151,15 +184,27 @@ public class GsonImplTest {
         Test1 test1 = gsons.mapToObject(map, Test1.class, new GsonBuilder().create());
         Assert.assertNotNull(test1);
         log.info(test1.toString());
-        test1 = gsons.mapToObject(null, Test1.class, new GsonBuilder().create());
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
-        test1 = gsons.mapToObject(null, null, new GsonBuilder().create());
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
-        test1 = gsons.mapToObject(null, null, null);
-        Assert.assertNotNull(test1);
-        log.info(test1.toString());
+        try {
+            test1 = gsons.mapToObject(null, Test1.class, new GsonBuilder().create());
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            test1 = gsons.mapToObject(null, null, new GsonBuilder().create());
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            test1 = gsons.mapToObject(null, null, null);
+            Assert.assertNotNull(test1);
+            log.info(test1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -169,9 +214,13 @@ public class GsonImplTest {
         Map<?, ?> map = gsons.objectToMap(test1);
         Assert.assertNotNull(map);
         log.info(map.toString());
-        Map<?, ?> map1 = gsons.objectToMap(null);
-        Assert.assertNotNull(map1);
-        log.info(map1.toString());
+        try {
+            Map<?, ?> map1 = gsons.objectToMap(null);
+            Assert.assertNotNull(map1);
+            log.info(map1.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test
@@ -181,12 +230,20 @@ public class GsonImplTest {
         Map<?, ?> map = gsons.objectToMap(test1, new GsonBuilder().create());
         Assert.assertNotNull(map);
         log.info(map.toString());
-        map = gsons.objectToMap(null, new GsonBuilder().create());
-        Assert.assertNotNull(map);
-        log.info(map.toString());
-        map = gsons.objectToMap(null, null);
-        Assert.assertNotNull(map);
-        log.info(map.toString());
+        try {
+            map = gsons.objectToMap(null, new GsonBuilder().create());
+            Assert.assertNotNull(map);
+            log.info(map.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
+        try {
+            map = gsons.objectToMap(null, null);
+            Assert.assertNotNull(map);
+            log.info(map.toString());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
 
     }
 

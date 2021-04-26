@@ -72,7 +72,7 @@ public class UrlUtilsTest {
         String encode = UrlUtils.encode(params, (String) null);
         Assert.assertEquals(params, encode);
         encode = UrlUtils.encode(params, "UTF-8");
-        Assert.assertEquals(params, encode);
+        Assert.assertNotEquals(params, encode);
     }
 
 
@@ -82,7 +82,7 @@ public class UrlUtilsTest {
         String encode = UrlUtils.encode(params, (Charset) null);
         Assert.assertEquals(params, encode);
         encode = UrlUtils.encode(params, Charset.defaultCharset());
-        Assert.assertEquals(params, encode);
+        Assert.assertNotEquals(params, encode);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class UrlUtilsTest {
         String decode = UrlUtils.decode(params, (String) null);
         Assert.assertEquals(params, decode);
         decode = UrlUtils.decode(params, "UTF-8");
-        Assert.assertEquals(params, decode);
+        Assert.assertNotEquals(params, decode);
     }
 
     @Test
@@ -100,6 +100,6 @@ public class UrlUtilsTest {
         String decode = UrlUtils.decode(params, (Charset) null);
         Assert.assertEquals(params, decode);
         decode = UrlUtils.decode(params, Charset.defaultCharset());
-        Assert.assertEquals(params, decode);
+        Assert.assertNotEquals(params, decode);
     }
 }

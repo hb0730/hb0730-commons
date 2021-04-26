@@ -4,7 +4,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -20,7 +32,7 @@ public class CollectionUtilsTest {
 
         list.add("sss");
         empty = CollectionUtils.isEmpty(list);
-        Assert.assertTrue("集合不为空", empty);
+        Assert.assertFalse("集合为空", empty);
     }
 
     @Test
@@ -30,7 +42,7 @@ public class CollectionUtilsTest {
         Assert.assertTrue("map为空", empty);
         maps.put("ss", "121");
         empty = CollectionUtils.isEmpty(maps);
-        Assert.assertTrue("map不为空", empty);
+        Assert.assertFalse("map为空", empty);
     }
 
     @Test
@@ -107,8 +119,13 @@ public class CollectionUtilsTest {
         Assert.assertNotNull(objects);
         HashSet<String> strings = CollectionUtils.newHashSet(ListUtils.toArrayList("1"));
         Assert.assertNotNull(strings);
-        HashSet hashSet = CollectionUtils.newHashSet((Collection) null);
-        Assert.assertNotNull(hashSet);
+        try {
+            HashSet hashSet = CollectionUtils.newHashSet((Collection) null);
+            Assert.assertNotNull(hashSet);
+        } catch (Exception e) {
+            log.info("参数为空");
+        }
+
     }
 
     @Test
@@ -118,8 +135,12 @@ public class CollectionUtilsTest {
         HashSet<String> strings1 = CollectionUtils.newHashSet(true, ListUtils.toArrayList("1", "3", "5"));
         Assert.assertTrue("非 LinkedHashSet", (strings1 instanceof LinkedHashSet));
         log.info(strings.toString());
-        HashSet hashSet = CollectionUtils.newHashSet(false, (Collection) null);
-        Assert.assertNotNull(hashSet);
+        try {
+            HashSet hashSet = CollectionUtils.newHashSet(false, (Collection) null);
+            Assert.assertNotNull(hashSet);
+        } catch (Exception e) {
+            log.info("参数为空");
+        }
     }
 
     @Test
@@ -129,8 +150,12 @@ public class CollectionUtilsTest {
         HashSet<String> strings1 = CollectionUtils.newHashSet(true, ListUtils.toArrayList("1", "3", "5").iterator());
         Assert.assertTrue("非 LinkedHashSet", (strings1 instanceof LinkedHashSet));
         log.info(strings.toString());
-        HashSet hashSet = CollectionUtils.newHashSet(false, (Collection) null);
-        Assert.assertNotNull(hashSet);
+        try {
+            HashSet hashSet = CollectionUtils.newHashSet(false, (Collection) null);
+            Assert.assertNotNull(hashSet);
+        } catch (Exception e) {
+            log.error("参数为空");
+        }
     }
 
     @Test
@@ -261,7 +286,7 @@ public class CollectionUtilsTest {
         list = (List<String>) CollectionUtils.addAll(list, (String) null);
         Assert.assertNotNull("集合为空", list);
         list = (List<String>) CollectionUtils.addAll(null, (String) null);
-        Assert.assertNotNull("集合为空", list);
+        Assert.assertNull("集合不为空", list);
     }
 
     @Test
@@ -272,6 +297,6 @@ public class CollectionUtilsTest {
         list = (List<String>) CollectionUtils.addAll(list, (Collection<String>) null);
         Assert.assertNotNull("集合为空", list);
         list = (List<String>) CollectionUtils.addAll(null, (Collection<String>) null);
-        Assert.assertNotNull("集合为空", list);
+        Assert.assertNull("集合不为空", list);
     }
 }

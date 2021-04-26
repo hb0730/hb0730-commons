@@ -35,17 +35,21 @@ public class ObjectUtilsTest {
         Object obj = null;
         Assert.assertTrue("对象不为空", ObjectUtils.isEmpty(obj));
         obj = " ";
-        Assert.assertTrue("对象不为空", ObjectUtils.isEmpty(obj));
+        Assert.assertFalse("对象不为空", ObjectUtils.isEmpty(obj));
         obj = new ArrayList<>();
         Assert.assertTrue("集合不为空", ObjectUtils.isEmpty(obj));
         obj = new HashMap<>();
         Assert.assertTrue("map不为空", ObjectUtils.isEmpty(obj));
         obj = new Object[]{"s"};
-        Assert.assertTrue("数组不为空", ObjectUtils.isEmpty(obj));
+        Assert.assertFalse("数组空", ObjectUtils.isEmpty(obj));
         obj = Optional.of("cc");
-        Assert.assertTrue("Optional不为空", ObjectUtils.isEmpty(obj));
-        obj = Integer.valueOf("测试");
-        Assert.assertTrue("OInteger不为空", ObjectUtils.isEmpty(obj));
+        Assert.assertFalse("Optional为空", ObjectUtils.isEmpty(obj));
+        try {
+            obj = Integer.valueOf("测试");
+            Assert.assertFalse("OInteger为空", ObjectUtils.isEmpty(obj));
+        } catch (NumberFormatException e) {
+
+        }
     }
 
     @Test
@@ -94,12 +98,12 @@ public class ObjectUtilsTest {
 
         str = null;
         compare = ObjectUtils.compare(str, str2, true);
-        Assert.assertEquals("对象不相等", compare, 0);
+        Assert.assertNotEquals("对象不相等", compare, 0);
 
         str = "";
         str2 = null;
         compare = ObjectUtils.compare(str, str2, true);
-        Assert.assertEquals("对象不相等", compare, 0);
+        Assert.assertNotEquals("对象相等", compare, 0);
     }
 
     @Test
@@ -115,18 +119,22 @@ public class ObjectUtilsTest {
     @Test
     public void isNotEmptyTest() {
         Object obj = null;
-        Assert.assertTrue("对象不为空", ObjectUtils.isNotEmpty(obj));
+        Assert.assertFalse("对象不为空", ObjectUtils.isNotEmpty(obj));
         obj = " ";
         Assert.assertTrue("对象不为空", ObjectUtils.isNotEmpty(obj));
         obj = new ArrayList<>();
-        Assert.assertTrue("集合不为空", ObjectUtils.isNotEmpty(obj));
+        Assert.assertFalse("集合为空", ObjectUtils.isNotEmpty(obj));
         obj = new HashMap<>();
-        Assert.assertTrue("map不为空", ObjectUtils.isNotEmpty(obj));
+        Assert.assertFalse("map为空", ObjectUtils.isNotEmpty(obj));
         obj = new Object[]{"s"};
         Assert.assertTrue("数组不为空", ObjectUtils.isNotEmpty(obj));
         obj = Optional.of("cc");
         Assert.assertTrue("Optional不为空", ObjectUtils.isNotEmpty(obj));
-        obj = Integer.valueOf("测试");
-        Assert.assertTrue("OInteger不为空", ObjectUtils.isNotEmpty(obj));
+        try {
+            obj = Integer.valueOf("测试");
+            Assert.assertTrue("OInteger不为空", ObjectUtils.isNotEmpty(obj));
+        } catch (NumberFormatException e) {
+
+        }
     }
 }

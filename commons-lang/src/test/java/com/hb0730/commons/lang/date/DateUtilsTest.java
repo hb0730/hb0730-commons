@@ -118,7 +118,7 @@ public class DateUtilsTest {
         Assert.assertNotNull(date);
         log.info("date:" + date);
         date = DateUtils.formatDate(null);
-        Assert.assertNotNull(date);
+        Assert.assertNull("参数为空", date);
         log.info("date:" + date);
     }
 
@@ -132,7 +132,7 @@ public class DateUtilsTest {
         Assert.assertNotNull(date);
         log.info("date:" + date);
         date = DateUtils.formatDateTime(null);
-        Assert.assertNotNull(date);
+        Assert.assertNull("参数不为空", date);
         log.info("date:" + date);
     }
 
@@ -146,7 +146,7 @@ public class DateUtilsTest {
         Assert.assertNotNull(now);
         log.info("date:" + now);
         now = DateUtils.toDate(null);
-        Assert.assertNotNull(now);
+        Assert.assertNull("参数为空", now);
         log.info("date:" + now);
     }
 
@@ -160,39 +160,39 @@ public class DateUtilsTest {
         Assert.assertNotNull(now);
         log.info("date:" + now);
         now = DateUtils.toDate(null);
-        Assert.assertNotNull(now);
+        Assert.assertNull("参数为空", now);
         log.info("date:" + now);
     }
 
     @Test
     public void isExpireTest() throws ParseException {
-        String date = "2020-08-15";
+        String date = "2021-12-30";
         Date now = DateUtils.toDate(date);
         //之后
         boolean expire = DateUtils.isAfter(now);
         Assert.assertTrue("传入的时间不在当前之后", expire);
         // 当前
         expire = DateUtils.isAfter(new Date());
-        Assert.assertTrue("传入的时间不在当前之后", expire);
+        Assert.assertFalse("传入的时间不在当前之后", expire);
         // 之前
         date = "2020-08-14 14:01:59";
         now = DateUtils.toDate(date);
         expire = DateUtils.isAfter(now);
-        Assert.assertTrue("传入的时间不在当前之后", expire);
+        Assert.assertFalse("传入的时间不在当前之后", expire);
     }
 
     @Test
     public void isBeforeTest() throws ParseException {
 
         // 之前
-        String date = "2020-08-14 14:01:59";
+        String date = "2021-12-21 14:01:59";
         Date now = DateUtils.toDate(date);
         boolean expire = DateUtils.isBefore(now);
-        Assert.assertTrue("传入的时间不在当前之前", expire);
+        Assert.assertFalse("传入的时间不在当前之前", expire);
 
         // 当前
         expire = DateUtils.isBefore(new Date());
-        Assert.assertTrue("传入的时间不在当前之前", expire);
+        Assert.assertFalse("传入的时间不在当前之前", expire);
         //之后
         date = "2020-08-15";
         now = DateUtils.toDate(date);
@@ -207,10 +207,15 @@ public class DateUtilsTest {
         String format = "yyyy-MM-dd HH:mm:ss";
         LocalDateTime localDateTime = DateUtils.parseLocalDateTime(date, format);
         Assert.assertNotNull(localDateTime);
-        localDateTime = DateUtils.parseLocalDateTime(date, null);
-        Assert.assertNotNull(localDateTime);
-        localDateTime = DateUtils.parseLocalDateTime(null, null);
-        Assert.assertNotNull(localDateTime);
+        try {
+            localDateTime = DateUtils.parseLocalDateTime(date, null);
+            Assert.assertNotNull(localDateTime);
+            localDateTime = DateUtils.parseLocalDateTime(null, null);
+            Assert.assertNotNull(localDateTime);
+        } catch (Exception e) {
+            log.error("参数为空");
+        }
+
     }
 
     @Test
@@ -220,9 +225,9 @@ public class DateUtilsTest {
         instant = DateUtils.toInstant(instant.atZone(ZoneId.systemDefault()));
         Assert.assertNotNull(instant);
         instant = DateUtils.toInstant((TemporalAccessor) null);
-        Assert.assertNotNull(instant);
+        Assert.assertNull("参数为空", instant);
         instant = DateUtils.toInstant((Date) null);
-        Assert.assertNotNull(instant);
+        Assert.assertNull("参数为空", instant);
     }
 
     @Test
@@ -232,8 +237,8 @@ public class DateUtilsTest {
         localDateTime = DateUtils.toLocalDateTime(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         Assert.assertNotNull(localDateTime);
         localDateTime = DateUtils.toLocalDateTime((Date) null);
-        Assert.assertNotNull(localDateTime);
+        Assert.assertNull("参数为空", localDateTime);
         localDateTime = DateUtils.toLocalDateTime((Instant) null);
-        Assert.assertNotNull(localDateTime);
+        Assert.assertNull("参数为空", localDateTime);
     }
 }

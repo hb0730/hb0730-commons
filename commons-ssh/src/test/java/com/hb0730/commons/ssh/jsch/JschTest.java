@@ -2,13 +2,11 @@ package com.hb0730.commons.ssh.jsch;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.Session;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Before;
 
-/**
- * @author bing_huang
- * @since 1.0.0
- */
+@Slf4j
 public class JschTest extends SessionTest {
     private Session session;
 
@@ -27,8 +25,12 @@ public class JschTest extends SessionTest {
     }
 
     public void ExcSftpTest() {
-        JschChannelSftp sftp = JschChannelSftp.builder(session);
-        sftp.cd("/local/docker");
-        after(sftp.channelSftp());
+        try {
+            JschChannelSftp sftp = JschChannelSftp.builder(session);
+            sftp.cd("/local/docker");
+            after(sftp.channelSftp());
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 }

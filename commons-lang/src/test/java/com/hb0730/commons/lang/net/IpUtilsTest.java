@@ -25,7 +25,7 @@ public class IpUtilsTest {
         Assert.assertNotNull(ip);
         log.info("ip:{}", ip);
         ip = IpUtils.getIp(null);
-        Assert.assertNotNull(ip);
+        Assert.assertNull(ip);
         log.info("ip:{}", ip);
     }
 
@@ -51,7 +51,7 @@ public class IpUtilsTest {
         b = IpUtils.isUnknown("");
         Assert.assertTrue(b);
         b = IpUtils.isUnknown("127.0.0.1");
-        Assert.assertTrue("非", b);
+        Assert.assertFalse("为unknown", b);
     }
 
     @Test
@@ -68,8 +68,8 @@ public class IpUtilsTest {
         validPort = IpUtils.isValidPort(65534);
         Assert.assertTrue("false", validPort);
         validPort = IpUtils.isValidPort(65543);
-        Assert.assertTrue("false", validPort);
+        Assert.assertFalse("true", validPort);
         validPort = IpUtils.isValidPort(-1);
-        Assert.assertTrue("false", validPort);
+        Assert.assertFalse("true", validPort);
     }
 }

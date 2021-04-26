@@ -34,7 +34,7 @@ public class DESUtilsTest {
     @Test
     public void testTime() {
         long millis = Clock.systemUTC().millis();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100; i++) {
             test();
         }
         log.info("" + (Clock.systemUTC().millis() - millis));

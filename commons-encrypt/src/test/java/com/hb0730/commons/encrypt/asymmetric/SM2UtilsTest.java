@@ -50,10 +50,10 @@ public class SM2UtilsTest {
     public void testProperty() {
         SM2KeyPair sm2KeyPair = SM2Utils.generateKey();
 
-        int count = 10000;
+        int count = 100;
 
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = count; i >= 0; i--) {
             SM2Utils.encrypt(content, sm2KeyPair.getEcPublicKey());
         }
         log.info("加密" + count + "次，耗时" + (System.currentTimeMillis() - startTime) + "毫秒");
@@ -65,7 +65,7 @@ public class SM2UtilsTest {
 
         //解密
         startTime = System.currentTimeMillis();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = count; i >= 0; i--) {
             SM2Utils.decrypt(encryptedData, sm2KeyPair.getEcPrivateKey());
         }
         log.info("解密" + count + "次，耗时" + (System.currentTimeMillis() - startTime) + "毫秒");

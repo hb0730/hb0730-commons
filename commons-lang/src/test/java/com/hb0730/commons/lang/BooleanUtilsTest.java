@@ -22,9 +22,9 @@ public class BooleanUtilsTest {
         b = BooleanUtils.toBoolean("ok");
         Assert.assertTrue("转换失败", b);
         b = BooleanUtils.toBoolean(null);
-        Assert.assertTrue("转换失败", b);
+        Assert.assertFalse("转换失败", b);
         b = BooleanUtils.toBoolean("asd");
-        Assert.assertTrue("转换失败", b);
+        Assert.assertFalse("转换失败", b);
 
     }
 
