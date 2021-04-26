@@ -1,5 +1,19 @@
 name: codeql CI
-on: [ push,pull_request ]
+on:
+  push:
+    paths:
+      - '**'
+      - '!**.md'
+      - '!**.yml'
+      - '!**.yaml'
+    branches:
+      - '**'
+  pull_request:
+    paths:
+      - '**'
+      - '!**.md'
+      - '!**.yml'
+      - '!**.yaml'
 jobs:
   codeql:
     runs-on: ubuntu-latest
