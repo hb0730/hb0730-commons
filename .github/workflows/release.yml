@@ -1,0 +1,13 @@
+name: release CI
+on: [ push ]
+jobs:
+  github-release:
+    runs-on: ubuntu-latest
+    if: ${{contains(github.ref,'tags')}}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Upload Github Release
+        uses: meeDamian/github-release@2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+

@@ -10,7 +10,7 @@
 </a>
 
 <a href="https://github.com/hb0730/hb0730-commons/actions">
-<img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/hb0730/hb0730-commons/commons%20CI?style=flat-square">
+<img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/hb0730/hb0730-commons/build?style=flat-square">
 </a>
 
 <a href="https://www.oracle.com/java/technologies/javase-downloads.html">

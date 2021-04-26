@@ -26,9 +26,10 @@ public class TestSessionTest {
                     .sshUser("root")
                     .sshPort(22)
                     .sshPass("123456")
+                    .sessionTimeout(100)
                     .build();
             Assert.assertNotNull(session);
-        }catch (Throwable e){
+        } catch (Throwable e) {
             log.error(e.getMessage());
         }
     }
@@ -41,9 +42,10 @@ public class TestSessionTest {
                     .sshUser("root")
                     .sshPort(22)
                     .privateKeyPath("~/.ssh/id_rsa")
+                    .sessionTimeout(100)
                     .build();
             Assert.assertNotNull(session);
-        }catch (Throwable e){
+        } catch (Throwable e) {
             log.error(e.getMessage());
         }
     }

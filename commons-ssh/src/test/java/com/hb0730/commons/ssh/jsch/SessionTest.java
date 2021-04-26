@@ -17,6 +17,7 @@ public class SessionTest {
                     .sshUser("root")
                     .sshPort(22)
                     .sshPass("123456")
+                    .sessionTimeout(100)
                     .build();
         } catch (Throwable e) {
             log.error(e.getMessage());

@@ -14,12 +14,16 @@ public class HttpsTest {
 
     @Test
     public void testSync() {
-        HttpSync http = Https.SYNC.getHttp();
-        String s = http.get("https://baidu.com");
-        log.debug(s);
-        s = http.setHttp(new OkHttp3SyncImpl())
-                .get("https://baidu.com");
-        log.debug(s);
+        try {
+            HttpSync http = Https.SYNC.getHttp();
+            String s = http.get("https://baidu.com");
+            log.debug(s);
+            s = http.setHttp(new OkHttp3SyncImpl())
+                    .get("https://baidu.com");
+            log.debug(s);
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+        }
     }
 
     @Test

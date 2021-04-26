@@ -32,7 +32,7 @@ public class JschUtilsTest extends JschChannelTest {
     @Test
     public void testRead1Test() throws JSchException {
         try {
-            JschUtils.connect(shell);
+            JschUtils.connect(shell, 100);
             JschUtils.write(shell, "cd /root\nls\n");
             //阻塞
             JschUtils.read(shell, new Consumer<byte[]>() {
