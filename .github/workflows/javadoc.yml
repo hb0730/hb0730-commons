@@ -27,6 +27,6 @@ jobs:
         with:
           personal_token: ${{secrets.JAVADOCS_SYNC}}
           external_repository: hb0730/commons-docs
-          publish_dir: ./target/site/apidocs
+          publish_dir: ./target/site/apidocs/
           cname: api.commons.hb0730.com
 
