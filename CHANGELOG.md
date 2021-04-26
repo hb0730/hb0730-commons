@@ -5,6 +5,7 @@
   + 优化对`JSch`相关操作
 + **[commons-lang]**
   + 新增 `RuntimeUtils` Class
+  + 新增 `EnumUtils`
 # 2.1.2
 ## Feature
 + **[commons-lang]**
