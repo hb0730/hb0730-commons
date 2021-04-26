@@ -1,5 +1,7 @@
 name: release CI
-on: [ push ]
+on:
+  push:
+    branches: [ master ]
 jobs:
   github-release:
     runs-on: ubuntu-latest
