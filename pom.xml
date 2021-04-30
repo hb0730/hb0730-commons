@@ -34,7 +34,7 @@
         <junit.version>4.13.1</junit.version>
         <lombok.version>1.18.12</lombok.version>
 
-        <bouncycastle.version>1.65</bouncycastle.version>
+        <bouncycastle.version>1.68</bouncycastle.version>
 
         <jgit.version>5.11.0.202103091610-r</jgit.version>
 
